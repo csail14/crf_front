@@ -2,16 +2,13 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
 const Home = (props) => {
-  return <div>Coucou</div>;
+  return <div>Home</div>;
 };
 
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {
-    user: store.user,
-    theme: store.theme,
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
