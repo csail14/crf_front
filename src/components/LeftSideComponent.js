@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import logoBandeauCroixRouge from "../assets/logoBandeauCroixRouge.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { colors } from "../colors";
 
 const ImageContainer = styled.div`
   margin: 22px 40px;
@@ -11,11 +12,13 @@ const ImageContainer = styled.div`
 
 const MainContainer = styled.div`
   min-height: 100vh;
-  background-color: #f7f9fa;
+  background-color: ${colors.grisBackground};
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 `;
 
 const LeftSideComponent = (props) => {
-  console.log("props", window.history);
   return (
     <MainContainer>
       <ImageContainer>
