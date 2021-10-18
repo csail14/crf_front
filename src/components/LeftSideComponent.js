@@ -15,7 +15,6 @@ const MainContainer = styled.div`
 `;
 
 const LeftSideComponent = (props) => {
-  console.log("props", window.history);
   return (
     <MainContainer>
       <ImageContainer>
