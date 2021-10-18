@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import SearchBar from "../../components/Recherche/searchBar";
 import styled from "styled-components";
 import union from "../../assets/union.png";
+import SubHomeBloc from "./subHomeBloc";
 import { colors } from "../../colors";
 const MainContainer = styled.div`
   min-height: 100vh;
@@ -36,6 +37,10 @@ const HeaderTitleContainer = styled.div`
 const SubtitleContainer = styled.div`
   margin-top: 26px;
 `;
+const BodyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 const Home = (props) => {
   return (
@@ -52,6 +57,11 @@ const Home = (props) => {
         </SubtitleContainer>
       </HeaderContainer>
       <SearchBar />
+      <BodyContainer>
+        <SubHomeBloc />
+        <SubHomeBloc />
+        <SubHomeBloc />
+      </BodyContainer>
     </MainContainer>
   );
 };

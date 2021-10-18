@@ -13,6 +13,9 @@ const ImageContainer = styled.div`
 const MainContainer = styled.div`
   min-height: 100vh;
   background-color: ${colors.grisBackground};
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 `;
 
 const LeftSideComponent = (props) => {
