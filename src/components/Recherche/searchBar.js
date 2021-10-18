@@ -20,7 +20,6 @@ const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 9px 22px;
-  align-items: center;
   border-right: 0.5px solid ${colors.gris};
 `;
 
@@ -28,6 +27,7 @@ const FilterTitle = styled.div`
   font-weight: 700;
   font-size: 12px;
   color: ${colors.marine};
+  text-align: left;
   text-transform: uppercase;
 `;
 
@@ -46,11 +46,12 @@ const MainContainer = styled.div`
   display: flex;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   padding: 7px;
-  margin: -32px auto 0px 80px;
+  margin: -32px 80px 0px 80px;
   background-color: white;
   text-align: left;
   align-items: center;
   width: fit-content;
+  position: relative;
 `;
 const SearchButtonContainer = styled.div`
   padding: 15px 25px;
@@ -61,36 +62,97 @@ const SearchButtonContainer = styled.div`
   cursor: pointer;
 `;
 
+const AdvancedSearchBar = styled.div`
+  display: flex;
+  box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
+  padding: 7px;
+  margin: 10px auto 0px 80px;
+  background-color: white;
+  text-align: left;
+  width: fit-content;
+`;
+
+const AdvancedSearchBarContainer = styled.div`
+  display: flex;
+  margin: auto;
+`;
+const ToggleContainer = styled.div`
+  text-decoration: underline;
+  position: absolute;
+  bottom: -27px;
+  right: 0;
+  color: ${colors.rouge};
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 13px;
+  margin: 10px 5px 0px auto;
+  cursor: pointer;
+`;
+
 const SearchBar = (props) => {
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+
+  const toggleAdvancedSearch = () => {
+    setShowAdvancedSearch(!showAdvancedSearch);
+  };
   return (
-    <MainContainer>
-      <KeyWordsContainer>
-        {" "}
-        <GoSearch style={{ marginRight: "12px" }} />
-        Rechercher une ressource par mots-cléfs...
-      </KeyWordsContainer>
-      <FilterContainer>
-        <FilterTitle>Domaine d'action</FilterTitle>
-        <FilterContent>
-          Choisir <BsChevronDown />
-        </FilterContent>
-      </FilterContainer>
-      <FilterContainer>
-        {" "}
-        <FilterTitle>Domaine d'impact</FilterTitle>
-        <FilterContent>
-          Choisir <BsChevronDown />
-        </FilterContent>
-      </FilterContainer>
-      <FilterContainer style={{ border: "none" }}>
-        {" "}
-        <FilterTitle>Type de ressource</FilterTitle>
-        <FilterContent>
-          Choisir <BsChevronDown />
-        </FilterContent>
-      </FilterContainer>
-      <SearchButtonContainer>rechercher</SearchButtonContainer>
-    </MainContainer>
+    <div>
+      <MainContainer>
+        <KeyWordsContainer>
+          {" "}
+          <GoSearch style={{ marginRight: "12px" }} />
+          Rechercher une ressource par mots-cléfs...
+        </KeyWordsContainer>
+        <FilterContainer>
+          <FilterTitle>Domaine d'action</FilterTitle>
+          <FilterContent>
+            Choisir <BsChevronDown />
+          </FilterContent>
+        </FilterContainer>
+        <FilterContainer>
+          {" "}
+          <FilterTitle>Domaine d'impact</FilterTitle>
+          <FilterContent>
+            Choisir <BsChevronDown />
+          </FilterContent>
+        </FilterContainer>
+        <FilterContainer style={{ border: "none" }}>
+          {" "}
+          <FilterTitle>Type de ressource</FilterTitle>
+          <FilterContent>
+            Choisir <BsChevronDown />
+          </FilterContent>
+        </FilterContainer>
+        <SearchButtonContainer>rechercher</SearchButtonContainer>
+        <ToggleContainer onClick={toggleAdvancedSearch}>
+          Recherche avancée
+        </ToggleContainer>
+      </MainContainer>
+      {showAdvancedSearch && (
+        <AdvancedSearchBarContainer>
+          <AdvancedSearchBar>
+            <FilterContainer>
+              <FilterTitle>Catégorie</FilterTitle>
+              <FilterContent>
+                Toutes les catégories <BsChevronDown />
+              </FilterContent>
+            </FilterContainer>
+            <FilterContainer>
+              <FilterTitle>Format</FilterTitle>
+              <FilterContent>
+                Tous les formats <BsChevronDown />
+              </FilterContent>
+            </FilterContainer>
+            <FilterContainer style={{ border: "none" }}>
+              <FilterTitle>Date de publication</FilterTitle>
+              <FilterContent>
+                Moins d'un mois <BsChevronDown />
+              </FilterContent>
+            </FilterContainer>
+          </AdvancedSearchBar>
+        </AdvancedSearchBarContainer>
+      )}
+    </div>
   );
 };
 
