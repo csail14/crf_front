@@ -36,6 +36,7 @@ const HeaderTitleContainer = styled.div`
 
 const SubtitleContainer = styled.div`
   margin-top: 26px;
+  color: ${colors.gris};
 `;
 const BodyContainer = styled.div`
   display: flex;
