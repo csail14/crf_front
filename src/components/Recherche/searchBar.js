@@ -46,7 +46,8 @@ const MainContainer = styled.div`
   display: flex;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   padding: 7px;
-  margin: -32px 80px 0px 80px;
+  margin: ${(props) =>
+    props.showAdvancedSearch ? "-32px auto 70px auto" : "-32px auto 0px auto"};
   background-color: white;
   text-align: left;
   align-items: center;
@@ -66,7 +67,7 @@ const AdvancedSearchBar = styled.div`
   display: flex;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   padding: 7px;
-  margin: 10px auto 0px 80px;
+  margin: 10px auto 0px auto;
   background-color: white;
   text-align: left;
   width: fit-content;
@@ -75,6 +76,9 @@ const AdvancedSearchBar = styled.div`
 const AdvancedSearchBarContainer = styled.div`
   display: flex;
   margin: auto;
+  position: absolute;
+  bottom: -75px;
+  left: 0;
 `;
 const ToggleContainer = styled.div`
   text-decoration: underline;
@@ -96,38 +100,36 @@ const SearchBar = (props) => {
     setShowAdvancedSearch(!showAdvancedSearch);
   };
   return (
-    <div>
-      <MainContainer>
-        <KeyWordsContainer>
-          {" "}
-          <GoSearch style={{ marginRight: "12px" }} />
-          Rechercher une ressource par mots-cléfs...
-        </KeyWordsContainer>
-        <FilterContainer>
-          <FilterTitle>Domaine d'action</FilterTitle>
-          <FilterContent>
-            Choisir <BsChevronDown />
-          </FilterContent>
-        </FilterContainer>
-        <FilterContainer>
-          {" "}
-          <FilterTitle>Domaine d'impact</FilterTitle>
-          <FilterContent>
-            Choisir <BsChevronDown />
-          </FilterContent>
-        </FilterContainer>
-        <FilterContainer style={{ border: "none" }}>
-          {" "}
-          <FilterTitle>Type de ressource</FilterTitle>
-          <FilterContent>
-            Choisir <BsChevronDown />
-          </FilterContent>
-        </FilterContainer>
-        <SearchButtonContainer>rechercher</SearchButtonContainer>
-        <ToggleContainer onClick={toggleAdvancedSearch}>
-          Recherche avancée
-        </ToggleContainer>
-      </MainContainer>
+    <MainContainer showAdvancedSearch={showAdvancedSearch}>
+      <KeyWordsContainer>
+        {" "}
+        <GoSearch style={{ marginRight: "12px" }} />
+        Rechercher une ressource par mots-cléfs...
+      </KeyWordsContainer>
+      <FilterContainer>
+        <FilterTitle>Domaine d'action</FilterTitle>
+        <FilterContent>
+          Choisir <BsChevronDown />
+        </FilterContent>
+      </FilterContainer>
+      <FilterContainer>
+        {" "}
+        <FilterTitle>Domaine d'impact</FilterTitle>
+        <FilterContent>
+          Choisir <BsChevronDown />
+        </FilterContent>
+      </FilterContainer>
+      <FilterContainer style={{ border: "none" }}>
+        {" "}
+        <FilterTitle>Type de ressource</FilterTitle>
+        <FilterContent>
+          Choisir <BsChevronDown />
+        </FilterContent>
+      </FilterContainer>
+      <SearchButtonContainer>rechercher</SearchButtonContainer>
+      <ToggleContainer onClick={toggleAdvancedSearch}>
+        Recherche avancée
+      </ToggleContainer>
       {showAdvancedSearch && (
         <AdvancedSearchBarContainer>
           <AdvancedSearchBar>
@@ -152,7 +154,7 @@ const SearchBar = (props) => {
           </AdvancedSearchBar>
         </AdvancedSearchBarContainer>
       )}
-    </div>
+    </MainContainer>
   );
 };
 

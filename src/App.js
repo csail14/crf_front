@@ -15,13 +15,15 @@ import styled from "styled-components";
 const MainContainer = styled.div`
   display: flex;
 `;
-
+const BodyContainer = styled.div`
+  width: -webkit-fill-available;
+`;
 function App() {
   return (
     <div className="App">
       <MainContainer>
         <LeftSideComponent />
-        <div>
+        <BodyContainer>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/home" component={Home} />
@@ -34,7 +36,7 @@ function App() {
             <Route exact path="/indicateur/:id" component={Indicateur} />
           </Switch>
           <Footer />
-        </div>
+        </BodyContainer>
       </MainContainer>
     </div>
   );

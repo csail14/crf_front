@@ -6,6 +6,7 @@ import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
 const MainContainer = styled.div`
   margin: 50px 35px;
+  max-width: 400px;
 `;
 
 const HeaderContainer = styled.div`
