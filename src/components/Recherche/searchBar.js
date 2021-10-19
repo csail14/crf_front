@@ -12,21 +12,22 @@ const KeyWordsContainer = styled.div`
   align-items: center;
   border-right: 0.5px solid ${colors.gris};
   padding-right: 15px;
-  color: ${colors.marine};
+  color: ${colors.gris};
   font-weight: 500;
 `;
 
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 9px 22px;
+  padding: 5px 22px;
+  line-height: 20px;
   border-right: 0.5px solid ${colors.gris};
 `;
 
 const FilterTitle = styled.div`
   font-weight: 700;
   font-size: 12px;
-  color: ${colors.marine};
+  color: ${colors.gris};
   text-align: left;
   text-transform: uppercase;
 `;
@@ -55,7 +56,7 @@ const MainContainer = styled.div`
   position: relative;
 `;
 const SearchButtonContainer = styled.div`
-  padding: 15px 25px;
+  padding: 16px 25px;
   color: white;
   background-color: ${colors.rouge};
   font-weight: 700;
