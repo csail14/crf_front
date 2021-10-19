@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { MdArrowForwardIos } from "react-icons/md";
-
+import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import styled from "styled-components";
 import union from "../../assets/union.png";
 
@@ -89,6 +89,12 @@ const BottomTitleContainer = styled.div`
   font-weight: 600;
 `;
 
+const AvailableRessourceContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
 const SubHome = (props) => {
   return (
     <MainContainer>
@@ -154,6 +160,10 @@ const SubHome = (props) => {
       </BodyContainer>
       <BottomContainer>
         <BottomTitleContainer>Les ressources disponibles</BottomTitleContainer>
+        <AvailableRessourceContainer>
+          <GridResultComponent /> <GridResultComponent />
+          <GridResultComponent /> <GridResultComponent />
+        </AvailableRessourceContainer>
       </BottomContainer>
     </MainContainer>
   );
