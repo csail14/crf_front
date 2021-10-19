@@ -35,7 +35,9 @@ class Dropdown extends Component {
     placelink = (obj) => {
         return (
             <>
-                <a href={obj.link} key={obj.id} className={"dropdown_text"}>{obj.title}</a>
+                <a key={obj.id} href={obj.link} className={"dropdown_link_div"}>
+                    <p>{obj.title}</p>
+                </a>
                 <br/>
             </>
         )
@@ -49,7 +51,7 @@ class Dropdown extends Component {
                     ☰
                 </button>
             </div>
-            {this.state.open && <div className={"dropdown"} style={{display: "flex",flexDirection: "column",alignItems:"baseline", width: "95%",}}>
+            {this.state.open && <div className={"dropdown"}>
                 {this.props.data.links.map(link => {
                     return (
                         this.placelink(link)
