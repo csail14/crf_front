@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import {AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai'
 class Dropdown extends Component {
     container = React.createRef()
     state = {
@@ -45,11 +45,12 @@ class Dropdown extends Component {
 
     render() {
         return <div className={"container"} ref={this.container}>
-            <div className={"dropdown_div"}>
+            <div className={"dropdown_div"}  onClick={this.handleButtonClick}>
                 <p className={"dropdown_text dropdown_title"}>{this.props.data.title}</p>
-                <button type={"button"} className={"button"} onClick={this.handleButtonClick}>
-                    ☰
-                </button>
+                <p  className={"arrow_icon"}>
+                    {!this.state.open && <AiFillCaretDown/>}
+                    {this.state.open && <AiFillCaretUp/>}
+                </p>
             </div>
             {this.state.open && <div className={"dropdown"}>
                 {this.props.data.links.map(link => {
