@@ -1,11 +1,19 @@
 import React, {Component} from 'react';
+import {AiOutlineSearch} from "react-icons/all";
 
 class SidebarSearch extends Component {
     render() {
         return (
-            <form>
-                <input type="text" className={"sidebar_search"} placeholder={"Rechercher"}/>
-            </form>
+            <div className={"form_container"}>
+                <form className={"sidebar_search"}>
+                    <div className={"sidebar_input"}>
+                        <input type="text" placeholder={"Rechercher"}/>
+                    </div>
+                    <div className={"sidebar_icon"}>
+                        <button type={"submit"}><AiOutlineSearch/></button>
+                    </div>
+                </form>
+            </div>
         );
     }
 }
