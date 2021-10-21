@@ -39,6 +39,16 @@
 }
 
 /*Sidebar*/
+.main_container{
+    min-width: 290px;
+}
+.main_container::-webkit-scrollbar{
+    display: none;
+}
+.main_container{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
 /*title*/
 .sidebar_title {
     width: 71%;
@@ -226,4 +236,45 @@
 
 .arrow_icon {
     padding: 0 5%;
+}
+/*contact+acc*/
+.acc_contact_container {
+    margin: 5%;
+}
+.contact_container{
+    color: #E30613;
+    font-family: Raleway, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+    text-decoration: none;
+}
+.account_container{
+    font-family: Raleway, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+}
+.contact_container p {
+    display: flex;
+    align-items: center;
+}
+.account_container p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+.account_container a {
+    margin-left: 28px;
+    display: flex;
+    font-family: Raleway, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 130%;
+}
+.acc_contact_icon {
+    margin-right: 5%;
 }
