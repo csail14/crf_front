@@ -106,10 +106,11 @@ const ImageContainer = styled.div`
 `;
 
 const MainContainer = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   background-color: ${colors.grisBackground};
-  position: -webkit-sticky;
   position: sticky;
+
+  position: -webkit-sticky;
   top: 0;
 `;
 

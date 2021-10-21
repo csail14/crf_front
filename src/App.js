@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <MainContainer>
-        <LeftSideComponent />
+        <LeftSideComponent className="sidebar" />
         <BodyContainer>
           <Switch>
             <Route exact path="/" component={Home} />
