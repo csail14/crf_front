@@ -4,7 +4,7 @@ import Home from "./screens/Home/home";
 import SubHome from "./screens/SubHome/subHome";
 import Footer from "./components/footer";
 import ImpactTrack from "./screens/ImpactTrack/impactTrack";
-import LeftSideComponent from "./components/LeftSideComponent";
+import LeftSideComponent from "./components/Sidebar/LeftSideComponent";
 import Recherche from "./screens/Recherche/recherche";
 import Contact from "./screens/Contact/contact";
 import Article from "./screens/Ressource/article";

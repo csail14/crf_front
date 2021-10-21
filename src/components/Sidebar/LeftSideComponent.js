@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
 import Dropdown from "./Dropdown";
-import logoBandeauCroixRouge from "../assets/logoBandeauCroixRouge.svg";
+import logoBandeauCroixRouge from "../../assets/logoBandeauCroixRouge.svg";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {colors} from "../colors";
-import SearchBar from "./Recherche/searchBar";
+import {colors} from "../../colors";
+import SearchBar from "../Recherche/searchBar";
 import SidebarSearch from "./SidebarSearch";
 
 const list = {
