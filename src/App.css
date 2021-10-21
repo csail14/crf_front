@@ -39,10 +39,28 @@
 }
 
 /*Sidebar*/
+/*title*/
+.sidebar_title {
+    width: 71%;
+    margin: auto;
+    text-align: left;
+}
+.sidebar_title h1{
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 130%;
+    /* or 25px */
+
+    text-transform: uppercase;
+
+    color: #000000;
+}
 /*Searchbar*/
 .form_container {
     padding-right: 5%;
-    margin-bottom: 5%;
+    margin: 10% 0;
 }
 .sidebar_input input::placeholder {
     width: 76px;

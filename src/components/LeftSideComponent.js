@@ -116,11 +116,15 @@ const MainContainer = styled.div`
 const LeftSideComponent = (props) => {
     return (
         <MainContainer>
+
             <ImageContainer>
                 <Link to="/home">
                     <img src={logoBandeauCroixRouge} alt="logoBandeauCroixRouge"/>
                 </Link>
             </ImageContainer>
+            <div className={"sidebar_title"}>
+                <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>
+            </div>
             <SidebarSearch/>
             <div className={"dropdown_container"}>
                 <Dropdown data={list[1]}/>
