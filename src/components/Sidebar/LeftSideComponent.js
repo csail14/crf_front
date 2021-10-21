@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 import {colors} from "../../colors";
 import SearchBar from "../Recherche/searchBar";
 import SidebarSearch from "./SidebarSearch";
+import AccountContact from "./account_contact";
 
 const list = {
     1: {
@@ -106,32 +107,38 @@ const ImageContainer = styled.div`
 `;
 
 const MainContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 100vh;
   background-color: ${colors.grisBackground};
   position: sticky;
-
+  overflow: scroll;
   position: -webkit-sticky;
   top: 0;
 `;
 
 const LeftSideComponent = (props) => {
     return (
-        <MainContainer>
+        <MainContainer className={"main_container"}>
 
-            <ImageContainer>
-                <Link to="/home">
-                    <img src={logoBandeauCroixRouge} alt="logoBandeauCroixRouge"/>
-                </Link>
-            </ImageContainer>
-            <div className={"sidebar_title"}>
-                <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>
+            <div>
+                <ImageContainer>
+                    <Link to="/home">
+                        <img src={logoBandeauCroixRouge} alt="logoBandeauCroixRouge"/>
+                    </Link>
+                </ImageContainer>
+                <div className={"sidebar_title"}>
+                    <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>
+                </div>
+                <SidebarSearch/>
+                <div className={"dropdown_container"}>
+                    <Dropdown data={list[1]}/>
+                    <Dropdown data={list[2]}/>
+                    <Dropdown data={list[3]}/>
+                </div>
             </div>
-            <SidebarSearch/>
-            <div className={"dropdown_container"}>
-                <Dropdown data={list[1]}/>
-                <Dropdown data={list[2]}/>
-                <Dropdown data={list[3]}/>
-            </div>
+            <AccountContact/>
         </MainContainer>
     );
 };
