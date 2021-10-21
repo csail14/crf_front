@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AiOutlineSearch} from "react-icons/all";
+import {GoSearch} from "react-icons/all";
 
 class SidebarSearch extends Component {
     render() {
@@ -10,7 +10,7 @@ class SidebarSearch extends Component {
                         <input type="text" placeholder={"Rechercher"}/>
                     </div>
                     <div className={"sidebar_icon"}>
-                        <button type={"submit"}><AiOutlineSearch/></button>
+                        <button type={"submit"}><GoSearch/></button>
                     </div>
                 </form>
             </div>

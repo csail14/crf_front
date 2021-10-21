@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai'
+import {BsChevronDown, BsChevronUp} from "react-icons/bs";
 class Dropdown extends Component {
     container = React.createRef()
     state = {
@@ -48,8 +49,8 @@ class Dropdown extends Component {
             <div className={"dropdown_div"}  onClick={this.handleButtonClick}>
                 <p className={"dropdown_text dropdown_title"}>{this.props.data.title}</p>
                 <p  className={"arrow_icon"}>
-                    {!this.state.open && <AiFillCaretDown/>}
-                    {this.state.open && <AiFillCaretUp/>}
+                    {!this.state.open && <BsChevronDown />}
+                    {this.state.open && <BsChevronUp/>}
                 </p>
             </div>
             {this.state.open && <div className={"dropdown"}>
