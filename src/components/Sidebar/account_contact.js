@@ -10,6 +10,7 @@ class AccountContact extends Component {
                         Je contacte l'équipe
                     </p>
                 </a>
+                <hr/>
                 <div className="account_container">
                     <p>
                         <BsFillPersonFill className={"acc_contact_icon"}/>
@@ -18,10 +19,6 @@ class AccountContact extends Component {
                     <a href="google.com">Se déconnecter</a>
 
                 </div>
-                {/*<div className="account_container">*/}
-                {/*        <p><BsFillPersonFill className={"acc_contact_icon"}/>Austin Robertson</p>*/}
-                {/*        <a href="google.com">Se déconnecter</a>*/}
-                {/*</div>*/}
             </div>
         );
     }
