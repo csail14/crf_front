@@ -5,6 +5,7 @@ import styled from "styled-components";
 import union from "../../assets/union.png";
 import SubHomeBloc from "./subHomeBloc";
 import { colors } from "../../colors";
+
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
