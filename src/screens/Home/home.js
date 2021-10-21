@@ -5,6 +5,7 @@ import styled from "styled-components";
 import union from "../../assets/union.png";
 import SubHomeBloc from "./subHomeBloc";
 import { colors } from "../../colors";
+import DOMPurify from "dompurify";
 
 const MainContainer = styled.div`
   min-height: 100vh;
@@ -45,24 +46,39 @@ const BodyContainer = styled.div`
 `;
 
 const Home = (props) => {
+  const homeTemplate = props.pages.templates.length
+    ? props.pages.templates.filter((template) => template.slug === "accueil")[0]
+    : null;
+
   return (
     <MainContainer>
       <HeaderContainer>
         <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          L'impact social des actions
+          {homeTemplate
+            ? homeTemplate.title.rendered
+            : "L'impact social des actions"}
         </HeaderTitleContainer>
-        <HeaderTitleContainer>De la croix rouge française</HeaderTitleContainer>
-        <SubtitleContainer>
-          Mattis sodales lacus tincidunt varius. Quis justo, purus nullam urna
-          pulvinar. Vitae vehicula posuere nulla in sed. Malesuada posuere
-          velit, justo pretium magna interdum.
-        </SubtitleContainer>
+        <HeaderTitleContainer>
+          {" "}
+          {homeTemplate
+            ? homeTemplate.acf.sous_titre
+            : "De la croix rouge française"}
+        </HeaderTitleContainer>
+        {homeTemplate && (
+          <SubtitleContainer
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(homeTemplate.acf.intro),
+            }}
+          ></SubtitleContainer>
+        )}
       </HeaderContainer>
       <SearchBar />
       <BodyContainer>
-        <SubHomeBloc />
-        <SubHomeBloc />
-        <SubHomeBloc />
+        {homeTemplate
+          ? homeTemplate.acf.entrees.map((item, index) => {
+              return <SubHomeBloc key={index} info={item} />;
+            })
+          : null}
       </BodyContainer>
     </MainContainer>
   );
@@ -71,7 +87,9 @@ const Home = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return {
+    pages: store.pages,
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

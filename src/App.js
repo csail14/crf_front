@@ -28,7 +28,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HOC(Home)} />
             <Route exact path="/home" component={HOC(Home)} />
-            <Route exact path="/subHome" component={HOC(SubHome)} />
+            <Route exact path="/subHome/:id" component={HOC(SubHome)} />
             <Route exact path="/recherche" component={HOC(Recherche)} />
             <Route exact path="/contact" component={HOC(Contact)} />
             <Route exact path="/impactTrack" component={HOC(ImpactTrack)} />

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { getAllPages } from "./api/API";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-
+import { loadPagesInfo } from "../actions/pages/pagesActions";
 export default function (ChildComponent, withAuth = false) {
   class RequireAuth extends React.Component {
     constructor(props) {
@@ -18,7 +18,6 @@ export default function (ChildComponent, withAuth = false) {
       this.checkPages(this.props.pages);
       if (true) {
         try {
-          console.log("props", this.props);
         } catch (error) {
           console.log("error ?");
         }
@@ -26,8 +25,8 @@ export default function (ChildComponent, withAuth = false) {
     };
 
     checkPages = (pages) => {
-      if (pages.length === 0) {
-        getAllPages().then((res) => console.log("pages", res));
+      if (pages.templates.length === 0) {
+        getAllPages().then((res) => this.props.loadPagesInfo(res));
       }
     };
 
@@ -40,7 +39,9 @@ export default function (ChildComponent, withAuth = false) {
     }
   }
 
-  const mapDispatchToProps = {};
+  const mapDispatchToProps = {
+    loadPagesInfo,
+  };
 
   const mapStateToProps = (store) => {
     return {

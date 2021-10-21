@@ -96,6 +96,12 @@ const AvailableRessourceContainer = styled.div`
 `;
 
 const SubHome = (props) => {
+  const subHomeTemplate = props.pages.templates.length
+    ? props.pages.templates.filter(
+        (template) => template.slug === props.match.params.id
+      )[0]
+    : null;
+  console.log("subHomeTemplate", subHomeTemplate);
   return (
     <MainContainer>
       <HeaderContainer>
@@ -172,7 +178,7 @@ const SubHome = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { pages: store.pages };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubHome);
