@@ -104,6 +104,7 @@
 .dropdown_div {
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .dropdown_container {
