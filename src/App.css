@@ -43,7 +43,7 @@
 .form_container {
     padding-right: 5%;
 }
-.sidebar_search::placeholder {
+.sidebar_input input::placeholder {
     width: 76px;
     height: 18px;
 
