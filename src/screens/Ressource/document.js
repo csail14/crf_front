@@ -8,6 +8,11 @@ import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import { getDocumentById } from "../../utils/api/API";
+import moment from "moment";
+import DOMPurify from "dompurify";
+require("moment/locale/fr.js");
+
 const MainContainer = styled.div``;
 
 const HeaderContainer = styled.div`
@@ -116,7 +121,7 @@ const BodyContainer = styled.div`
 `;
 
 const LeftSideBodyComponent = styled.div`
-  margin-right: 100px;
+  margin: auto;
 `;
 const RightSideBodyContainer = styled.div``;
 
@@ -144,8 +149,38 @@ const TitleRessourceContainer = styled.div`
   text-align: left;
   margin-bottom: 20px;
 `;
+const BottomContainer = styled.div`
+  background-color: ${colors.grisBackground};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`;
+const BottomTitleContainer = styled.div`
+  margin: 50px;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: ${colors.gris};
+  font-weight: 600;
+`;
 
+const AvailableRessourceContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  margin: 0 auto;
+`;
 const Document = (props) => {
+  const [document, setDocument] = useState(null);
+
+  useEffect(() => {
+    getDocumentById(documentId)
+      .then((res) => setDocument(res))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const documentId = props.match.params.id;
+  console.log(document);
   return (
     <MainContainer>
       <HeaderContainer>
@@ -162,7 +197,7 @@ const Document = (props) => {
               <Domaine>ehpad</Domaine>
             </CategoryContainer>
             <TitleContainer>
-              Qu'est-ce que la mesure de l'impact social ?
+              {document && document.title.rendered}
             </TitleContainer>
             <TagContainer>
               <BsTags style={{ marginRight: "8px" }} />
@@ -192,15 +227,28 @@ const Document = (props) => {
               </Comment>
             </LikeContainer>
             <UpdateContainer>
-              <LastUpdateContainer>publié le XXXXXXXXXX</LastUpdateContainer>
-              <LastUpdateContainer>mis à jour le XXXXXXXX</LastUpdateContainer>
+              <LastUpdateContainer>
+                publié le{" "}
+                {document && moment(document.date).format("DD MMMM YYYY")}
+              </LastUpdateContainer>
+              <LastUpdateContainer>
+                mis à jour le{" "}
+                {document && moment(document.modified).format("DD MMMM YYYY")}
+              </LastUpdateContainer>
             </UpdateContainer>
           </HeaderRightSideBottomContainer>
         </RightSideContainer>
       </HeaderContainer>
       <BodyContainer>
         <LeftSideBodyComponent>
-          <TitleBodyContainer>Titre H2</TitleBodyContainer>
+          {document && document.content && document.content.rendered && (
+            <ContentContainer
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(document.content.rendered),
+              }}
+            />
+          )}
+          {/* <TitleBodyContainer>Titre H2</TitleBodyContainer>
           <ContentContainer>
             Le développement de la mesure d'impact à une échelle macro, s'il
             représente un grand défi pour notre association, est aussi une
@@ -223,16 +271,20 @@ const Document = (props) => {
             et notre légitimité vis-à-vis de l'ensemble de nos partenaires –
             pouvoirs publics, bailleurs, partenaires financiers – en rendant
             compte de nos actions.
-          </ContentContainer>
+          </ContentContainer> */}
         </LeftSideBodyComponent>
-        <RightSideBodyContainer>
-          <TitleRessourceContainer>
-            Ressources principales
-          </TitleRessourceContainer>
-          <GridResultComponent />
-          <GridResultComponent />
-        </RightSideBodyContainer>
       </BodyContainer>
+      <BottomContainer>
+        <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
+        <AvailableRessourceContainer>
+          {document &&
+            document.acf &&
+            document.acf.ressources_complementaires.length &&
+            document.acf.ressources_complementaires.map((item) => {
+              return <GridResultComponent info={item} />;
+            })}
+        </AvailableRessourceContainer>
+      </BottomContainer>
     </MainContainer>
   );
 };

@@ -1,0 +1,1 @@
+export const LOAD_PAGES_INFO = "LOAD_PAGES_INFO";
