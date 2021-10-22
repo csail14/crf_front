@@ -1,1 +1,1 @@
-export const LOAD_PAGES_INFO = "LOAD_PAGES_INFO";
+export const LOAD_TAXO_INFO = "LOAD_TAXO_INFO";

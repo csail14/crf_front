@@ -173,7 +173,6 @@ const Article = (props) => {
   }, []);
 
   const articleId = props.match.params.id;
-  console.log("article", article);
   return (
     <MainContainer>
       <HeaderContainer>
