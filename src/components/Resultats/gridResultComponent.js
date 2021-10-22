@@ -10,6 +10,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import { Link } from "react-router-dom";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -32,6 +33,7 @@ const LastUpdateContainer = styled.div`
   text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
+  color: ${colors.marine};
 `;
 
 const CategoryContainer = styled.div`
@@ -58,6 +60,7 @@ const TitleContainer = styled.div`
   text-transform: uppercase;
   text-align: left;
   margin-bottom: 16px;
+  color: ${colors.marine};
 `;
 
 const DescriptionContainer = styled.div`
@@ -98,65 +101,75 @@ const Comment = styled.div`
   text-align: left;
 `;
 const GridResultComponent = (props) => {
+  console.log(props.info);
   return (
     <MainContainer>
-      <ImageContainer>
-        <img src={resultImage} alt="result-illu" />
-      </ImageContainer>
-      <DetailsContainer>
-        <LastUpdateContainer>
-          mis à jour le{" "}
-          {props.info &&
-            moment(props.info.post_modified).format("DD MMMM YYYY")}
-        </LastUpdateContainer>
-        <CategoryContainer>
-          <Category>automonie</Category>
-          <BsDot />
-          <Domaine>ehpad</Domaine>
-        </CategoryContainer>
-        <TitleContainer>{props.info && props.info.post_title}</TitleContainer>
-        {props.info && (
-          <DescriptionContainer
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(props.info.post_content),
-            }}
-          ></DescriptionContainer>
-        )}
-        <TagContainer>
-          <BsTags style={{ marginRight: "8px" }} />
-          Repères
-        </TagContainer>
-        <BottomContainer>
-          <PostInfoContainer>
-            <div>
-              <Comment>
-                <BiComment size={18} style={{ marginRight: "7px" }} />
-                13 Commentaires
-              </Comment>
-            </div>
-            <div style={{ display: "flex" }}>
-              <Comment>
-                <AiOutlineLike
-                  size={18}
-                  style={{ color: colors.gris, marginRight: "7px" }}
-                />
-                425
-              </Comment>
-              <Comment>
-                <AiOutlineEye
-                  size={18}
-                  style={{
-                    color: colors.gris,
-                    marginRight: "7px",
-                    marginLeft: "10px",
-                  }}
-                />
-                736
-              </Comment>
-            </div>
-          </PostInfoContainer>
-        </BottomContainer>
-      </DetailsContainer>
+      <Link
+        to={
+          props && props.info && props.info.post_type
+            ? "/" + props.info.post_type + "/" + props.info.ID
+            : ""
+        }
+        style={{ textDecoration: "none" }}
+      >
+        <ImageContainer>
+          <img src={resultImage} alt="result-illu" />
+        </ImageContainer>
+        <DetailsContainer>
+          <LastUpdateContainer>
+            mis à jour le{" "}
+            {props.info &&
+              moment(props.info.post_modified).format("DD MMMM YYYY")}
+          </LastUpdateContainer>
+          <CategoryContainer>
+            <Category>automonie</Category>
+            <BsDot />
+            <Domaine>ehpad</Domaine>
+          </CategoryContainer>
+          <TitleContainer>{props.info && props.info.post_title}</TitleContainer>
+          {props.info && (
+            <DescriptionContainer
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(props.info.post_content),
+              }}
+            ></DescriptionContainer>
+          )}
+          <TagContainer>
+            <BsTags style={{ marginRight: "8px" }} />
+            Repères
+          </TagContainer>
+          <BottomContainer>
+            <PostInfoContainer>
+              <div>
+                <Comment>
+                  <BiComment size={18} style={{ marginRight: "7px" }} />
+                  13 Commentaires
+                </Comment>
+              </div>
+              <div style={{ display: "flex" }}>
+                <Comment>
+                  <AiOutlineLike
+                    size={18}
+                    style={{ color: colors.gris, marginRight: "7px" }}
+                  />
+                  425
+                </Comment>
+                <Comment>
+                  <AiOutlineEye
+                    size={18}
+                    style={{
+                      color: colors.gris,
+                      marginRight: "7px",
+                      marginLeft: "10px",
+                    }}
+                  />
+                  736
+                </Comment>
+              </div>
+            </PostInfoContainer>
+          </BottomContainer>
+        </DetailsContainer>
+      </Link>
     </MainContainer>
   );
 };

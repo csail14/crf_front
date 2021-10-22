@@ -38,9 +38,9 @@ function App() {
             <Route exact path="/recherche" component={HOC(Recherche)} />
             <Route exact path="/contact" component={HOC(Contact)} />
             <Route exact path="/impactTrack" component={HOC(ImpactTrack)} />
-            <Route exact path="/article/:id" component={HOC(Article)} />
-            <Route exact path="/document/:id" component={HOC(Document)} />
-            <Route exact path="/indicateur/:id" component={HOC(Indicateur)} />
+            <Route exact path="/post/:id" component={HOC(Article)} />
+            <Route exact path="/documents/:id" component={HOC(Document)} />
+            <Route exact path="/indicateurs/:id" component={HOC(Indicateur)} />
           </Switch>
           <Footer />
         </BodyContainer>
