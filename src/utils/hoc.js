@@ -1,9 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useState, useEffect } from "react";
-import { getAllPages } from "./api/API";
+import { getAllPages, getAllSidebarPages } from "./api/API";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { loadPagesInfo } from "../actions/pages/pagesActions";
+import { loadPagesInfo, loadSidebarInfo } from "../actions/pages/pagesActions";
 export default function (ChildComponent, withAuth = false) {
   class RequireAuth extends React.Component {
     constructor(props) {
@@ -16,6 +16,8 @@ export default function (ChildComponent, withAuth = false) {
 
     componentDidMount = async () => {
       this.checkPages(this.props.pages);
+      this.checkSidebarPages(this.props.sidebarPages)
+      console.log(this.props)
       if (true) {
         try {
         } catch (error) {
@@ -23,6 +25,13 @@ export default function (ChildComponent, withAuth = false) {
         }
       }
     };
+
+    checkSidebarPages = (sidebarPages) => {
+      getAllSidebarPages().then((res) => {
+        console.log("res2", res);
+        this.props.loadSidebarInfo(res)
+      })
+    }
 
     checkPages = (pages) => {
       if (pages.templates.length === 0) {
@@ -44,11 +53,13 @@ export default function (ChildComponent, withAuth = false) {
 
   const mapDispatchToProps = {
     loadPagesInfo,
+    loadSidebarInfo
   };
 
   const mapStateToProps = (store) => {
     return {
       pages: store.pages,
+      sidebarPages: store.sidebarPages
     };
   };
 

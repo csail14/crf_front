@@ -12,6 +12,7 @@ import Document from "./screens/Ressource/document";
 import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
 import HOC from "./utils/hoc";
+import store from "./store";
 
 const MainContainer = styled.div`
   display: flex;

@@ -11,3 +11,14 @@ export const getAllPages = async () => {
       return err;
     });
 };
+
+export const getAllSidebarPages = async () => {
+    return axios
+        .get(config.api_url + "/wp/v2/menus/main")
+        .then((response) => {
+            return response.data;
+        })
+        .catch((err) => {
+            return err;
+        })
+}
