@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import blocImage from "../../assets/blocImageExemple.svg";
+import { Link } from "react-router-dom";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
 const MainContainer = styled.div`
@@ -11,6 +11,7 @@ const MainContainer = styled.div`
 
 const HeaderContainer = styled.div`
   display: flex;
+  cursor: pointer;
   flex-direction: column;
   padding: 20px;
   background-color: ${colors.grisBackground};
@@ -66,27 +67,40 @@ const MoreInfoContainer = styled.div`
 `;
 
 const SubHomeBloc = (props) => {
+  const link = props.info.push.lien.replace(
+    "https://pmis-wp.laguildedupixel.fr/",
+    ""
+  );
   return (
     <MainContainer>
-      <HeaderContainer>
-        {" "}
-        <img style={{ maxHeight: "130px" }} src={blocImage} alt="blocImage" />
-        <TitleContainer>Je m'informe</TitleContainer>
-        <SubTitleContainer>sur la démarche d’impact social</SubTitleContainer>
-      </HeaderContainer>
+      <Link to={"/subHome/" + link} style={{ textDecoration: "none" }}>
+        <HeaderContainer>
+          {" "}
+          <img
+            style={{ maxHeight: "130px", maxWidth: "220px" }}
+            src={props.info.push.image ? props.info.push.image.url : null}
+            alt="blocImage"
+          />
+          <TitleContainer>
+            {props.info.push.titre ? props.info.push.titre : ""}
+          </TitleContainer>
+          <SubTitleContainer>
+            {" "}
+            {props.info.push.sous_titre ? props.info.push.sous_titre : ""}
+          </SubTitleContainer>
+        </HeaderContainer>
+      </Link>
       <LinkMainContainer>
-        <LinkContainer>
-          Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-          <MdArrowForwardIos style={{ color: colors.rouge }} />
-        </LinkContainer>
-        <LinkContainer>
-          Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-          <MdArrowForwardIos style={{ color: colors.rouge }} />
-        </LinkContainer>
-        <LinkContainer>
-          Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-          <MdArrowForwardIos style={{ color: colors.rouge }} />
-        </LinkContainer>
+        {props.info.articles_lies
+          ? props.info.articles_lies.map((item, index) => {
+              return (
+                <LinkContainer>
+                  {item.post_title}
+                  <MdArrowForwardIos style={{ color: colors.rouge }} />
+                </LinkContainer>
+              );
+            })
+          : null}
       </LinkMainContainer>
       <MoreInfoContainer>
         En savoir plus{" "}

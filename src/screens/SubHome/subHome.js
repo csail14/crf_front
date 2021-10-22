@@ -4,6 +4,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import styled from "styled-components";
 import union from "../../assets/union.png";
+import DOMPurify from "dompurify";
 
 import { colors } from "../../colors";
 const MainContainer = styled.div`
@@ -92,77 +93,71 @@ const BottomTitleContainer = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
+  margin: 0 auto;
 `;
 
 const SubHome = (props) => {
+  const subHomeTemplate = props.pages.templates.length
+    ? props.pages.templates.filter(
+        (template) => template.slug === props.match.params.id
+      )[0]
+    : null;
   return (
     <MainContainer>
       <HeaderContainer>
         <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          définir mes indicateurs
+          {subHomeTemplate ? subHomeTemplate.title.rendered : null}
         </HeaderTitleContainer>
         <HeaderTitleContainer>
-          pour mesurer mon impact social
+          {subHomeTemplate ? subHomeTemplate.acf.sous_titre : null}
         </HeaderTitleContainer>
-        <SubtitleContainer>
-          Choisissez ci-dessous le domaine d’impact concerné par votre besoin de
-          mesure :
-        </SubtitleContainer>
+        {subHomeTemplate && (
+          <SubtitleContainer
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(subHomeTemplate.acf.intro),
+            }}
+          ></SubtitleContainer>
+        )}
       </HeaderContainer>
       <BodyContainer>
-        <Textcontainer>
-          Auctor nunc eget consequat velit, est feugiat est. Tempor vitae
-          viverra fringilla molestie felis faucibus. Morbi cras tortor purus
-          nibh enim, sapien lorem id commodo. Molestie bibendum egestas in
-          risus, porttitor orci velit sed sociis. Condimentum feugiat adipiscing
-          velit orci justo amet, euismod. Aliquam enim lectus ut magna.
-          Convallis diam in pretium dictum aliquam. A nisl cum arcu, lorem eget
-          eu diam. Ac quam risus eu amet, molestie diam ultricies. Amet, amet
-          turpis pellentesque egestas. Massa placerat euismod gravida ut. Sed
-          nibh volutpat donec et lobortis proin. Adipiscing at ante nunc diam
-          maecenas viverra id. Est sed netus eget iaculis. Vestibulum in vitae
-          mauris rhoncus, pellentesque tempor. Sed cursus odio cras sed enim
-          amet, massa id neque. Potenti nibh ac integer tellus. In vitae in
-          vestibulum etiam justo tristique donec aliquet. Lectus fames egestas
-          lorem tristique ac gravida in massa. Enim sollicitudin viverra mauris
-          phasellus. Bibendum enim velit tortor faucibus. Tempor dui, est
-          aliquam et lectus congue pretium tristique eget. Tincidunt et lorem
-          feugiat consequat nisi. Lacus quis sapien, sit blandit.
-        </Textcontainer>
+        {subHomeTemplate && (
+          <Textcontainer
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(subHomeTemplate.content.rendered),
+            }}
+          ></Textcontainer>
+        )}
         <LinkMainContainer>
-          <LinkTitleContainer>Dans cette rubrique</LinkTitleContainer>
-          <LinkContainer>
-            Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-            <MdArrowForwardIos style={{ color: colors.rouge }} />
-          </LinkContainer>
-          <LinkContainer>
-            Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-            <MdArrowForwardIos style={{ color: colors.rouge }} />
-          </LinkContainer>
-          <LinkContainer>
-            Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-            <MdArrowForwardIos style={{ color: colors.rouge }} />
-          </LinkContainer>
-          <LinkContainer>
-            Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-            <MdArrowForwardIos style={{ color: colors.rouge }} />
-          </LinkContainer>
-          <LinkContainer>
-            Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-            <MdArrowForwardIos style={{ color: colors.rouge }} />
-          </LinkContainer>
-          <LinkContainer>
-            Mesurer l'impact social de la Croix-Rouge française, c'est nouveau ?
-            <MdArrowForwardIos style={{ color: colors.rouge }} />
-          </LinkContainer>
+          <LinkTitleContainer>
+            {subHomeTemplate
+              ? subHomeTemplate.acf.dans_cette_rubrique.titre
+              : "Dans cette rubrique"}
+          </LinkTitleContainer>
+          {subHomeTemplate &&
+            subHomeTemplate.acf.dans_cette_rubrique.ressources.map((item) => {
+              return (
+                <LinkContainer>
+                  MANQUE LES INFOS DE LA RESSOURCE
+                  <MdArrowForwardIos style={{ color: colors.rouge }} />
+                </LinkContainer>
+              );
+            })}
         </LinkMainContainer>
       </BodyContainer>
       <BottomContainer>
-        <BottomTitleContainer>Les ressources disponibles</BottomTitleContainer>
+        <BottomTitleContainer>
+          {subHomeTemplate
+            ? subHomeTemplate.acf["ressources disponibles"].titre
+            : "Les ressources disponibles"}
+        </BottomTitleContainer>
         <AvailableRessourceContainer>
-          <GridResultComponent /> <GridResultComponent />
-          <GridResultComponent /> <GridResultComponent />
+          {subHomeTemplate &&
+            subHomeTemplate.acf["ressources disponibles"].ressources.map(
+              (item) => {
+                return <GridResultComponent info={item} />;
+              }
+            )}
         </AvailableRessourceContainer>
       </BottomContainer>
     </MainContainer>
@@ -172,7 +167,7 @@ const SubHome = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { pages: store.pages };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubHome);

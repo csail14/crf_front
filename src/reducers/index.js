@@ -1,5 +1,7 @@
 import { combineReducers } from "redux";
-
-const rootReducer = combineReducers({});
+import pagesReducer from "./pagesReducer";
+const rootReducer = combineReducers({
+  pages: pagesReducer,
+});
 
 export default rootReducer;

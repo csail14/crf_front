@@ -11,6 +11,7 @@ import Article from "./screens/Ressource/article";
 import Document from "./screens/Ressource/document";
 import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
+import HOC from "./utils/hoc";
 
 const MainContainer = styled.div`
   display: flex;
@@ -25,15 +26,15 @@ function App() {
         <LeftSideComponent className="sidebar" />
         <BodyContainer>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/subHome" component={SubHome} />
-            <Route exact path="/recherche" component={Recherche} />
-            <Route exact path="/contact" component={Contact} />
-            <Route exact path="/impactTrack" component={ImpactTrack} />
-            <Route exact path="/article/:id" component={Article} />
-            <Route exact path="/document/:id" component={Document} />
-            <Route exact path="/indicateur/:id" component={Indicateur} />
+            <Route exact path="/" component={HOC(Home)} />
+            <Route exact path="/home" component={HOC(Home)} />
+            <Route exact path="/subHome/:id" component={HOC(SubHome)} />
+            <Route exact path="/recherche" component={HOC(Recherche)} />
+            <Route exact path="/contact" component={HOC(Contact)} />
+            <Route exact path="/impactTrack" component={HOC(ImpactTrack)} />
+            <Route exact path="/article/:id" component={HOC(Article)} />
+            <Route exact path="/document/:id" component={HOC(Document)} />
+            <Route exact path="/indicateur/:id" component={HOC(Indicateur)} />
           </Switch>
           <Footer />
         </BodyContainer>
