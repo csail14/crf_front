@@ -8,6 +8,10 @@ import { BiComment } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { colors } from "../../colors";
+import moment from "moment";
+import DOMPurify from "dompurify";
+require("moment/locale/fr.js");
+
 const MainContainer = styled.div`
   margin: 10px;
   max-width: 350px;
@@ -100,19 +104,24 @@ const GridResultComponent = (props) => {
         <img src={resultImage} alt="result-illu" />
       </ImageContainer>
       <DetailsContainer>
-        <LastUpdateContainer>mis à jour le 22 avril 2021</LastUpdateContainer>
+        <LastUpdateContainer>
+          mis à jour le{" "}
+          {props.info &&
+            moment(props.info.post_modified).format("DD MMMM YYYY")}
+        </LastUpdateContainer>
         <CategoryContainer>
           <Category>automonie</Category>
           <BsDot />
           <Domaine>ehpad</Domaine>
         </CategoryContainer>
-        <TitleContainer>
-          Vidéo sur les outils de mesure d'impact social de la CRf
-        </TitleContainer>
-        <DescriptionContainer>
-          Lobortis nulla fames pharetra dignissim morbi interdum sed euismod
-          urna.
-        </DescriptionContainer>
+        <TitleContainer>{props.info && props.info.post_title}</TitleContainer>
+        {props.info && (
+          <DescriptionContainer
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(props.info.post_content),
+            }}
+          ></DescriptionContainer>
+        )}
         <TagContainer>
           <BsTags style={{ marginRight: "8px" }} />
           Repères
@@ -121,11 +130,7 @@ const GridResultComponent = (props) => {
           <PostInfoContainer>
             <div>
               <Comment>
-                <BiComment
-                  size={18}
-                  stroke-width="0.02"
-                  style={{ marginRight: "7px" }}
-                />
+                <BiComment size={18} style={{ marginRight: "7px" }} />
                 13 Commentaires
               </Comment>
             </div>

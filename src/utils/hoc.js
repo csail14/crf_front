@@ -26,7 +26,10 @@ export default function (ChildComponent, withAuth = false) {
 
     checkPages = (pages) => {
       if (pages.templates.length === 0) {
-        getAllPages().then((res) => this.props.loadPagesInfo(res));
+        getAllPages().then((res) => {
+          console.log("res", res);
+          this.props.loadPagesInfo(res);
+        });
       }
     };
 
