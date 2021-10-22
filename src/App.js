@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./screens/Home/home";
 import SubHome from "./screens/SubHome/subHome";
@@ -12,6 +13,7 @@ import Document from "./screens/Ressource/document";
 import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
 import HOC from "./utils/hoc";
+import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -20,6 +22,10 @@ const BodyContainer = styled.div`
   width: -webkit-fill-available;
 `;
 function App() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   return (
     <div className="App">
       <MainContainer>
