@@ -180,7 +180,30 @@ const Document = (props) => {
   }, []);
 
   const documentId = props.match.params.id;
-  console.log(document);
+  const domaineAction =
+    document && document.acf && document.acf.domaine_daction_principal
+      ? props.taxonomie.domainesActions.filter(
+          (item) => item.id === document.acf.domaine_daction_principal
+        )[0]
+      : null;
+
+  const domaineImpact =
+    document && document.acf && document.acf.domaine_dimpact_principal
+      ? props.taxonomie
+        ? props.taxonomie.domainesImpacts.filter(
+            (item) => item.id === document.acf.domaine_dimpact_principal
+          )[0]
+        : null
+      : null;
+
+  let tags = document && document.tags;
+
+  if (tags && props.taxonomie && props.taxonomie.tags.length) {
+    tags = tags.map((item) => {
+      return props.taxonomie.tags.filter((el) => el.id === item)[0];
+    });
+  }
+  console.log("document", document);
   return (
     <MainContainer>
       <HeaderContainer>
@@ -192,17 +215,21 @@ const Document = (props) => {
         <RightSideContainer>
           <HeaderRightSideTopContainer>
             <CategoryContainer>
-              <Category>automonie</Category>
+              {domaineAction && <Category>{domaineAction.name}</Category>}
               <BsDot />
-              <Domaine>ehpad</Domaine>
+              {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
             </CategoryContainer>
             <TitleContainer>
               {document && document.title.rendered}
             </TitleContainer>
-            <TagContainer>
-              <BsTags style={{ marginRight: "8px" }} />
-              Repères
-            </TagContainer>
+            {tags && (
+              <TagContainer>
+                <BsTags style={{ marginRight: "8px" }} />
+                {tags.map((item) => {
+                  return item.name + ", ";
+                })}
+              </TagContainer>
+            )}
           </HeaderRightSideTopContainer>
 
           <HeaderRightSideBottomContainer>
@@ -292,7 +319,7 @@ const Document = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { taxonomie: store.taxonomie };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Document);

@@ -10,6 +10,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import { getRessourceById } from "../../utils/api/API";
 import { Link } from "react-router-dom";
 require("moment/locale/fr.js");
 
@@ -101,6 +102,42 @@ const Comment = styled.div`
   text-align: left;
 `;
 const GridResultComponent = (props) => {
+  const [details, setDetails] = useState(null);
+
+  useEffect(() => {
+    if (props.info) {
+      getRessourceById(
+        props.info.ID,
+        props.info.post_type === "post" ? "posts" : props.info.post_type
+      )
+        .then((res) => setDetails(res))
+        .catch((error) => console.log(error));
+    }
+  }, [props.info]);
+
+  const domaineAction =
+    details && details.acf && details.acf.domaine_daction_principal
+      ? props.taxonomie.domainesActions.filter(
+          (item) => item.id === details.acf.domaine_daction_principal
+        )[0]
+      : null;
+
+  const domaineImpact =
+    details && details.acf && details.acf.domaine_dimpact_principal
+      ? props.taxonomie
+        ? props.taxonomie.domainesImpacts.filter(
+            (item) => item.id === details.acf.domaine_dimpact_principal
+          )[0]
+        : null
+      : null;
+
+  let tags = details && details.tags;
+
+  if (tags && props.taxonomie && props.taxonomie.tags.length) {
+    tags = tags.map((item) => {
+      return props.taxonomie.tags.filter((el) => el.id === item)[0];
+    });
+  }
   return (
     <MainContainer>
       <Link
@@ -121,22 +158,26 @@ const GridResultComponent = (props) => {
               moment(props.info.post_modified).format("DD MMMM YYYY")}
           </LastUpdateContainer>
           <CategoryContainer>
-            <Category>automonie</Category>
+            {domaineAction && <Category>{domaineAction.name}</Category>}
             <BsDot />
-            <Domaine>ehpad</Domaine>
+            {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
           </CategoryContainer>
           <TitleContainer>{props.info && props.info.post_title}</TitleContainer>
-          {props.info && (
+          {details && details.acf && (
             <DescriptionContainer
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(props.info.post_content),
+                __html: DOMPurify.sanitize(details.acf.extrait),
               }}
             ></DescriptionContainer>
           )}
-          <TagContainer>
-            <BsTags style={{ marginRight: "8px" }} />
-            Repères
-          </TagContainer>
+          {tags && (
+            <TagContainer>
+              <BsTags style={{ marginRight: "8px" }} />
+              {tags.map((item) => {
+                return item.name + ", ";
+              })}
+            </TagContainer>
+          )}
           <BottomContainer>
             <PostInfoContainer>
               <div>
@@ -176,9 +217,8 @@ const GridResultComponent = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { taxonomie: store.taxonomie };
 };
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps

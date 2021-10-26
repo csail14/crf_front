@@ -103,6 +103,7 @@ const SubHome = (props) => {
         (template) => template.slug === props.match.params.id
       )[0]
     : null;
+
   return (
     <MainContainer>
       <HeaderContainer>
