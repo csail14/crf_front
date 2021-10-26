@@ -47,19 +47,19 @@ class Dropdown extends Component {
     render() {
         return <div className={"container"} ref={this.container}>
             <div className={"dropdown_div"}  onClick={this.handleButtonClick}>
-                <p className={"dropdown_text dropdown_title"}>{this.props.data.title}</p>
+                <p className={"dropdown_text dropdown_title"}>{this.props.title}</p>
                 <p  className={"arrow_icon"}>
                     {!this.state.open && <BsChevronDown />}
                     {this.state.open && <BsChevronUp/>}
                 </p>
             </div>
-            {this.state.open && <div className={"dropdown"}>
-                {this.props.data.links.map(link => {
-                    return (
-                        this.placelink(link)
-                    )
-                })}
-            </div>}
+            {/*{this.state.open && <div className={"dropdown"}>*/}
+            {/*    {this.props.data.links.map(link => {*/}
+            {/*        return (*/}
+            {/*            this.placelink(link)*/}
+            {/*        )*/}
+            {/*    })}*/}
+            {/*</div>}*/}
         </div>;
     }
 }

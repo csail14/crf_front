@@ -1,20 +1,16 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {connect} from "react-redux";
-import Dropdown from "./Dropdown";
 import logoBandeauCroixRouge from "../../assets/logoBandeauCroixRouge.svg";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
 import {colors} from "../../colors";
-import SearchBar from "../Recherche/searchBar";
 import SidebarSearch from "./SidebarSearch";
 import AccountContact from "./account_contact";
+import store from "../../store";
+import Dropdown from "./Dropdown";
 
 const list = {
     1: {
-        top: "20.76%",
-        left: "14.28%",
-        right: "57.47%",
-        bottom: "77.58%",
         title: "Je m'informe",
         links: [
             {
@@ -118,35 +114,66 @@ const MainContainer = styled.div`
   top: 0;
 `;
 
-const LeftSideComponent = (props) => {
-    return (
-        <MainContainer className={"main_container"}>
+class LeftSideComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        store.subscribe(() => {
+            this.setState({
+                sidebarPages: store.getState().sidebarPages
+            })
+        })
+    }
 
-            <div>
-                <ImageContainer>
-                    <Link to="/home">
-                        <img src={logoBandeauCroixRouge} alt="logoBandeauCroixRouge"/>
-                    </Link>
-                </ImageContainer>
-                <div className={"sidebar_title"}>
-                    <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>
+    componentDidMount() {
+        this._ismounted = true;
+    }
+
+    componentWillUnmount() {
+        this._ismounted = false;
+    }
+
+    render() {
+        const getTitle = () => {
+            if (this._ismounted){
+                return this.state.sidebarPages.templates
+            }else {
+                return []
+            }
+        }
+        return (
+            <MainContainer className={"main_container"}>
+
+                <div>
+                    <ImageContainer>
+                        <Link to="/home">
+                            <img src={logoBandeauCroixRouge} alt="logoBandeauCroixRouge"/>
+                        </Link>
+                    </ImageContainer>
+                    <div className={"sidebar_title"}>
+                        <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>
+                    </div>
+                    <SidebarSearch/>
+                    <div className={"dropdown_container"}>
+                        {getTitle().map((item) => {
+                            return <Dropdown title={item.title} />
+                        })}
+                    </div>
                 </div>
-                <SidebarSearch/>
-                <div className={"dropdown_container"}>
-                    <Dropdown data={list[1]}/>
-                    <Dropdown data={list[2]}/>
-                    <Dropdown data={list[3]}/>
-                </div>
-            </div>
-            <AccountContact/>
-        </MainContainer>
-    );
-};
+                <AccountContact/>
+            </MainContainer>
+        );
+    }
+}
 
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-    return {};
+    return {
+        sidebarPages: store.sidebarPages
+    };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftSideComponent);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LeftSideComponent);

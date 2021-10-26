@@ -94,7 +94,7 @@ const SubHomeBloc = (props) => {
         {props.info.articles_lies
           ? props.info.articles_lies.map((item, index) => {
               return (
-                <LinkContainer>
+                <LinkContainer key={index}>
                   {item.post_title}
                   <MdArrowForwardIos style={{ color: colors.rouge }} />
                 </LinkContainer>

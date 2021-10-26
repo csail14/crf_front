@@ -13,6 +13,7 @@ import Document from "./screens/Ressource/document";
 import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
 import HOC from "./utils/hoc";
+import store from "./store";
 import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
