@@ -4,7 +4,7 @@ const initialState = {
   templates: [],
 };
 
-const CycleReducer = (state = initialState, action) => {
+const PagesReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_PAGES_INFO:
       return {
@@ -15,4 +15,4 @@ const CycleReducer = (state = initialState, action) => {
   }
 };
 
-export default CycleReducer;
+export default PagesReducer;

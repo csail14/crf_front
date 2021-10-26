@@ -1,4 +1,5 @@
 import "./App.css";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./screens/Home/home";
 import SubHome from "./screens/SubHome/subHome";
@@ -13,6 +14,7 @@ import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
 import HOC from "./utils/hoc";
 import store from "./store";
+import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -21,6 +23,10 @@ const BodyContainer = styled.div`
   width: -webkit-fill-available;
 `;
 function App() {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   return (
     <div className="App">
       <MainContainer>
@@ -33,9 +39,9 @@ function App() {
             <Route exact path="/recherche" component={HOC(Recherche)} />
             <Route exact path="/contact" component={HOC(Contact)} />
             <Route exact path="/impactTrack" component={HOC(ImpactTrack)} />
-            <Route exact path="/article/:id" component={HOC(Article)} />
-            <Route exact path="/document/:id" component={HOC(Document)} />
-            <Route exact path="/indicateur/:id" component={HOC(Indicateur)} />
+            <Route exact path="/post/:id" component={HOC(Article)} />
+            <Route exact path="/documents/:id" component={HOC(Document)} />
+            <Route exact path="/indicateurs/:id" component={HOC(Indicateur)} />
           </Switch>
           <Footer />
         </BodyContainer>
