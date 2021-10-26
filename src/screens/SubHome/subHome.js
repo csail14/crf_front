@@ -135,14 +135,16 @@ const SubHome = (props) => {
               : "Dans cette rubrique"}
           </LinkTitleContainer>
           {subHomeTemplate &&
-            subHomeTemplate.acf.dans_cette_rubrique.ressources.map((item) => {
-              return (
-                <LinkContainer>
-                  MANQUE LES INFOS DE LA RESSOURCE
-                  <MdArrowForwardIos style={{ color: colors.rouge }} />
-                </LinkContainer>
-              );
-            })}
+            subHomeTemplate.acf.dans_cette_rubrique.ressources.map(
+              (item, index) => {
+                return (
+                  <LinkContainer key={index}>
+                    MANQUE LES INFOS DE LA RESSOURCE
+                    <MdArrowForwardIos style={{ color: colors.rouge }} />
+                  </LinkContainer>
+                );
+              }
+            )}
         </LinkMainContainer>
       </BodyContainer>
       <BottomContainer>
@@ -154,8 +156,8 @@ const SubHome = (props) => {
         <AvailableRessourceContainer>
           {subHomeTemplate &&
             subHomeTemplate.acf["ressources disponibles"].ressources.map(
-              (item) => {
-                return <GridResultComponent info={item} />;
+              (item, index) => {
+                return <GridResultComponent key={index} info={item} />;
               }
             )}
         </AvailableRessourceContainer>

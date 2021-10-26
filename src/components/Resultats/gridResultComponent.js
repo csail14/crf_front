@@ -101,7 +101,6 @@ const Comment = styled.div`
   text-align: left;
 `;
 const GridResultComponent = (props) => {
-  console.log(props.info);
   return (
     <MainContainer>
       <Link
