@@ -117,12 +117,10 @@ const MainContainer = styled.div`
 class LeftSideComponent extends React.Component {
     constructor(props) {
         super(props);
-        console.log(store.getState())
         store.subscribe(() => {
             this.setState({
                 sidebarPages: store.getState().sidebarPages
             })
-            console.log(store.getState())
         })
     }
 

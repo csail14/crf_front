@@ -17,7 +17,6 @@ export default function (ChildComponent, withAuth = false) {
     componentDidMount = async () => {
       this.checkPages(this.props.pages);
       this.checkSidebarPages(this.props.sidebarPages)
-      console.log(this.props)
       if (true) {
         try {
         } catch (error) {
@@ -28,7 +27,6 @@ export default function (ChildComponent, withAuth = false) {
 
     checkSidebarPages = (sidebarPages) => {
       getAllSidebarPages().then((res) => {
-        console.log("res2", res);
         this.props.loadSidebarInfo(res)
       })
     }
@@ -36,7 +34,6 @@ export default function (ChildComponent, withAuth = false) {
     checkPages = (pages) => {
       if (pages.templates.length === 0) {
         getAllPages().then((res) => {
-          console.log("res", res);
           this.props.loadPagesInfo(res);
         });
       }
