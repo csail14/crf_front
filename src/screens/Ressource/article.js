@@ -173,6 +173,29 @@ const Article = (props) => {
   }, []);
 
   const articleId = props.match.params.id;
+  const domaineAction =
+    article && article.acf && article.acf.domaine_daction_principal
+      ? props.taxonomie.domainesActions.filter(
+          (item) => item.id === article.acf.domaine_daction_principal
+        )[0]
+      : null;
+
+  const domaineImpact =
+    article && article.acf && article.acf.domaine_dimpact_principal
+      ? props.taxonomie
+        ? props.taxonomie.domainesImpacts.filter(
+            (item) => item.id === article.acf.domaine_dimpact_principal
+          )[0]
+        : null
+      : null;
+
+  let tags = article && article.tags;
+
+  if (tags && props.taxonomie && props.taxonomie.tags.length) {
+    tags = tags.map((item) => {
+      return props.taxonomie.tags.filter((el) => el.id === item)[0];
+    });
+  }
   return (
     <MainContainer>
       <HeaderContainer>
@@ -184,17 +207,21 @@ const Article = (props) => {
         <RightSideContainer>
           <HeaderRightSideTopContainer>
             <CategoryContainer>
-              <Category>automonie</Category>
+              {domaineAction && <Category>{domaineAction.name}</Category>}
               <BsDot />
-              <Domaine>ehpad</Domaine>
+              {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
             </CategoryContainer>
             <TitleContainer>
               {article !== null && article.title.rendered}
             </TitleContainer>
-            <TagContainer>
-              <BsTags style={{ marginRight: "8px" }} />
-              Repères
-            </TagContainer>
+            {tags && (
+              <TagContainer>
+                <BsTags style={{ marginRight: "8px" }} />
+                {tags.map((item) => {
+                  return item.name + ", ";
+                })}
+              </TagContainer>
+            )}
           </HeaderRightSideTopContainer>
 
           <HeaderRightSideBottomContainer>
