@@ -56,6 +56,17 @@ export const getArticleById = async (id) => {
     });
 };
 
+export const getMediaById = async (id) => {
+  return axios
+    .get(config.api_url + "/wp/v2/media/" + id)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getAllTags = async () => {
   return axios
     .get(config.api_url + "/wp/v2/tags")

@@ -8,7 +8,7 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
-import { getDocumentById } from "../../utils/api/API";
+import { getDocumentById, getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import DOMPurify from "dompurify";
 require("moment/locale/fr.js");
@@ -86,7 +86,7 @@ const Domaine = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  font-size: 45px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
@@ -194,12 +194,21 @@ const AddLikeContainer = styled.div`
 `;
 const Document = (props) => {
   const [document, setDocument] = useState(null);
+  const [media, setMedia] = useState(null);
 
   useEffect(() => {
     getDocumentById(documentId)
       .then((res) => setDocument(res))
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    if (document) {
+      getMediaById(document.featured_media)
+        .then((res) => setMedia(res))
+        .catch((error) => console.log("res", error));
+    }
+  }, [document]);
 
   const documentId = props.match.params.id;
   const domaineAction =
@@ -236,8 +245,12 @@ const Document = (props) => {
       <HeaderContainer>
         <img
           style={{ maxWidth: "45%", height: "auto" }}
-          src={imageExemple}
-          alt="A la une"
+          src={
+            media && media.media_details
+              ? media.media_details.sizes.full.source_url
+              : imageExemple
+          }
+          alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
           <HeaderRightSideTopContainer>
