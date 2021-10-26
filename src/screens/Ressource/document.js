@@ -11,6 +11,7 @@ import GridResultComponent from "../../components/Resultats/gridResultComponent"
 import { getDocumentById, getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import Comments from "../../components/Ressource/Comments";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
@@ -117,20 +118,11 @@ const UpdateContainer = styled.div`
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: 100px 80px;
+  padding: 100px 280px;
 `;
 
 const LeftSideBodyComponent = styled.div`
   margin: auto;
-`;
-const RightSideBodyContainer = styled.div``;
-
-const TitleBodyContainer = styled.div`
-  font-size: 35px;
-  font-weight: 700;
-  line-height: 58px;
-  color: ${colors.marine};
-  text-align: left;
 `;
 
 const ContentContainer = styled.div`
@@ -174,6 +166,7 @@ const UploadButton = styled.div`
   font-weight: 700;
   padding: 17px 29px;
   cursor: pointer;
+  max-width: max-content;
 `;
 
 const AvailableRessourceContainer = styled.div`
@@ -188,6 +181,7 @@ const AddLikeContainer = styled.div`
   margin: 50px auto;
   padding: 27px;
   justify-content: center;
+  font-weight: 700;
   align-items: center;
   border-top: 0.5px solid lightGrey;
   border-bottom: 0.5px solid lightGrey;
@@ -367,6 +361,7 @@ const Document = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
+          <Comments />
         </LeftSideBodyComponent>
       </BodyContainer>
       <BottomContainer>

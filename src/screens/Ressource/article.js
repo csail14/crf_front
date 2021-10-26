@@ -9,6 +9,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import { getArticleById, getMediaById } from "../../utils/api/API";
+import Comments from "../../components/Ressource/Comments";
 import moment from "moment";
 import DOMPurify from "dompurify";
 require("moment/locale/fr.js");
@@ -164,6 +165,7 @@ const TitleRessourceContainer = styled.div`
 `;
 const AddLikeContainer = styled.div`
   display: flex;
+  font-weight: 700;
   margin: 50px auto;
   padding: 27px;
   justify-content: center;
@@ -331,6 +333,7 @@ const Article = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
+          <Comments />
         </LeftSideBodyComponent>
         <RightSideBodyContainer>
           <TitleRessourceContainer>
