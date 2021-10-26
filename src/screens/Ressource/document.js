@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import imageExemple from "../../assets/exemple-image.png";
-import { BsDot } from "react-icons/bs";
+import { BsDot, BsDownload } from "react-icons/bs";
 import { colors } from "../../colors";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
@@ -164,11 +164,33 @@ const BottomTitleContainer = styled.div`
   font-weight: 600;
 `;
 
+const UploadButton = styled.div`
+  display: flex;
+  margin: auto;
+  text-transform: uppercase;
+  font-size: 14px;
+  background-color: ${colors.rouge};
+  color: white;
+  font-weight: 700;
+  padding: 17px 29px;
+  cursor: pointer;
+`;
+
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
   margin: 0 auto;
+`;
+
+const AddLikeContainer = styled.div`
+  display: flex;
+  margin: 50px auto;
+  padding: 27px;
+  justify-content: center;
+  align-items: center;
+  border-top: 0.5px solid lightGrey;
+  border-bottom: 0.5px solid lightGrey;
 `;
 const Document = (props) => {
   const [document, setDocument] = useState(null);
@@ -203,7 +225,12 @@ const Document = (props) => {
       return props.taxonomie.tags.filter((el) => el.id === item)[0];
     });
   }
-  console.log("document", document);
+
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
+
   return (
     <MainContainer>
       <HeaderContainer>
@@ -299,6 +326,34 @@ const Document = (props) => {
             pouvoirs publics, bailleurs, partenaires financiers – en rendant
             compte de nos actions.
           </ContentContainer> */}
+          {document &&
+            document.acf &&
+            document.acf.document &&
+            document.acf.document.fichier_joint.subtype === "pdf" && (
+              <UploadButton
+                onClick={() => {
+                  openInNewTab(document.acf.document.fichier_joint.url);
+                }}
+              >
+                <BsDownload style={{ marginRight: "8px" }} />
+                Télécharger le document PDF
+              </UploadButton>
+            )}
+          <AddLikeContainer>
+            Cette ressource vous a inspiré ?{" "}
+            <AiOutlineLike
+              size={18}
+              color={colors.gris}
+              style={{ marginRight: "7px", marginLeft: "7px" }}
+              cursor={"pointer"}
+            />
+            <AiOutlineDislike
+              size={18}
+              color={colors.gris}
+              style={{ marginRight: "7px" }}
+              cursor={"pointer"}
+            />
+          </AddLikeContainer>
         </LeftSideBodyComponent>
       </BodyContainer>
       <BottomContainer>

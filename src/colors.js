@@ -5,4 +5,5 @@ export const colors = {
   gris: "#667385",
   rouge: "#E30613",
   text: "#373737",
+  yellowBackground: "#FFFAE8",
 };

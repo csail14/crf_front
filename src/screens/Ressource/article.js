@@ -188,7 +188,9 @@ const Article = (props) => {
               <BsDot />
               <Domaine>ehpad</Domaine>
             </CategoryContainer>
-            <TitleContainer>{article && article.title.rendered}</TitleContainer>
+            <TitleContainer>
+              {article !== null && article.title.rendered}
+            </TitleContainer>
             <TagContainer>
               <BsTags style={{ marginRight: "8px" }} />
               Repères

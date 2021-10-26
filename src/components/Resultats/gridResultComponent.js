@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import resultImage from "../../assets/resultImage.png";
 import styled from "styled-components";
-import { BsDot } from "react-icons/bs";
+import { BsDot, BsDownload } from "react-icons/bs";
 import { BsTags } from "react-icons/bs";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
+
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
@@ -17,10 +18,19 @@ require("moment/locale/fr.js");
 const MainContainer = styled.div`
   margin: 10px;
   max-width: 350px;
+  position: relative;
+  box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
+`;
+
+const IconContainer = styled.div`
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background-color: ${colors.yellowBackground};
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
 `;
 const ImageContainer = styled.div`
   background-color: #f7f9fa;
-  border: 0.5 solid black;
 `;
 const DetailsContainer = styled.div`
   padding: 30px 22px;
@@ -101,9 +111,22 @@ const Comment = styled.div`
   font-weight: 400;
   text-align: left;
 `;
+
+const UploadContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.yellowBackground};
+  padding: 20px;
+  font-weight: 700;
+  color: ${colors.marine};
+`;
 const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
-
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
   useEffect(() => {
     if (props.info) {
       getRessourceById(
@@ -149,6 +172,7 @@ const GridResultComponent = (props) => {
         style={{ textDecoration: "none" }}
       >
         <ImageContainer>
+          <IconContainer />
           <img src={resultImage} alt="result-illu" />
         </ImageContainer>
         <DetailsContainer>
@@ -209,6 +233,23 @@ const GridResultComponent = (props) => {
             </PostInfoContainer>
           </BottomContainer>
         </DetailsContainer>
+        {details && details.acf && details.acf.document && (
+          <UploadContainer
+            onClick={() => {
+              openInNewTab(details.acf.document.fichier_joint.url);
+            }}
+          >
+            <BsDownload style={{ marginRight: "8px" }} />
+            TÉLÉCHARGER
+            <div style={{ color: "grey", marginLeft: "5px" }}>
+              {"(" +
+                (details.acf.document.fichier_joint.filesize / 10000).toFixed(
+                  1
+                )}{" "}
+              Mo)
+            </div>
+          </UploadContainer>
+        )}
       </Link>
     </MainContainer>
   );
