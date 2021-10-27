@@ -1,13 +1,16 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useState, useEffect } from "react";
-import { getAllPages, getAllSidebarPages,  getAllTags,
+import {
+  getAllPages,
+  getAllSidebarPages,
+  getAllTags,
   getAllDomainesActions,
-  getAllDomainesImpacts, } from "./api/API";
+  getAllDomainesImpacts,
+} from "./api/API";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loadPagesInfo, loadSidebarInfo } from "../actions/pages/pagesActions";
-import { loadTaxoInfo } from "../actions/taxonomie/taxonomieActions";
-
+import { loadTaxoInfo } from "../actions/Taxonomie/taxonomieActions";
 
 export default function (ChildComponent, withAuth = false) {
   class RequireAuth extends React.Component {
@@ -22,7 +25,7 @@ export default function (ChildComponent, withAuth = false) {
     componentDidMount = async () => {
       this.checkPages(this.props.pages);
       this.checkSidebarPages(this.props.sidebarPages);
-            this.checkTaxo(this.props.taxonomie);
+      this.checkTaxo(this.props.taxonomie);
       if (true) {
         try {
         } catch (error) {
@@ -33,9 +36,9 @@ export default function (ChildComponent, withAuth = false) {
 
     checkSidebarPages = (sidebarPages) => {
       getAllSidebarPages().then((res) => {
-        this.props.loadSidebarInfo(res)
-      })
-    }
+        this.props.loadSidebarInfo(res);
+      });
+    };
 
     checkPages = (pages) => {
       if (pages.templates.length === 0) {
@@ -77,7 +80,6 @@ export default function (ChildComponent, withAuth = false) {
     loadSidebarInfo,
 
     loadTaxoInfo,
-
   };
 
   const mapStateToProps = (store) => {
@@ -87,7 +89,6 @@ export default function (ChildComponent, withAuth = false) {
       sidebarPages: store.sidebarPages,
 
       taxonomie: store.taxonomie,
-
     };
   };
 

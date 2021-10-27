@@ -1,4 +1,4 @@
-import { LOAD_TAXO_INFO } from "../actions/taxonomie/action-type";
+import { LOAD_TAXO_INFO } from "../actions/Taxonomie/action-type";
 
 const initialState = {
   tags: [],
