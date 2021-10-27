@@ -11,7 +11,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
-import { getRessourceById } from "../../utils/api/API";
+import { getRessourceById } from "../../utils/api/RessourcesApi";
 import { Link } from "react-router-dom";
 require("moment/locale/fr.js");
 

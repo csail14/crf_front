@@ -6,7 +6,7 @@ import { BsFillTriangleFill } from "react-icons/bs";
 import { colors } from "../../colors";
 import { useHistory } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { getRessourceById } from "../../utils/api/API";
+import { getRessourceById } from "../../utils/api/RessourcesApi";
 require("moment/locale/fr.js");
 
 const LinkContainer = styled.div`
