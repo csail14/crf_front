@@ -59,7 +59,7 @@ function useHover() {
   return [ref, value];
 }
 
-const IndicateurDetails = (props) => {
+const ApercuDomaine = (props) => {
   const [hoverRef, isHovered] = useHover();
   let history = useHistory();
 
@@ -92,4 +92,4 @@ const mapDispatchToProps = {};
 const mapStateToProps = (store) => {
   return {};
 };
-export default connect(mapStateToProps, mapDispatchToProps)(IndicateurDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(ApercuDomaine);

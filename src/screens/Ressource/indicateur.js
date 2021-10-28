@@ -11,6 +11,7 @@ import { getRessourceById } from "../../utils/api/RessourcesApi";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
+import DomaineListDeroulante from "../../components/Ressource/DomainesListDeroulante";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -41,16 +42,6 @@ const MainContainer = styled.div`
 const LeftSideComponent = styled.div`
   display: flex;
   padding: 100px 85px;
-`;
-
-const ListDomainContainer = styled.div`
-  display: flex;
-  padding: 20px;
-  background: #ffffff;
-  height: fit-content;
-  box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
-  min-width: 220px;
-  justify-content: center;
 `;
 
 const LastUpdateContainer = styled.div`
@@ -205,15 +196,6 @@ const ArianeContainer = styled.div`
   padding-bottom: 40px;
 `;
 
-const DomainesTitle = styled.div`
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 130%;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: ${colors.marine};
-`;
-
 const TitleBodyContainer = styled.div`
   font-weight: bold;
   font-size: 18px;
@@ -260,14 +242,11 @@ const Indicateur = (props) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
   };
-  console.log("indicateur", indicateur);
   return (
     <>
       <MainContainer>
         <LeftSideComponent>
-          <ListDomainContainer>
-            <DomainesTitle>Les domaines d’impact</DomainesTitle>
-          </ListDomainContainer>
+          <DomaineListDeroulante indicateurId={indicateurId} />
         </LeftSideComponent>
         <RightSideContainer>
           <HeaderRightSideTopContainer>
@@ -395,8 +374,8 @@ const Indicateur = (props) => {
             indicateur.acf &&
             indicateur.acf.ressources_liees &&
             indicateur.acf.ressources_liees.length &&
-            indicateur.acf.ressources_liees.map((item) => {
-              return <GridResultComponent info={item} />;
+            indicateur.acf.ressources_liees.map((item, index) => {
+              return <GridResultComponent info={item} key={index} />;
             })}
         </AvailableRessourceContainer>
       </BottomContainer>

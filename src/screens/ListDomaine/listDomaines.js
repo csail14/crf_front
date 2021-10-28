@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import IndicateurDetails from "./indicateurDetails";
+import ApercuDomaine from "./domaineApercu";
 import styled from "styled-components";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
@@ -48,7 +48,7 @@ const BodyContainer = styled.div`
   margin-top: -25px;
 `;
 
-const ListIndicateur = (props) => {
+const ListDomaines = (props) => {
   const template = props.pages.templates.length
     ? props.pages.templates.filter(
         (template) => template.slug === "liste-des-indicateurs"
@@ -76,7 +76,7 @@ const ListIndicateur = (props) => {
         {props.taxonomie &&
           props.taxonomie.domainesImpacts &&
           props.taxonomie.domainesImpacts.map((item, index) => {
-            return <IndicateurDetails info={item} key={index} />;
+            return <ApercuDomaine info={item} key={index} />;
           })}
       </BodyContainer>
     </MainContainer>
@@ -92,4 +92,4 @@ const mapStateToProps = (store) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListIndicateur);
+export default connect(mapStateToProps, mapDispatchToProps)(ListDomaines);

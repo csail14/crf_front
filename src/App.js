@@ -13,7 +13,7 @@ import Document from "./screens/Ressource/document";
 import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
 import HOC from "./utils/hoc";
-import ListIndicateur from "./screens/ListIndicateur/listIndicateur";
+import ListDomaines from "./screens/ListDomaine/listDomaines";
 import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
@@ -45,7 +45,7 @@ function App() {
             <Route
               exact
               path="/liste-des-indicateurs"
-              component={HOC(ListIndicateur)}
+              component={HOC(ListDomaines)}
             />
           </Switch>
           <Footer />

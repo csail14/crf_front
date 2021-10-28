@@ -1,14 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import logoBandeauCroixRouge from "../../assets/logoBandeauCroixRouge.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { colors } from "../../colors";
 import SidebarSearch from "./SidebarSearch";
 import AccountContact from "./account_contact";
-import store from "../../store";
 import Dropdown from "./Dropdown";
-import OptionsReducer from "../../reducers/optionsReducer";
 
 const ImageContainer = styled.div`
   margin: 22px 40px;
