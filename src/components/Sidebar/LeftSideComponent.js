@@ -8,6 +8,7 @@ import SidebarSearch from "./SidebarSearch";
 import AccountContact from "./account_contact";
 import store from "../../store";
 import Dropdown from "./Dropdown";
+import OptionsReducer from "../../reducers/optionsReducer";
 
 const ImageContainer = styled.div`
   margin: 22px 40px;
@@ -29,15 +30,19 @@ const MainContainer = styled.div`
 class LeftSideComponent extends React.Component {
   constructor(props) {
     super(props);
-    store.subscribe(() => {
-      this.setState({
-        sidebarPages: store.getState().sidebarPages,
-      });
-    });
+    this.state = { sidebarPages: null };
   }
 
   componentDidMount() {
     this._ismounted = true;
+  }
+
+  componentDidUpdate() {
+    if (this.state.sidebarPages === null) {
+      this.setState({
+        sidebarPages: this.props.sidebarPages,
+      });
+    }
   }
 
   componentWillUnmount() {
@@ -46,7 +51,7 @@ class LeftSideComponent extends React.Component {
 
   render() {
     const getTitle = () => {
-      if (this._ismounted) {
+      if (this._ismounted && this.state.sidebarPages) {
         let pages = this.state.sidebarPages.templates.filter(
           (item) => item.menu_item_parent === "0"
         );
@@ -57,7 +62,7 @@ class LeftSideComponent extends React.Component {
     };
 
     const getSubItem = (id) => {
-      if (this._ismounted) {
+      if (this._ismounted && this.state.sidebarPages) {
         let pages = this.state.sidebarPages.templates.filter(
           (item) => item.menu_item_parent === "" + id
         );
@@ -72,11 +77,23 @@ class LeftSideComponent extends React.Component {
         <div>
           <ImageContainer>
             <Link to="/home">
-              <img src={logoBandeauCroixRouge} alt="logoBandeauCroixRouge" />
+              <img
+                style={{ maxWidth: "200px" }}
+                src={
+                  this.props.options &&
+                  this.props.options.options &&
+                  this.props.options.options.acf &&
+                  this.props.options.options.acf.logo.url
+                }
+                alt="logoBandeauCroixRouge"
+              />
             </Link>
           </ImageContainer>
           <div className={"sidebar_title"}>
-            <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>
+            <Link to="/home" style={{ textDecoration: "none" }}>
+              {" "}
+              <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>{" "}
+            </Link>
           </div>
           <SidebarSearch />
           <div className={"dropdown_container"}>
@@ -94,7 +111,14 @@ class LeftSideComponent extends React.Component {
             })}
           </div>
         </div>
-        <AccountContact />
+        <AccountContact
+          contact_info={
+            this.props.options &&
+            this.props.options.options &&
+            this.props.options.options.acf &&
+            this.props.options.options.acf.contact
+          }
+        />
       </MainContainer>
     );
   }
@@ -105,6 +129,7 @@ const mapDispatchToProps = {};
 const mapStateToProps = (store) => {
   return {
     sidebarPages: store.sidebarPages,
+    options: store.options,
   };
 };
 

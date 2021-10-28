@@ -35,18 +35,19 @@ const MainContainer = styled.div`
 
   background-size: 100% 250px;
   background-repeat: no-repeat;
-  padding-right: 50px;
+  padding-right: 100px;
 `;
 
 const LeftSideComponent = styled.div`
   display: flex;
-  padding: 120px 85px;
+  padding: 100px 85px;
 `;
 
 const ListDomainContainer = styled.div`
   display: flex;
   padding: 20px;
   background: #ffffff;
+  height: fit-content;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   min-width: 220px;
   justify-content: center;
@@ -68,7 +69,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: 50px 50px;
+  padding: 50px 0px;
 `;
 
 const Comment = styled.div`
@@ -122,18 +123,18 @@ const TagContainer = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: 15px 50px;
+  padding: 15px 0px;
   border-bottom: 0.5px solid lightgrey;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.div`
-  padding: 10px 50px 0 50px;
+  padding: 10px 0px 0 0px;
 `;
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: 50px 50px;
+  padding: 50px 0px;
 `;
 
 const LeftSideBodyComponent = styled.div`
@@ -212,6 +213,14 @@ const DomainesTitle = styled.div`
   text-transform: uppercase;
   color: ${colors.marine};
 `;
+
+const TitleBodyContainer = styled.div`
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 130%;
+  text-transform: uppercase;
+  margin-bottom: 34px;
+`;
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
 
@@ -251,7 +260,7 @@ const Indicateur = (props) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
   };
-
+  console.log("indicateur", indicateur);
   return (
     <>
       <MainContainer>
@@ -331,15 +340,32 @@ const Indicateur = (props) => {
 
               {indicateur &&
                 indicateur.acf &&
-                indicateur.acf.indicateur &&
-                indicateur.acf.indicateur.fichier_joint.subtype === "pdf" && (
+                indicateur.acf.dernier_resultat_connu && (
+                  <>
+                    <TitleBodyContainer>
+                      {indicateur.acf.dernier_resultat_connu.titre}
+                    </TitleBodyContainer>
+                    <ContentContainer
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          indicateur.acf.dernier_resultat_connu.texte
+                        ),
+                      }}
+                    />
+                  </>
+                )}
+
+              {indicateur &&
+                indicateur.acf &&
+                indicateur.acf.fiche_indicateur &&
+                indicateur.acf.fiche_indicateur.subtype === "pdf" && (
                   <UploadButton
                     onClick={() => {
-                      openInNewTab(indicateur.acf.document.fichier_joint.url);
+                      openInNewTab(indicateur.acf.fiche_indicateur.url);
                     }}
                   >
                     <BsDownload style={{ marginRight: "8px" }} />
-                    Télécharger le document PDF
+                    Télécharger la fiche complète de l’indicateur
                   </UploadButton>
                 )}
               <AddLikeContainer>
@@ -367,9 +393,9 @@ const Indicateur = (props) => {
         <AvailableRessourceContainer>
           {indicateur &&
             indicateur.acf &&
-            indicateur.acf.ressources_complementaires &&
-            indicateur.acf.ressources_complementaires.length &&
-            indicateur.acf.ressources_complementaires.map((item) => {
+            indicateur.acf.ressources_liees &&
+            indicateur.acf.ressources_liees.length &&
+            indicateur.acf.ressources_liees.map((item) => {
               return <GridResultComponent info={item} />;
             })}
         </AvailableRessourceContainer>
