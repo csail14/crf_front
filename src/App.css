@@ -176,6 +176,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 130%;
+  cursor: pointer;
   /* or 18px */
 
   text-transform: uppercase;

@@ -134,14 +134,6 @@ const ContentContainer = styled.div`
   text-align: left;
 `;
 
-const TitleRessourceContainer = styled.div`
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 23px;
-  letter-spacing: 0em;
-  text-align: left;
-  margin-bottom: 20px;
-`;
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
   display: flex;

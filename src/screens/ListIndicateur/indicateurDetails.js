@@ -63,8 +63,6 @@ const IndicateurDetails = (props) => {
   const [hoverRef, isHovered] = useHover();
   let history = useHistory();
 
-  console.log("props.info", props.info);
-
   // const url = "/" + props.info.post_type + "/" + props.info.ID;
   return (
     <LinkContainer ref={hoverRef} onClick={() => history.push("url")}>

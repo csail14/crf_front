@@ -54,7 +54,6 @@ const ListIndicateur = (props) => {
         (template) => template.slug === "liste-des-indicateurs"
       )[0]
     : null;
-  console.log("ptops", props);
   return (
     <MainContainer>
       <HeaderContainer>

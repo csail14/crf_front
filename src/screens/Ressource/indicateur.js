@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import imageExemple from "../../assets/exemple-image.png";
 import { BsDot, BsDownload } from "react-icons/bs";
 import { colors } from "../../colors";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
@@ -9,7 +8,6 @@ import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
-import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
