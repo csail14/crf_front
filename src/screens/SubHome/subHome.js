@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { MdArrowForwardIos } from "react-icons/md";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import styled from "styled-components";
-import union from "../../assets/union.png";
-import DOMPurify from "dompurify";
 
+import RightSideLinkContainer from "./RightSideLinkContainer";
+import DOMPurify from "dompurify";
+import { Link } from "react-router-dom";
 import { colors } from "../../colors";
 const MainContainer = styled.div`
   min-height: 100vh;
@@ -130,32 +131,36 @@ const SubHome = (props) => {
         )}
         <LinkMainContainer>
           <LinkTitleContainer>
-            {subHomeTemplate
-              ? subHomeTemplate.acf.dans_cette_rubrique.titre
+            {subHomeTemplate &&
+            subHomeTemplate.acf &&
+            subHomeTemplate.acf.dans_cette_rubrique_2
+              ? subHomeTemplate.acf.dans_cette_rubrique_2.titre
               : "Dans cette rubrique"}
           </LinkTitleContainer>
           {subHomeTemplate &&
-            subHomeTemplate.acf.dans_cette_rubrique.ressources.map((item) => {
-              return (
-                <LinkContainer>
-                  MANQUE LES INFOS DE LA RESSOURCE
-                  <MdArrowForwardIos style={{ color: colors.rouge }} />
-                </LinkContainer>
-              );
-            })}
+            subHomeTemplate.acf &&
+            subHomeTemplate.acf.dans_cette_rubrique_2 &&
+            subHomeTemplate.acf.dans_cette_rubrique_2.ressources.map(
+              (item, index) => {
+                return <RightSideLinkContainer info={item} key={index} />;
+              }
+            )}
         </LinkMainContainer>
       </BodyContainer>
       <BottomContainer>
         <BottomTitleContainer>
-          {subHomeTemplate
-            ? subHomeTemplate.acf["ressources disponibles"].titre
+          {subHomeTemplate &&
+          subHomeTemplate.acf &&
+          subHomeTemplate.acf.ressources_disponibles
+            ? subHomeTemplate.acf.ressources_disponibles.titre
             : "Les ressources disponibles"}
         </BottomTitleContainer>
         <AvailableRessourceContainer>
           {subHomeTemplate &&
-            subHomeTemplate.acf["ressources disponibles"].ressources.map(
-              (item) => {
-                return <GridResultComponent info={item} />;
+            subHomeTemplate.acf.ressources_disponibles &&
+            subHomeTemplate.acf.ressources_disponibles.ressources.map(
+              (item, index) => {
+                return <GridResultComponent key={index} info={item} />;
               }
             )}
         </AvailableRessourceContainer>

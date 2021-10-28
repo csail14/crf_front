@@ -2,24 +2,35 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import resultImage from "../../assets/resultImage.png";
 import styled from "styled-components";
-import { BsDot } from "react-icons/bs";
+import { BsDot, BsDownload } from "react-icons/bs";
 import { BsTags } from "react-icons/bs";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
+
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import { getRessourceById } from "../../utils/api/RessourcesApi";
 import { Link } from "react-router-dom";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
   margin: 10px;
   max-width: 350px;
+  position: relative;
+  box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
+`;
+
+const IconContainer = styled.div`
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background-color: ${colors.yellowBackground};
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
 `;
 const ImageContainer = styled.div`
   background-color: #f7f9fa;
-  border: 0.5 solid black;
 `;
 const DetailsContainer = styled.div`
   padding: 30px 22px;
@@ -100,8 +111,56 @@ const Comment = styled.div`
   font-weight: 400;
   text-align: left;
 `;
+
+const UploadContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.yellowBackground};
+  padding: 20px;
+  font-weight: 700;
+  color: ${colors.marine};
+`;
 const GridResultComponent = (props) => {
-  console.log(props.info);
+  const [details, setDetails] = useState(null);
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
+  useEffect(() => {
+    if (props.info) {
+      getRessourceById(
+        props.info.ID,
+        props.info.post_type === "post" ? "posts" : props.info.post_type
+      )
+        .then((res) => setDetails(res))
+        .catch((error) => console.log(error));
+    }
+  }, [props.info]);
+
+  const domaineAction =
+    details && details.acf && details.acf.domaine_daction_principal
+      ? props.taxonomie.domainesActions.filter(
+          (item) => item.id === details.acf.domaine_daction_principal
+        )[0]
+      : null;
+
+  const domaineImpact =
+    details && details.acf && details.acf.domaine_dimpact_principal
+      ? props.taxonomie
+        ? props.taxonomie.domainesImpacts.filter(
+            (item) => item.id === details.acf.domaine_dimpact_principal
+          )[0]
+        : null
+      : null;
+
+  let tags = details && details.tags;
+
+  if (tags && props.taxonomie && props.taxonomie.tags.length) {
+    tags = tags.map((item) => {
+      return props.taxonomie.tags.filter((el) => el.id === item)[0];
+    });
+  }
   return (
     <MainContainer>
       <Link
@@ -113,6 +172,7 @@ const GridResultComponent = (props) => {
         style={{ textDecoration: "none" }}
       >
         <ImageContainer>
+          <IconContainer />
           <img src={resultImage} alt="result-illu" />
         </ImageContainer>
         <DetailsContainer>
@@ -122,22 +182,26 @@ const GridResultComponent = (props) => {
               moment(props.info.post_modified).format("DD MMMM YYYY")}
           </LastUpdateContainer>
           <CategoryContainer>
-            <Category>automonie</Category>
+            {domaineAction && <Category>{domaineAction.name}</Category>}
             <BsDot />
-            <Domaine>ehpad</Domaine>
+            {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
           </CategoryContainer>
           <TitleContainer>{props.info && props.info.post_title}</TitleContainer>
-          {props.info && (
+          {details && details.acf && (
             <DescriptionContainer
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(props.info.post_content),
+                __html: DOMPurify.sanitize(details.acf.extrait),
               }}
             ></DescriptionContainer>
           )}
-          <TagContainer>
-            <BsTags style={{ marginRight: "8px" }} />
-            Repères
-          </TagContainer>
+          {tags && (
+            <TagContainer>
+              <BsTags style={{ marginRight: "8px" }} />
+              {tags.map((item) => {
+                return item.name + ", ";
+              })}
+            </TagContainer>
+          )}
           <BottomContainer>
             <PostInfoContainer>
               <div>
@@ -169,6 +233,23 @@ const GridResultComponent = (props) => {
             </PostInfoContainer>
           </BottomContainer>
         </DetailsContainer>
+        {details && details.acf && details.acf.document && (
+          <UploadContainer
+            onClick={() => {
+              openInNewTab(details.acf.document.fichier_joint.url);
+            }}
+          >
+            <BsDownload style={{ marginRight: "8px" }} />
+            TÉLÉCHARGER
+            <div style={{ color: "grey", marginLeft: "5px" }}>
+              {"(" +
+                (details.acf.document.fichier_joint.filesize / 10000).toFixed(
+                  1
+                )}{" "}
+              Mo)
+            </div>
+          </UploadContainer>
+        )}
       </Link>
     </MainContainer>
   );
@@ -177,9 +258,8 @@ const GridResultComponent = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { taxonomie: store.taxonomie };
 };
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps

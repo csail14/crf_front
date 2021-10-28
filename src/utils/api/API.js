@@ -1,31 +1,9 @@
 import axios from "axios";
 import { config } from "../../config";
 
-export const getAllPages = async () => {
-  return axios
-    .get(config.api_url + "/wp/v2/pages")
-    .then((response) => {
-      return response.data;
-    })
-    .catch((err) => {
-      return err;
-    });
-};
-
 export const getAllSidebarPages = async () => {
-    return axios
-        .get(config.api_url + "/wp/v2/menus/main")
-        .then((response) => {
-            return response.data;
-        })
-        .catch((err) => {
-            return err;
-        })
-}
-
-export const getDocumentById = async (id) => {
   return axios
-    .get(config.api_url + "/wp/v2/documents/" + id)
+    .get(config.api_url + "/wp/v2/menus/main")
     .then((response) => {
       return response.data;
     })
@@ -34,9 +12,9 @@ export const getDocumentById = async (id) => {
     });
 };
 
-export const getArticleById = async (id) => {
+export const getMediaById = async (id) => {
   return axios
-    .get(config.api_url + "/wp/v2/posts/" + id)
+    .get(config.api_url + "/wp/v2/media/" + id)
     .then((response) => {
       return response.data;
     })
@@ -70,6 +48,28 @@ export const getAllDomainesActions = async () => {
 export const getAllDomainesImpacts = async () => {
   return axios
     .get(config.api_url + "/wp/v2/domaine-impact")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getAllOptions = async () => {
+  return axios
+    .get(config.api_url + "/acf/v3/options/options")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getFooterMenu = async () => {
+  return axios
+    .get(config.api_url + "/wp/v2/menus/footer")
     .then((response) => {
       return response.data;
     })

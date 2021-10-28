@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import imageExemple from "../../assets/exemple-image.png";
-import { BsDot } from "react-icons/bs";
+import { BsDot, BsDownload } from "react-icons/bs";
 import { colors } from "../../colors";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
-import { getDocumentById } from "../../utils/api/API";
+import { getDocumentById } from "../../utils/api/RessourcesApi";
+import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import Comments from "../../components/Ressource/Comments";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
@@ -86,7 +88,7 @@ const Domaine = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  font-size: 45px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
@@ -117,20 +119,11 @@ const UpdateContainer = styled.div`
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: 100px 80px;
+  padding: 100px 280px;
 `;
 
 const LeftSideBodyComponent = styled.div`
   margin: auto;
-`;
-const RightSideBodyContainer = styled.div``;
-
-const TitleBodyContainer = styled.div`
-  font-size: 35px;
-  font-weight: 700;
-  line-height: 58px;
-  color: ${colors.marine};
-  text-align: left;
 `;
 
 const ContentContainer = styled.div`
@@ -164,14 +157,39 @@ const BottomTitleContainer = styled.div`
   font-weight: 600;
 `;
 
+const UploadButton = styled.div`
+  display: flex;
+  margin: auto;
+  text-transform: uppercase;
+  font-size: 14px;
+  background-color: ${colors.rouge};
+  color: white;
+  font-weight: 700;
+  padding: 17px 29px;
+  cursor: pointer;
+  max-width: max-content;
+`;
+
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
   margin: 0 auto;
 `;
+
+const AddLikeContainer = styled.div`
+  display: flex;
+  margin: 50px auto;
+  padding: 27px;
+  justify-content: center;
+  font-weight: 700;
+  align-items: center;
+  border-top: 0.5px solid lightGrey;
+  border-bottom: 0.5px solid lightGrey;
+`;
 const Document = (props) => {
   const [document, setDocument] = useState(null);
+  const [media, setMedia] = useState(null);
 
   useEffect(() => {
     getDocumentById(documentId)
@@ -179,30 +197,74 @@ const Document = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    if (document) {
+      getMediaById(document.featured_media)
+        .then((res) => setMedia(res))
+        .catch((error) => console.log("res", error));
+    }
+  }, [document]);
+
   const documentId = props.match.params.id;
-  console.log(document);
+  const domaineAction =
+    document && document.acf && document.acf.domaine_daction_principal
+      ? props.taxonomie.domainesActions.filter(
+          (item) => item.id === document.acf.domaine_daction_principal
+        )[0]
+      : null;
+
+  const domaineImpact =
+    document && document.acf && document.acf.domaine_dimpact_principal
+      ? props.taxonomie
+        ? props.taxonomie.domainesImpacts.filter(
+            (item) => item.id === document.acf.domaine_dimpact_principal
+          )[0]
+        : null
+      : null;
+
+  let tags = document && document.tags;
+
+  if (tags && props.taxonomie && props.taxonomie.tags.length) {
+    tags = tags.map((item) => {
+      return props.taxonomie.tags.filter((el) => el.id === item)[0];
+    });
+  }
+
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
+
   return (
     <MainContainer>
       <HeaderContainer>
         <img
           style={{ maxWidth: "45%", height: "auto" }}
-          src={imageExemple}
-          alt="A la une"
+          src={
+            media && media.media_details
+              ? media.media_details.sizes.full.source_url
+              : imageExemple
+          }
+          alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
           <HeaderRightSideTopContainer>
             <CategoryContainer>
-              <Category>automonie</Category>
+              {domaineAction && <Category>{domaineAction.name}</Category>}
               <BsDot />
-              <Domaine>ehpad</Domaine>
+              {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
             </CategoryContainer>
             <TitleContainer>
               {document && document.title.rendered}
             </TitleContainer>
-            <TagContainer>
-              <BsTags style={{ marginRight: "8px" }} />
-              Repères
-            </TagContainer>
+            {tags && (
+              <TagContainer>
+                <BsTags style={{ marginRight: "8px" }} />
+                {tags.map((item) => {
+                  return item.name + ", ";
+                })}
+              </TagContainer>
+            )}
           </HeaderRightSideTopContainer>
 
           <HeaderRightSideBottomContainer>
@@ -272,6 +334,35 @@ const Document = (props) => {
             pouvoirs publics, bailleurs, partenaires financiers – en rendant
             compte de nos actions.
           </ContentContainer> */}
+          {document &&
+            document.acf &&
+            document.acf.document &&
+            document.acf.document.fichier_joint.subtype === "pdf" && (
+              <UploadButton
+                onClick={() => {
+                  openInNewTab(document.acf.document.fichier_joint.url);
+                }}
+              >
+                <BsDownload style={{ marginRight: "8px" }} />
+                Télécharger le document PDF
+              </UploadButton>
+            )}
+          <AddLikeContainer>
+            Cette ressource vous a inspiré ?{" "}
+            <AiOutlineLike
+              size={18}
+              color={colors.gris}
+              style={{ marginRight: "7px", marginLeft: "7px" }}
+              cursor={"pointer"}
+            />
+            <AiOutlineDislike
+              size={18}
+              color={colors.gris}
+              style={{ marginRight: "7px" }}
+              cursor={"pointer"}
+            />
+          </AddLikeContainer>
+          <Comments />
         </LeftSideBodyComponent>
       </BodyContainer>
       <BottomContainer>
@@ -292,7 +383,7 @@ const Document = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { taxonomie: store.taxonomie };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Document);

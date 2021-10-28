@@ -1,19 +1,51 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import styled from "styled-components";
+import { colors } from "../colors";
 
+const MainContainer = styled.div`
+  padding: 18px;
+  background-color: ${colors.grisBackground};
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  line-height: 19px;
+`;
 class Header extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const copyright =
+      this.props.options &&
+      this.props.options.options &&
+      this.props.options.options.acf &&
+      this.props.options.options.acf.copyright;
+    const menu = this.props.options && this.props.options.footerMenu;
     return (
-      <header className="footer">
-        <nav>
-          <Link to="/">Footer Link</Link>
-        </nav>
-      </header>
+      <MainContainer>
+        <div>
+          {menu &&
+            menu.map((item, index) => {
+              const url = item.url.replace(
+                "https://pmis-wp.laguildedupixel.fr",
+                ""
+              );
+              return (
+                <Link
+                  key={index}
+                  style={{ textDecoration: "none", marginRight: "10px" }}
+                  to={url}
+                >
+                  {item.title}
+                </Link>
+              );
+            })}
+        </div>
+        <div>{copyright}</div>
+      </MainContainer>
     );
   }
 }
@@ -21,7 +53,7 @@ class Header extends React.Component {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { options: store.options };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

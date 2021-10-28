@@ -4,11 +4,13 @@ import styled from "styled-components";
 import imageExemple from "../../assets/exemple-image.png";
 import { BsDot } from "react-icons/bs";
 import { colors } from "../../colors";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
-import { getArticleById } from "../../utils/api/API";
+import { getMediaById } from "../../utils/api/API";
+import { getArticleById } from "../../utils/api/RessourcesApi";
+import Comments from "../../components/Ressource/Comments";
 import moment from "moment";
 import DOMPurify from "dompurify";
 require("moment/locale/fr.js");
@@ -107,7 +109,7 @@ const Domaine = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  font-size: 45px;
+  font-size: 35px;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
@@ -162,9 +164,20 @@ const TitleRessourceContainer = styled.div`
   text-align: left;
   margin-bottom: 20px;
 `;
+const AddLikeContainer = styled.div`
+  display: flex;
+  font-weight: 700;
+  margin: 50px auto;
+  padding: 27px;
+  justify-content: center;
+  align-items: center;
+  border-top: 0.5px solid lightGrey;
+  border-bottom: 0.5px solid lightGrey;
+`;
 
 const Article = (props) => {
   const [article, setArticle] = useState(null);
+  const [media, setMedia] = useState(null);
 
   useEffect(() => {
     getArticleById(articleId)
@@ -172,27 +185,70 @@ const Article = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    if (article) {
+      getMediaById(article.featured_media)
+        .then((res) => setMedia(res))
+        .catch((error) => console.log("res", error));
+    }
+  }, [article]);
+
   const articleId = props.match.params.id;
+
+  const domaineAction =
+    article && article.acf && article.acf.domaine_daction_principal
+      ? props.taxonomie.domainesActions.filter(
+          (item) => item.id === article.acf.domaine_daction_principal
+        )[0]
+      : null;
+
+  const domaineImpact =
+    article && article.acf && article.acf.domaine_dimpact_principal
+      ? props.taxonomie
+        ? props.taxonomie.domainesImpacts.filter(
+            (item) => item.id === article.acf.domaine_dimpact_principal
+          )[0]
+        : null
+      : null;
+
+  let tags = article && article.tags;
+
+  if (tags && props.taxonomie && props.taxonomie.tags.length) {
+    tags = tags.map((item) => {
+      return props.taxonomie.tags.filter((el) => el.id === item)[0];
+    });
+  }
+
   return (
     <MainContainer>
       <HeaderContainer>
         <img
           style={{ maxWidth: "45%", height: "auto" }}
-          src={imageExemple}
-          alt="A la une"
+          src={
+            media && media.media_details
+              ? media.media_details.sizes.full.source_url
+              : imageExemple
+          }
+          alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
           <HeaderRightSideTopContainer>
             <CategoryContainer>
-              <Category>automonie</Category>
+              {domaineAction && <Category>{domaineAction.name}</Category>}
               <BsDot />
-              <Domaine>ehpad</Domaine>
+              {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
             </CategoryContainer>
-            <TitleContainer>{article && article.title.rendered}</TitleContainer>
-            <TagContainer>
-              <BsTags style={{ marginRight: "8px" }} />
-              Repères
-            </TagContainer>
+            <TitleContainer>
+              {article !== null && article.title.rendered}
+            </TitleContainer>
+            {tags && (
+              <TagContainer>
+                <BsTags style={{ marginRight: "8px" }} />
+                {tags.map((item) => {
+                  return item.name + ", ";
+                })}
+              </TagContainer>
+            )}
           </HeaderRightSideTopContainer>
 
           <HeaderRightSideBottomContainer>
@@ -262,6 +318,23 @@ const Article = (props) => {
             pouvoirs publics, bailleurs, partenaires financiers – en rendant
             compte de nos actions.
           </ContentContainer> */}
+
+          <AddLikeContainer>
+            Cette ressource vous a inspiré ?{" "}
+            <AiOutlineLike
+              size={18}
+              color={colors.gris}
+              style={{ marginRight: "7px", marginLeft: "7px" }}
+              cursor={"pointer"}
+            />
+            <AiOutlineDislike
+              size={18}
+              color={colors.gris}
+              style={{ marginRight: "7px" }}
+              cursor={"pointer"}
+            />
+          </AddLikeContainer>
+          <Comments />
         </LeftSideBodyComponent>
         <RightSideBodyContainer>
           <TitleRessourceContainer>
