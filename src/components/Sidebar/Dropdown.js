@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai'
 import {BsChevronDown, BsChevronUp} from "react-icons/bs";
 class Dropdown extends Component {
     container = React.createRef()
