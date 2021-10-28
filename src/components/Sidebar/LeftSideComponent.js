@@ -155,7 +155,7 @@ class LeftSideComponent extends React.Component {
                     <SidebarSearch/>
                     <div className={"dropdown_container"}>
                         {getTitle().map((item) => {
-                            return <Dropdown title={item.title} />
+                            return <Dropdown key={`dropdown_title${item.ID}`} title={item.title} />
                         })}
                     </div>
                 </div>

@@ -216,6 +216,7 @@
 }
 
 .dropdown_title {
+  text-align: left;
   font-family: Raleway, serif;
   font-style: normal;
   font-weight: bold;
