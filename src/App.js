@@ -13,7 +13,7 @@ import Document from "./screens/Ressource/document";
 import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
 import HOC from "./utils/hoc";
-import store from "./store";
+import ListIndicateur from "./screens/ListIndicateur/listIndicateur";
 import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
@@ -42,6 +42,11 @@ function App() {
             <Route exact path="/post/:id" component={HOC(Article)} />
             <Route exact path="/documents/:id" component={HOC(Document)} />
             <Route exact path="/indicateurs/:id" component={HOC(Indicateur)} />
+            <Route
+              exact
+              path="/liste-des-indicateurs"
+              component={HOC(ListIndicateur)}
+            />
           </Switch>
           <Footer />
         </BodyContainer>
