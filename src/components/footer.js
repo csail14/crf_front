@@ -13,10 +13,6 @@ const MainContainer = styled.div`
   line-height: 19px;
 `;
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const copyright =
       this.props.options &&

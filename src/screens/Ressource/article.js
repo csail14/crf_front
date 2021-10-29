@@ -186,10 +186,25 @@ const Article = (props) => {
   }, []);
 
   useEffect(() => {
-    if (article) {
+    if (article && article.featured_media) {
       getMediaById(article.featured_media)
-        .then((res) => setMedia(res))
+        .then((res) => setMedia(res.media_details.sizes.full.source_url))
         .catch((error) => console.log("res", error));
+    } else if (
+      domaineAction &&
+      domaineAction.acf &&
+      domaineAction.acf.image_par_defaut
+    ) {
+      setMedia(domaineAction.acf.image_par_defaut.sizes.article);
+    } else if (
+      props.options &&
+      props.options.options &&
+      props.options.options.acf &&
+      props.options.options.acf.image_par_defaut_ressources
+    ) {
+      setMedia(
+        props.options.options.acf.image_par_defaut_ressources.sizes.article
+      );
     }
   }, [article]);
 
@@ -219,16 +234,15 @@ const Article = (props) => {
     });
   }
 
+  const showCommment =
+    article && article.comment_status === "open" ? true : false;
+
   return (
     <MainContainer>
       <HeaderContainer>
         <img
           style={{ maxWidth: "45%", height: "auto" }}
-          src={
-            media && media.media_details
-              ? media.media_details.sizes.full.source_url
-              : imageExemple
-          }
+          src={media ? media : imageExemple}
           alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
@@ -294,30 +308,6 @@ const Article = (props) => {
               }}
             />
           )}
-          {/* <TitleBodyContainer>Titre H2</TitleBodyContainer>
-          <ContentContainer>
-            Le développement de la mesure d'impact à une échelle macro, s'il
-            représente un grand défi pour notre association, est aussi une
-            formidable opportunité pour la Croix-Rouge française de se
-            positionner comme un partenaire incontournable des pouvoirs publics
-            en attestant de la valeur sociale générée par ses actions. Plus
-            globalement, cet outil nous permettra de renforcer notre visibilité
-            et notre légitimité vis-à-vis de l'ensemble de nos partenaires –
-            pouvoirs publics, bailleurs, partenaires financiers – en rendant
-            compte de nos actions.
-          </ContentContainer>
-          <TitleBodyContainer>Titre H2</TitleBodyContainer>
-          <ContentContainer>
-            Le développement de la mesure d'impact à une échelle macro, s'il
-            représente un grand défi pour notre association, est aussi une
-            formidable opportunité pour la Croix-Rouge française de se
-            positionner comme un partenaire incontournable des pouvoirs publics
-            en attestant de la valeur sociale générée par ses actions. Plus
-            globalement, cet outil nous permettra de renforcer notre visibilité
-            et notre légitimité vis-à-vis de l'ensemble de nos partenaires –
-            pouvoirs publics, bailleurs, partenaires financiers – en rendant
-            compte de nos actions.
-          </ContentContainer> */}
 
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
@@ -334,7 +324,7 @@ const Article = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments />
+          <Comments postID={articleId} showCommment={showCommment} />
         </LeftSideBodyComponent>
         <RightSideBodyContainer>
           <TitleRessourceContainer>
@@ -342,8 +332,8 @@ const Article = (props) => {
           </TitleRessourceContainer>
           {article &&
             article.acf &&
-            article.acf.ressources_principales.map((item) => {
-              return <GridResultComponent info={item} />;
+            article.acf.ressources_principales.map((item, index) => {
+              return <GridResultComponent key={index} info={item} />;
             })}
         </RightSideBodyContainer>
       </BodyContainer>

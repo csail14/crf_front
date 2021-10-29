@@ -3,6 +3,11 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
+import { getCommentaireByPost } from "../../utils/api/RessourcesApi";
+import moment from "moment";
+import DOMPurify from "dompurify";
+require("moment/locale/fr.js");
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,53 +84,78 @@ const SendButton = styled.div`
 
 const Comments = (props) => {
   const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [allComments, setAllComments] = useState([]);
+  const [showAllComments, setShowAllComments] = useState(false);
+
+  useEffect(() => {
+    getCommentaireByPost(props.postID)
+      .then((res) => setAllComments(res))
+      .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    if (allComments.length < 6) {
+      setComments(allComments);
+    } else {
+      setComments(allComments.slice(0, 5));
+    }
+  }, [allComments]);
+
   const handleChange = (e) => {
     setNewComment(e.target.value);
   };
+
   return (
     <MainContainer>
-      <TitleContainer>2 commentaires</TitleContainer>
-      <CommentContainer>
-        <Title>
-          <Name>Estelle</Name>
-          <Date>16 septembre 2021 - 13:48</Date>
-        </Title>
-        <Contenu>
-          Nous candidatons avec le projet "Séniors et alors ?" à l'appel à
-          projets de recherche participative de la Fondation Jacqueline Maillan.
-          On nous demande de préciser l'impact social que nous pressentons pour
-          le projet. Merci pour cet article qui m'aide à y voir plus clair… mais
-          je n'exclue pas de vous contacter si je m'y perds tout de même ;-)
-        </Contenu>
-      </CommentContainer>
-      <CommentContainer>
-        <Title>
-          <Name>Estelle</Name>
-          <Date>16 septembre 2021 - 13:48</Date>
-        </Title>
-        <Contenu>
-          Nous candidatons avec le projet "Séniors et alors ?" à l'appel à
-          projets de recherche participative de la Fondation Jacqueline Maillan.
-          On nous demande de préciser l'impact social que nous pressentons pour
-          le projet. Merci pour cet article qui m'aide à y voir plus clair… mais
-          je n'exclue pas de vous contacter si je m'y perds tout de même ;-)
-        </Contenu>
-      </CommentContainer>
-      <MoreCommentContainer>
-        Voir tous les commentaires{" "}
-        <MdArrowForwardIos style={{ marginLeft: "5px" }} />
-      </MoreCommentContainer>
-      <form>
-        <textarea
-          type="text"
-          name="comment"
-          className="textArea"
-          value={newComment}
-          onChange={handleChange}
-          placeholder={"Saisissez votre commentaire ici..."}
-        />
-      </form>
-      <SendButton>Laisser un commentaire</SendButton>
+      <TitleContainer>
+        {allComments.length
+          ? allComments.length + " commentaires"
+          : "0 commentaire"}
+      </TitleContainer>
+      {(showAllComments
+        ? allComments && allComments
+        : comments && comments
+      ).map((item, index) => {
+        return (
+          <CommentContainer key={index}>
+            <Title>
+              <Name>{item.author_name}</Name>
+              <Date> {moment(item.date).format("DD MMMM YYYY - HH:mm")}</Date>
+            </Title>
+            <Contenu
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(item.content.rendered),
+              }}
+            />
+          </CommentContainer>
+        );
+      })}
+      {allComments.length > 5 && (
+        <MoreCommentContainer
+          onClick={() => setShowAllComments(!showAllComments)}
+        >
+          {showAllComments
+            ? "Voir moins de commentaires"
+            : "Voir tous les commentaires"}{" "}
+          <MdArrowForwardIos style={{ marginLeft: "5px" }} />
+        </MoreCommentContainer>
+      )}
+      {props.showCommment && (
+        <>
+          <form>
+            <textarea
+              type="text"
+              name="comment"
+              className="textArea"
+              value={newComment}
+              onChange={handleChange}
+              placeholder={"Saisissez votre commentaire ici..."}
+            />
+          </form>
+          <SendButton>Laisser un commentaire</SendButton>
+        </>
+      )}
     </MainContainer>
   );
 };

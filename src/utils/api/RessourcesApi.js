@@ -44,3 +44,14 @@ export const getArticleById = async (id) => {
       return err;
     });
 };
+
+export const getCommentaireByPost = async (id) => {
+  return axios
+    .get(config.api_url + "/wp/v2/comments?post=" + id)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};

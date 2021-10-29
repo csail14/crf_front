@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import resultImage from "../../assets/resultImage.png";
 import styled from "styled-components";
 import { BsDot, BsDownload } from "react-icons/bs";
 import { BsTags } from "react-icons/bs";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
-
+import { getMediaById } from "../../utils/api/API";
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
@@ -20,13 +19,18 @@ const MainContainer = styled.div`
   max-width: 350px;
   position: relative;
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
+  height: fit-content;
 `;
 
 const IconContainer = styled.div`
   position: absolute;
-  height: 50px;
-  width: 50px;
-  background-color: ${colors.yellowBackground};
+  padding: 13px;
+  background-color: ${(props) =>
+    props.type === "documents"
+      ? colors.yellowBackground
+      : props.type === "post"
+      ? colors.blueBackground
+      : colors.redBackground};
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
 `;
 const ImageContainer = styled.div`
@@ -123,6 +127,8 @@ const UploadContainer = styled.div`
 `;
 const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
+  const [media, setMedia] = useState(null);
+
   const openInNewTab = (url) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
@@ -137,6 +143,29 @@ const GridResultComponent = (props) => {
         .catch((error) => console.log(error));
     }
   }, [props.info]);
+
+  useEffect(() => {
+    if (details && details.featured_media) {
+      getMediaById(details.featured_media)
+        .then((res) => setMedia(res.media_details.sizes.full.source_url))
+        .catch((error) => console.log("res", error));
+    } else if (
+      domaineAction &&
+      domaineAction.acf &&
+      domaineAction.acf.image_par_defaut
+    ) {
+      setMedia(domaineAction.acf.image_par_defaut.sizes.article);
+    } else if (
+      props.options &&
+      props.options.options &&
+      props.options.options.acf &&
+      props.options.options.acf.image_par_defaut_ressources
+    ) {
+      setMedia(
+        props.options.options.acf.image_par_defaut_ressources.sizes.article
+      );
+    }
+  }, [details]);
 
   const domaineAction =
     details && details.acf && details.acf.domaine_daction_principal
@@ -161,6 +190,24 @@ const GridResultComponent = (props) => {
       return props.taxonomie.tags.filter((el) => el.id === item)[0];
     });
   }
+
+  const type = details && details.type;
+  const icon =
+    type === "post"
+      ? "bi bi-folder"
+      : type === "indicateurs"
+      ? "bi bi-file-earmark-bar-graph"
+      : details && details.acf && details.acf.document.format === "Lien"
+      ? "bi bi-link-45deg"
+      : details && details.acf && details.acf.document.format === "Texte"
+      ? "bi bi-file-earmark-font"
+      : details && details.acf && details.acf.document.format === "Tableau"
+      ? "bi bi-file-earmark-excel"
+      : details && details.acf && details.acf.document.format === "Image"
+      ? "bi bi-file-earmark-image"
+      : details && details.acf && details.acf.document.format === "Vidéo"
+      ? "bi bi-file-earmark-play"
+      : "";
   return (
     <MainContainer>
       <Link
@@ -172,8 +219,18 @@ const GridResultComponent = (props) => {
         style={{ textDecoration: "none" }}
       >
         <ImageContainer>
-          <IconContainer />
-          <img src={resultImage} alt="result-illu" />
+          <IconContainer type={type}>
+            <i class={icon}></i>
+          </IconContainer>
+          <img
+            style={{
+              maxWidth: "80%",
+              height: "auto",
+              margin: "  30px 30px 0 30px",
+            }}
+            src={media}
+            alt="result-illu"
+          />
         </ImageContainer>
         <DetailsContainer>
           <LastUpdateContainer>
@@ -233,23 +290,28 @@ const GridResultComponent = (props) => {
             </PostInfoContainer>
           </BottomContainer>
         </DetailsContainer>
-        {details && details.acf && details.acf.document && (
-          <UploadContainer
-            onClick={() => {
-              openInNewTab(details.acf.document.fichier_joint.url);
-            }}
-          >
-            <BsDownload style={{ marginRight: "8px" }} />
-            TÉLÉCHARGER
-            <div style={{ color: "grey", marginLeft: "5px" }}>
-              {"(" +
-                (details.acf.document.fichier_joint.filesize / 10000).toFixed(
-                  1
-                )}{" "}
-              Mo)
-            </div>
-          </UploadContainer>
-        )}
+        {details &&
+          details.acf &&
+          details.acf.document &&
+          details.acf.document.fichier_joint.subtype === "pdf" && (
+            <UploadContainer
+              onClick={() => {
+                openInNewTab(details.acf.document.fichier_joint.url);
+              }}
+            >
+              <BsDownload style={{ marginRight: "8px" }} />
+              TÉLÉCHARGER
+              {details.acf.document.fichier_joint.filesize && (
+                <div style={{ color: "grey", marginLeft: "5px" }}>
+                  {"(" +
+                    (
+                      details.acf.document.fichier_joint.filesize / 10000
+                    ).toFixed(1)}{" "}
+                  Mo)
+                </div>
+              )}
+            </UploadContainer>
+          )}
       </Link>
     </MainContainer>
   );
@@ -258,7 +320,7 @@ const GridResultComponent = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return { taxonomie: store.taxonomie };
+  return { taxonomie: store.taxonomie, options: store.options };
 };
 export default connect(
   mapStateToProps,
