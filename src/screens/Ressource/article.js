@@ -234,6 +234,9 @@ const Article = (props) => {
     });
   }
 
+  const showCommment =
+    article && article.comment_status === "open" ? true : false;
+
   return (
     <MainContainer>
       <HeaderContainer>
@@ -321,7 +324,7 @@ const Article = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments postID={articleId} />
+          <Comments postID={articleId} showCommment={showCommment} />
         </LeftSideBodyComponent>
         <RightSideBodyContainer>
           <TitleRessourceContainer>

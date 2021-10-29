@@ -248,6 +248,9 @@ const Indicateur = (props) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
   };
+  const showCommment =
+    indicateur && indicateur.comment_status === "open" ? true : false;
+
   return (
     <>
       <MainContainer>
@@ -400,7 +403,7 @@ const Indicateur = (props) => {
                   cursor={"pointer"}
                 />
               </AddLikeContainer>
-              <Comments postID={indicateurId} />
+              <Comments postID={indicateurId} showCommment={showCommment} />
             </LeftSideBodyComponent>
           </BodyContainer>
         </RightSideContainer>

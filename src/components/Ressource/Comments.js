@@ -86,7 +86,7 @@ const Comments = (props) => {
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
   const [allComments, setAllComments] = useState([]);
-  const [showAllComments, setShowAllComments] = useState([]);
+  const [showAllComments, setShowAllComments] = useState(false);
 
   useEffect(() => {
     getCommentaireByPost(props.postID)
@@ -106,11 +106,12 @@ const Comments = (props) => {
     setNewComment(e.target.value);
   };
 
-  console.log("comments", comments);
   return (
     <MainContainer>
       <TitleContainer>
-        {comments.length ? comments.length + " commentaires" : "0 commentaire"}
+        {allComments.length
+          ? allComments.length + " commentaires"
+          : "0 commentaire"}
       </TitleContainer>
       {(showAllComments
         ? allComments && allComments
@@ -140,17 +141,21 @@ const Comments = (props) => {
           <MdArrowForwardIos style={{ marginLeft: "5px" }} />
         </MoreCommentContainer>
       )}
-      <form>
-        <textarea
-          type="text"
-          name="comment"
-          className="textArea"
-          value={newComment}
-          onChange={handleChange}
-          placeholder={"Saisissez votre commentaire ici..."}
-        />
-      </form>
-      <SendButton>Laisser un commentaire</SendButton>
+      {props.showCommment && (
+        <>
+          <form>
+            <textarea
+              type="text"
+              name="comment"
+              className="textArea"
+              value={newComment}
+              onChange={handleChange}
+              placeholder={"Saisissez votre commentaire ici..."}
+            />
+          </form>
+          <SendButton>Laisser un commentaire</SendButton>
+        </>
+      )}
     </MainContainer>
   );
 };
