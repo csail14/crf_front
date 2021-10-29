@@ -400,7 +400,7 @@ const Indicateur = (props) => {
                   cursor={"pointer"}
                 />
               </AddLikeContainer>
-              <Comments />
+              <Comments postID={indicateurId} />
             </LeftSideBodyComponent>
           </BodyContainer>
         </RightSideContainer>

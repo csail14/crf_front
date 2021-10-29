@@ -241,7 +241,6 @@ const Document = (props) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
   };
-  console.log("document", document);
 
   return (
     <MainContainer>
@@ -355,7 +354,7 @@ const Document = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments />
+          <Comments postID={documentId} />
         </LeftSideBodyComponent>
       </BodyContainer>
       <BottomContainer>

@@ -3,6 +3,11 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
+import { getCommentaireByPost } from "../../utils/api/RessourcesApi";
+import moment from "moment";
+import DOMPurify from "dompurify";
+require("moment/locale/fr.js");
+
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,38 +84,40 @@ const SendButton = styled.div`
 
 const Comments = (props) => {
   const [newComment, setNewComment] = useState("");
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    getCommentaireByPost(props.postID)
+      .then((res) => setComments(res))
+      .catch((error) => console.log(error));
+  }, []);
+
   const handleChange = (e) => {
     setNewComment(e.target.value);
   };
+
+  console.log("comments", comments);
   return (
     <MainContainer>
-      <TitleContainer>2 commentaires</TitleContainer>
-      <CommentContainer>
-        <Title>
-          <Name>Estelle</Name>
-          <Date>16 septembre 2021 - 13:48</Date>
-        </Title>
-        <Contenu>
-          Nous candidatons avec le projet "Séniors et alors ?" à l'appel à
-          projets de recherche participative de la Fondation Jacqueline Maillan.
-          On nous demande de préciser l'impact social que nous pressentons pour
-          le projet. Merci pour cet article qui m'aide à y voir plus clair… mais
-          je n'exclue pas de vous contacter si je m'y perds tout de même ;-)
-        </Contenu>
-      </CommentContainer>
-      <CommentContainer>
-        <Title>
-          <Name>Estelle</Name>
-          <Date>16 septembre 2021 - 13:48</Date>
-        </Title>
-        <Contenu>
-          Nous candidatons avec le projet "Séniors et alors ?" à l'appel à
-          projets de recherche participative de la Fondation Jacqueline Maillan.
-          On nous demande de préciser l'impact social que nous pressentons pour
-          le projet. Merci pour cet article qui m'aide à y voir plus clair… mais
-          je n'exclue pas de vous contacter si je m'y perds tout de même ;-)
-        </Contenu>
-      </CommentContainer>
+      <TitleContainer>
+        {comments.length ? comments.length + " commentaires" : "0 commentaire"}
+      </TitleContainer>
+      {comments &&
+        comments.map((item, index) => {
+          return (
+            <CommentContainer key={index}>
+              <Title>
+                <Name>{item.author_name}</Name>
+                <Date> {moment(item.date).format("DD MMMM YYYY - HH:mm")}</Date>
+              </Title>
+              <Contenu
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(item.content.rendered),
+                }}
+              />
+            </CommentContainer>
+          );
+        })}
       <MoreCommentContainer>
         Voir tous les commentaires{" "}
         <MdArrowForwardIos style={{ marginLeft: "5px" }} />

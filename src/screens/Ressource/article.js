@@ -321,7 +321,7 @@ const Article = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments />
+          <Comments postID={articleId} />
         </LeftSideBodyComponent>
         <RightSideBodyContainer>
           <TitleRessourceContainer>

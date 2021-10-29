@@ -49,7 +49,7 @@ const OtherPage = (props) => {
     <MainContainer>
       <HeaderContainer>
         <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          Hello {template ? template.title.rendered : null}
+          {template ? template.title.rendered : null}
         </HeaderTitleContainer>
         <HeaderTitleContainer>
           {template ? template.acf.sous_titre : null}
