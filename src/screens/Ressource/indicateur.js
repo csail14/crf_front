@@ -11,6 +11,7 @@ import { getRessourceById } from "../../utils/api/RessourcesApi";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
+import { Link } from "react-router-dom";
 import DomaineListDeroulante from "../../components/Ressource/DomainesListDeroulante";
 require("moment/locale/fr.js");
 
@@ -230,6 +231,12 @@ const Indicateur = (props) => {
         : null
       : null;
 
+  const listIndicateurTemplate = props.pages.templates.length
+    ? props.pages.templates.filter(
+        (template) => template.slug === "liste-des-indicateurs"
+      )[0]
+    : null;
+
   let tags = indicateur && indicateur.tags;
 
   if (tags && props.taxonomie && props.taxonomie.tags.length) {
@@ -237,7 +244,8 @@ const Indicateur = (props) => {
       return props.taxonomie.tags.filter((el) => el.id === item)[0];
     });
   }
-
+  console.log(indicateur);
+  console.log("ListIndicateurTemplate", listIndicateurTemplate);
   const openInNewTab = (url) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
@@ -251,9 +259,41 @@ const Indicateur = (props) => {
         <RightSideContainer>
           <HeaderRightSideTopContainer>
             <ArianeContainer>
-              {
-                " Définir mes indicateurs > Exemplarité > Taux de renouvellement des "
-              }
+              <Link
+                to={"/liste-des-indicateurs"}
+                style={{
+                  textDecoration: "none",
+                  color: colors.gris,
+                  margin: "0 5px",
+                }}
+              >
+                {listIndicateurTemplate &&
+                  listIndicateurTemplate.title.rendered}{" "}
+              </Link>
+              {" > "}
+
+              <Link
+                to={"/"}
+                style={{
+                  textDecoration: "none",
+                  color: colors.gris,
+                  margin: "0 5px",
+                }}
+              >
+                {domaineAction && domaineAction.name}
+              </Link>
+
+              {" > "}
+              <Link
+                to={"#"}
+                style={{
+                  textDecoration: "none",
+                  color: colors.gris,
+                  margin: "0 5px",
+                }}
+              >
+                {indicateur && indicateur.title.rendered}
+              </Link>
             </ArianeContainer>
 
             <CategoryContainer>
@@ -386,7 +426,7 @@ const Indicateur = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return { taxonomie: store.taxonomie };
+  return { taxonomie: store.taxonomie, pages: store.pages };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Indicateur);

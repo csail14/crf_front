@@ -95,6 +95,7 @@ const SubHomeBloc = (props) => {
           ? props.info.articles_lies.map((item, index) => {
               return (
                 <Link
+                  key={index}
                   style={{ textDecoration: "none" }}
                   to={"/" + item.post_type + "/" + item.ID}
                 >
