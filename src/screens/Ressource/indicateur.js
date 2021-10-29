@@ -244,8 +244,6 @@ const Indicateur = (props) => {
       return props.taxonomie.tags.filter((el) => el.id === item)[0];
     });
   }
-  console.log(indicateur);
-  console.log("ListIndicateurTemplate", listIndicateurTemplate);
   const openInNewTab = (url) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;

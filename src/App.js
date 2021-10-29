@@ -37,18 +37,18 @@ function App() {
             <Route exact path="/" component={HOC(Home)} />
             <Route exact path="/home" component={HOC(Home)} />
             <Route exact path="/subHome/:id" component={HOC(SubHome)} />
-            <Route exact path="/:id" component={HOC(OtherPage)} />
-            <Route exact path="/recherche" component={HOC(Recherche)} />
-            <Route exact path="/contact" component={HOC(Contact)} />
-            <Route exact path="/impactTrack" component={HOC(ImpactTrack)} />
-            <Route exact path="/post/:id" component={HOC(Article)} />
-            <Route exact path="/documents/:id" component={HOC(Document)} />
             <Route exact path="/indicateurs/:id" component={HOC(Indicateur)} />
             <Route
               exact
               path="/liste-des-indicateurs"
               component={HOC(ListDomaines)}
             />
+            <Route exact path="/recherche" component={HOC(Recherche)} />
+            <Route exact path="/contact" component={HOC(Contact)} />
+            <Route exact path="/impact-track" component={HOC(ImpactTrack)} />
+            <Route exact path="/post/:id" component={HOC(Article)} />
+            <Route exact path="/documents/:id" component={HOC(Document)} />
+            <Route exact path="/:id" component={HOC(OtherPage)} />
           </Switch>
           <Footer />
         </BodyContainer>

@@ -45,13 +45,11 @@ const OtherPage = (props) => {
         (template) => template.slug === props.match.params.id
       )[0]
     : null;
-
-  console.log(template);
   return (
     <MainContainer>
       <HeaderContainer>
         <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          {template ? template.title.rendered : null}
+          Hello {template ? template.title.rendered : null}
         </HeaderTitleContainer>
         <HeaderTitleContainer>
           {template ? template.acf.sous_titre : null}

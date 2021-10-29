@@ -54,6 +54,7 @@ const ListDomaines = (props) => {
         (template) => template.slug === "liste-des-indicateurs"
       )[0]
     : null;
+
   return (
     <MainContainer>
       <HeaderContainer>
