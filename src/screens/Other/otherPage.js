@@ -1,14 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import SearchBar from "../../components/Recherche/searchBar";
 import styled from "styled-components";
-import SubHomeBloc from "./subHomeBloc";
-import { colors } from "../../colors";
 import DOMPurify from "dompurify";
+import { colors } from "../../colors";
 import { config } from "../../config";
 
 const MainContainer = styled.div`
-  min-height: 100vh;
+  min-height: 92vh;
 `;
 
 const HeaderContainer = styled.div`
@@ -35,40 +33,45 @@ const BodyContainer = styled.div`
   justify-content: center;
 `;
 
-const Home = (props) => {
-  const homeTemplate = props.pages.templates.length
-    ? props.pages.templates.filter((template) => template.slug === "accueil")[0]
+const Textcontainer = styled.div`
+  padding: 70px 150px;
+  color: ${colors.gris};
+  text-align: justify;
+`;
+
+const OtherPage = (props) => {
+  const template = props.pages.templates.length
+    ? props.pages.templates.filter(
+        (template) => template.slug === props.match.params.id
+      )[0]
     : null;
 
+  console.log(template);
   return (
     <MainContainer>
       <HeaderContainer>
         <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          {homeTemplate
-            ? homeTemplate.title.rendered
-            : "L'impact social des actions"}
+          {template ? template.title.rendered : null}
         </HeaderTitleContainer>
         <HeaderTitleContainer>
-          {" "}
-          {homeTemplate
-            ? homeTemplate.acf.sous_titre
-            : "De la croix rouge française"}
+          {template ? template.acf.sous_titre : null}
         </HeaderTitleContainer>
-        {homeTemplate && (
+        {template && (
           <SubtitleContainer
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(homeTemplate.acf.intro),
+              __html: DOMPurify.sanitize(template.acf.intro),
             }}
           ></SubtitleContainer>
         )}
       </HeaderContainer>
-      <SearchBar />
       <BodyContainer>
-        {homeTemplate
-          ? homeTemplate.acf.entrees.map((item, index) => {
-              return <SubHomeBloc key={index} info={item} />;
-            })
-          : null}
+        {template && (
+          <Textcontainer
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(template.content.rendered),
+            }}
+          ></Textcontainer>
+        )}
       </BodyContainer>
     </MainContainer>
   );
@@ -77,9 +80,7 @@ const Home = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {
-    pages: store.pages,
-  };
+  return { pages: store.pages };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(OtherPage);

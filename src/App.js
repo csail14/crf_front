@@ -14,6 +14,7 @@ import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
 import HOC from "./utils/hoc";
 import ListDomaines from "./screens/ListDomaine/listDomaines";
+import OtherPage from "./screens/Other/otherPage";
 import { useLocation } from "react-router-dom";
 
 const MainContainer = styled.div`
@@ -36,6 +37,7 @@ function App() {
             <Route exact path="/" component={HOC(Home)} />
             <Route exact path="/home" component={HOC(Home)} />
             <Route exact path="/subHome/:id" component={HOC(SubHome)} />
+            <Route exact path="/:id" component={HOC(OtherPage)} />
             <Route exact path="/recherche" component={HOC(Recherche)} />
             <Route exact path="/contact" component={HOC(Contact)} />
             <Route exact path="/impactTrack" component={HOC(ImpactTrack)} />
