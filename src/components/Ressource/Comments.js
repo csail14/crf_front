@@ -85,12 +85,22 @@ const SendButton = styled.div`
 const Comments = (props) => {
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [allComments, setAllComments] = useState([]);
+  const [showAllComments, setShowAllComments] = useState([]);
 
   useEffect(() => {
     getCommentaireByPost(props.postID)
-      .then((res) => setComments(res))
+      .then((res) => setAllComments(res))
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    if (allComments.length < 6) {
+      setComments(allComments);
+    } else {
+      setComments(allComments.slice(0, 5));
+    }
+  }, [allComments]);
 
   const handleChange = (e) => {
     setNewComment(e.target.value);
@@ -102,26 +112,34 @@ const Comments = (props) => {
       <TitleContainer>
         {comments.length ? comments.length + " commentaires" : "0 commentaire"}
       </TitleContainer>
-      {comments &&
-        comments.map((item, index) => {
-          return (
-            <CommentContainer key={index}>
-              <Title>
-                <Name>{item.author_name}</Name>
-                <Date> {moment(item.date).format("DD MMMM YYYY - HH:mm")}</Date>
-              </Title>
-              <Contenu
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(item.content.rendered),
-                }}
-              />
-            </CommentContainer>
-          );
-        })}
-      <MoreCommentContainer>
-        Voir tous les commentaires{" "}
-        <MdArrowForwardIos style={{ marginLeft: "5px" }} />
-      </MoreCommentContainer>
+      {(showAllComments
+        ? allComments && allComments
+        : comments && comments
+      ).map((item, index) => {
+        return (
+          <CommentContainer key={index}>
+            <Title>
+              <Name>{item.author_name}</Name>
+              <Date> {moment(item.date).format("DD MMMM YYYY - HH:mm")}</Date>
+            </Title>
+            <Contenu
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(item.content.rendered),
+              }}
+            />
+          </CommentContainer>
+        );
+      })}
+      {allComments.length > 5 && (
+        <MoreCommentContainer
+          onClick={() => setShowAllComments(!showAllComments)}
+        >
+          {showAllComments
+            ? "Voir moins de commentaires"
+            : "Voir tous les commentaires"}{" "}
+          <MdArrowForwardIos style={{ marginLeft: "5px" }} />
+        </MoreCommentContainer>
+      )}
       <form>
         <textarea
           type="text"
