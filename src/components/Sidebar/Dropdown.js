@@ -52,9 +52,8 @@ class Dropdown extends Component {
   };
 
   placelink = (obj) => {
-    console.log(obj);
     return (
-      <>
+      <div key={obj.id}>
         <Link
           key={obj.id}
           to={this.defineUrl(obj.url, obj.type_label, obj.object_id)}
@@ -63,7 +62,7 @@ class Dropdown extends Component {
           <p>{obj.title}</p>
         </Link>
         <br />
-      </>
+      </div>
     );
   };
 

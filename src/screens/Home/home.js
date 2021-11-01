@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import SearchBar from "../../components/Recherche/searchBar";
 import styled from "styled-components";
-import union from "../../assets/union.png";
 import SubHomeBloc from "./subHomeBloc";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
+import { config } from "../../config";
 
 const MainContainer = styled.div`
   min-height: 100vh;
@@ -14,18 +14,8 @@ const MainContainer = styled.div`
 const HeaderContainer = styled.div`
   padding: 80px 140px;
   text-align: left;
-  background: radial-gradient(
-      68.37% 320.65% at -18.36% 111.75%,
-      rgba(0, 57, 86, 0.5) 0%,
-      rgba(0, 57, 86, 0.19) 44.84%,
-      rgba(255, 255, 255, 0.09) 100%
-    ),
-    radial-gradient(
-      132.83% 171.01% at 94.89% 166.27%,
-      rgba(227, 6, 19, 0.33) 0%,
-      rgba(227, 6, 19, 0.219) 46.47%,
-      rgba(255, 255, 255, 0.108) 100%
-    );
+  background-image: url(${config.header_image_url});
+  background-size: cover;
 `;
 
 const HeaderTitleContainer = styled.div`

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import IndicateurDetails from "./indicateurDetails";
 import styled from "styled-components";
-import { colors } from "../../colors";
 import DOMPurify from "dompurify";
+import { colors } from "../../colors";
+import { config } from "../../config";
 
 const MainContainer = styled.div`
   min-height: 92vh;
@@ -12,18 +12,8 @@ const MainContainer = styled.div`
 const HeaderContainer = styled.div`
   padding: 80px 140px;
   text-align: left;
-  background: radial-gradient(
-      68.37% 320.65% at -18.36% 111.75%,
-      rgba(0, 57, 86, 0.5) 0%,
-      rgba(0, 57, 86, 0.19) 44.84%,
-      rgba(255, 255, 255, 0.09) 100%
-    ),
-    radial-gradient(
-      132.83% 171.01% at 94.89% 166.27%,
-      rgba(227, 6, 19, 0.33) 0%,
-      rgba(227, 6, 19, 0.219) 46.47%,
-      rgba(255, 255, 255, 0.108) 100%
-    );
+  background-image: url(${config.header_image_url});
+  background-size: cover;
 `;
 
 const HeaderTitleContainer = styled.div`
@@ -41,28 +31,28 @@ const SubtitleContainer = styled.div`
 const BodyContainer = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  padding-right: 200px;
-  padding-left: 50px;
-  justify-content: flex-start;
-  margin-top: -25px;
 `;
 
-const ListIndicateur = (props) => {
+const Textcontainer = styled.div`
+  padding: 70px 150px;
+  color: ${colors.gris};
+  text-align: justify;
+`;
+
+const OtherPage = (props) => {
   const template = props.pages.templates.length
     ? props.pages.templates.filter(
-        (template) => template.slug === "liste-des-indicateurs"
+        (template) => template.slug === props.match.params.id
       )[0]
     : null;
   return (
     <MainContainer>
       <HeaderContainer>
         <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          {template ? template.title.rendered : "L'impact social des actions"}
+          {template ? template.title.rendered : null}
         </HeaderTitleContainer>
         <HeaderTitleContainer>
-          {" "}
-          {template ? template.acf.sous_titre : "De la croix rouge française"}
+          {template ? template.acf.sous_titre : null}
         </HeaderTitleContainer>
         {template && (
           <SubtitleContainer
@@ -73,11 +63,13 @@ const ListIndicateur = (props) => {
         )}
       </HeaderContainer>
       <BodyContainer>
-        {props.taxonomie &&
-          props.taxonomie.domainesImpacts &&
-          props.taxonomie.domainesImpacts.map((item, index) => {
-            return <IndicateurDetails info={item} key={index} />;
-          })}
+        {template && (
+          <Textcontainer
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(template.content.rendered),
+            }}
+          ></Textcontainer>
+        )}
       </BodyContainer>
     </MainContainer>
   );
@@ -86,10 +78,7 @@ const ListIndicateur = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {
-    pages: store.pages,
-    taxonomie: store.taxonomie,
-  };
+  return { pages: store.pages };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListIndicateur);
+export default connect(mapStateToProps, mapDispatchToProps)(OtherPage);

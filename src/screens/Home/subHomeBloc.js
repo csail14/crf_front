@@ -94,10 +94,16 @@ const SubHomeBloc = (props) => {
         {props.info.articles_lies
           ? props.info.articles_lies.map((item, index) => {
               return (
-                <LinkContainer key={index}>
-                  {item.post_title}
-                  <MdArrowForwardIos style={{ color: colors.rouge }} />
-                </LinkContainer>
+                <Link
+                  key={index}
+                  style={{ textDecoration: "none" }}
+                  to={"/" + item.post_type + "/" + item.ID}
+                >
+                  <LinkContainer key={index}>
+                    {item.post_title}
+                    <MdArrowForwardIos style={{ color: colors.rouge }} />
+                  </LinkContainer>
+                </Link>
               );
             })
           : null}
