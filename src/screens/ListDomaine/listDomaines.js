@@ -58,9 +58,18 @@ const ListDomaines = (props) => {
   return (
     <MainContainer>
       <HeaderContainer>
-        <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          {template ? template.title.rendered : "L'impact social des actions"}
-        </HeaderTitleContainer>
+        {template && template.title ? (
+          <HeaderTitleContainer
+            style={{ fontWeight: "700" }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(template.title.rendered),
+            }}
+          />
+        ) : (
+          <HeaderTitleContainer>
+            "L'impact social des actions"}
+          </HeaderTitleContainer>
+        )}
         <HeaderTitleContainer>
           {" "}
           {template ? template.acf.sous_titre : "De la croix rouge française"}

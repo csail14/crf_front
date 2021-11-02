@@ -95,10 +95,12 @@ const Comments = (props) => {
   }, []);
 
   useEffect(() => {
-    if (allComments.length < 6) {
-      setComments(allComments);
-    } else {
-      setComments(allComments.slice(0, 5));
+    if (allComments.length) {
+      if (allComments.length < 6) {
+        setComments(allComments);
+      } else {
+        setComments(allComments.slice(0, 5));
+      }
     }
   }, [allComments]);
 

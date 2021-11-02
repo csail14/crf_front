@@ -269,6 +269,7 @@ const Indicateur = (props) => {
                 }}
               >
                 {listIndicateurTemplate &&
+                  listIndicateurTemplate.title &&
                   listIndicateurTemplate.title.rendered}{" "}
               </Link>
               {" > "}
@@ -293,7 +294,7 @@ const Indicateur = (props) => {
                   margin: "0 5px",
                 }}
               >
-                {indicateur && indicateur.title.rendered}
+                {indicateur && indicateur.title && indicateur.title.rendered}
               </Link>
             </ArianeContainer>
 
@@ -302,9 +303,13 @@ const Indicateur = (props) => {
               <BsDot />
               {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
             </CategoryContainer>
-            <TitleContainer>
-              {indicateur && indicateur.title.rendered}
-            </TitleContainer>
+            {indicateur !== null && indicateur.title && (
+              <TitleContainer
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(indicateur.title.rendered),
+                }}
+              />
+            )}
             {tags && (
               <TagContainer>
                 <BsTags style={{ marginRight: "8px" }} />

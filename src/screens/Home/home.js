@@ -43,24 +43,25 @@ const Home = (props) => {
   return (
     <MainContainer>
       <HeaderContainer>
-        <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          {homeTemplate
-            ? homeTemplate.title.rendered
-            : "L'impact social des actions"}
-        </HeaderTitleContainer>
+        {homeTemplate && homeTemplate.title ? (
+          <HeaderTitleContainer
+            style={{ fontWeight: "700" }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(homeTemplate.title.rendered),
+            }}
+          />
+        ) : (
+          <HeaderTitleContainer style={{ fontWeight: "700" }}>
+            L'impact social des actions
+          </HeaderTitleContainer>
+        )}
         <HeaderTitleContainer>
           {" "}
           {homeTemplate
             ? homeTemplate.acf.sous_titre
             : "De la croix rouge française"}
         </HeaderTitleContainer>
-        {homeTemplate && (
-          <SubtitleContainer
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(homeTemplate.acf.intro),
-            }}
-          ></SubtitleContainer>
-        )}
+        {homeTemplate && <SubtitleContainer></SubtitleContainer>}
       </HeaderContainer>
       <SearchBar />
       <BodyContainer>

@@ -48,9 +48,15 @@ const OtherPage = (props) => {
   return (
     <MainContainer>
       <HeaderContainer>
-        <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          {template ? template.title.rendered : null}
-        </HeaderTitleContainer>
+        {template && template.title && (
+          <HeaderTitleContainer
+            style={{ fontWeight: "700" }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(template.title.rendered),
+            }}
+          />
+        )}
+
         <HeaderTitleContainer>
           {template ? template.acf.sous_titre : null}
         </HeaderTitleContainer>

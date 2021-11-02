@@ -258,9 +258,15 @@ const Document = (props) => {
               <BsDot />
               {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
             </CategoryContainer>
-            <TitleContainer>
-              {document && document.title.rendered}
-            </TitleContainer>
+
+            {document !== null && document.title && (
+              <TitleContainer
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(document.title.rendered),
+                }}
+              />
+            )}
+
             {tags && (
               <TagContainer>
                 <BsTags style={{ marginRight: "8px" }} />

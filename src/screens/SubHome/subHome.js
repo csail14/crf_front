@@ -107,9 +107,15 @@ const SubHome = (props) => {
   return (
     <MainContainer>
       <HeaderContainer>
-        <HeaderTitleContainer style={{ fontWeight: "700" }}>
-          {subHomeTemplate ? subHomeTemplate.title.rendered : null}
-        </HeaderTitleContainer>
+        {subHomeTemplate && subHomeTemplate.title && (
+          <HeaderTitleContainer
+            style={{ fontWeight: "700" }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(subHomeTemplate.title.rendered),
+            }}
+          />
+        )}
+
         <HeaderTitleContainer>
           {subHomeTemplate ? subHomeTemplate.acf.sous_titre : null}
         </HeaderTitleContainer>
