@@ -67,7 +67,7 @@ const ListDomaines = (props) => {
           />
         ) : (
           <HeaderTitleContainer>
-            "L'impact social des actions"}
+            L'impact social des actions
           </HeaderTitleContainer>
         )}
         <HeaderTitleContainer>
