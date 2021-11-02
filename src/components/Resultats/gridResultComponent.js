@@ -10,7 +10,10 @@ import { getMediaById } from "../../utils/api/API";
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
-import { getRessourceById } from "../../utils/api/RessourcesApi";
+import {
+  getRessourceById,
+  getCommentaireByPost,
+} from "../../utils/api/RessourcesApi";
 import { Link } from "react-router-dom";
 require("moment/locale/fr.js");
 
@@ -128,6 +131,7 @@ const UploadContainer = styled.div`
 const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
   const [media, setMedia] = useState(null);
+  const [nbComments, setNbComments] = useState(0);
 
   const openInNewTab = (url) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
@@ -140,6 +144,9 @@ const GridResultComponent = (props) => {
         props.info.post_type === "post" ? "posts" : props.info.post_type
       )
         .then((res) => setDetails(res))
+        .catch((error) => console.log(error));
+      getCommentaireByPost(props.info.ID)
+        .then((res) => setNbComments(res.length))
         .catch((error) => console.log(error));
     }
   }, [props.info]);
@@ -232,48 +239,60 @@ const GridResultComponent = (props) => {
             alt="result-illu"
           />
         </ImageContainer>
-        <DetailsContainer>
-          <LastUpdateContainer>
-            mis à jour le{" "}
-            {props.info &&
-              moment(props.info.post_modified).format("DD MMMM YYYY")}
-          </LastUpdateContainer>
-          <CategoryContainer>
-            {domaineAction && <Category>{domaineAction.name}</Category>}
-            <BsDot />
-            {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
-          </CategoryContainer>
+      </Link>
+      <DetailsContainer>
+        <LastUpdateContainer>
+          mis à jour le{" "}
+          {props.info &&
+            moment(props.info.post_modified).format("DD MMMM YYYY")}
+        </LastUpdateContainer>
+        <CategoryContainer>
+          {domaineAction && <Category>{domaineAction.name}</Category>}
+          <BsDot />
+          {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
+        </CategoryContainer>
+        <Link
+          to={
+            props && props.info && props.info.post_type
+              ? "/" + props.info.post_type + "/" + props.info.ID
+              : ""
+          }
+          style={{ textDecoration: "none" }}
+        >
+          {" "}
           <TitleContainer>{props.info && props.info.post_title}</TitleContainer>
-          {details && details.acf && (
-            <DescriptionContainer
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(details.acf.extrait),
-              }}
-            ></DescriptionContainer>
-          )}
-          {tags && (
-            <TagContainer>
-              <BsTags style={{ marginRight: "8px" }} />
-              {tags.map((item) => {
-                return item.name + ", ";
-              })}
-            </TagContainer>
-          )}
-          <BottomContainer>
-            <PostInfoContainer>
-              <div>
-                <Comment>
-                  <BiComment size={18} style={{ marginRight: "7px" }} />
-                  13 Commentaires
-                </Comment>
-              </div>
+        </Link>
+        {details && details.acf && (
+          <DescriptionContainer
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(details.acf.extrait),
+            }}
+          ></DescriptionContainer>
+        )}
+        {tags && (
+          <TagContainer>
+            <BsTags style={{ marginRight: "8px" }} />
+            {tags.map((item) => {
+              return item.name + ", ";
+            })}
+          </TagContainer>
+        )}
+        <BottomContainer>
+          <PostInfoContainer>
+            <div>
+              <Comment>
+                <BiComment size={18} style={{ marginRight: "7px" }} />
+                {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
+              </Comment>
+            </div>
+            {details && details.acf && details.acf.datas && (
               <div style={{ display: "flex" }}>
                 <Comment>
                   <AiOutlineLike
                     size={18}
                     style={{ color: colors.gris, marginRight: "7px" }}
                   />
-                  425
+                  {details.acf.datas.likes}
                 </Comment>
                 <Comment>
                   <AiOutlineEye
@@ -284,35 +303,35 @@ const GridResultComponent = (props) => {
                       marginLeft: "10px",
                     }}
                   />
-                  736
+                  {details.acf.datas.vues}
                 </Comment>
               </div>
-            </PostInfoContainer>
-          </BottomContainer>
-        </DetailsContainer>
-        {details &&
-          details.acf &&
-          details.acf.document &&
-          details.acf.document.fichier_joint.subtype === "pdf" && (
-            <UploadContainer
-              onClick={() => {
-                openInNewTab(details.acf.document.fichier_joint.url);
-              }}
-            >
-              <BsDownload style={{ marginRight: "8px" }} />
-              TÉLÉCHARGER
-              {details.acf.document.fichier_joint.filesize && (
-                <div style={{ color: "grey", marginLeft: "5px" }}>
-                  {"(" +
-                    (
-                      details.acf.document.fichier_joint.filesize / 10000
-                    ).toFixed(1)}{" "}
-                  Mo)
-                </div>
-              )}
-            </UploadContainer>
-          )}
-      </Link>
+            )}
+          </PostInfoContainer>
+        </BottomContainer>
+      </DetailsContainer>
+      {details &&
+        details.acf &&
+        details.acf.document &&
+        details.acf.document.fichier_joint.subtype === "pdf" && (
+          <UploadContainer
+            onClick={() => {
+              openInNewTab(details.acf.document.fichier_joint.url);
+            }}
+          >
+            <BsDownload style={{ marginRight: "8px" }} />
+            TÉLÉCHARGER
+            {details.acf.document.fichier_joint.filesize && (
+              <div style={{ color: "grey", marginLeft: "5px" }}>
+                {"(" +
+                  (details.acf.document.fichier_joint.filesize / 10000).toFixed(
+                    1
+                  )}{" "}
+                Mo)
+              </div>
+            )}
+          </UploadContainer>
+        )}
     </MainContainer>
   );
 };

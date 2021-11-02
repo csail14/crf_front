@@ -111,9 +111,8 @@ const Comments = (props) => {
   return (
     <MainContainer>
       <TitleContainer>
-        {allComments.length
-          ? allComments.length + " commentaires"
-          : "0 commentaire"}
+        {allComments.length}
+        {allComments.length > 1 ? " commentaires" : " commentaire"}
       </TitleContainer>
       {(showAllComments
         ? allComments && allComments

@@ -236,7 +236,6 @@ const Article = (props) => {
 
   const showCommment =
     article && article.comment_status === "open" ? true : false;
-
   return (
     <MainContainer>
       <HeaderContainer>
@@ -271,26 +270,28 @@ const Article = (props) => {
           </HeaderRightSideTopContainer>
 
           <HeaderRightSideBottomContainer>
-            <LikeContainer>
-              <Comment>
-                <AiOutlineLike
-                  size={18}
-                  style={{ color: colors.gris, marginRight: "7px" }}
-                />
-                425
-              </Comment>
-              <Comment>
-                <AiOutlineEye
-                  size={18}
-                  style={{
-                    color: colors.gris,
-                    marginRight: "7px",
-                    marginLeft: "10px",
-                  }}
-                />
-                736
-              </Comment>
-            </LikeContainer>
+            {article && article.acf && article.acf.datas && (
+              <LikeContainer>
+                <Comment>
+                  <AiOutlineLike
+                    size={18}
+                    style={{ color: colors.gris, marginRight: "7px" }}
+                  />
+                  {article.acf.datas.likes}
+                </Comment>
+                <Comment>
+                  <AiOutlineEye
+                    size={18}
+                    style={{
+                      color: colors.gris,
+                      marginRight: "7px",
+                      marginLeft: "10px",
+                    }}
+                  />
+                  {article.acf.datas.vues}
+                </Comment>
+              </LikeContainer>
+            )}
             <UpdateContainer>
               <LastUpdateContainer>
                 publié le{" "}

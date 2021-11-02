@@ -320,26 +320,28 @@ const Indicateur = (props) => {
           </HeaderRightSideTopContainer>
 
           <HeaderRightSideBottomContainer>
-            <LikeContainer>
-              <Comment>
-                <AiOutlineLike
-                  size={18}
-                  style={{ color: colors.gris, marginRight: "7px" }}
-                />
-                425
-              </Comment>
-              <Comment>
-                <AiOutlineEye
-                  size={18}
-                  style={{
-                    color: colors.gris,
-                    marginRight: "7px",
-                    marginLeft: "10px",
-                  }}
-                />
-                736
-              </Comment>
-            </LikeContainer>
+            {indicateur && indicateur.acf && indicateur.acf.datas && (
+              <LikeContainer>
+                <Comment>
+                  <AiOutlineLike
+                    size={18}
+                    style={{ color: colors.gris, marginRight: "7px" }}
+                  />
+                  {indicateur.acf.datas.likes}
+                </Comment>
+                <Comment>
+                  <AiOutlineEye
+                    size={18}
+                    style={{
+                      color: colors.gris,
+                      marginRight: "7px",
+                      marginLeft: "10px",
+                    }}
+                  />
+                  {indicateur.acf.datas.vues}
+                </Comment>
+              </LikeContainer>
+            )}
             <UpdateContainer>
               <LastUpdateContainer>
                 publié le{" "}
