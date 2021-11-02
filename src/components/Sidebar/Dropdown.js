@@ -67,7 +67,6 @@ class Dropdown extends Component {
   };
 
   render() {
-    console.log(this.props);
     const url = this.defineUrl(this.props.url, this.props.type, this.props.id);
     return (
       <div className={"container"} ref={this.container}>

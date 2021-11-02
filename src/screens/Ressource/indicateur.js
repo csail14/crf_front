@@ -250,7 +250,6 @@ const Indicateur = (props) => {
   };
   const showCommment =
     indicateur && indicateur.comment_status === "open" ? true : false;
-  console.log(indicateur);
   return (
     <>
       <MainContainer>
