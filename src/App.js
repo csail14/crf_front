@@ -20,6 +20,7 @@ import { isMobile } from "react-device-detect";
 
 const MainContainer = styled.div`
   display: flex;
+  flex-direction: ${isMobile ? "column" : "row"};
 `;
 const BodyContainer = styled.div`
   width: -webkit-fill-available;
@@ -32,7 +33,7 @@ function App() {
   return (
     <div className="App">
       <MainContainer>
-        {!isMobile && <LeftSideComponent className="sidebar" />}
+        <LeftSideComponent className="sidebar" />
         <BodyContainer>
           <Switch>
             <Route exact path="/" component={HOC(Home)} />
