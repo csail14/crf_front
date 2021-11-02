@@ -6,6 +6,8 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { getCommentaireByPost } from "../../utils/api/RessourcesApi";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import { isMobile } from "react-device-detect";
+
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -68,7 +70,7 @@ const MoreCommentContainer = styled.div`
 
 const SendButton = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: ${isMobile ? "center" : "flex-end"};
   padding: 17px 29px;
   font-size: 14px;
   font-weight: 700;
@@ -79,7 +81,8 @@ const SendButton = styled.div`
   box-shadow: 0px 10px 40px rgba(0, 32, 49, 0.26);
   text-transform: uppercase;
   margin: 20px 0 20px auto;
-  max-width: max-content;
+  max-width: ${isMobile ? "" : "max-content"};
+  width: ${isMobile ? "-webkit-fill-available" : ""};
 `;
 
 const Comments = (props) => {
@@ -88,6 +91,7 @@ const Comments = (props) => {
   const [allComments, setAllComments] = useState([]);
   const [showAllComments, setShowAllComments] = useState(false);
 
+  const maxComments = isMobile ? 0 : 5;
   useEffect(() => {
     getCommentaireByPost(props.postID)
       .then((res) => setAllComments(res))
@@ -96,10 +100,10 @@ const Comments = (props) => {
 
   useEffect(() => {
     if (allComments.length) {
-      if (allComments.length < 6) {
+      if (allComments.length < maxComments + 1) {
         setComments(allComments);
       } else {
-        setComments(allComments.slice(0, 5));
+        setComments(allComments.slice(0, maxComments));
       }
     }
   }, [allComments]);
@@ -132,7 +136,7 @@ const Comments = (props) => {
           </CommentContainer>
         );
       })}
-      {allComments.length > 5 && (
+      {allComments.length > maxComments && (
         <MoreCommentContainer
           onClick={() => setShowAllComments(!showAllComments)}
         >

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
+import { isMobile } from "react-device-detect";
+
 const MainContainer = styled.div`
-  margin: 50px 35px;
+  margin: ${isMobile ? "50px 35px 10px 35px" : "50px 35px"};
   max-width: 400px;
 `;
 

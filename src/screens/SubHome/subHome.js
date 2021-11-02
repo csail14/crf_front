@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import { MdArrowForwardIos } from "react-icons/md";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import styled from "styled-components";
-
+import { isMobile } from "react-device-detect";
 import RightSideLinkContainer from "./RightSideLinkContainer";
 import DOMPurify from "dompurify";
-import { Link } from "react-router-dom";
 import { colors } from "../../colors";
+
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
 
 const HeaderContainer = styled.div`
-  padding: 80px 140px;
+  padding: ${isMobile ? "30px" : "80px 140px"};
   text-align: left;
   background: radial-gradient(
       68.37% 320.65% at -18.36% 111.75%,
@@ -43,26 +42,16 @@ const SubtitleContainer = styled.div`
 `;
 const BodyContainer = styled.div`
   display: flex;
+  flex-direction: ${isMobile ? "column" : ""};
   justify-content: center;
 `;
 
 const Textcontainer = styled.div`
-  padding: 70px 150px;
+  padding: ${isMobile ? "40px 60px" : "70px 150px"};
   color: ${colors.gris};
   text-align: justify;
 `;
-const LinkContainer = styled.div`
-  display: flex;
-  box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
-  padding: 15px 20px;
-  color: ${colors.marine};
-  font-weight: 600;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  min-width: 300px;
-  margin-bottom: 10px;
-`;
+
 const LinkTitleContainer = styled.div`
   font-weight: 700;
   font-size: 15px;

@@ -16,6 +16,7 @@ import HOC from "./utils/hoc";
 import ListDomaines from "./screens/ListDomaine/listDomaines";
 import OtherPage from "./screens/Other/otherPage";
 import { useLocation } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 const MainContainer = styled.div`
   display: flex;
@@ -31,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <MainContainer>
-        <LeftSideComponent className="sidebar" />
+        {!isMobile && <LeftSideComponent className="sidebar" />}
         <BodyContainer>
           <Switch>
             <Route exact path="/" component={HOC(Home)} />
