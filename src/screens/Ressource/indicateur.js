@@ -13,10 +13,12 @@ import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
 import { Link } from "react-router-dom";
 import DomaineListDeroulante from "../../components/Ressource/DomainesListDeroulante";
+import { isMobile } from "react-device-detect";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
   display: flex;
+  flex-direction: ${isMobile ? "column" : "row"};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -35,9 +37,9 @@ const MainContainer = styled.div`
       rgba(255, 255, 255, 0.108) 100%
     );
 
-  background-size: 100% 250px;
+  background-size: ${isMobile ? "100% 480px" : "100% 250px"};
   background-repeat: no-repeat;
-  padding-right: 100px;
+  padding-right: ${isMobile ? "" : "100px"};
 `;
 
 const LeftSideComponent = styled.div`
@@ -61,7 +63,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: 50px 0px;
+  padding: ${isMobile ? "10px 20px" : "50px 0px"};
 `;
 
 const Comment = styled.div`
@@ -75,7 +77,7 @@ const Comment = styled.div`
 const HeaderRightSideBottomContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0px;
+  padding: ${isMobile ? "10px 20px" : "0px"};
 `;
 const CategoryContainer = styled.div`
   display: flex;
@@ -126,12 +128,10 @@ const UpdateContainer = styled.div`
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: 50px 0px;
+  padding: ${isMobile ? "10px 20px" : "50px 0px"};
 `;
 
-const LeftSideBodyComponent = styled.div`
-  margin: auto;
-`;
+const LeftSideBodyComponent = styled.div``;
 
 const ContentContainer = styled.div`
   font-size: 18px;
@@ -253,9 +253,11 @@ const Indicateur = (props) => {
   return (
     <>
       <MainContainer>
-        <LeftSideComponent>
-          <DomaineListDeroulante indicateurId={indicateurId} />
-        </LeftSideComponent>
+        {!isMobile && (
+          <LeftSideComponent>
+            <DomaineListDeroulante indicateurId={indicateurId} />
+          </LeftSideComponent>
+        )}
         <RightSideContainer>
           <HeaderRightSideTopContainer>
             <ArianeContainer>

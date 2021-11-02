@@ -13,12 +13,15 @@ import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
+import { isMobile } from "react-device-detect";
+
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
 
 const HeaderContainer = styled.div`
   display: flex;
+  flex-direction: ${isMobile ? "column" : "row"};
 `;
 
 const LastUpdateContainer = styled.div`
@@ -37,7 +40,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: 50px 50px;
+  padding: ${isMobile ? "20px" : "50px 50px"};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -108,18 +111,18 @@ const TagContainer = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: 15px 50px;
+  padding: ${isMobile ? "15px 20px" : "15px 50px"};
   border-bottom: 0.5px solid lightgrey;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.div`
-  padding: 10px 50px 0 50px;
+  padding: ${isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
 `;
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: 100px 280px;
+  padding: ${isMobile ? "10px 20px" : "100px 280px"};
 `;
 
 const LeftSideBodyComponent = styled.div`
@@ -247,7 +250,7 @@ const Document = (props) => {
     <MainContainer>
       <HeaderContainer>
         <img
-          style={{ maxWidth: "45%", height: "auto" }}
+          style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
           src={media ? media : imageExemple}
           alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
