@@ -148,7 +148,8 @@ const SubHome = (props) => {
             subHomeTemplate.acf.dans_cette_rubrique_2 &&
             subHomeTemplate.acf.dans_cette_rubrique_2.ressources.map(
               (item, index) => {
-                return <RightSideLinkContainer info={item} key={index} />;
+                if (item.post_status === "publish")
+                  return <RightSideLinkContainer info={item} key={index} />;
               }
             )}
         </LinkMainContainer>
@@ -166,7 +167,8 @@ const SubHome = (props) => {
             subHomeTemplate.acf.ressources_disponibles &&
             subHomeTemplate.acf.ressources_disponibles.ressources.map(
               (item, index) => {
-                return <GridResultComponent key={index} info={item} />;
+                if (item.post_status === "publish")
+                  return <GridResultComponent key={index} info={item} />;
               }
             )}
         </AvailableRessourceContainer>

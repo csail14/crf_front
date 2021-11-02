@@ -371,7 +371,8 @@ const Document = (props) => {
             document.acf &&
             document.acf.ressources_complementaires.length &&
             document.acf.ressources_complementaires.map((item, index) => {
-              return <GridResultComponent key={index} info={item} />;
+              if (item.post_status === "publish")
+                return <GridResultComponent key={index} info={item} />;
             })}
         </AvailableRessourceContainer>
       </BottomContainer>

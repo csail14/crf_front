@@ -67,6 +67,7 @@ class Dropdown extends Component {
   };
 
   render() {
+    console.log(this.props);
     const url = this.defineUrl(this.props.url, this.props.type, this.props.id);
     return (
       <div className={"container"} ref={this.container}>
@@ -86,7 +87,7 @@ class Dropdown extends Component {
         {this.state.open && (
           <div className={"dropdown"}>
             {this.props.subItem.map((link) => {
-              return this.placelink(link);
+              if (link.post_status === "publish") return this.placelink(link);
             })}
           </div>
         )}

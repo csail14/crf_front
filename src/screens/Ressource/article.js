@@ -338,7 +338,8 @@ const Article = (props) => {
           {article &&
             article.acf &&
             article.acf.ressources_principales.map((item, index) => {
-              return <GridResultComponent key={index} info={item} />;
+              if (item.post_status === "publish")
+                return <GridResultComponent key={index} info={item} />;
             })}
         </RightSideBodyContainer>
       </BodyContainer>
@@ -349,7 +350,8 @@ const Article = (props) => {
             article.acf &&
             article.acf.ressources_secondaires.length &&
             article.acf.ressources_secondaires.map((item) => {
-              return <GridResultComponent info={item} />;
+              if (item.post_status === "publish")
+                return <GridResultComponent info={item} />;
             })}
         </AvailableRessourceContainer>
       </BottomContainer>

@@ -93,18 +93,19 @@ const SubHomeBloc = (props) => {
       <LinkMainContainer>
         {props.info.articles_lies
           ? props.info.articles_lies.map((item, index) => {
-              return (
-                <Link
-                  key={index}
-                  style={{ textDecoration: "none" }}
-                  to={"/" + item.post_type + "/" + item.ID}
-                >
-                  <LinkContainer key={index}>
-                    {item.post_title}
-                    <MdArrowForwardIos style={{ color: colors.rouge }} />
-                  </LinkContainer>
-                </Link>
-              );
+              if (item.post_status === "publish")
+                return (
+                  <Link
+                    key={index}
+                    style={{ textDecoration: "none" }}
+                    to={"/" + item.post_type + "/" + item.ID}
+                  >
+                    <LinkContainer key={index}>
+                      {item.post_title}
+                      <MdArrowForwardIos style={{ color: colors.rouge }} />
+                    </LinkContainer>
+                  </Link>
+                );
             })
           : null}
       </LinkMainContainer>

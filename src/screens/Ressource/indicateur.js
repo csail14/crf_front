@@ -250,7 +250,7 @@ const Indicateur = (props) => {
   };
   const showCommment =
     indicateur && indicateur.comment_status === "open" ? true : false;
-
+  console.log(indicateur);
   return (
     <>
       <MainContainer>
@@ -421,7 +421,8 @@ const Indicateur = (props) => {
             indicateur.acf.ressources_liees &&
             indicateur.acf.ressources_liees.length &&
             indicateur.acf.ressources_liees.map((item, index) => {
-              return <GridResultComponent info={item} key={index} />;
+              if (("item", item.post_status === "publish"))
+                return <GridResultComponent info={item} key={index} />;
             })}
         </AvailableRessourceContainer>
       </BottomContainer>

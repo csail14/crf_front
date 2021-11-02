@@ -220,7 +220,7 @@ const GridResultComponent = (props) => {
       >
         <ImageContainer>
           <IconContainer type={type}>
-            <i class={icon}></i>
+            <i className={icon}></i>
           </IconContainer>
           <img
             style={{
