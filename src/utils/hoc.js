@@ -7,6 +7,7 @@ import {
   getAllDomainesImpacts,
   getAllOptions,
   getFooterMenu,
+  getAllCategories,
 } from "./api/API";
 
 import { getAllPages } from "./api/RessourcesApi";
@@ -70,6 +71,7 @@ export default function (ChildComponent, withAuth = false) {
       let tags = taxonomie.tags;
       let domainesActions = taxonomie.domainesActions;
       let domainesImpacts = taxonomie.domainesImpacts;
+      let categories = taxonomie.categories;
 
       if (taxonomie.tags.length === 0) {
         tags = await getAllTags();
@@ -80,7 +82,15 @@ export default function (ChildComponent, withAuth = false) {
       if (taxonomie.domainesImpacts.length === 0) {
         domainesImpacts = await getAllDomainesImpacts();
       }
-      this.props.loadTaxoInfo(tags, domainesActions, domainesImpacts);
+      if (taxonomie.categories.length === 0) {
+        categories = await getAllCategories();
+      }
+      this.props.loadTaxoInfo(
+        tags,
+        domainesActions,
+        domainesImpacts,
+        categories
+      );
     };
 
     render() {

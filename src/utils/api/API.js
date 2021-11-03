@@ -56,6 +56,17 @@ export const getAllDomainesImpacts = async () => {
     });
 };
 
+export const getAllCategories = async () => {
+  return axios
+    .get(config.api_url + "/wp/v2/categories")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getAllOptions = async () => {
   return axios
     .get(config.api_url + "/acf/v3/options/options")

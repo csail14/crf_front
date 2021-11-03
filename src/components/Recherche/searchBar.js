@@ -5,6 +5,8 @@ import { BsChevronDown } from "react-icons/bs";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { colors } from "../../colors";
+import { data } from "../../utils/data";
+import SimpleFilterItem from "./simpleFilterItem";
 
 const KeyWordsContainer = styled.div`
   display: flex;
@@ -22,6 +24,7 @@ const FilterContainer = styled.div`
   padding: 5px 22px;
   line-height: 20px;
   border-right: 0.5px solid ${colors.gris};
+  position: relative;
 `;
 
 const FilterTitle = styled.div`
@@ -94,12 +97,77 @@ const ToggleContainer = styled.div`
   cursor: pointer;
 `;
 
+const FilterOptionsContainer = styled.div`
+  font-size: 16px;
+  line-height: 21px;
+  text-align: left;
+  position: absolute;
+  top: 60px;
+  left: 0px;
+  box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+`;
+const FilterOptions = styled.div`
+  background-color: ${(props) => (props.isSelected ? colors.marine : "white")};
+  color: ${(props) => (props.isSelected ? "white" : colors.gris)};
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  flex-wrap: no-wrap;
+`;
+const categorieAll = { id: 0, name: "Toutes les catégories" };
+
 const SearchBar = (props) => {
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const [selectedFormat, setSelectedFormat] = useState([]);
+  const [showFormatOptions, setShowFormatOptions] = useState(false);
+  const [selectedType, setSelectedType] = useState([]);
+  const [showTypeOptions, setShowTypeOptions] = useState(false);
+  const [selectedCategorie, setSelectedCategorie] = useState([]);
+  const [showCategorieOptions, setShowCategorieOptions] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(data.date_ressources[0]);
+  const [showDateOptions, setShowDateOptions] = useState(false);
+
+  const toggleCategorieOptions = () => {
+    setShowCategorieOptions(!showCategorieOptions);
+  };
+
+  const toggleDateOptions = () => {
+    setShowDateOptions(!showDateOptions);
+  };
+
+  const handleChangeDate = (item) => {
+    setSelectedDate(item);
+    setShowDateOptions(false);
+  };
+
+  const toggleTypeOptions = () => {
+    setShowTypeOptions(!showTypeOptions);
+  };
+
+  const toggleFormatOptions = () => {
+    setShowFormatOptions(!showFormatOptions);
+  };
 
   const toggleAdvancedSearch = () => {
     setShowAdvancedSearch(!showAdvancedSearch);
   };
+  const categoriesOptions = () => {
+    let array = [];
+    props.taxonomie.categories
+      ? props.taxonomie.categories.forEach((item) => array.push(item))
+      : array.push();
+    array.unshift(categorieAll);
+    return array;
+  };
+  const categoriesData = categoriesOptions();
+
+  const isArticleSelected =
+    selectedType.filter((item) => item.id === 3).length > 0;
+
   return (
     <MainContainer showAdvancedSearch={showAdvancedSearch}>
       <KeyWordsContainer>
@@ -113,23 +181,27 @@ const SearchBar = (props) => {
       <FilterContainer>
         <FilterTitle>Domaine d'action</FilterTitle>
         <FilterContent>
-          Choisir <BsChevronDown />
+          Choisir <BsChevronDown style={{ marginLeft: "10px" }} />
         </FilterContent>
       </FilterContainer>
       <FilterContainer>
         {" "}
         <FilterTitle>Domaine d'impact</FilterTitle>
         <FilterContent>
-          Choisir <BsChevronDown />
+          Choisir <BsChevronDown style={{ marginLeft: "10px" }} />
         </FilterContent>
       </FilterContainer>
-      <FilterContainer style={{ border: "none" }}>
-        {" "}
-        <FilterTitle>Type de ressource</FilterTitle>
-        <FilterContent>
-          Choisir <BsChevronDown />
-        </FilterContent>
-      </FilterContainer>
+
+      <SimpleFilterItem
+        selectedObject={selectedType}
+        setSelectedObject={setSelectedType}
+        toggleOptions={toggleTypeOptions}
+        showOptions={showTypeOptions}
+        title={"Type de ressource"}
+        data={data.type_ressources}
+        default="Dans tout le site"
+      />
+
       <SearchButtonContainer>rechercher</SearchButtonContainer>
       <ToggleContainer onClick={toggleAdvancedSearch}>
         Recherche avancée
@@ -137,23 +209,53 @@ const SearchBar = (props) => {
       {showAdvancedSearch && (
         <AdvancedSearchBarContainer>
           <AdvancedSearchBar>
-            <FilterContainer>
-              <FilterTitle>Catégorie</FilterTitle>
-              <FilterContent>
-                Toutes les catégories <BsChevronDown />
-              </FilterContent>
-            </FilterContainer>
-            <FilterContainer>
-              <FilterTitle>Format</FilterTitle>
-              <FilterContent>
-                Tous les formats <BsChevronDown />
-              </FilterContent>
-            </FilterContainer>
+            {isArticleSelected && (
+              <SimpleFilterItem
+                selectedObject={selectedCategorie}
+                setSelectedObject={setSelectedCategorie}
+                toggleOptions={toggleCategorieOptions}
+                showOptions={showCategorieOptions}
+                title={"Catégorie"}
+                data={categoriesData}
+                default="Toutes les catégories"
+              />
+            )}
+            <SimpleFilterItem
+              selectedObject={selectedFormat}
+              setSelectedObject={setSelectedFormat}
+              toggleOptions={toggleFormatOptions}
+              showOptions={showFormatOptions}
+              title={"Format"}
+              data={data.format_ressources}
+              default="Tous les formats"
+            />
             <FilterContainer style={{ border: "none" }}>
               <FilterTitle>Date de publication</FilterTitle>
-              <FilterContent>
-                Moins d'un mois <BsChevronDown />
+              <FilterContent onClick={toggleDateOptions}>
+                {selectedDate.name}{" "}
+                <BsChevronDown style={{ marginLeft: "10px" }} />
               </FilterContent>
+              {showDateOptions && (
+                <FilterOptionsContainer>
+                  {data.date_ressources.map((item, index) => {
+                    let isSelected = selectedDate.name === item.name;
+                    return (
+                      <FilterOptions
+                        isSelected={isSelected}
+                        onClick={() => handleChangeDate(item)}
+                        className="search_options"
+                        key={index}
+                      >
+                        {item.name}{" "}
+                        <i
+                          style={{ marginLeft: "10px" }}
+                          className={item.icon}
+                        ></i>
+                      </FilterOptions>
+                    );
+                  })}
+                </FilterOptionsContainer>
+              )}
             </FilterContainer>
           </AdvancedSearchBar>
         </AdvancedSearchBarContainer>
@@ -165,7 +267,7 @@ const SearchBar = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { taxonomie: store.taxonomie };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
