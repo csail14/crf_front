@@ -103,9 +103,12 @@ const SearchBar = (props) => {
   return (
     <MainContainer showAdvancedSearch={showAdvancedSearch}>
       <KeyWordsContainer>
-        {" "}
         <GoSearch style={{ marginRight: "12px" }} />
-        Rechercher une ressource par mots-cléfs...
+        <input
+          type="text"
+          className="recherche_input"
+          placeholder={"Rechercher une ressource par mots-cléfs..."}
+        />{" "}
       </KeyWordsContainer>
       <FilterContainer>
         <FilterTitle>Domaine d'action</FilterTitle>
