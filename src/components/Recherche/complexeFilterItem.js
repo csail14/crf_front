@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { GoSearch } from "react-icons/go";
 import { BsChevronDown } from "react-icons/bs";
 import styled from "styled-components";
-
+import FilterOptions from "./filterOptionsItem";
 import { colors } from "../../colors";
 
 const FilterContainer = styled.div`
@@ -61,21 +61,34 @@ const FilterOptionsContainer = styled.div`
 
   width: max-content;
 `;
-const FilterOptions = styled.div`
-  background-color: ${(props) =>
-    props.isSelected ? colors.marine : colors.grisBackground};
-  color: ${(props) => (props.isSelected ? "white" : colors.gris)};
-  display: flex;
-  margin: 24px 24px 12px 0;
-  justify-content: space-between;
-  padding: 15px 20px;
-  flex-wrap: no-wrap;
-`;
 
 const NumberSelected = styled.div`
   color: ${colors.rouge};
   margin-right: 5px;
 `;
+
+function useHover() {
+  const [value, setValue] = useState(false);
+  const ref = useRef(null);
+  const handleMouseOver = () => setValue(true);
+  const handleMouseOut = () => setValue(false);
+
+  useEffect(
+    () => {
+      const node = ref.current;
+      if (node) {
+        node.addEventListener("mouseover", handleMouseOver);
+        node.addEventListener("mouseout", handleMouseOut);
+        return () => {
+          node.removeEventListener("mouseover", handleMouseOver);
+          node.removeEventListener("mouseout", handleMouseOut);
+        };
+      }
+    },
+    [ref.current] // Recall only if ref changes
+  );
+  return [ref, value];
+}
 
 const SimpleFilterItem = (props) => {
   const [keyValue, setKeyValue] = useState("");
@@ -88,7 +101,7 @@ const SimpleFilterItem = (props) => {
     } else {
       setSearchItem(props.data);
     }
-  }, [keyValue]);
+  }, [keyValue, props.data]);
 
   const filtreSearchItem = (value) => {
     let array = [];
@@ -150,17 +163,13 @@ const SimpleFilterItem = (props) => {
           <div style={{ display: "flex" }}>
             {searchItem.map((item, index) => {
               let isSelected = props.selectedObject.indexOf(item) !== -1;
-
               return (
                 <FilterOptions
                   isSelected={isSelected}
-                  onClick={() => manageSelectedFilter(item)}
-                  className="search_options"
+                  manageSelectedFilter={manageSelectedFilter}
                   key={index}
-                >
-                  {item.name}
-                  <i style={{ marginLeft: "10px" }} className={item.icon}></i>
-                </FilterOptions>
+                  item={item}
+                />
               );
             })}
           </div>

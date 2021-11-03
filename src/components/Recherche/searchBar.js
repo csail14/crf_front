@@ -137,18 +137,22 @@ const SearchBar = (props) => {
 
   const toggleCategorieOptions = () => {
     setShowCategorieOptions(!showCategorieOptions);
+    toggleOther("Categorie");
   };
 
   const toggleImpactsOptions = () => {
     setShowImpactsOptions(!showImpactsOptions);
+    toggleOther("Impact");
   };
 
   const toggleActionsOptions = () => {
     setShowActionsOptions(!showActionsOptions);
+    toggleOther("Actions");
   };
 
   const toggleDateOptions = () => {
     setShowDateOptions(!showDateOptions);
+    toggleOther("Date");
   };
 
   const handleChangeDate = (item) => {
@@ -158,14 +162,66 @@ const SearchBar = (props) => {
 
   const toggleTypeOptions = () => {
     setShowTypeOptions(!showTypeOptions);
+    toggleOther("Type");
   };
 
   const toggleFormatOptions = () => {
     setShowFormatOptions(!showFormatOptions);
+    toggleOther("Format");
   };
 
   const toggleAdvancedSearch = () => {
     setShowAdvancedSearch(!showAdvancedSearch);
+  };
+
+  const toggleOther = (type) => {
+    switch (type) {
+      case "Categorie":
+        setShowFormatOptions(false);
+        setShowImpactsOptions(false);
+        setShowActionsOptions(false);
+        setShowTypeOptions(false);
+        setShowDateOptions(false);
+        break;
+      case "Format":
+        setShowCategorieOptions(false);
+        setShowImpactsOptions(false);
+        setShowTypeOptions(false);
+        setShowDateOptions(false);
+        setShowActionsOptions(false);
+        break;
+      case "Impact":
+        setShowCategorieOptions(false);
+        setShowFormatOptions(false);
+        setShowTypeOptions(false);
+        setShowDateOptions(false);
+        setShowActionsOptions(false);
+        break;
+      case "Actions":
+        setShowCategorieOptions(false);
+        setShowFormatOptions(false);
+        setShowTypeOptions(false);
+        setShowDateOptions(false);
+        setShowImpactsOptions(false);
+        break;
+      case "Type":
+        setShowCategorieOptions(false);
+        setShowFormatOptions(false);
+        setShowActionsOptions(false);
+        setShowDateOptions(false);
+        setShowImpactsOptions(false);
+        break;
+      case "Date":
+        setShowCategorieOptions(false);
+        setShowFormatOptions(false);
+        setShowActionsOptions(false);
+        setShowTypeOptions(false);
+        setShowImpactsOptions(false);
+        break;
+
+      default:
+        break;
+    }
   };
   const categoriesOptions = () => {
     let array = [];
