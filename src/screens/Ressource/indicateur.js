@@ -172,7 +172,7 @@ const UploadButton = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: ${isMobile ? "center" : "left"};
   margin: 0 auto;
 `;
 

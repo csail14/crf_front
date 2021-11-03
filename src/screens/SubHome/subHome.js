@@ -9,6 +9,7 @@ import { colors } from "../../colors";
 
 const MainContainer = styled.div`
   min-height: 100vh;
+  overflow-wrap: break-word;
 `;
 
 const HeaderContainer = styled.div`
@@ -47,7 +48,7 @@ const BodyContainer = styled.div`
 `;
 
 const Textcontainer = styled.div`
-  padding: ${isMobile ? "40px 60px" : "70px 150px"};
+  padding: ${isMobile ? "40px 30px" : "70px 150px"};
   color: ${colors.gris};
   text-align: justify;
 `;
@@ -83,7 +84,7 @@ const BottomTitleContainer = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: ${isMobile ? "center" : "left"};
   margin: 0 auto;
 `;
 

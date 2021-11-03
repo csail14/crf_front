@@ -7,6 +7,8 @@ import SidebarSearch from "./SidebarSearch";
 import AccountContact from "./account_contact";
 import Dropdown from "./Dropdown";
 import { isMobile } from "react-device-detect";
+import logoMobile from "../../assets/logo-mobile.png";
+
 const ImageContainer = styled.div`
   margin: 22px 40px;
   cursor: pointer;
@@ -98,12 +100,18 @@ class LeftSideComponent extends React.Component {
                 </ImageContainer>
               )}
               <div className={"sidebar_title"}>
+                {isMobile && (
+                  <img
+                    src={logoMobile}
+                    style={{ marginRight: "20px" }}
+                    alt="logo-mobile"
+                  />
+                )}
                 <Link
                   to="/home"
                   style={{ textDecoration: "none" }}
                   onClick={this.closeMenu}
                 >
-                  {" "}
                   <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>{" "}
                 </Link>
                 {isMobile && (
@@ -145,12 +153,20 @@ class LeftSideComponent extends React.Component {
           <MainContainer className={"main_container"}>
             {" "}
             <div className={"sidebar_title"}>
+              {isMobile && (
+                <img
+                  src={logoMobile}
+                  style={{ marginRight: "20px" }}
+                  alt="logo-mobile"
+                />
+              )}
               <Link to="/home" style={{ textDecoration: "none" }}>
                 {" "}
                 <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>{" "}
               </Link>
               <i
                 class="bi bi-list"
+                style={{ fontSize: "30px" }}
                 onClick={() =>
                   this.setState({ showMenu: !this.state.showMenu })
                 }
