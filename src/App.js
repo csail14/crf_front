@@ -16,9 +16,11 @@ import HOC from "./utils/hoc";
 import ListDomaines from "./screens/ListDomaine/listDomaines";
 import OtherPage from "./screens/Other/otherPage";
 import { useLocation } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 const MainContainer = styled.div`
   display: flex;
+  flex-direction: ${isMobile ? "column" : "row"};
 `;
 const BodyContainer = styled.div`
   width: -webkit-fill-available;

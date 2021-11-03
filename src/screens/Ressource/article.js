@@ -13,12 +13,15 @@ import { getArticleById } from "../../utils/api/RessourcesApi";
 import Comments from "../../components/Ressource/Comments";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import { isMobile } from "react-device-detect";
+
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
 
 const HeaderContainer = styled.div`
   display: flex;
+  flex-direction: ${isMobile ? "column" : "row"};
 `;
 
 const LastUpdateContainer = styled.div`
@@ -37,7 +40,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: 50px 50px;
+  padding: ${isMobile ? "20px" : "50px 50px"};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -88,7 +91,7 @@ const BottomTitleContainer = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: ${isMobile ? "center" : "left"};
   margin: 0 auto;
 `;
 const CategoryContainer = styled.div`
@@ -129,22 +132,23 @@ const TagContainer = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: 15px 50px;
+  padding: ${isMobile ? "15px 20px" : "15px 50px"};
   border-bottom: 0.5px solid lightgrey;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.div`
-  padding: 10px 50px 0 50px;
+  padding: ${isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
 `;
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: 100px 80px;
+  flex-direction: ${isMobile ? "column" : "row"};
+  padding: ${isMobile ? "30px 20px" : "100px 80px"};
 `;
 
 const LeftSideBodyComponent = styled.div`
-  margin-right: 100px;
+  margin-right: ${isMobile ? "" : "100px"};
 `;
 const RightSideBodyContainer = styled.div``;
 
@@ -236,12 +240,11 @@ const Article = (props) => {
 
   const showCommment =
     article && article.comment_status === "open" ? true : false;
-
   return (
     <MainContainer>
       <HeaderContainer>
         <img
-          style={{ maxWidth: "45%", height: "auto" }}
+          style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
           src={media ? media : imageExemple}
           alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
@@ -271,26 +274,28 @@ const Article = (props) => {
           </HeaderRightSideTopContainer>
 
           <HeaderRightSideBottomContainer>
-            <LikeContainer>
-              <Comment>
-                <AiOutlineLike
-                  size={18}
-                  style={{ color: colors.gris, marginRight: "7px" }}
-                />
-                425
-              </Comment>
-              <Comment>
-                <AiOutlineEye
-                  size={18}
-                  style={{
-                    color: colors.gris,
-                    marginRight: "7px",
-                    marginLeft: "10px",
-                  }}
-                />
-                736
-              </Comment>
-            </LikeContainer>
+            {article && article.acf && article.acf.datas && (
+              <LikeContainer>
+                <Comment>
+                  <AiOutlineLike
+                    size={18}
+                    style={{ color: colors.gris, marginRight: "7px" }}
+                  />
+                  {article.acf.datas.likes}
+                </Comment>
+                <Comment>
+                  <AiOutlineEye
+                    size={18}
+                    style={{
+                      color: colors.gris,
+                      marginRight: "7px",
+                      marginLeft: "10px",
+                    }}
+                  />
+                  {article.acf.datas.vues}
+                </Comment>
+              </LikeContainer>
+            )}
             <UpdateContainer>
               <LastUpdateContainer>
                 publié le{" "}
@@ -338,7 +343,8 @@ const Article = (props) => {
           {article &&
             article.acf &&
             article.acf.ressources_principales.map((item, index) => {
-              return <GridResultComponent key={index} info={item} />;
+              if (item.post_status === "publish")
+                return <GridResultComponent key={index} info={item} />;
             })}
         </RightSideBodyContainer>
       </BodyContainer>
@@ -349,7 +355,8 @@ const Article = (props) => {
             article.acf &&
             article.acf.ressources_secondaires.length &&
             article.acf.ressources_secondaires.map((item) => {
-              return <GridResultComponent info={item} />;
+              if (item.post_status === "publish")
+                return <GridResultComponent info={item} />;
             })}
         </AvailableRessourceContainer>
       </BottomContainer>

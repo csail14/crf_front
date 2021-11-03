@@ -58,6 +58,7 @@ class Dropdown extends Component {
           key={obj.id}
           to={this.defineUrl(obj.url, obj.type_label, obj.object_id)}
           className={"dropdown_link_div"}
+          onClick={this.props.closeMenu}
         >
           <p>{obj.title}</p>
         </Link>
@@ -86,7 +87,7 @@ class Dropdown extends Component {
         {this.state.open && (
           <div className={"dropdown"}>
             {this.props.subItem.map((link) => {
-              return this.placelink(link);
+              if (link.post_status === "publish") return this.placelink(link);
             })}
           </div>
         )}

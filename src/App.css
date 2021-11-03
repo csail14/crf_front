@@ -52,8 +52,13 @@
 /*title*/
 .sidebar_title {
   width: 71%;
-  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  width: auto;
+  margin: 0 20px;
+  align-items: center;
   text-align: left;
+  padding: 10px 0;
 }
 
 .sidebar_title h1 {

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
+import { isMobile } from "react-device-detect";
+
 const MainContainer = styled.div`
-  margin: 50px 35px;
+  margin: ${isMobile ? "50px 35px 10px 35px" : "50px 35px"};
   max-width: 400px;
 `;
 
@@ -93,18 +95,19 @@ const SubHomeBloc = (props) => {
       <LinkMainContainer>
         {props.info.articles_lies
           ? props.info.articles_lies.map((item, index) => {
-              return (
-                <Link
-                  key={index}
-                  style={{ textDecoration: "none" }}
-                  to={"/" + item.post_type + "/" + item.ID}
-                >
-                  <LinkContainer key={index}>
-                    {item.post_title}
-                    <MdArrowForwardIos style={{ color: colors.rouge }} />
-                  </LinkContainer>
-                </Link>
-              );
+              if (item.post_status === "publish")
+                return (
+                  <Link
+                    key={index}
+                    style={{ textDecoration: "none" }}
+                    to={"/" + item.post_type + "/" + item.ID}
+                  >
+                    <LinkContainer key={index}>
+                      {item.post_title}
+                      <MdArrowForwardIos style={{ color: colors.rouge }} />
+                    </LinkContainer>
+                  </Link>
+                );
             })
           : null}
       </LinkMainContainer>

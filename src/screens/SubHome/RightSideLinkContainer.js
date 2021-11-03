@@ -7,6 +7,7 @@ import { colors } from "../../colors";
 import { useHistory } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
+import { isMobile } from "react-device-detect";
 require("moment/locale/fr.js");
 
 const LinkContainer = styled.div`
@@ -19,7 +20,7 @@ const LinkContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  min-width: 300px;
+  min-width: ${isMobile ? "200px" : "300px"};
   margin-bottom: 10px;
 `;
 

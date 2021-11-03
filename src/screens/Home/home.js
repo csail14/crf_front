@@ -6,13 +6,14 @@ import SubHomeBloc from "./subHomeBloc";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import { config } from "../../config";
+import { isMobile } from "react-device-detect";
 
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
 
 const HeaderContainer = styled.div`
-  padding: 80px 140px;
+  padding: ${isMobile ? "30px" : "80px 140px"};
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
@@ -33,6 +34,7 @@ const SubtitleContainer = styled.div`
 const BodyContainer = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: ${isMobile ? "wrap" : ""};
 `;
 
 const Home = (props) => {
@@ -63,7 +65,7 @@ const Home = (props) => {
         </HeaderTitleContainer>
         {homeTemplate && <SubtitleContainer></SubtitleContainer>}
       </HeaderContainer>
-      <SearchBar />
+      {!isMobile && <SearchBar />}
       <BodyContainer>
         {homeTemplate
           ? homeTemplate.acf.entrees.map((item, index) => {
