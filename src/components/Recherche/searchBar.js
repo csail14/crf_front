@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { GoSearch } from "react-icons/go";
 import { BsChevronDown } from "react-icons/bs";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+
 import { colors } from "../../colors";
 import { data } from "../../utils/data";
 import SimpleFilterItem from "./simpleFilterItem";
-
+import ComplexeFilterItem from "./complexeFilterItem";
 const KeyWordsContainer = styled.div`
   display: flex;
   padding: 9px 5px;
@@ -130,9 +130,21 @@ const SearchBar = (props) => {
   const [showCategorieOptions, setShowCategorieOptions] = useState(false);
   const [selectedDate, setSelectedDate] = useState(data.date_ressources[0]);
   const [showDateOptions, setShowDateOptions] = useState(false);
+  const [selectedImpacts, setSelectedImpacts] = useState([]);
+  const [showImpactsOptions, setShowImpactsOptions] = useState(false);
+  const [selectedActions, setSelectedActions] = useState([]);
+  const [showActionsOptions, setShowActionsOptions] = useState(false);
 
   const toggleCategorieOptions = () => {
     setShowCategorieOptions(!showCategorieOptions);
+  };
+
+  const toggleImpactsOptions = () => {
+    setShowImpactsOptions(!showImpactsOptions);
+  };
+
+  const toggleActionsOptions = () => {
+    setShowActionsOptions(!showActionsOptions);
   };
 
   const toggleDateOptions = () => {
@@ -178,20 +190,26 @@ const SearchBar = (props) => {
           placeholder={"Rechercher une ressource par mots-cléfs..."}
         />{" "}
       </KeyWordsContainer>
-      <FilterContainer>
-        <FilterTitle>Domaine d'action</FilterTitle>
-        <FilterContent>
-          Choisir <BsChevronDown style={{ marginLeft: "10px" }} />
-        </FilterContent>
-      </FilterContainer>
-      <FilterContainer>
-        {" "}
-        <FilterTitle>Domaine d'impact</FilterTitle>
-        <FilterContent>
-          Choisir <BsChevronDown style={{ marginLeft: "10px" }} />
-        </FilterContent>
-      </FilterContainer>
 
+      <ComplexeFilterItem
+        selectedObject={selectedActions}
+        setSelectedObject={setSelectedActions}
+        toggleOptions={toggleActionsOptions}
+        showOptions={showActionsOptions}
+        title={"Domaine d'action"}
+        data={props.taxonomie && props.taxonomie.domainesActions}
+        default="Choisir"
+      />
+
+      <ComplexeFilterItem
+        selectedObject={selectedImpacts}
+        setSelectedObject={setSelectedImpacts}
+        toggleOptions={toggleImpactsOptions}
+        showOptions={showImpactsOptions}
+        title={"Domaine d'impact"}
+        data={props.taxonomie && props.taxonomie.domainesImpacts}
+        default="Choisir"
+      />
       <SimpleFilterItem
         selectedObject={selectedType}
         setSelectedObject={setSelectedType}
@@ -201,7 +219,6 @@ const SearchBar = (props) => {
         data={data.type_ressources}
         default="Dans tout le site"
       />
-
       <SearchButtonContainer>rechercher</SearchButtonContainer>
       <ToggleContainer onClick={toggleAdvancedSearch}>
         Recherche avancée

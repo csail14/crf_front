@@ -65,6 +65,15 @@
   min-width: 300px;
   height: 30px;
   outline: none;
+  font-size: 16px;
+}
+.recherche_domaine_input {
+  border: none;
+  min-width: 300px;
+  height: 30px;
+  outline: none;
+  font-size: 16px;
+  background-color: #f7f9fa;
 }
 .search_options:hover {
   color: white;
