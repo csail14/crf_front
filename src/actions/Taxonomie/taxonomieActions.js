@@ -1,6 +1,11 @@
 import { LOAD_TAXO_INFO } from "./action-type";
 
-export const loadTaxoInfo = (tags, domainesActions, domainesImpacts) => {
+export const loadTaxoInfo = (
+  tags,
+  domainesActions,
+  domainesImpacts,
+  categories
+) => {
   return function (dispatch) {
     dispatch({
       type: LOAD_TAXO_INFO,
@@ -8,6 +13,7 @@ export const loadTaxoInfo = (tags, domainesActions, domainesImpacts) => {
         tags: tags,
         domainesActions: domainesActions,
         domainesImpacts: domainesImpacts,
+        categories: categories,
       },
     });
   };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import SearchBar from "../../components/Recherche/searchBar";
 import styled from "styled-components";
@@ -42,6 +42,12 @@ const Home = (props) => {
     ? props.pages.templates.filter((template) => template.slug === "accueil")[0]
     : null;
 
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const toggleIsSearchOpen = (isOpen) => {
+    setIsSearchOpen(isOpen);
+  };
+
   return (
     <MainContainer>
       <HeaderContainer>
@@ -65,11 +71,17 @@ const Home = (props) => {
         </HeaderTitleContainer>
         {homeTemplate && <SubtitleContainer></SubtitleContainer>}
       </HeaderContainer>
-      {!isMobile && <SearchBar />}
+      {!isMobile && <SearchBar setIsSearchOpen={toggleIsSearchOpen} />}
       <BodyContainer>
         {homeTemplate
           ? homeTemplate.acf.entrees.map((item, index) => {
-              return <SubHomeBloc key={index} info={item} />;
+              return (
+                <SubHomeBloc
+                  isSearchOpen={isSearchOpen}
+                  key={index}
+                  info={item}
+                />
+              );
             })
           : null}
       </BodyContainer>

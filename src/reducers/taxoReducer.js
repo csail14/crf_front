@@ -4,6 +4,7 @@ const initialState = {
   tags: [],
   domainesActions: [],
   domainesImpacts: [],
+  categories: [],
 };
 
 const TaxoReducer = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const TaxoReducer = (state = initialState, action) => {
         tags: action.payload.tags,
         domainesActions: action.payload.domainesActions,
         domainesImpacts: action.payload.domainesImpacts,
+        categories: action.payload.categories,
       };
     default:
       return state;
