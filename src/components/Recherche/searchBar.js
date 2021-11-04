@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import { GoSearch } from "react-icons/go";
 import { BsChevronDown } from "react-icons/bs";
 import styled from "styled-components";
-
+import useOutsideClick from "../../utils/function/clickOutside";
 import { colors } from "../../colors";
 import { data } from "../../utils/data";
 import SimpleFilterItem from "./simpleFilterItem";
@@ -135,6 +135,38 @@ const SearchBar = (props) => {
   const [selectedActions, setSelectedActions] = useState([]);
   const [showActionsOptions, setShowActionsOptions] = useState(false);
 
+  const actionsref = useRef();
+  const impactsref = useRef();
+  const dateRef = useRef();
+  const formatRef = useRef();
+  const typeRef = useRef();
+  const categorieRef = useRef();
+
+  useOutsideClick(actionsref, () => setShowActionsOptions(false));
+  useOutsideClick(impactsref, () => setShowImpactsOptions(false));
+  useOutsideClick(dateRef, () => setShowDateOptions(false));
+  useOutsideClick(formatRef, () => setShowFormatOptions(false));
+  useOutsideClick(typeRef, () => setShowTypeOptions(false));
+  useOutsideClick(categorieRef, () => setShowCategorieOptions(false));
+
+  useEffect(() => {
+    props.setIsSearchOpen(
+      showFormatOptions ||
+        showTypeOptions ||
+        showCategorieOptions ||
+        showDateOptions ||
+        showImpactsOptions ||
+        showActionsOptions
+    );
+  }, [
+    showFormatOptions,
+    showTypeOptions,
+    showCategorieOptions,
+    showDateOptions,
+    showImpactsOptions,
+    showActionsOptions,
+  ]);
+
   const toggleCategorieOptions = () => {
     setShowCategorieOptions(!showCategorieOptions);
     toggleOther("Categorie");
@@ -218,7 +250,6 @@ const SearchBar = (props) => {
         setShowTypeOptions(false);
         setShowImpactsOptions(false);
         break;
-
       default:
         break;
     }
@@ -247,34 +278,39 @@ const SearchBar = (props) => {
         />{" "}
       </KeyWordsContainer>
 
-      <ComplexeFilterItem
-        selectedObject={selectedActions}
-        setSelectedObject={setSelectedActions}
-        toggleOptions={toggleActionsOptions}
-        showOptions={showActionsOptions}
-        title={"Domaine d'action"}
-        data={props.taxonomie && props.taxonomie.domainesActions}
-        default="Choisir"
-      />
-
-      <ComplexeFilterItem
-        selectedObject={selectedImpacts}
-        setSelectedObject={setSelectedImpacts}
-        toggleOptions={toggleImpactsOptions}
-        showOptions={showImpactsOptions}
-        title={"Domaine d'impact"}
-        data={props.taxonomie && props.taxonomie.domainesImpacts}
-        default="Choisir"
-      />
-      <SimpleFilterItem
-        selectedObject={selectedType}
-        setSelectedObject={setSelectedType}
-        toggleOptions={toggleTypeOptions}
-        showOptions={showTypeOptions}
-        title={"Type de ressource"}
-        data={data.type_ressources}
-        default="Dans tout le site"
-      />
+      <div ref={actionsref}>
+        <ComplexeFilterItem
+          selectedObject={selectedActions}
+          setSelectedObject={setSelectedActions}
+          toggleOptions={toggleActionsOptions}
+          showOptions={showActionsOptions}
+          title={"Domaine d'action"}
+          data={props.taxonomie && props.taxonomie.domainesActions}
+          default="Choisir"
+        />
+      </div>
+      <div ref={impactsref}>
+        <ComplexeFilterItem
+          selectedObject={selectedImpacts}
+          setSelectedObject={setSelectedImpacts}
+          toggleOptions={toggleImpactsOptions}
+          showOptions={showImpactsOptions}
+          title={"Domaine d'impact"}
+          data={props.taxonomie && props.taxonomie.domainesImpacts}
+          default="Choisir"
+        />
+      </div>
+      <div ref={typeRef}>
+        <SimpleFilterItem
+          selectedObject={selectedType}
+          setSelectedObject={setSelectedType}
+          toggleOptions={toggleTypeOptions}
+          showOptions={showTypeOptions}
+          title={"Type de ressource"}
+          data={data.type_ressources}
+          default="Dans tout le site"
+        />
+      </div>
       <SearchButtonContainer>rechercher</SearchButtonContainer>
       <ToggleContainer onClick={toggleAdvancedSearch}>
         Recherche avancée
@@ -283,53 +319,59 @@ const SearchBar = (props) => {
         <AdvancedSearchBarContainer>
           <AdvancedSearchBar>
             {isArticleSelected && (
-              <SimpleFilterItem
-                selectedObject={selectedCategorie}
-                setSelectedObject={setSelectedCategorie}
-                toggleOptions={toggleCategorieOptions}
-                showOptions={showCategorieOptions}
-                title={"Catégorie"}
-                data={categoriesData}
-                default="Toutes les catégories"
-              />
+              <div ref={categorieRef}>
+                <SimpleFilterItem
+                  selectedObject={selectedCategorie}
+                  setSelectedObject={setSelectedCategorie}
+                  toggleOptions={toggleCategorieOptions}
+                  showOptions={showCategorieOptions}
+                  title={"Catégorie"}
+                  data={categoriesData}
+                  default="Toutes les catégories"
+                />
+              </div>
             )}
-            <SimpleFilterItem
-              selectedObject={selectedFormat}
-              setSelectedObject={setSelectedFormat}
-              toggleOptions={toggleFormatOptions}
-              showOptions={showFormatOptions}
-              title={"Format"}
-              data={data.format_ressources}
-              default="Tous les formats"
-            />
-            <FilterContainer style={{ border: "none" }}>
-              <FilterTitle>Date de publication</FilterTitle>
-              <FilterContent onClick={toggleDateOptions}>
-                {selectedDate.name}{" "}
-                <BsChevronDown style={{ marginLeft: "10px" }} />
-              </FilterContent>
-              {showDateOptions && (
-                <FilterOptionsContainer>
-                  {data.date_ressources.map((item, index) => {
-                    let isSelected = selectedDate.name === item.name;
-                    return (
-                      <FilterOptions
-                        isSelected={isSelected}
-                        onClick={() => handleChangeDate(item)}
-                        className="search_options"
-                        key={index}
-                      >
-                        {item.name}{" "}
-                        <i
-                          style={{ marginLeft: "10px" }}
-                          className={item.icon}
-                        ></i>
-                      </FilterOptions>
-                    );
-                  })}
-                </FilterOptionsContainer>
-              )}
-            </FilterContainer>
+            <div ref={formatRef}>
+              <SimpleFilterItem
+                selectedObject={selectedFormat}
+                setSelectedObject={setSelectedFormat}
+                toggleOptions={toggleFormatOptions}
+                showOptions={showFormatOptions}
+                title={"Format"}
+                data={data.format_ressources}
+                default="Tous les formats"
+              />
+            </div>
+            <div ref={dateRef}>
+              <FilterContainer style={{ border: "none" }}>
+                <FilterTitle>Date de publication</FilterTitle>
+                <FilterContent onClick={toggleDateOptions}>
+                  {selectedDate.name}{" "}
+                  <BsChevronDown style={{ marginLeft: "10px" }} />
+                </FilterContent>
+                {showDateOptions && (
+                  <FilterOptionsContainer>
+                    {data.date_ressources.map((item, index) => {
+                      let isSelected = selectedDate.name === item.name;
+                      return (
+                        <FilterOptions
+                          isSelected={isSelected}
+                          onClick={() => handleChangeDate(item)}
+                          className="search_options"
+                          key={index}
+                        >
+                          {item.name}{" "}
+                          <i
+                            style={{ marginLeft: "10px" }}
+                            className={item.icon}
+                          ></i>
+                        </FilterOptions>
+                      );
+                    })}
+                  </FilterOptionsContainer>
+                )}
+              </FilterContainer>
+            </div>
           </AdvancedSearchBar>
         </AdvancedSearchBarContainer>
       )}

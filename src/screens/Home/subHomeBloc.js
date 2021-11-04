@@ -73,9 +73,13 @@ const SubHomeBloc = (props) => {
     "https://pmis-wp.laguildedupixel.fr/",
     ""
   );
+  console.log(props.isSearchOpen);
   return (
     <MainContainer>
-      <Link to={"/subHome/" + link} style={{ textDecoration: "none" }}>
+      <Link
+        to={props.isSearchOpen ? "#" : "/subHome/" + link}
+        style={{ textDecoration: "none" }}
+      >
         <HeaderContainer>
           {" "}
           <img
@@ -100,7 +104,11 @@ const SubHomeBloc = (props) => {
                   <Link
                     key={index}
                     style={{ textDecoration: "none" }}
-                    to={"/" + item.post_type + "/" + item.ID}
+                    to={
+                      props.isSearchOpen
+                        ? "#"
+                        : "/" + item.post_type + "/" + item.ID
+                    }
                   >
                     <LinkContainer key={index}>
                       {item.post_title}

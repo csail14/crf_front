@@ -67,30 +67,7 @@ const NumberSelected = styled.div`
   margin-right: 5px;
 `;
 
-function useHover() {
-  const [value, setValue] = useState(false);
-  const ref = useRef(null);
-  const handleMouseOver = () => setValue(true);
-  const handleMouseOut = () => setValue(false);
-
-  useEffect(
-    () => {
-      const node = ref.current;
-      if (node) {
-        node.addEventListener("mouseover", handleMouseOver);
-        node.addEventListener("mouseout", handleMouseOut);
-        return () => {
-          node.removeEventListener("mouseover", handleMouseOver);
-          node.removeEventListener("mouseout", handleMouseOut);
-        };
-      }
-    },
-    [ref.current] // Recall only if ref changes
-  );
-  return [ref, value];
-}
-
-const SimpleFilterItem = (props) => {
+const ComplexeFilterItem = (props) => {
   const [keyValue, setKeyValue] = useState("");
   const [searchItem, setSearchItem] = useState(props.data);
 
@@ -125,14 +102,13 @@ const SimpleFilterItem = (props) => {
         array.push(item);
       }
       props.setSelectedObject(array);
-      props.toggleOptions(false);
+      //   props.toggleOptions(false);
     }
   };
 
   const handleChange = (e) => {
     setKeyValue(e.target.value);
   };
-
   return (
     <FilterContainer>
       <FilterTitle>{props.title}</FilterTitle>
@@ -185,4 +161,4 @@ const mapStateToProps = (store) => {
   return { taxonomie: store.taxonomie };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SimpleFilterItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ComplexeFilterItem);

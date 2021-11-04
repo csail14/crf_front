@@ -76,7 +76,7 @@ const SimpleFilterItem = (props) => {
         array.push(item);
       }
       props.setSelectedObject(array);
-      props.toggleOptions(false);
+      //props.toggleOptions(false);
     }
   };
 
