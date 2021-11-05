@@ -9,7 +9,11 @@ import { isMobile } from "react-device-detect";
 import { getAllRessources } from "../../utils/api/RessourcesApi";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
-
+import { checkAllRessources } from "../../utils/function/function";
+import {
+  loadRessourcesInfo,
+  loadResultInfo,
+} from "../../actions/ressources/ressourcesActions";
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
@@ -92,27 +96,38 @@ const Tries = styled.div`
   cursor: pointer;
 `;
 
+const NoRequestContainer = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: ${colors.gris};
+`;
+
 const Recherche = (props) => {
   const [isViewGrid, setIsViewGrid] = useState(true);
-  const [allRessources, setAllRessources] = useState([]);
+
   const [viewTrie, setViewTrie] = useState(false);
   const [updateTrie, setUpdateTrie] = useState(true);
   const [pertinenceTrie, setPertinenceTrie] = useState(false);
   const [resultToDisplay, setResultToDisplay] = useState([]);
 
   useEffect(() => {
-    getAllRessources()
-      .then((res) => setAllRessources(res))
-      .catch((error) => console.log(error));
+    checkAllRessources(
+      props.ressources.allRessources,
+      props.loadRessourcesInfo
+    );
   }, []);
 
   useEffect(() => {
-    setResultToDisplay(allRessources);
-  }, []);
+    props.loadResultInfo(props.ressources.allRessources);
+  }, [props.ressources.allRessources]);
 
-  // useEffect(() => {
-  //   setResultToDisplay(allRessources);
-  // }, []);
+  useEffect(() => {
+    setResultToDisplay(props.ressources.results);
+  }, [props.ressources.results]);
 
   const template = props.pages.templates.length
     ? props.pages.templates.filter(
@@ -137,9 +152,9 @@ const Recherche = (props) => {
     setPertinenceTrie(!pertinenceTrie);
   };
 
-  const trieResult = () => {
+  const trieResult = (resultArray) => {
     let newArray = [];
-    resultToDisplay.forEach((item) => newArray.push(item));
+    resultArray.forEach((item) => newArray.push(item));
     if (viewTrie) {
       newArray.sort((a, b) => (a.modified - b.modified ? 1 : -1));
     }
@@ -172,9 +187,12 @@ const Recherche = (props) => {
       </HeaderContainer>
       <MiddleContainer>
         <NumberResultsContainer>
-          18{" "}
+          {resultToDisplay.length}{" "}
           <div style={{ fontSize: "28px", marginLeft: "5px" }}> Résultats</div>
         </NumberResultsContainer>
+        <NoRequestContainer>
+          Les dernières ressources mises à jour
+        </NoRequestContainer>
         <ButtonViewContainer>
           <ButtonView
             isSelected={isViewGrid}
@@ -245,11 +263,12 @@ const Recherche = (props) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { loadRessourcesInfo, loadResultInfo };
 
 const mapStateToProps = (store) => {
   return {
     pages: store.pages,
+    ressources: store.ressources,
   };
 };
 
