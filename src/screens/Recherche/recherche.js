@@ -74,16 +74,45 @@ const ButtonView = styled.div`
   text-transform: uppercase;
   align-items: center;
 `;
+const TriesContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 40px;
+  margin-bottom: 13px;
+`;
+
+const Tries = styled.div`
+  font-weight: bold;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  color: ${(props) => (props.isTrue ? "black" : colors.gris)};
+  margin: auto 5px;
+  cursor: pointer;
+`;
 
 const Recherche = (props) => {
   const [isViewGrid, setIsViewGrid] = useState(true);
   const [allRessources, setAllRessources] = useState([]);
+  const [viewTrie, setViewTrie] = useState(false);
+  const [updateTrie, setUpdateTrie] = useState(true);
+  const [pertinenceTrie, setPertinenceTrie] = useState(false);
+  const [resultToDisplay, setResultToDisplay] = useState([]);
 
   useEffect(() => {
     getAllRessources()
       .then((res) => setAllRessources(res))
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    setResultToDisplay(allRessources);
+  }, []);
+
+  // useEffect(() => {
+  //   setResultToDisplay(allRessources);
+  // }, []);
 
   const template = props.pages.templates.length
     ? props.pages.templates.filter(
@@ -97,6 +126,24 @@ const Recherche = (props) => {
     setIsSearchOpen(isOpen);
   };
 
+  const toggleViewTrie = () => {
+    setViewTrie(!viewTrie);
+  };
+
+  const toggleUpdateTrie = () => {
+    setUpdateTrie(!updateTrie);
+  };
+  const togglepertinenceTrie = () => {
+    setPertinenceTrie(!pertinenceTrie);
+  };
+
+  const trieResult = () => {
+    let newArray = [];
+    resultToDisplay.forEach((item) => newArray.push(item));
+    if (viewTrie) {
+      newArray.sort((a, b) => (a.modified - b.modified ? 1 : -1));
+    }
+  };
   return (
     <MainContainer>
       <HeaderContainer>
@@ -151,9 +198,35 @@ const Recherche = (props) => {
           </ButtonView>
         </ButtonViewContainer>
       </MiddleContainer>
+      <TriesContainer>
+        <Tries onClick={toggleViewTrie} isTrue={viewTrie}>
+          nombre de vues{" "}
+          {viewTrie ? (
+            <i class="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
+          ) : (
+            <i class="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
+          )}
+        </Tries>
+        <Tries onClick={toggleUpdateTrie} isTrue={updateTrie}>
+          dernière mise à jour{" "}
+          {updateTrie ? (
+            <i class="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
+          ) : (
+            <i class="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
+          )}
+        </Tries>
+        <Tries onClick={togglepertinenceTrie} isTrue={pertinenceTrie}>
+          pertinence{" "}
+          {pertinenceTrie ? (
+            <i class="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
+          ) : (
+            <i class="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
+          )}
+        </Tries>
+      </TriesContainer>
       <BodyContainer isViewGrid={isViewGrid}>
-        {allRessources &&
-          allRessources.map((item) => {
+        {resultToDisplay &&
+          resultToDisplay.map((item) => {
             if (
               item.subtype === "indicateurs" ||
               item.subtype === "documents" ||

@@ -217,7 +217,6 @@ const GridResultComponent = (props) => {
       ? "bi bi-file-earmark-play"
       : "";
 
-  console.log("detail", details);
   return (
     <MainContainer>
       <Link
