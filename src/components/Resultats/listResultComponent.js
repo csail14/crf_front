@@ -41,9 +41,6 @@ const IconContainer = styled.div`
       : colors.redBackground};
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
 `;
-const ImageContainer = styled.div`
-  background-color: #f7f9fa;
-`;
 const DetailsContainer = styled.div`
   display: flex;
   padding: 15px;
@@ -54,7 +51,7 @@ const LastUpdateContainer = styled.div`
   display: flex;
   align-items: center;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 14px;
   text-align: left;
   text-transform: uppercase;
@@ -64,12 +61,16 @@ const LastUpdateContainer = styled.div`
 const Category = styled.div`
   display: flex;
   align-items: center;
+  font-weight: 700;
   color: ${colors.rouge};
+  cursor: pointer;
 `;
 const Domaine = styled.div`
   display: flex;
   align-items: center;
+  font-weight: 700;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -78,7 +79,6 @@ const TitleContainer = styled.div`
   line-height: 22px;
   text-transform: uppercase;
   text-align: left;
-  margin-bottom: 16px;
   color: ${colors.marine};
 `;
 
@@ -93,13 +93,15 @@ const DescriptionContainer = styled.div`
 const TagContainer = styled.div`
   display: flex;
   align-items: center;
+  text-decoration: underline;
   font-size: 14px;
   display: flex;
   font-weight: 400;
   line-height: 16px;
   align-items: center;
   text-align: left;
-  color: ${colors.marine};
+  color: black;
+  cursor: pointer;
 `;
 
 const PostInfoContainer = styled.div`
@@ -122,10 +124,16 @@ const UploadContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${colors.yellowBackground};
-  padding: 20px;
+  font-size: 12px;
   font-weight: 700;
+  cursor: pointer;
+  margin-top: 5px;
   color: ${colors.marine};
+`;
+
+const FirstPartContainer = styled.div`
+  display: flex;
+  width: 50%;
 `;
 
 const GridResultComponent = (props) => {
@@ -217,7 +225,7 @@ const GridResultComponent = (props) => {
       : "";
   return (
     <MainContainer>
-      <>
+      <FirstPartContainer>
         <IconContainer type={type}>
           <i className={icon}></i>
         </IconContainer>
@@ -233,20 +241,42 @@ const GridResultComponent = (props) => {
           >
             {" "}
             <TitleContainer>
-              {props.info && props.info.post_title}
+              {details && details.title && details.title.rendered}
             </TitleContainer>
+            {details && details.acf && (
+              <DescriptionContainer
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(details.acf.extrait),
+                }}
+              ></DescriptionContainer>
+            )}{" "}
           </Link>
-          {details && details.acf && (
-            <DescriptionContainer
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(details.acf.extrait),
-              }}
-            ></DescriptionContainer>
-          )}
+          {details &&
+            details.acf &&
+            details.acf.document &&
+            details.acf.document.fichier_joint.subtype === "pdf" && (
+              <UploadContainer
+                onClick={() => {
+                  openInNewTab(details.acf.document.fichier_joint.url);
+                }}
+              >
+                <BsDownload style={{ marginRight: "8px" }} />
+                TÉLÉCHARGER
+                {details.acf.document.fichier_joint.filesize && (
+                  <div style={{ color: "grey", marginLeft: "5px" }}>
+                    {"(" +
+                      (
+                        details.acf.document.fichier_joint.filesize / 10000
+                      ).toFixed(1)}{" "}
+                    Mo)
+                  </div>
+                )}
+              </UploadContainer>
+            )}
         </DetailsContainer>
-      </>
+      </FirstPartContainer>
       <LastUpdateContainer>
-        {props.info && moment(props.info.post_modified).format("DD/MM/YYYY")}
+        {details && moment(details.modified).format("DD/MM/YYYY")}
       </LastUpdateContainer>
 
       {domaineAction && <Category>{domaineAction.name}</Category>}
@@ -255,9 +285,9 @@ const GridResultComponent = (props) => {
 
       {tags && (
         <TagContainer>
-          <BsTags style={{ marginRight: "8px" }} />
-          {tags.map((item) => {
-            return item.name + ", ";
+          {tags.map((item, index) => {
+            let comma = index < tags.length - 1 ? ", " : "";
+            return item.name + comma;
           })}
         </TagContainer>
       )}
@@ -295,28 +325,6 @@ const GridResultComponent = (props) => {
           </div>
         )}
       </PostInfoContainer>
-      {details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.fichier_joint.subtype === "pdf" && (
-          <UploadContainer
-            onClick={() => {
-              openInNewTab(details.acf.document.fichier_joint.url);
-            }}
-          >
-            <BsDownload style={{ marginRight: "8px" }} />
-            TÉLÉCHARGER
-            {details.acf.document.fichier_joint.filesize && (
-              <div style={{ color: "grey", marginLeft: "5px" }}>
-                {"(" +
-                  (details.acf.document.fichier_joint.filesize / 10000).toFixed(
-                    1
-                  )}{" "}
-                Mo)
-              </div>
-            )}
-          </UploadContainer>
-        )}
     </MainContainer>
   );
 };

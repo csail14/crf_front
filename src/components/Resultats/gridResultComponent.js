@@ -127,6 +127,7 @@ const UploadContainer = styled.div`
   padding: 20px;
   font-weight: 700;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
@@ -215,6 +216,8 @@ const GridResultComponent = (props) => {
       : details && details.acf && details.acf.document.format === "Vidéo"
       ? "bi bi-file-earmark-play"
       : "";
+
+  console.log("detail", details);
   return (
     <MainContainer>
       <Link
@@ -243,8 +246,7 @@ const GridResultComponent = (props) => {
       <DetailsContainer>
         <LastUpdateContainer>
           mis à jour le{" "}
-          {props.info &&
-            moment(props.info.post_modified).format("DD MMMM YYYY")}
+          {details && moment(details.modified).format("DD MMMM YYYY")}
         </LastUpdateContainer>
         <CategoryContainer>
           {domaineAction && <Category>{domaineAction.name}</Category>}
@@ -260,7 +262,9 @@ const GridResultComponent = (props) => {
           style={{ textDecoration: "none" }}
         >
           {" "}
-          <TitleContainer>{props.info && props.info.post_title}</TitleContainer>
+          <TitleContainer>
+            {details && details.title && details.title.rendered}
+          </TitleContainer>
         </Link>
         {details && details.acf && (
           <DescriptionContainer
@@ -272,8 +276,10 @@ const GridResultComponent = (props) => {
         {tags && (
           <TagContainer>
             <BsTags style={{ marginRight: "8px" }} />
-            {tags.map((item) => {
-              return item.name + ", ";
+
+            {tags.map((item, index) => {
+              let comma = index < tags.length - 1 ? ", " : "";
+              return item.name + comma;
             })}
           </TagContainer>
         )}

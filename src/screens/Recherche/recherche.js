@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import SearchBar from "../../components/Recherche/searchBar";
 import styled from "styled-components";
@@ -6,6 +6,9 @@ import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import { config } from "../../config";
 import { isMobile } from "react-device-detect";
+import { getAllRessources } from "../../utils/api/RessourcesApi";
+import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 
 const MainContainer = styled.div`
   min-height: 100vh;
@@ -32,7 +35,9 @@ const SubtitleContainer = styled.div`
   max-width: 80%;
 `;
 const BodyContainer = styled.div`
+  padding: ${(props) => (props.isViewGrid ? "" : "0 35px")};
   display: flex;
+  flex-direction: ${(props) => (props.isViewGrid ? "row" : "column")};
   justify-content: center;
   flex-wrap: ${isMobile ? "wrap" : ""};
 `;
@@ -73,6 +78,13 @@ const ButtonView = styled.div`
 const Recherche = (props) => {
   const [isViewGrid, setIsViewGrid] = useState(true);
   const [allRessources, setAllRessources] = useState([]);
+
+  useEffect(() => {
+    getAllRessources()
+      .then((res) => setAllRessources(res))
+      .catch((error) => console.log(error));
+  }, []);
+
   const template = props.pages.templates.length
     ? props.pages.templates.filter(
         (template) => template.slug === "recherche"
@@ -84,6 +96,7 @@ const Recherche = (props) => {
   const toggleIsSearchOpen = (isOpen) => {
     setIsSearchOpen(isOpen);
   };
+
   return (
     <MainContainer>
       <HeaderContainer>
@@ -138,7 +151,23 @@ const Recherche = (props) => {
           </ButtonView>
         </ButtonViewContainer>
       </MiddleContainer>
-      <BodyContainer></BodyContainer>
+      <BodyContainer isViewGrid={isViewGrid}>
+        {allRessources &&
+          allRessources.map((item) => {
+            if (
+              item.subtype === "indicateurs" ||
+              item.subtype === "documents" ||
+              item.subtype === "post"
+            ) {
+              let info = { ID: item.id, post_type: item.subtype };
+              return isViewGrid ? (
+                <GridResultComponent info={info} />
+              ) : (
+                <ListResultComponent info={info} />
+              );
+            }
+          })}
+      </BodyContainer>
     </MainContainer>
   );
 };

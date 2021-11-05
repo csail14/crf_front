@@ -267,8 +267,9 @@ const Article = (props) => {
             {tags && (
               <TagContainer>
                 <BsTags style={{ marginRight: "8px" }} />
-                {tags.map((item) => {
-                  return item.name + ", ";
+                {tags.map((item, index) => {
+                  let comma = index < tags.length - 1 ? ", " : "";
+                  return item.name + comma;
                 })}
               </TagContainer>
             )}
