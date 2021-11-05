@@ -14,6 +14,7 @@ import Comments from "../../components/Ressource/Comments";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import { isMobile } from "react-device-detect";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 
 require("moment/locale/fr.js");
 
@@ -266,8 +267,9 @@ const Article = (props) => {
             {tags && (
               <TagContainer>
                 <BsTags style={{ marginRight: "8px" }} />
-                {tags.map((item) => {
-                  return item.name + ", ";
+                {tags.map((item, index) => {
+                  let comma = index < tags.length - 1 ? ", " : "";
+                  return item.name + comma;
                 })}
               </TagContainer>
             )}

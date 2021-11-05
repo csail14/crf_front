@@ -8,6 +8,7 @@ import { colors } from "../../colors";
 import { data } from "../../utils/data";
 import SimpleFilterItem from "./simpleFilterItem";
 import ComplexeFilterItem from "./complexeFilterItem";
+
 const KeyWordsContainer = styled.div`
   display: flex;
   padding: 9px 5px;
@@ -50,8 +51,13 @@ const MainContainer = styled.div`
   display: flex;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   padding: 7px;
+  flex-wrap: wrap;
   margin: ${(props) =>
-    props.showAdvancedSearch ? "-32px auto 70px auto" : "-32px auto 0px auto"};
+    props.page === "recherche"
+      ? ""
+      : props.showAdvancedSearch
+      ? "-32px auto 70px auto"
+      : "-32px auto 0px auto"};
   background-color: white;
   text-align: left;
   align-items: center;
@@ -268,7 +274,7 @@ const SearchBar = (props) => {
     selectedType.filter((item) => item.id === 3).length > 0;
 
   return (
-    <MainContainer showAdvancedSearch={showAdvancedSearch}>
+    <MainContainer page={props.page} showAdvancedSearch={showAdvancedSearch}>
       <KeyWordsContainer>
         <GoSearch style={{ marginRight: "12px" }} />
         <input

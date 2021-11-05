@@ -18,16 +18,21 @@ import { Link } from "react-router-dom";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
-  margin: 10px;
-  max-width: 350px;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  margin: 10px auto;
+  width: 100%;
+  background-color: white;
   position: relative;
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
   height: fit-content;
 `;
 
 const IconContainer = styled.div`
-  position: absolute;
-  padding: 13px;
+  display: flex;
+  padding: 13px 28px;
+  align-items: center;
   background-color: ${(props) =>
     props.type === "documents"
       ? colors.yellowBackground
@@ -36,39 +41,36 @@ const IconContainer = styled.div`
       : colors.redBackground};
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
 `;
-const ImageContainer = styled.div`
-  background-color: #f7f9fa;
-`;
 const DetailsContainer = styled.div`
-  padding: 30px 22px;
-  background-color: white;
+  display: flex;
+  padding: 15px;
+  flex-direction: column;
 `;
 
 const LastUpdateContainer = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 14px;
   text-align: left;
   text-transform: uppercase;
-  margin-bottom: 13px;
   color: ${colors.marine};
 `;
 
-const CategoryContainer = styled.div`
-  display: flex;
-  font-size: 12px;
-  font-weight: 600;
-  text-align: left;
-  text-transform: uppercase;
-  margin-bottom: 13px;
-`;
 const Category = styled.div`
+  display: flex;
+  align-items: center;
+  font-weight: 700;
   color: ${colors.rouge};
-  margin-right: 3px;
+  cursor: pointer;
 `;
 const Domaine = styled.div`
-  margin-left: 2px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -77,7 +79,6 @@ const TitleContainer = styled.div`
   line-height: 22px;
   text-transform: uppercase;
   text-align: left;
-  margin-bottom: 16px;
   color: ${colors.marine};
 `;
 
@@ -85,30 +86,30 @@ const DescriptionContainer = styled.div`
   font-size: 15px;
   font-weight: 500;
   line-height: 22px;
-  margin-bottom: 16px;
   text-align: left;
   color: ${colors.gris};
 `;
 
 const TagContainer = styled.div`
+  display: flex;
+  align-items: center;
+  text-decoration: underline;
   font-size: 14px;
   display: flex;
   font-weight: 400;
   line-height: 16px;
   align-items: center;
   text-align: left;
-  color: ${colors.marine};
-  margin-bottom: 20px;
-`;
-
-const BottomContainer = styled.div`
-  border-top: 0.5px solid lightgrey;
+  color: black;
+  cursor: pointer;
 `;
 
 const PostInfoContainer = styled.div`
   display: flex;
-  padding-top: 13px;
+  align-items: center;
+  display: flex;
   justify-content: space-between;
+  margin-right: 40px;
 `;
 const Comment = styled.div`
   display: flex;
@@ -123,12 +124,18 @@ const UploadContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${colors.yellowBackground};
-  padding: 20px;
+  font-size: 12px;
   font-weight: 700;
-  color: ${colors.marine};
   cursor: pointer;
+  margin-top: 5px;
+  color: ${colors.marine};
 `;
+
+const FirstPartContainer = styled.div`
+  display: flex;
+  width: 50%;
+`;
+
 const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
   const [media, setMedia] = useState(null);
@@ -216,127 +223,108 @@ const GridResultComponent = (props) => {
       : details && details.acf && details.acf.document.format === "Vidéo"
       ? "bi bi-file-earmark-play"
       : "";
-
   return (
     <MainContainer>
-      <Link
-        to={
-          props && props.info && props.info.post_type
-            ? "/" + props.info.post_type + "/" + props.info.ID
-            : ""
-        }
-        style={{ textDecoration: "none" }}
-      >
-        <ImageContainer>
-          <IconContainer type={type}>
-            <i className={icon}></i>
-          </IconContainer>
-          <img
-            style={{
-              maxWidth: "80%",
-              height: "auto",
-              margin: "  30px 30px 0 30px",
-            }}
-            src={media}
-            alt="result-illu"
-          />
-        </ImageContainer>
-      </Link>
-      <DetailsContainer>
-        <LastUpdateContainer>
-          mis à jour le{" "}
-          {details && moment(details.modified).format("DD MMMM YYYY")}
-        </LastUpdateContainer>
-        <CategoryContainer>
-          {domaineAction && <Category>{domaineAction.name}</Category>}
-          <BsDot />
-          {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
-        </CategoryContainer>
-        <Link
-          to={
-            props && props.info && props.info.post_type
-              ? "/" + props.info.post_type + "/" + props.info.ID
-              : ""
-          }
-          style={{ textDecoration: "none" }}
-        >
-          {" "}
-          <TitleContainer>
-            {details && details.title && details.title.rendered}
-          </TitleContainer>
-        </Link>
-        {details && details.acf && (
-          <DescriptionContainer
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(details.acf.extrait),
-            }}
-          ></DescriptionContainer>
-        )}
-        {tags && (
-          <TagContainer>
-            <BsTags style={{ marginRight: "8px" }} />
+      <FirstPartContainer>
+        <IconContainer type={type}>
+          <i className={icon}></i>
+        </IconContainer>
 
-            {tags.map((item, index) => {
-              let comma = index < tags.length - 1 ? ", " : "";
-              return item.name + comma;
-            })}
-          </TagContainer>
-        )}
-        <BottomContainer>
-          <PostInfoContainer>
-            <div>
-              <Comment>
-                <BiComment size={18} style={{ marginRight: "7px" }} />
-                {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
-              </Comment>
-            </div>
-            {details && details.acf && details.acf.datas && (
-              <div style={{ display: "flex" }}>
-                <Comment>
-                  <AiOutlineLike
-                    size={18}
-                    style={{ color: colors.gris, marginRight: "7px" }}
-                  />
-                  {details.acf.datas.likes}
-                </Comment>
-                <Comment>
-                  <AiOutlineEye
-                    size={18}
-                    style={{
-                      color: colors.gris,
-                      marginRight: "7px",
-                      marginLeft: "10px",
-                    }}
-                  />
-                  {details.acf.datas.vues}
-                </Comment>
-              </div>
-            )}
-          </PostInfoContainer>
-        </BottomContainer>
-      </DetailsContainer>
-      {details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.fichier_joint.subtype === "pdf" && (
-          <UploadContainer
-            onClick={() => {
-              openInNewTab(details.acf.document.fichier_joint.url);
-            }}
+        <DetailsContainer>
+          <Link
+            to={
+              props && props.info && props.info.post_type
+                ? "/" + props.info.post_type + "/" + props.info.ID
+                : ""
+            }
+            style={{ textDecoration: "none" }}
           >
-            <BsDownload style={{ marginRight: "8px" }} />
-            TÉLÉCHARGER
-            {details.acf.document.fichier_joint.filesize && (
-              <div style={{ color: "grey", marginLeft: "5px" }}>
-                {"(" +
-                  (details.acf.document.fichier_joint.filesize / 10000).toFixed(
-                    1
-                  )}{" "}
-                Mo)
-              </div>
+            {" "}
+            <TitleContainer>
+              {details && details.title && details.title.rendered}
+            </TitleContainer>
+            {details && details.acf && (
+              <DescriptionContainer
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(details.acf.extrait),
+                }}
+              ></DescriptionContainer>
+            )}{" "}
+          </Link>
+          {details &&
+            details.acf &&
+            details.acf.document &&
+            details.acf.document.fichier_joint.subtype === "pdf" && (
+              <UploadContainer
+                onClick={() => {
+                  openInNewTab(details.acf.document.fichier_joint.url);
+                }}
+              >
+                <BsDownload style={{ marginRight: "8px" }} />
+                TÉLÉCHARGER
+                {details.acf.document.fichier_joint.filesize && (
+                  <div style={{ color: "grey", marginLeft: "5px" }}>
+                    {"(" +
+                      (
+                        details.acf.document.fichier_joint.filesize / 10000
+                      ).toFixed(1)}{" "}
+                    Mo)
+                  </div>
+                )}
+              </UploadContainer>
             )}
-          </UploadContainer>
+        </DetailsContainer>
+      </FirstPartContainer>
+      <LastUpdateContainer>
+        {details && moment(details.modified).format("DD/MM/YYYY")}
+      </LastUpdateContainer>
+
+      {domaineAction && <Category>{domaineAction.name}</Category>}
+
+      {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
+
+      {tags && (
+        <TagContainer>
+          {tags.map((item, index) => {
+            let comma = index < tags.length - 1 ? ", " : "";
+            return item.name + comma;
+          })}
+        </TagContainer>
+      )}
+      <PostInfoContainer>
+        <div>
+          <Comment>
+            <BiComment size={18} style={{ marginRight: "7px" }} />
+            {nbComments}
+          </Comment>
+        </div>
+        {details && details.acf && details.acf.datas && (
+          <div style={{ display: "flex" }}>
+            <Comment>
+              <AiOutlineLike
+                size={18}
+                style={{
+                  color: colors.gris,
+                  marginRight: "7px",
+                  marginLeft: "7px",
+                }}
+              />
+              {details.acf.datas.likes}
+            </Comment>
+            <Comment>
+              <AiOutlineEye
+                size={18}
+                style={{
+                  color: colors.gris,
+                  marginRight: "7px",
+                  marginLeft: "10px",
+                }}
+              />
+              {details.acf.datas.vues}
+            </Comment>
+          </div>
         )}
+      </PostInfoContainer>
     </MainContainer>
   );
 };
