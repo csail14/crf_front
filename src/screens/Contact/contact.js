@@ -60,6 +60,7 @@ const Contact = (props) => {
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [formError, setFormError] = useState(false);
     const [formSuccess, setFormSuccess] = useState(false);
+    const [emailError, setEmailError] = useState(false);
 
     const handleChange = (e) => {
         if (e.target.name === "firstName") {
@@ -77,15 +78,25 @@ const Contact = (props) => {
         }
     }
 
+    // api call to send email
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(firstName, lastName, email, phone, message, subject);
         setFormSubmitted(true);
-        if (firstName && lastName && email && phone && message && subject) {
-            setFormSuccess(true);
-        } else {
+        if (firstName === "" || lastName === "" || email === "" || phone === "" || message === "" || subject === "") {
             setFormError(true);
+        } else {
+            if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                setEmailError(true);
+                setFormSuccess(false);
+            } else {
+                setEmailError(false);
+                setFormError(false);
+                setFormSuccess(true);
+            }
         }
+
+
     }
 
     useEffect(() => {
@@ -109,7 +120,7 @@ const Contact = (props) => {
                         <small className={'smallForm'}>Je suis</small>
                         <FormRow>
                             <FormInput>
-                                <label htmlFor="name" className={"contactLabel"}>Prenom</label>
+                                <label htmlFor="name" className={"contactLabel"}>Prenom *</label>
                                 <input
                                     name={'firstName'}
                                     type="text"
@@ -121,7 +132,7 @@ const Contact = (props) => {
                                 {formSubmitted && !firstName && <div className="formError">Veuillez entrer votre prénom</div>}
                             </FormInput>
                             <FormInput>
-                                <label htmlFor="name" className={"contactLabel"}>Nom</label>
+                                <label htmlFor="name" className={"contactLabel"}>Nom *</label>
                                 <input
                                     name={'lastName'}
                                     type="text"
@@ -138,7 +149,7 @@ const Contact = (props) => {
                         <small className={'smallForm'}>Pour me joindre</small>
                         <FormRow>
                             <FormInput>
-                                <label htmlFor="phone" className={"contactLabel"}>Téléphone</label>
+                                <label htmlFor="phone" className={"contactLabel"}>Téléphone *</label>
                                 <input
                                     name={'phone'}
                                     type="phone"
@@ -150,7 +161,7 @@ const Contact = (props) => {
                                 {formSubmitted && !phone && <div className="formError">Veuillez entrer votre numéro de téléphone</div>}
                             </FormInput>
                             <FormInput>
-                                <label htmlFor="email" className={"contactLabel"}>Email</label>
+                                <label htmlFor="email" className={"contactLabel"}>Email *</label>
                                 <input
                                     name={'email'}
                                     type="email"
@@ -160,6 +171,7 @@ const Contact = (props) => {
                                     onChange={handleChange}
                                 />
                                 {formSubmitted && !email && <div className="formError">Veuillez entrer votre adresse mail</div>}
+                                {formSubmitted && emailError && <div className="formError">Veuillez entrer une adresse mail valide</div>}
                             </FormInput>
                         </FormRow>
                     </FormGroup>
@@ -196,7 +208,11 @@ const Contact = (props) => {
                             </FormInputFullWidth>
                         </FormRow>
                     </FormGroup>
-                        <FormRowFullWidth>
+                    <FormRowFullWidth className={"mandatoryFields"}>
+                        <small className={'smallForm'}>* champs obligatoires</small>
+                    </FormRowFullWidth>
+
+                    <FormRowFullWidth>
                             {formSubmitted && !formError && <div className="formSuccess">Votre message a bien été envoyé</div>}
 
                             <SubmitButton>Envoyer</SubmitButton>

@@ -415,3 +415,8 @@
     margin-bottom: 1rem;
     color: green;
 }
+.mandatoryFields{
+    text-align: left;
+    padding-left: 2rem
+;
+}
