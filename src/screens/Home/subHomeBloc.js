@@ -73,7 +73,6 @@ const SubHomeBloc = (props) => {
     "https://pmis-wp.laguildedupixel.fr/",
     ""
   );
-  console.log(props.isSearchOpen);
   return (
     <MainContainer>
       <Link

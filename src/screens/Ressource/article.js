@@ -14,6 +14,7 @@ import Comments from "../../components/Ressource/Comments";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import { isMobile } from "react-device-detect";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 
 require("moment/locale/fr.js");
 

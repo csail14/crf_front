@@ -13,3 +13,5 @@ RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule . /index.html [L]
 
 </IfModule>
+
+Build et mettre le fichier htacces dans le build
