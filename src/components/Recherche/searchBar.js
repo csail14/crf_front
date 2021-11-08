@@ -13,6 +13,16 @@ import { getResult } from "../../utils/api/RechercheApi";
 import { computeQuery } from "../../utils/function/function";
 import { useHistory } from "react-router-dom";
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
+import {
+  loadTypeFilter,
+  loadKeywordsFilter,
+  loadFormatsFilter,
+  loadCategoriesFilter,
+  loadDateFilter,
+  loadImpactsFilter,
+  loadActionsFilter,
+  resetAllFilter,
+} from "../../actions/filter/filterActions";
 
 const KeyWordsContainer = styled.div`
   display: flex;
@@ -22,8 +32,8 @@ const KeyWordsContainer = styled.div`
   padding-right: 15px;
   color: ${colors.gris};
   font-weight: 500;
+  cursor: pointer;
 `;
-
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,7 +42,6 @@ const FilterContainer = styled.div`
   border-right: 0.5px solid ${colors.gris};
   position: relative;
 `;
-
 const FilterTitle = styled.div`
   font-weight: 700;
   font-size: 12px;
@@ -40,7 +49,6 @@ const FilterTitle = styled.div`
   text-align: left;
   text-transform: uppercase;
 `;
-
 const FilterContent = styled.div`
   font-weight: 500;
   font-size: 16px;
@@ -51,7 +59,6 @@ const FilterContent = styled.div`
   width: -webkit-fill-available;
   cursor: pointer;
 `;
-
 const MainContainer = styled.div`
   display: flex;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
@@ -77,7 +84,6 @@ const SearchButtonContainer = styled.div`
   text-transform: uppercase;
   cursor: pointer;
 `;
-
 const AdvancedSearchBar = styled.div`
   display: flex;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
@@ -87,7 +93,6 @@ const AdvancedSearchBar = styled.div`
   text-align: left;
   width: fit-content;
 `;
-
 const AdvancedSearchBarContainer = styled.div`
   display: flex;
   margin: auto;
@@ -107,7 +112,6 @@ const ToggleContainer = styled.div`
   margin: 10px 5px 0px auto;
   cursor: pointer;
 `;
-
 const FilterOptionsContainer = styled.div`
   font-size: 16px;
   line-height: 21px;
@@ -133,18 +137,20 @@ const categorieAll = { id: 0, name: "Toutes les catégories" };
 
 const SearchBar = (props) => {
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
-  const [keywords, setKeywords] = useState("");
-  const [selectedFormat, setSelectedFormat] = useState([]);
+  const [keywords, setKeywords] = useState(props.filters.keywords);
+  const [selectedFormat, setSelectedFormat] = useState(props.filters.formats);
   const [showFormatOptions, setShowFormatOptions] = useState(false);
-  const [selectedType, setSelectedType] = useState([]);
+  const [selectedType, setSelectedType] = useState(props.filters.types);
   const [showTypeOptions, setShowTypeOptions] = useState(false);
-  const [selectedCategorie, setSelectedCategorie] = useState([]);
+  const [selectedCategorie, setSelectedCategorie] = useState(
+    props.filters.categories
+  );
   const [showCategorieOptions, setShowCategorieOptions] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(data.date_ressources[0]);
+  const [selectedDate, setSelectedDate] = useState(props.filters.date);
   const [showDateOptions, setShowDateOptions] = useState(false);
-  const [selectedImpacts, setSelectedImpacts] = useState([]);
+  const [selectedImpacts, setSelectedImpacts] = useState(props.filters.impacts);
   const [showImpactsOptions, setShowImpactsOptions] = useState(false);
-  const [selectedActions, setSelectedActions] = useState([]);
+  const [selectedActions, setSelectedActions] = useState(props.filters.actions);
   const [showActionsOptions, setShowActionsOptions] = useState(false);
 
   const actionsref = useRef();
@@ -193,6 +199,35 @@ const SearchBar = (props) => {
     showActionsOptions,
   ]);
 
+  const handleChangeKeywords = (value) => {
+    setKeywords(value);
+    props.loadKeywordsFilter(value);
+  };
+
+  const handleChangeActions = (value) => {
+    setSelectedActions(value);
+    props.loadActionsFilter(value);
+  };
+
+  const handleChangeImpacts = (value) => {
+    setSelectedImpacts(value);
+    props.loadImpactsFilter(value);
+  };
+
+  const handleChangeFormats = (value) => {
+    setSelectedFormat(value);
+    props.loadFormatsFilter(value);
+  };
+
+  const handleChangeTypes = (value) => {
+    setSelectedType(value);
+    props.loadTypeFilter(value);
+  };
+  const handleChangeCategorie = (value) => {
+    setSelectedCategorie(value);
+    props.loadCategoriesFilter(value);
+  };
+
   const toggleCategorieOptions = () => {
     setShowCategorieOptions(!showCategorieOptions);
     toggleOther("Categorie");
@@ -216,6 +251,7 @@ const SearchBar = (props) => {
   const handleChangeDate = (item) => {
     setSelectedDate(item);
     setShowDateOptions(false);
+    props.loadDateFilter(item);
   };
 
   const toggleTypeOptions = () => {
@@ -232,7 +268,7 @@ const SearchBar = (props) => {
     setShowAdvancedSearch(!showAdvancedSearch);
   };
 
-  const sendSearchRequest = (keyword, types, date, cat, di, da, format) => {
+  const sendSearchRequest = () => {
     let query = computeQuery(
       keywords,
       selectedType,
@@ -307,6 +343,7 @@ const SearchBar = (props) => {
 
   const isArticleSelected =
     selectedType.filter((item) => item.id === 3).length > 0;
+
   return (
     <MainContainer page={props.page} showAdvancedSearch={showAdvancedSearch}>
       <KeyWordsContainer>
@@ -315,14 +352,14 @@ const SearchBar = (props) => {
           type="text"
           className="recherche_input"
           placeholder={"Rechercher une ressource par mots-cléfs..."}
-          onChange={(e) => setKeywords(e.target.value)}
+          onChange={(e) => handleChangeKeywords(e.target.value)}
         />{" "}
       </KeyWordsContainer>
 
       <div ref={actionsref}>
         <ComplexeFilterItem
           selectedObject={selectedActions}
-          setSelectedObject={setSelectedActions}
+          setSelectedObject={handleChangeActions}
           toggleOptions={toggleActionsOptions}
           showOptions={showActionsOptions}
           title={"Domaine d'action"}
@@ -333,7 +370,7 @@ const SearchBar = (props) => {
       <div ref={impactsref}>
         <ComplexeFilterItem
           selectedObject={selectedImpacts}
-          setSelectedObject={setSelectedImpacts}
+          setSelectedObject={handleChangeImpacts}
           toggleOptions={toggleImpactsOptions}
           showOptions={showImpactsOptions}
           title={"Domaine d'impact"}
@@ -344,7 +381,7 @@ const SearchBar = (props) => {
       <div ref={typeRef}>
         <SimpleFilterItem
           selectedObject={selectedType}
-          setSelectedObject={setSelectedType}
+          setSelectedObject={handleChangeTypes}
           toggleOptions={toggleTypeOptions}
           showOptions={showTypeOptions}
           title={"Type de ressource"}
@@ -373,7 +410,7 @@ const SearchBar = (props) => {
               <div ref={categorieRef}>
                 <SimpleFilterItem
                   selectedObject={selectedCategorie}
-                  setSelectedObject={setSelectedCategorie}
+                  setSelectedObject={handleChangeCategorie}
                   toggleOptions={toggleCategorieOptions}
                   showOptions={showCategorieOptions}
                   title={"Catégorie"}
@@ -385,7 +422,7 @@ const SearchBar = (props) => {
             <div ref={formatRef}>
               <SimpleFilterItem
                 selectedObject={selectedFormat}
-                setSelectedObject={setSelectedFormat}
+                setSelectedObject={handleChangeFormats}
                 toggleOptions={toggleFormatOptions}
                 showOptions={showFormatOptions}
                 title={"Format"}
@@ -430,10 +467,24 @@ const SearchBar = (props) => {
   );
 };
 
-const mapDispatchToProps = { loadResultInfo };
+const mapDispatchToProps = {
+  loadResultInfo,
+  loadTypeFilter,
+  loadKeywordsFilter,
+  loadFormatsFilter,
+  loadCategoriesFilter,
+  loadDateFilter,
+  loadImpactsFilter,
+  loadActionsFilter,
+  resetAllFilter,
+};
 
 const mapStateToProps = (store) => {
-  return { taxonomie: store.taxonomie, ressources: store.ressources };
+  return {
+    taxonomie: store.taxonomie,
+    ressources: store.ressources,
+    filters: store.filters,
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

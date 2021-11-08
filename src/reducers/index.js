@@ -4,6 +4,7 @@ import sidebarPagesReducer from "./sidebarPagesReducer";
 import taxoReducer from "./taxoReducer";
 import optionsReducer from "./optionsReducer";
 import ressourcesReducer from "./ressourcesReducer";
+import filtersReducer from "./filtersReducer";
 
 const rootReducer = combineReducers({
   options: optionsReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   sidebarPages: sidebarPagesReducer,
   taxonomie: taxoReducer,
   ressources: ressourcesReducer,
+  filters: filtersReducer,
 });
 
 export default rootReducer;

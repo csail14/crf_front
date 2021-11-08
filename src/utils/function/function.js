@@ -18,6 +18,7 @@ export const computeQuery = (keyword, types, date, cat, di, da, format) => {
     query = query + "type=" + types[0].type;
   } else if (types.length > 0) {
     types.forEach((item, index) => {
+      query !== "" ? (query = query + "&") : (query = query);
       let s = "type[]=" + item.type;
       index === types.length - 1 ? (s = s) : (s = s + "&");
       query = query + s;
