@@ -176,20 +176,10 @@ const GridResultComponent = (props) => {
   }, [details]);
 
   const domaineAction =
-    details && details.acf && details.acf.domaine_daction_principal
-      ? props.taxonomie.domainesActions.filter(
-          (item) => item.id === details.acf.domaine_daction_principal
-        )[0]
-      : null;
+    details && details.acf && details.acf.domaine_daction_principal;
 
   const domaineImpact =
-    details && details.acf && details.acf.domaine_dimpact_principal
-      ? props.taxonomie
-        ? props.taxonomie.domainesImpacts.filter(
-            (item) => item.id === details.acf.domaine_dimpact_principal
-          )[0]
-        : null
-      : null;
+    details && details.acf && details.acf.domaine_dimpact_principal;
 
   let tags = details && details.tags;
 
@@ -216,7 +206,7 @@ const GridResultComponent = (props) => {
       : details && details.acf && details.acf.document.format === "Vidéo"
       ? "bi bi-file-earmark-play"
       : "";
-
+  console.log("details", details);
   return (
     <MainContainer>
       <Link
@@ -261,9 +251,13 @@ const GridResultComponent = (props) => {
           style={{ textDecoration: "none" }}
         >
           {" "}
-          <TitleContainer>
-            {details && details.title && details.title.rendered}
-          </TitleContainer>
+          {details && details.title && (
+            <TitleContainer
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(details.title.rendered),
+              }}
+            ></TitleContainer>
+          )}
         </Link>
         {details && details.acf && (
           <DescriptionContainer

@@ -12,6 +12,7 @@ import ComplexeFilterItem from "./complexeFilterItem";
 import { getResult } from "../../utils/api/RechercheApi";
 import { computeQuery } from "../../utils/function/function";
 import { useHistory } from "react-router-dom";
+import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 
 const KeyWordsContainer = styled.div`
   display: flex;
@@ -228,11 +229,10 @@ const SearchBar = (props) => {
       selectedActions,
       selectedFormat
     );
-    getResult(query).then((res) => console.log("res", res));
+    getResult(query).then((res) => props.loadResultInfo(res));
   };
   const isHome =
     history.location.pathname === "/" || history.location.pathname === "/home";
-  console.log(isHome);
 
   const toggleOther = (type) => {
     switch (type) {
@@ -417,10 +417,10 @@ const SearchBar = (props) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { loadResultInfo };
 
 const mapStateToProps = (store) => {
-  return { taxonomie: store.taxonomie };
+  return { taxonomie: store.taxonomie, ressources: store.ressources };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

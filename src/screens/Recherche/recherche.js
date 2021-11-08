@@ -42,7 +42,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.isViewGrid ? "row" : "column")};
   justify-content: center;
-  flex-wrap: ${isMobile ? "wrap" : ""};
+  flex-wrap: wrap;
 `;
 
 const NumberResultsContainer = styled.div`
@@ -110,18 +110,9 @@ const Recherche = (props) => {
   const [viewTrie, setViewTrie] = useState(false);
   const [updateTrie, setUpdateTrie] = useState(true);
   const [pertinenceTrie, setPertinenceTrie] = useState(false);
-  const [resultToDisplay, setResultToDisplay] = useState([]);
-
-  useEffect(() => {
-    checkAllRessources(
-      props.ressources.allRessources,
-      props.loadRessourcesInfo
-    );
-  }, []);
-
-  useEffect(() => {
-    props.loadResultInfo(props.ressources.allRessources);
-  }, [props.ressources.allRessources]);
+  const [resultToDisplay, setResultToDisplay] = useState(
+    props.ressources.results
+  );
 
   useEffect(() => {
     setResultToDisplay(props.ressources.results);
@@ -245,11 +236,11 @@ const Recherche = (props) => {
         {resultToDisplay &&
           resultToDisplay.map((item) => {
             if (
-              item.subtype === "indicateurs" ||
-              item.subtype === "documents" ||
-              item.subtype === "post"
+              item.type === "indicateurs" ||
+              item.type === "documents" ||
+              item.type === "post"
             ) {
-              let info = { ID: item.id, post_type: item.subtype };
+              let info = { ID: item.id, post_type: item.type };
               return isViewGrid ? (
                 <GridResultComponent info={info} />
               ) : (
