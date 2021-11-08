@@ -9,7 +9,7 @@ export const checkAllRessources = (allRessources, loadFunction) => {
 
 export const computeQuery = (keyword, types, date, cat, di, da, format) => {
   let query = "";
-  if (keyword) {
+  if (keyword !== "") {
     query !== "" ? (query = query + "&") : (query = query);
     query = query + "s=" + keyword;
   }

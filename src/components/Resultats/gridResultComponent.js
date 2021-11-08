@@ -206,7 +206,6 @@ const GridResultComponent = (props) => {
       : details && details.acf && details.acf.document.format === "Vidéo"
       ? "bi bi-file-earmark-play"
       : "";
-  console.log("details", details);
   return (
     <MainContainer>
       <Link

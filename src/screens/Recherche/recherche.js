@@ -9,10 +9,7 @@ import { isMobile } from "react-device-detect";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { checkAllRessources } from "../../utils/function/function";
-import {
-  loadRessourcesInfo,
-  loadResultInfo,
-} from "../../actions/ressources/ressourcesActions";
+import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
@@ -106,6 +103,7 @@ const NoRequestContainer = styled.div`
 `;
 
 const Recherche = (props) => {
+  const [isFilterSeledtec, setIsFilterSelected] = useState(false);
   const [isViewGrid, setIsViewGrid] = useState(true);
   const [viewTrie, setViewTrie] = useState(false);
   const [updateTrie, setUpdateTrie] = useState(true);
@@ -132,23 +130,55 @@ const Recherche = (props) => {
 
   const toggleViewTrie = () => {
     setViewTrie(!viewTrie);
+    trieViewResult(resultToDisplay);
   };
 
   const toggleUpdateTrie = () => {
     setUpdateTrie(!updateTrie);
+    trieDateResult(resultToDisplay);
   };
   const togglepertinenceTrie = () => {
     setPertinenceTrie(!pertinenceTrie);
+    triePertinenceResult(resultToDisplay);
   };
 
-  const trieResult = (resultArray) => {
+  const trieViewResult = (resultArray) => {
     let newArray = [];
     resultArray.forEach((item) => newArray.push(item));
     if (viewTrie) {
-      newArray.sort((a, b) => (a.modified - b.modified ? 1 : -1));
+      newArray.sort((a, b) => (a.datas.vues - b.datas.vues > 0 ? 1 : -1));
     }
+    if (!viewTrie) {
+      newArray.sort((a, b) => (b.datas.vues - a.datas.vues < 0 ? -1 : 1));
+    }
+    setResultToDisplay(newArray);
   };
-
+  const triePertinenceResult = (resultArray) => {
+    let newArray = [];
+    resultArray.forEach((item) => newArray.push(item));
+    if (pertinenceTrie) {
+      newArray.sort((a, b) => (a.pertinence - b.pertinence > 0 ? 1 : -1));
+    }
+    if (!pertinenceTrie) {
+      newArray.sort((a, b) => (b.pertinence - a.pertinence > 0 ? -1 : 1));
+    }
+    setResultToDisplay(newArray);
+  };
+  const trieDateResult = (resultArray) => {
+    let newArray = [];
+    resultArray.forEach((item) => newArray.push(item));
+    if (updateTrie) {
+      newArray.sort((a, b) =>
+        new Date(a.date_modified) - new Date(b.date_modified) > 0 ? 1 : -1
+      );
+    }
+    if (!updateTrie) {
+      newArray.sort((a, b) =>
+        new Date(a.date_modified) - new Date(b.date_modified) > 0 ? -1 : 1
+      );
+    }
+    setResultToDisplay(newArray);
+  };
   return (
     <MainContainer>
       <HeaderContainer>
@@ -180,16 +210,18 @@ const Recherche = (props) => {
           {resultToDisplay.length}{" "}
           <div style={{ fontSize: "28px", marginLeft: "5px" }}> Résultats</div>
         </NumberResultsContainer>
+
         <NoRequestContainer>
           Les dernières ressources mises à jour
         </NoRequestContainer>
+
         <ButtonViewContainer>
           <ButtonView
             isSelected={isViewGrid}
             onClick={() => setIsViewGrid(true)}
           >
             <i
-              class="bi bi-grid-3x2-gap"
+              className="bi bi-grid-3x2-gap"
               style={{ fontSize: "25px", marginRight: "5px" }}
             ></i>
             Vue grille
@@ -199,7 +231,7 @@ const Recherche = (props) => {
             isSelected={!isViewGrid}
           >
             <i
-              class="bi bi-list-ul"
+              className="bi bi-list-ul"
               style={{ fontSize: "25px", marginRight: "5px" }}
             ></i>
             Vue liste
@@ -210,31 +242,31 @@ const Recherche = (props) => {
         <Tries onClick={toggleViewTrie} isTrue={viewTrie}>
           nombre de vues{" "}
           {viewTrie ? (
-            <i class="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
+            <i className="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
           ) : (
-            <i class="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
+            <i className="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
           )}
         </Tries>
         <Tries onClick={toggleUpdateTrie} isTrue={updateTrie}>
           dernière mise à jour{" "}
           {updateTrie ? (
-            <i class="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
+            <i className="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
           ) : (
-            <i class="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
+            <i className="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
           )}
         </Tries>
         <Tries onClick={togglepertinenceTrie} isTrue={pertinenceTrie}>
           pertinence{" "}
           {pertinenceTrie ? (
-            <i class="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
+            <i className="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
           ) : (
-            <i class="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
+            <i className="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
           )}
         </Tries>
       </TriesContainer>
       <BodyContainer isViewGrid={isViewGrid}>
         {resultToDisplay &&
-          resultToDisplay.map((item) => {
+          resultToDisplay.map((item, index) => {
             if (
               item.type === "indicateurs" ||
               item.type === "documents" ||
@@ -242,9 +274,9 @@ const Recherche = (props) => {
             ) {
               let info = { ID: item.id, post_type: item.type };
               return isViewGrid ? (
-                <GridResultComponent info={info} />
+                <GridResultComponent key={index} info={info} />
               ) : (
-                <ListResultComponent info={info} />
+                <ListResultComponent key={index} info={info} />
               );
             }
           })}
@@ -253,7 +285,7 @@ const Recherche = (props) => {
   );
 };
 
-const mapDispatchToProps = { loadRessourcesInfo, loadResultInfo };
+const mapDispatchToProps = { loadResultInfo };
 
 const mapStateToProps = (store) => {
   return {

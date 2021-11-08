@@ -133,6 +133,7 @@ const categorieAll = { id: 0, name: "Toutes les catégories" };
 
 const SearchBar = (props) => {
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+  const [keywords, setKeywords] = useState("");
   const [selectedFormat, setSelectedFormat] = useState([]);
   const [showFormatOptions, setShowFormatOptions] = useState(false);
   const [selectedType, setSelectedType] = useState([]);
@@ -161,6 +162,18 @@ const SearchBar = (props) => {
   useOutsideClick(formatRef, () => setShowFormatOptions(false));
   useOutsideClick(typeRef, () => setShowTypeOptions(false));
   useOutsideClick(categorieRef, () => setShowCategorieOptions(false));
+  useEffect(() => {
+    let query = computeQuery(
+      keywords,
+      selectedType,
+      selectedDate,
+      selectedCategorie,
+      selectedImpacts,
+      selectedActions,
+      selectedFormat
+    );
+    getResult(query).then((res) => props.loadResultInfo(res));
+  }, []);
 
   useEffect(() => {
     props.setIsSearchOpen(
@@ -221,7 +234,7 @@ const SearchBar = (props) => {
 
   const sendSearchRequest = (keyword, types, date, cat, di, da, format) => {
     let query = computeQuery(
-      null,
+      keywords,
       selectedType,
       selectedDate,
       selectedCategorie,
@@ -294,7 +307,6 @@ const SearchBar = (props) => {
 
   const isArticleSelected =
     selectedType.filter((item) => item.id === 3).length > 0;
-
   return (
     <MainContainer page={props.page} showAdvancedSearch={showAdvancedSearch}>
       <KeyWordsContainer>
@@ -303,6 +315,7 @@ const SearchBar = (props) => {
           type="text"
           className="recherche_input"
           placeholder={"Rechercher une ressource par mots-cléfs..."}
+          onChange={(e) => setKeywords(e.target.value)}
         />{" "}
       </KeyWordsContainer>
 

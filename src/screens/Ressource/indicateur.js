@@ -216,20 +216,10 @@ const Indicateur = (props) => {
   const indicateurId = props.match.params.id;
 
   const domaineAction =
-    indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal
-      ? props.taxonomie.domainesActions.filter(
-          (item) => item.id === indicateur.acf.domaine_daction_principal
-        )[0]
-      : null;
+    indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;
 
   const domaineImpact =
-    indicateur && indicateur.acf && indicateur.acf.domaine_dimpact_principal
-      ? props.taxonomie
-        ? props.taxonomie.domainesImpacts.filter(
-            (item) => item.id === indicateur.acf.domaine_dimpact_principal
-          )[0]
-        : null
-      : null;
+    indicateur && indicateur.acf && indicateur.acf.domaine_dimpact_principal;
 
   const listIndicateurTemplate = props.pages.templates.length
     ? props.pages.templates.filter(

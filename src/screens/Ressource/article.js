@@ -216,20 +216,10 @@ const Article = (props) => {
   const articleId = props.match.params.id;
 
   const domaineAction =
-    article && article.acf && article.acf.domaine_daction_principal
-      ? props.taxonomie.domainesActions.filter(
-          (item) => item.id === article.acf.domaine_daction_principal
-        )[0]
-      : null;
+    article && article.acf && article.acf.domaine_daction_principal;
 
   const domaineImpact =
-    article && article.acf && article.acf.domaine_dimpact_principal
-      ? props.taxonomie
-        ? props.taxonomie.domainesImpacts.filter(
-            (item) => item.id === article.acf.domaine_dimpact_principal
-          )[0]
-        : null
-      : null;
+    article && article.acf && article.acf.domaine_dimpact_principal;
 
   let tags = article && article.tags;
 
