@@ -6,7 +6,6 @@ import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import { config } from "../../config";
 import { isMobile } from "react-device-detect";
-import { getAllRessources } from "../../utils/api/RessourcesApi";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { checkAllRessources } from "../../utils/function/function";
@@ -108,7 +107,6 @@ const NoRequestContainer = styled.div`
 
 const Recherche = (props) => {
   const [isViewGrid, setIsViewGrid] = useState(true);
-
   const [viewTrie, setViewTrie] = useState(false);
   const [updateTrie, setUpdateTrie] = useState(true);
   const [pertinenceTrie, setPertinenceTrie] = useState(false);
@@ -159,6 +157,7 @@ const Recherche = (props) => {
       newArray.sort((a, b) => (a.modified - b.modified ? 1 : -1));
     }
   };
+
   return (
     <MainContainer>
       <HeaderContainer>

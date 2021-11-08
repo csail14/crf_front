@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { GoSearch } from "react-icons/go";
 import { BsChevronDown } from "react-icons/bs";
 import styled from "styled-components";
@@ -8,6 +9,9 @@ import { colors } from "../../colors";
 import { data } from "../../utils/data";
 import SimpleFilterItem from "./simpleFilterItem";
 import ComplexeFilterItem from "./complexeFilterItem";
+import { getResult } from "../../utils/api/RechercheApi";
+import { computeQuery } from "../../utils/function/function";
+import { useHistory } from "react-router-dom";
 
 const KeyWordsContainer = styled.div`
   display: flex;
@@ -148,6 +152,8 @@ const SearchBar = (props) => {
   const typeRef = useRef();
   const categorieRef = useRef();
 
+  let history = useHistory();
+
   useOutsideClick(actionsref, () => setShowActionsOptions(false));
   useOutsideClick(impactsref, () => setShowImpactsOptions(false));
   useOutsideClick(dateRef, () => setShowDateOptions(false));
@@ -211,6 +217,22 @@ const SearchBar = (props) => {
   const toggleAdvancedSearch = () => {
     setShowAdvancedSearch(!showAdvancedSearch);
   };
+
+  const sendSearchRequest = (keyword, types, date, cat, di, da, format) => {
+    let query = computeQuery(
+      null,
+      selectedType,
+      selectedDate,
+      selectedCategorie,
+      selectedImpacts,
+      selectedActions,
+      selectedFormat
+    );
+    getResult(query).then((res) => console.log("res", res));
+  };
+  const isHome =
+    history.location.pathname === "/" || history.location.pathname === "/home";
+  console.log(isHome);
 
   const toggleOther = (type) => {
     switch (type) {
@@ -317,7 +339,17 @@ const SearchBar = (props) => {
           default="Dans tout le site"
         />
       </div>
-      <SearchButtonContainer>rechercher</SearchButtonContainer>
+      {isHome ? (
+        <Link style={{ textDecoration: "none" }} to={"/recherche"}>
+          <SearchButtonContainer onClick={sendSearchRequest}>
+            rechercher
+          </SearchButtonContainer>
+        </Link>
+      ) : (
+        <SearchButtonContainer onClick={sendSearchRequest}>
+          rechercher
+        </SearchButtonContainer>
+      )}
       <ToggleContainer onClick={toggleAdvancedSearch}>
         Recherche avancée
       </ToggleContainer>
