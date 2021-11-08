@@ -60,6 +60,12 @@
   text-align: left;
   padding: 10px 0;
 }
+.sticky {
+  position: fixed;
+  top: 20px;
+  max-width: 100vw;
+  width: 100%;
+}
 .recherche_input {
   border: none;
   min-width: 300px;

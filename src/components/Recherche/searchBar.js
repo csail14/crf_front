@@ -65,7 +65,9 @@ const MainContainer = styled.div`
   padding: 7px;
   flex-wrap: wrap;
   margin: ${(props) =>
-    props.page === "recherche"
+    props.isTop
+      ? "auto auto auto -80px"
+      : props.page === "recherche"
       ? ""
       : props.showAdvancedSearch
       ? "-32px auto 70px auto"
@@ -74,8 +76,10 @@ const MainContainer = styled.div`
   text-align: left;
   align-items: center;
   width: fit-content;
-  position: relative;
+  z-index: 1;
+  position: ${(props) => (props.isTop ? "" : "relative")};
 `;
+
 const SearchButtonContainer = styled.div`
   padding: 16px 25px;
   color: white;
@@ -152,7 +156,7 @@ const SearchBar = (props) => {
   const [showImpactsOptions, setShowImpactsOptions] = useState(false);
   const [selectedActions, setSelectedActions] = useState(props.filters.actions);
   const [showActionsOptions, setShowActionsOptions] = useState(false);
-
+  const [isTop, setIsTop] = useState(false);
   const actionsref = useRef();
   const impactsref = useRef();
   const dateRef = useRef();
@@ -169,6 +173,7 @@ const SearchBar = (props) => {
   useOutsideClick(typeRef, () => setShowTypeOptions(false));
   useOutsideClick(categorieRef, () => setShowCategorieOptions(false));
   useEffect(() => {
+    document.addEventListener("scroll", handleScroll);
     let query = computeQuery(
       keywords,
       selectedType,
@@ -180,6 +185,19 @@ const SearchBar = (props) => {
     );
     getResult(query).then((res) => props.loadResultInfo(res));
   }, []);
+
+  const handleScroll = (event) => {
+    var searchbar = document.getElementById("el");
+    var sticky = searchbar.offsetTop - 20;
+    if (window.pageYOffset > sticky) {
+      setIsTop(true);
+
+      searchbar.classList.add("sticky");
+    } else if (window.pageYOffset < 250) {
+      setIsTop(false);
+      searchbar.classList.remove("sticky");
+    }
+  };
 
   useEffect(() => {
     props.setIsSearchOpen(
@@ -345,7 +363,12 @@ const SearchBar = (props) => {
     selectedType.filter((item) => item.id === 3).length > 0;
 
   return (
-    <MainContainer page={props.page} showAdvancedSearch={showAdvancedSearch}>
+    <MainContainer
+      id="el"
+      page={props.page}
+      isTop={isTop}
+      showAdvancedSearch={showAdvancedSearch}
+    >
       <KeyWordsContainer>
         <GoSearch style={{ marginRight: "12px" }} />
         <input
@@ -389,6 +412,64 @@ const SearchBar = (props) => {
           default="Dans tout le site"
         />
       </div>
+      {isTop && (
+        <>
+          {isArticleSelected && (
+            <div ref={categorieRef}>
+              <SimpleFilterItem
+                selectedObject={selectedCategorie}
+                setSelectedObject={handleChangeCategorie}
+                toggleOptions={toggleCategorieOptions}
+                showOptions={showCategorieOptions}
+                title={"Catégorie"}
+                data={categoriesData}
+                default="Toutes les catégories"
+              />
+            </div>
+          )}
+          <div ref={formatRef}>
+            <SimpleFilterItem
+              selectedObject={selectedFormat}
+              setSelectedObject={handleChangeFormats}
+              toggleOptions={toggleFormatOptions}
+              showOptions={showFormatOptions}
+              title={"Format"}
+              data={data.format_ressources}
+              default="Tous les formats"
+            />
+          </div>
+          <div ref={dateRef}>
+            <FilterContainer style={{ border: "none" }}>
+              <FilterTitle>Date de publication</FilterTitle>
+              <FilterContent onClick={toggleDateOptions}>
+                {selectedDate.name}{" "}
+                <BsChevronDown style={{ marginLeft: "10px" }} />
+              </FilterContent>
+              {showDateOptions && (
+                <FilterOptionsContainer>
+                  {data.date_ressources.map((item, index) => {
+                    let isSelected = selectedDate.name === item.name;
+                    return (
+                      <FilterOptions
+                        isSelected={isSelected}
+                        onClick={() => handleChangeDate(item)}
+                        className="search_options"
+                        key={index}
+                      >
+                        {item.name}{" "}
+                        <i
+                          style={{ marginLeft: "10px" }}
+                          className={item.icon}
+                        ></i>
+                      </FilterOptions>
+                    );
+                  })}
+                </FilterOptionsContainer>
+              )}
+            </FilterContainer>
+          </div>
+        </>
+      )}
       {isHome ? (
         <Link style={{ textDecoration: "none" }} to={"/recherche"}>
           <SearchButtonContainer onClick={sendSearchRequest}>
@@ -400,10 +481,12 @@ const SearchBar = (props) => {
           rechercher
         </SearchButtonContainer>
       )}
-      <ToggleContainer onClick={toggleAdvancedSearch}>
-        Recherche avancée
-      </ToggleContainer>
-      {showAdvancedSearch && (
+      {!isTop && (
+        <ToggleContainer onClick={toggleAdvancedSearch}>
+          Recherche avancée
+        </ToggleContainer>
+      )}
+      {showAdvancedSearch && !isTop && (
         <AdvancedSearchBarContainer>
           <AdvancedSearchBar>
             {isArticleSelected && (
