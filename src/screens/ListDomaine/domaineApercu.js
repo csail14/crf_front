@@ -65,7 +65,10 @@ const ApercuDomaine = (props) => {
 
   // const url = "/" + props.info.post_type + "/" + props.info.ID;
   return (
-    <LinkContainer ref={hoverRef} onClick={() => history.push("url")}>
+    <LinkContainer
+      ref={hoverRef}
+      onClick={() => history.push("/domaine-impact/" + props.info.id)}
+    >
       {props.info.name}
 
       <MdArrowForwardIos style={{ color: colors.marine }} />
