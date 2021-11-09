@@ -194,7 +194,7 @@ const Article = (props) => {
     if (article && article.featured_media) {
       getMediaById(article.featured_media)
         .then((res) => setMedia(res.media_details.sizes.full.source_url))
-        .catch((error) => console.log("res", error));
+        .catch((error) => console.log("error", error));
     } else if (
       domaineAction &&
       domaineAction.acf &&

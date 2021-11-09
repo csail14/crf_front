@@ -29,7 +29,7 @@ const KeyWordsContainer = styled.div`
   padding: 9px 5px;
   align-items: center;
   border-right: 0.5px solid ${colors.gris};
-  padding-right: 15px;
+  padding-right: ${(props) => (props.isTop ? "" : "15px")};
   color: ${colors.gris};
   font-weight: 500;
   cursor: pointer;
@@ -37,21 +37,21 @@ const KeyWordsContainer = styled.div`
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px 22px;
+  padding: ${(props) => (props.isTop ? "5px 10px" : "5px 22px")};
   line-height: 20px;
   border-right: 0.5px solid ${colors.gris};
   position: relative;
 `;
 const FilterTitle = styled.div`
   font-weight: 700;
-  font-size: 12px;
+  font-size: ${(props) => (props.isTop ? "10px" : "12px")};
   color: ${colors.gris};
   text-align: left;
   text-transform: uppercase;
 `;
 const FilterContent = styled.div`
   font-weight: 500;
-  font-size: 16px;
+  font-size: ${(props) => (props.isTop ? "12px" : "16px")};
   color: ${colors.marine};
   align-items: center;
   display: flex;
@@ -66,7 +66,7 @@ const MainContainer = styled.div`
   flex-wrap: wrap;
   margin: ${(props) =>
     props.isTop
-      ? "auto auto auto -80px"
+      ? "auto auto auto -90px"
       : props.page === "recherche"
       ? ""
       : props.showAdvancedSearch
@@ -76,17 +76,19 @@ const MainContainer = styled.div`
   text-align: left;
   align-items: center;
   width: fit-content;
+  max-width: ${(props) => (props.isTop ? "75%" : "")};
   z-index: 1;
   position: ${(props) => (props.isTop ? "" : "relative")};
 `;
 
 const SearchButtonContainer = styled.div`
-  padding: 16px 25px;
+  padding: ${(props) => (props.isTop ? "16px 10px" : "16px 25px")};
   color: white;
   background-color: ${colors.rouge};
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
+  font-size: ${(props) => (props.isTop ? "12px" : "")};
 `;
 const AdvancedSearchBar = styled.div`
   display: flex;
@@ -173,41 +175,54 @@ const SearchBar = (props) => {
   useOutsideClick(typeRef, () => setShowTypeOptions(false));
   useOutsideClick(categorieRef, () => setShowCategorieOptions(false));
   useEffect(() => {
-    document.addEventListener("scroll", handleScroll);
-    let query = computeQuery(
-      keywords,
-      selectedType,
-      selectedDate,
-      selectedCategorie,
-      selectedImpacts,
-      selectedActions,
-      selectedFormat
-    );
-    getResult(query).then((res) => props.loadResultInfo(res));
+    let mounted = true;
+    if (mounted) {
+      document.addEventListener("scroll", handleScroll);
+      let query = computeQuery(
+        keywords,
+        selectedType,
+        selectedDate,
+        selectedCategorie,
+        selectedImpacts,
+        selectedActions,
+        selectedFormat
+      );
+      getResult(query).then((res) => props.loadResultInfo(res));
+    }
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   const handleScroll = (event) => {
     var searchbar = document.getElementById("el");
-    var sticky = searchbar.offsetTop - 20;
-    if (window.pageYOffset > sticky) {
-      setIsTop(true);
-
-      searchbar.classList.add("sticky");
-    } else if (window.pageYOffset < 250) {
-      setIsTop(false);
-      searchbar.classList.remove("sticky");
+    if (searchbar) {
+      var sticky = searchbar.offsetTop - 20;
+      if (window.pageYOffset > sticky) {
+        setIsTop(true);
+        searchbar.classList.add("sticky");
+      } else if (window.pageYOffset < 250) {
+        setIsTop(false);
+        searchbar.classList.remove("sticky");
+      }
     }
   };
 
   useEffect(() => {
-    props.setIsSearchOpen(
-      showFormatOptions ||
-        showTypeOptions ||
-        showCategorieOptions ||
-        showDateOptions ||
-        showImpactsOptions ||
-        showActionsOptions
-    );
+    let mounted = true;
+    if (mounted) {
+      props.setIsSearchOpen(
+        showFormatOptions ||
+          showTypeOptions ||
+          showCategorieOptions ||
+          showDateOptions ||
+          showImpactsOptions ||
+          showActionsOptions
+      );
+    }
+    return function cleanup() {
+      mounted = false;
+    };
   }, [
     showFormatOptions,
     showTypeOptions,
@@ -360,8 +375,8 @@ const SearchBar = (props) => {
   const categoriesData = categoriesOptions();
 
   const isArticleSelected =
-    selectedType.filter((item) => item.id === 3).length > 0;
-
+    selectedType.filter((item) => item.id === 3).length > 0 ||
+    selectedType.length === 0;
   return (
     <MainContainer
       id="el"
@@ -369,11 +384,12 @@ const SearchBar = (props) => {
       isTop={isTop}
       showAdvancedSearch={showAdvancedSearch}
     >
-      <KeyWordsContainer>
-        <GoSearch style={{ marginRight: "12px" }} />
+      <KeyWordsContainer isTop={isTop}>
+        <GoSearch style={{ marginRight: isTop ? "5px" : "12px" }} />
         <input
           type="text"
-          className="recherche_input"
+          value={keywords}
+          className={isTop ? "recherche_input_small" : "recherche_input"}
           placeholder={"Rechercher une ressource par mots-cléfs..."}
           onChange={(e) => handleChangeKeywords(e.target.value)}
         />{" "}
@@ -381,6 +397,7 @@ const SearchBar = (props) => {
 
       <div ref={actionsref}>
         <ComplexeFilterItem
+          isTop={isTop}
           selectedObject={selectedActions}
           setSelectedObject={handleChangeActions}
           toggleOptions={toggleActionsOptions}
@@ -392,6 +409,7 @@ const SearchBar = (props) => {
       </div>
       <div ref={impactsref}>
         <ComplexeFilterItem
+          isTop={isTop}
           selectedObject={selectedImpacts}
           setSelectedObject={handleChangeImpacts}
           toggleOptions={toggleImpactsOptions}
@@ -403,6 +421,7 @@ const SearchBar = (props) => {
       </div>
       <div ref={typeRef}>
         <SimpleFilterItem
+          isTop={isTop}
           selectedObject={selectedType}
           setSelectedObject={handleChangeTypes}
           toggleOptions={toggleTypeOptions}
@@ -417,6 +436,7 @@ const SearchBar = (props) => {
           {isArticleSelected && (
             <div ref={categorieRef}>
               <SimpleFilterItem
+                isTop={isTop}
                 selectedObject={selectedCategorie}
                 setSelectedObject={handleChangeCategorie}
                 toggleOptions={toggleCategorieOptions}
@@ -429,6 +449,7 @@ const SearchBar = (props) => {
           )}
           <div ref={formatRef}>
             <SimpleFilterItem
+              isTop={isTop}
               selectedObject={selectedFormat}
               setSelectedObject={handleChangeFormats}
               toggleOptions={toggleFormatOptions}
@@ -439,9 +460,9 @@ const SearchBar = (props) => {
             />
           </div>
           <div ref={dateRef}>
-            <FilterContainer style={{ border: "none" }}>
-              <FilterTitle>Date de publication</FilterTitle>
-              <FilterContent onClick={toggleDateOptions}>
+            <FilterContainer isTop={isTop} style={{ border: "none" }}>
+              <FilterTitle isTop={isTop}>Date</FilterTitle>
+              <FilterContent isTop={isTop} onClick={toggleDateOptions}>
                 {selectedDate.name}{" "}
                 <BsChevronDown style={{ marginLeft: "10px" }} />
               </FilterContent>
@@ -472,12 +493,12 @@ const SearchBar = (props) => {
       )}
       {isHome ? (
         <Link style={{ textDecoration: "none" }} to={"/recherche"}>
-          <SearchButtonContainer onClick={sendSearchRequest}>
+          <SearchButtonContainer isTop={isTop} onClick={sendSearchRequest}>
             rechercher
           </SearchButtonContainer>
         </Link>
       ) : (
-        <SearchButtonContainer onClick={sendSearchRequest}>
+        <SearchButtonContainer isTop={isTop} onClick={sendSearchRequest}>
           rechercher
         </SearchButtonContainer>
       )}
@@ -515,7 +536,7 @@ const SearchBar = (props) => {
             </div>
             <div ref={dateRef}>
               <FilterContainer style={{ border: "none" }}>
-                <FilterTitle>Date de publication</FilterTitle>
+                <FilterTitle>Date</FilterTitle>
                 <FilterContent onClick={toggleDateOptions}>
                   {selectedDate.name}{" "}
                   <BsChevronDown style={{ marginLeft: "10px" }} />

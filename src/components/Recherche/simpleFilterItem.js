@@ -9,7 +9,7 @@ import { colors } from "../../colors";
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px 22px;
+  padding: ${(props) => (props.isTop ? "5px 10px" : "5px 22px")};
   line-height: 20px;
   border-right: 0.5px solid ${colors.gris};
   position: relative;
@@ -17,7 +17,7 @@ const FilterContainer = styled.div`
 
 const FilterTitle = styled.div`
   font-weight: 700;
-  font-size: 12px;
+  font-size: ${(props) => (props.isTop ? "10px" : "12px")};
   color: ${colors.gris};
   text-align: left;
   text-transform: uppercase;
@@ -25,7 +25,7 @@ const FilterTitle = styled.div`
 
 const FilterContent = styled.div`
   font-weight: 500;
-  font-size: 16px;
+  font-size: ${(props) => (props.isTop ? "12px" : "16px")};
   color: ${colors.marine};
   align-items: center;
   display: flex;
@@ -81,9 +81,9 @@ const SimpleFilterItem = (props) => {
   };
 
   return (
-    <FilterContainer>
-      <FilterTitle>{props.title}</FilterTitle>
-      <FilterContent onClick={props.toggleOptions}>
+    <FilterContainer isTop={props.isTop}>
+      <FilterTitle isTop={props.isTop}>{props.title}</FilterTitle>
+      <FilterContent isTop={props.isTop} onClick={props.toggleOptions}>
         {props.selectedObject.length > 1 ? (
           <>
             <NumberSelected>({props.selectedObject.length})</NumberSelected>
