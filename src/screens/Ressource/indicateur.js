@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { BsDot, BsDownload } from "react-icons/bs";
-import { colors } from "../../colors";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
-import { AiOutlineEye } from "react-icons/ai";
-import { BsTags } from "react-icons/bs";
-import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
-import moment from "moment";
-import DOMPurify from "dompurify";
-import Comments from "../../components/Ressource/Comments";
 import { Link } from "react-router-dom";
 import DomaineListDeroulante from "../../components/Ressource/DomainesListDeroulante";
 import { isMobile } from "react-device-detect";
-import { useHistory } from "react-router-dom";
+import IndicateurDetails from "../../components/Ressource/indicateursDetails";
+import RessourcesSecondaires from "../../components/Ressource/ressourcesSecondaires";
 import {
   loadKeywordsFilter,
   loadImpactsFilter,
@@ -48,196 +40,26 @@ const MainContainer = styled.div`
   background-size: ${isMobile ? "100% 480px" : "100% 250px"};
   background-repeat: no-repeat;
   padding-right: ${isMobile ? "" : "100px"};
+  position: relative;
 `;
 
 const LeftSideComponent = styled.div`
   display: flex;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px;
   padding: 100px 85px;
 `;
 
-const LastUpdateContainer = styled.div`
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 16px;
-  text-align: left;
-  text-transform: uppercase;
-  margin-bottom: 13px;
-`;
-
-const RightSideContainer = styled.div`
-  width: -webkit-fill-available;
-  display: flex;
-  flex-direction: column;
-`;
-const HeaderRightSideTopContainer = styled.div`
-  width: -webkit-fill-available;
-  padding: ${isMobile ? "10px 20px" : "50px 0px"};
-`;
-
-const Comment = styled.div`
-  display: flex;
-  font-size: 12px;
-  color: ${colors.gris};
-  align-items: center;
-  font-weight: 400;
-  text-align: left;
-`;
-const HeaderRightSideBottomContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: ${isMobile ? "10px 20px" : "0px"};
-`;
-const CategoryContainer = styled.div`
-  display: flex;
-  font-size: 12px;
-  font-weight: 600;
-  text-align: left;
-  text-transform: uppercase;
-  margin-bottom: 13px;
-`;
-const Category = styled.div`
-  color: ${colors.rouge};
-  margin-right: 3px;
-  cursor: pointer;
-`;
-const Domaine = styled.div`
-  margin-left: 2px;
-  color: ${colors.marine};
-  cursor: pointer;
-`;
-
-const TitleContainer = styled.div`
-  font-size: 35px;
-  font-weight: 700;
-  line-height: 58px;
-  text-align: left;
-  color: ${colors.marine};
-`;
-const TagContainer = styled.div`
-  font-size: 14px;
-  display: flex;
-  font-weight: 400;
-  line-height: 16px;
-  cursor: pointer;
-  align-items: center;
-  text-align: left;
-  color: ${colors.marine};
-  margin-top: 20px;
-  text-decoration: underline;
-`;
-
-const LikeContainer = styled.div`
-  display: flex;
-  padding: 15px 0px;
-  border-bottom: 0.5px solid lightgrey;
-  width: fit-content;
-`;
-
-const UpdateContainer = styled.div`
-  padding: 10px 0px 0 0px;
-`;
-
-const BodyContainer = styled.div`
-  display: flex;
-  padding: ${isMobile ? "10px 20px" : "50px 0px"};
-`;
-
-const LeftSideBodyComponent = styled.div``;
-
-const ContentContainer = styled.div`
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 31px;
-  color: ${colors.text};
-  text-align: left;
-`;
-
-const BottomContainer = styled.div`
-  background-color: ${colors.grisBackground};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-`;
-const BottomTitleContainer = styled.div`
-  margin: 50px;
-  text-transform: uppercase;
-  font-size: 14px;
-  color: ${colors.gris};
-  font-weight: 600;
-`;
-
-const UploadButton = styled.div`
-  display: flex;
-  margin: auto;
-  text-transform: uppercase;
-  font-size: 14px;
-  background-color: ${colors.rouge};
-  color: white;
-  font-weight: 700;
-  padding: 17px 29px;
-  cursor: pointer;
-  max-width: max-content;
-`;
-
-const AvailableRessourceContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: ${isMobile ? "center" : "left"};
-  margin: 0 auto;
-`;
-
-const AddLikeContainer = styled.div`
-  display: flex;
-  margin: 50px auto;
-  padding: 27px;
-  justify-content: center;
-  font-weight: 700;
-  align-items: center;
-  border-top: 0.5px solid lightGrey;
-  border-bottom: 0.5px solid lightGrey;
-`;
-
-const ArianeContainer = styled.div`
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 14px;
-  display: flex;
-  align-items: center;
-  color: #99a0b1;
-  padding-bottom: 40px;
-`;
-
-const TitleBodyContainer = styled.div`
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 130%;
-  text-transform: uppercase;
-  margin-bottom: 34px;
-`;
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
-  let history = useHistory();
+  const [indicateurId, setIndicateurId] = useState(props.match.params.id);
   useEffect(() => {
     props.resetAllFilter();
     getRessourceById(indicateurId, "indicateurs")
       .then((res) => setIndicateur(res))
       .catch((error) => console.log(error));
   }, []);
-
-  const indicateurId = props.match.params.id;
-
-  const domaineAction =
-    indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;
-
-  const domaineImpact =
-    indicateur && indicateur.acf && indicateur.acf.domaine_dimpact_principal;
-
-  const listIndicateurTemplate = props.pages.templates.length
-    ? props.pages.templates.filter(
-        (template) => template.slug === "liste-des-indicateurs"
-      )[0]
-    : null;
 
   let tags = indicateur && indicateur.tags;
 
@@ -246,226 +68,18 @@ const Indicateur = (props) => {
       return props.taxonomie.tags.filter((el) => el.id === item)[0];
     });
   }
-  const openInNewTab = (url) => {
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-    if (newWindow) newWindow.opener = null;
-  };
-  const showCommment =
-    indicateur && indicateur.comment_status === "open" ? true : false;
-  const handleClickAction = () => {
-    let array = [];
-    array.push(domaineAction);
-    props.loadActionsFilter(array);
-    history.push("/recherche");
-  };
 
-  const handleClickImpact = () => {
-    let array = [];
-    array.push(domaineImpact);
-    props.loadImpactsFilter(array);
-    history.push("/recherche");
-  };
-
-  const handleClickTag = (item) => {
-    props.loadKeywordsFilter(item);
-    history.push("/recherche");
-  };
   return (
     <>
       <MainContainer>
         {!isMobile && (
           <LeftSideComponent>
-            <DomaineListDeroulante indicateurId={indicateurId} />
+            <DomaineListDeroulante id={indicateurId} />
           </LeftSideComponent>
         )}
-        <RightSideContainer>
-          <HeaderRightSideTopContainer>
-            <ArianeContainer>
-              <Link
-                to={"/liste-des-indicateurs"}
-                style={{
-                  textDecoration: "none",
-                  color: colors.gris,
-                  margin: "0 5px",
-                }}
-              >
-                {listIndicateurTemplate &&
-                  listIndicateurTemplate.title &&
-                  listIndicateurTemplate.title.rendered}{" "}
-              </Link>
-              {" > "}
-
-              <Link
-                to={"/"}
-                style={{
-                  textDecoration: "none",
-                  color: colors.gris,
-                  margin: "0 5px",
-                }}
-              >
-                {domaineAction && domaineAction.name}
-              </Link>
-
-              {" > "}
-              <Link
-                to={"#"}
-                style={{
-                  textDecoration: "none",
-                  color: colors.gris,
-                  margin: "0 5px",
-                }}
-              >
-                {indicateur && indicateur.title && indicateur.title.rendered}
-              </Link>
-            </ArianeContainer>
-
-            <CategoryContainer>
-              {domaineAction && (
-                <Category onClick={handleClickAction}>
-                  {domaineAction.name}
-                </Category>
-              )}
-              <BsDot />
-              {domaineImpact && (
-                <Domaine onClick={handleClickImpact}>
-                  {domaineImpact.name}
-                </Domaine>
-              )}
-            </CategoryContainer>
-            {indicateur !== null && indicateur.title && (
-              <TitleContainer
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(indicateur.title.rendered),
-                }}
-              />
-            )}
-            {tags && (
-              <TagContainer>
-                <BsTags style={{ marginRight: "8px" }} />
-                {tags.map((item, index) => {
-                  let comma = index < tags.length - 1 ? ", " : "";
-                  return (
-                    <div style={{ display: "flex" }} key={index}>
-                      {" "}
-                      <div onClick={() => handleClickTag(item.name)}>
-                        {item.name}
-                      </div>{" "}
-                      {comma}
-                    </div>
-                  );
-                })}
-              </TagContainer>
-            )}
-          </HeaderRightSideTopContainer>
-
-          <HeaderRightSideBottomContainer>
-            {indicateur && indicateur.acf && indicateur.acf.datas && (
-              <LikeContainer>
-                <Comment>
-                  <AiOutlineLike
-                    size={18}
-                    style={{ color: colors.gris, marginRight: "7px" }}
-                  />
-                  {indicateur.acf.datas.likes}
-                </Comment>
-                <Comment>
-                  <AiOutlineEye
-                    size={18}
-                    style={{
-                      color: colors.gris,
-                      marginRight: "7px",
-                      marginLeft: "10px",
-                    }}
-                  />
-                  {indicateur.acf.datas.vues}
-                </Comment>
-              </LikeContainer>
-            )}
-            <UpdateContainer>
-              <LastUpdateContainer>
-                publié le{" "}
-                {document && moment(document.date).format("DD MMMM YYYY")}
-              </LastUpdateContainer>
-              <LastUpdateContainer>
-                mis à jour le{" "}
-                {document && moment(document.modified).format("DD MMMM YYYY")}
-              </LastUpdateContainer>
-            </UpdateContainer>
-          </HeaderRightSideBottomContainer>
-
-          <BodyContainer>
-            <LeftSideBodyComponent>
-              {indicateur && indicateur.content && indicateur.content.rendered && (
-                <ContentContainer
-                  dangerouslySetInnerHTML={{
-                    __html: DOMPurify.sanitize(indicateur.content.rendered),
-                  }}
-                />
-              )}
-
-              {indicateur &&
-                indicateur.acf &&
-                indicateur.acf.dernier_resultat_connu && (
-                  <>
-                    <TitleBodyContainer>
-                      {indicateur.acf.dernier_resultat_connu.titre}
-                    </TitleBodyContainer>
-                    <ContentContainer
-                      dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(
-                          indicateur.acf.dernier_resultat_connu.texte
-                        ),
-                      }}
-                    />
-                  </>
-                )}
-
-              {indicateur &&
-                indicateur.acf &&
-                indicateur.acf.fiche_indicateur &&
-                indicateur.acf.fiche_indicateur.subtype === "pdf" && (
-                  <UploadButton
-                    onClick={() => {
-                      openInNewTab(indicateur.acf.fiche_indicateur.url);
-                    }}
-                  >
-                    <BsDownload style={{ marginRight: "8px" }} />
-                    Télécharger la fiche complète de l’indicateur
-                  </UploadButton>
-                )}
-              <AddLikeContainer>
-                Cette ressource vous a inspiré ?{" "}
-                <AiOutlineLike
-                  size={18}
-                  color={colors.gris}
-                  style={{ marginRight: "7px", marginLeft: "7px" }}
-                  cursor={"pointer"}
-                />
-                <AiOutlineDislike
-                  size={18}
-                  color={colors.gris}
-                  style={{ marginRight: "7px" }}
-                  cursor={"pointer"}
-                />
-              </AddLikeContainer>
-              <Comments postID={indicateurId} showCommment={showCommment} />
-            </LeftSideBodyComponent>
-          </BodyContainer>
-        </RightSideContainer>
+        <IndicateurDetails id={indicateurId} />
       </MainContainer>
-      <BottomContainer>
-        <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
-        <AvailableRessourceContainer>
-          {indicateur &&
-            indicateur.acf &&
-            indicateur.acf.ressources_liees &&
-            indicateur.acf.ressources_liees.length &&
-            indicateur.acf.ressources_liees.map((item, index) => {
-              if (("item", item.post_status === "publish"))
-                return <GridResultComponent info={item} key={index} />;
-            })}
-        </AvailableRessourceContainer>
-      </BottomContainer>
+      <RessourcesSecondaires id={indicateurId} />
     </>
   );
 };

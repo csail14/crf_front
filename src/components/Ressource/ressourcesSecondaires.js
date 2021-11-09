@@ -1,0 +1,90 @@
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { colors } from "../../colors";
+import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import { getRessourceById } from "../../utils/api/RessourcesApi";
+import { isMobile } from "react-device-detect";
+import {
+  loadKeywordsFilter,
+  loadImpactsFilter,
+  loadActionsFilter,
+  resetAllFilter,
+} from "../../actions/filter/filterActions";
+
+require("moment/locale/fr.js");
+
+const BottomContainer = styled.div`
+  background-color: ${colors.grisBackground};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+`;
+const BottomTitleContainer = styled.div`
+  margin: 50px;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: ${colors.gris};
+  font-weight: 600;
+`;
+
+const AvailableRessourceContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: ${isMobile ? "center" : "left"};
+  margin: 0 auto;
+`;
+
+const Indicateur = (props) => {
+  const [indicateur, setIndicateur] = useState(null);
+  useEffect(() => {
+    props.resetAllFilter();
+    getRessourceById(indicateurId, "indicateurs")
+      .then((res) => setIndicateur(res))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const indicateurId = props.id;
+
+  let tags = indicateur && indicateur.tags;
+
+  if (tags && props.taxonomie && props.taxonomie.tags.length) {
+    tags = tags.map((item) => {
+      return props.taxonomie.tags.filter((el) => el.id === item)[0];
+    });
+  }
+
+  return (
+    <BottomContainer>
+      <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
+      <AvailableRessourceContainer>
+        {indicateur &&
+          indicateur.acf &&
+          indicateur.acf.ressources_liees &&
+          indicateur.acf.ressources_liees.length &&
+          indicateur.acf.ressources_liees.map((item, index) => {
+            if (("item", item.post_status === "publish"))
+              return <GridResultComponent info={item} key={index} />;
+          })}
+      </AvailableRessourceContainer>
+    </BottomContainer>
+  );
+};
+
+const mapDispatchToProps = {
+  loadImpactsFilter,
+  loadActionsFilter,
+  loadKeywordsFilter,
+  resetAllFilter,
+};
+
+const mapStateToProps = (store) => {
+  return {
+    taxonomie: store.taxonomie,
+    pages: store.pages,
+    filters: store.filters,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Indicateur);

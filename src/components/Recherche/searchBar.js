@@ -309,16 +309,6 @@ const SearchBar = (props) => {
   };
 
   const sendSearchRequest = () => {
-    console.log("recherche lancée");
-    console.log(
-      props.filters.keywords,
-      props.filters.types,
-      props.filters.date,
-      props.filters.categories,
-      props.filters.impacts,
-      props.filters.actions,
-      props.filters.formats
-    );
     let query = computeQuery(
       props.filters.keywords,
       props.filters.types,
@@ -328,7 +318,6 @@ const SearchBar = (props) => {
       props.filters.actions,
       props.filters.formats
     );
-    console.log("query", query);
     getResult(query).then((res) => props.loadResultInfo(res));
   };
   const isHome =
@@ -393,7 +382,6 @@ const SearchBar = (props) => {
   const categoriesData = categoriesOptions();
   const handleSearch = (e) => {
     if (e.code === "Enter") {
-      console.log("enter");
       sendSearchRequest();
     }
   };

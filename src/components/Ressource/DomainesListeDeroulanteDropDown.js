@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { isTablet } from "react-device-detect";
 const DomaineTitle = styled.div`
   font-weight: ${(props) => (props.isOpen ? "700" : "500")};
   font-size: 14px;
@@ -31,7 +32,24 @@ const RessourcesLieesContainer = styled.div`
   color: ${colors.gris};
 `;
 const DomaineListDeroulanteDropDown = (props) => {
-  const isOpen = props.openID === props.info.id;
+  const [isOpen, setIsOpen] = useState(props.openID === props.info.id);
+  useEffect(() => {
+    setIsOpen(props.openID === props.info.id);
+  }, [props.openID]);
+
+  useEffect(() => {
+    if (
+      props.info &&
+      props.info.acf &&
+      props.info.acf.ressources_liees &&
+      props.info.acf.ressources_liees.filter(
+        (item) => parseInt(item.ID) === parseInt(props.indicateurId)
+      ).length > 0
+    ) {
+      setIsOpen(true);
+      props.setOpenId(props.info.id);
+    }
+  }, []);
 
   return (
     <>
