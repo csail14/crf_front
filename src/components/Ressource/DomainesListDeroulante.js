@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../../colors";
@@ -25,6 +25,7 @@ const DomainesMainTitle = styled.div`
 `;
 const DomaineListDeroulante = (props) => {
   const [openID, setOpenId] = useState(null);
+
   const openCloseDropDown = (id) => {
     if (id === openID) {
       setOpenId(null);
@@ -40,10 +41,11 @@ const DomaineListDeroulante = (props) => {
         domaineImpacts.map((item, index) => {
           return (
             <DomaineListDeroulanteDropDown
-              indicateurId={props.indicateurId}
+              indicateurId={props.id}
               info={item}
               key={index}
               openID={openID}
+              setOpenId={setOpenId}
               openCloseDropDown={openCloseDropDown}
             />
           );

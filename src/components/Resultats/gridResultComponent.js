@@ -10,11 +10,17 @@ import { getMediaById } from "../../utils/api/API";
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
+import { useHistory } from "react-router-dom";
 import {
   getRessourceById,
   getCommentaireByPost,
 } from "../../utils/api/RessourcesApi";
 import { Link } from "react-router-dom";
+import {
+  loadKeywordsFilter,
+  loadImpactsFilter,
+  loadActionsFilter,
+} from "../../actions/filter/filterActions";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -65,10 +71,12 @@ const CategoryContainer = styled.div`
 const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
+  cursor: pointer;
 `;
 const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -99,6 +107,7 @@ const TagContainer = styled.div`
   text-align: left;
   color: ${colors.marine};
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const BottomContainer = styled.div`
@@ -133,7 +142,7 @@ const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
   const [media, setMedia] = useState(null);
   const [nbComments, setNbComments] = useState(0);
-
+  let history = useHistory();
   const openInNewTab = (url) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
@@ -156,7 +165,7 @@ const GridResultComponent = (props) => {
     if (details && details.featured_media) {
       getMediaById(details.featured_media)
         .then((res) => setMedia(res.media_details.sizes.full.source_url))
-        .catch((error) => console.log("res", error));
+        .catch((error) => console.log("error", error));
     } else if (
       domaineAction &&
       domaineAction.acf &&
@@ -178,15 +187,14 @@ const GridResultComponent = (props) => {
   const domaineAction =
     details && details.acf && details.acf.domaine_daction_principal
       ? props.taxonomie.domainesActions.filter(
-          (item) => item.id === details.acf.domaine_daction_principal
+          (item) => item.id === details.acf.domaine_daction_principal.term_id
         )[0]
       : null;
-
   const domaineImpact =
     details && details.acf && details.acf.domaine_dimpact_principal
       ? props.taxonomie
         ? props.taxonomie.domainesImpacts.filter(
-            (item) => item.id === details.acf.domaine_dimpact_principal
+            (item) => item.id === details.acf.domaine_dimpact_principal.term_id
           )[0]
         : null
       : null;
@@ -217,6 +225,24 @@ const GridResultComponent = (props) => {
       ? "bi bi-file-earmark-play"
       : "";
 
+  const handleClickAction = () => {
+    let array = [];
+    array.push(domaineAction);
+    props.loadActionsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickImpact = () => {
+    let array = [];
+    array.push(domaineImpact);
+    props.loadImpactsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickTag = (item) => {
+    props.loadKeywordsFilter(item);
+    history.push("/recherche");
+  };
   return (
     <MainContainer>
       <Link
@@ -248,9 +274,15 @@ const GridResultComponent = (props) => {
           {details && moment(details.modified).format("DD MMMM YYYY")}
         </LastUpdateContainer>
         <CategoryContainer>
-          {domaineAction && <Category>{domaineAction.name}</Category>}
+          {domaineAction && (
+            <Category onClick={handleClickAction}>
+              {domaineAction.name}
+            </Category>
+          )}
           <BsDot />
-          {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
+          {domaineImpact && (
+            <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
+          )}
         </CategoryContainer>
         <Link
           to={
@@ -261,14 +293,22 @@ const GridResultComponent = (props) => {
           style={{ textDecoration: "none" }}
         >
           {" "}
-          <TitleContainer>
-            {details && details.title && details.title.rendered}
-          </TitleContainer>
+          {details && details.title && (
+            <TitleContainer
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(details.title.rendered),
+              }}
+            ></TitleContainer>
+          )}
         </Link>
         {details && details.acf && (
           <DescriptionContainer
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(details.acf.extrait),
+              __html: DOMPurify.sanitize(
+                details.acf.extrait.length > 150
+                  ? details.acf.extrait.substr(0, 150)
+                  : details.acf.extrait
+              ),
             }}
           ></DescriptionContainer>
         )}
@@ -278,7 +318,15 @@ const GridResultComponent = (props) => {
 
             {tags.map((item, index) => {
               let comma = index < tags.length - 1 ? ", " : "";
-              return item.name + comma;
+              return (
+                <div style={{ display: "flex" }} key={index}>
+                  {" "}
+                  <div onClick={() => handleClickTag(item.name)}>
+                    {item.name}
+                  </div>{" "}
+                  {comma}
+                </div>
+              );
             })}
           </TagContainer>
         )}
@@ -341,10 +389,18 @@ const GridResultComponent = (props) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  loadImpactsFilter,
+  loadActionsFilter,
+  loadKeywordsFilter,
+};
 
 const mapStateToProps = (store) => {
-  return { taxonomie: store.taxonomie, options: store.options };
+  return {
+    taxonomie: store.taxonomie,
+    options: store.options,
+    filters: store.filters,
+  };
 };
 export default connect(
   mapStateToProps,

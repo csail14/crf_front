@@ -42,8 +42,8 @@ const BodyContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding-right: 200px;
-  padding-left: 50px;
+  padding-right: 150px;
+  padding-left: 140px;
   justify-content: flex-start;
   margin-top: -25px;
 `;

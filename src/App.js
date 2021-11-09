@@ -42,6 +42,11 @@ function App() {
             <Route exact path="/indicateurs/:id" component={HOC(Indicateur)} />
             <Route
               exact
+              path="/domaine-impact/:id"
+              component={HOC(Indicateur)}
+            />
+            <Route
+              exact
               path="/liste-des-indicateurs"
               component={HOC(ListDomaines)}
             />

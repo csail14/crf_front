@@ -60,12 +60,24 @@
   text-align: left;
   padding: 10px 0;
 }
+.sticky {
+  position: fixed;
+  top: 20px;
+}
 .recherche_input {
   border: none;
   min-width: 300px;
   height: 30px;
   outline: none;
   font-size: 16px;
+  cursor: pointer;
+}
+.recherche_input_small {
+  border: none;
+  height: 30px;
+  outline: none;
+  font-size: 12px;
+  cursor: pointer;
 }
 .recherche_domaine_input {
   border: none;
