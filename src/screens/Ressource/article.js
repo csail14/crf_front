@@ -14,8 +14,13 @@ import Comments from "../../components/Ressource/Comments";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import { isMobile } from "react-device-detect";
-import ListResultComponent from "../../components/Resultats/listResultComponent";
-
+import { useHistory } from "react-router-dom";
+import {
+  loadKeywordsFilter,
+  loadImpactsFilter,
+  loadActionsFilter,
+  resetAllFilter,
+} from "../../actions/filter/filterActions";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
@@ -106,10 +111,12 @@ const CategoryContainer = styled.div`
 const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
+  cursor: pointer;
 `;
 const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -127,6 +134,7 @@ const TagContainer = styled.div`
   align-items: center;
   text-align: left;
   color: ${colors.marine};
+  cursor: pointer;
   margin-top: 20px;
   text-decoration: underline;
 `;
@@ -183,8 +191,9 @@ const AddLikeContainer = styled.div`
 const Article = (props) => {
   const [article, setArticle] = useState(null);
   const [media, setMedia] = useState(null);
-
+  let history = useHistory();
   useEffect(() => {
+    props.resetAllFilter();
     getArticleById(articleId)
       .then((res) => setArticle(res))
       .catch((error) => console.log(error));
@@ -231,6 +240,25 @@ const Article = (props) => {
 
   const showCommment =
     article && article.comment_status === "open" ? true : false;
+
+  const handleClickAction = () => {
+    let array = [];
+    array.push(domaineAction);
+    props.loadActionsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickImpact = () => {
+    let array = [];
+    array.push(domaineImpact);
+    props.loadImpactsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickTag = (item) => {
+    props.loadKeywordsFilter(item);
+    history.push("/recherche");
+  };
   return (
     <MainContainer>
       <HeaderContainer>
@@ -242,9 +270,17 @@ const Article = (props) => {
         <RightSideContainer>
           <HeaderRightSideTopContainer>
             <CategoryContainer>
-              {domaineAction && <Category>{domaineAction.name}</Category>}
+              {domaineAction && (
+                <Category onClick={handleClickAction}>
+                  {domaineAction.name}
+                </Category>
+              )}
               <BsDot />
-              {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
+              {domaineImpact && (
+                <Domaine onClick={handleClickImpact}>
+                  {domaineImpact.name}
+                </Domaine>
+              )}
             </CategoryContainer>
             {article !== null && article.title && (
               <TitleContainer
@@ -259,7 +295,15 @@ const Article = (props) => {
                 <BsTags style={{ marginRight: "8px" }} />
                 {tags.map((item, index) => {
                   let comma = index < tags.length - 1 ? ", " : "";
-                  return item.name + comma;
+                  return (
+                    <div style={{ display: "flex" }} key={index}>
+                      {" "}
+                      <div onClick={() => handleClickTag(item.name)}>
+                        {item.name}
+                      </div>{" "}
+                      {comma}
+                    </div>
+                  );
                 })}
               </TagContainer>
             )}
@@ -356,10 +400,19 @@ const Article = (props) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  loadImpactsFilter,
+  loadActionsFilter,
+  loadKeywordsFilter,
+  resetAllFilter,
+};
 
 const mapStateToProps = (store) => {
-  return {};
+  return {
+    taxonomie: store.taxonomie,
+    options: store.options,
+    filters: store.filters,
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article);

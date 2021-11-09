@@ -9,7 +9,7 @@ import { colors } from "../../colors";
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${(props) => (props.isTop ? "5px 10px" : "5px 22px")};
+  padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
   line-height: 20px;
   border-right: 0.5px solid ${colors.gris};
 `;

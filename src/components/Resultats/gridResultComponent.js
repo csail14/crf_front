@@ -17,14 +17,9 @@ import {
 } from "../../utils/api/RessourcesApi";
 import { Link } from "react-router-dom";
 import {
-  loadTypeFilter,
   loadKeywordsFilter,
-  loadFormatsFilter,
-  loadCategoriesFilter,
-  loadDateFilter,
   loadImpactsFilter,
   loadActionsFilter,
-  resetAllFilter,
 } from "../../actions/filter/filterActions";
 require("moment/locale/fr.js");
 
@@ -324,13 +319,13 @@ const GridResultComponent = (props) => {
             {tags.map((item, index) => {
               let comma = index < tags.length - 1 ? ", " : "";
               return (
-                <>
+                <div style={{ display: "flex" }} key={index}>
                   {" "}
                   <div onClick={() => handleClickTag(item.name)}>
                     {item.name}
                   </div>{" "}
                   {comma}
-                </>
+                </div>
               );
             })}
           </TagContainer>

@@ -14,7 +14,13 @@ import moment from "moment";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
 import { isMobile } from "react-device-detect";
-
+import { useHistory } from "react-router-dom";
+import {
+  loadKeywordsFilter,
+  loadImpactsFilter,
+  loadActionsFilter,
+  resetAllFilter,
+} from "../../actions/filter/filterActions";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
@@ -84,10 +90,12 @@ const CategoryContainer = styled.div`
 const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
+  cursor: pointer;
 `;
 const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -102,6 +110,7 @@ const TagContainer = styled.div`
   display: flex;
   font-weight: 400;
   line-height: 16px;
+  cursor: pointer;
   align-items: center;
   text-align: left;
   color: ${colors.marine};
@@ -185,8 +194,9 @@ const AddLikeContainer = styled.div`
 const Document = (props) => {
   const [document, setDocument] = useState(null);
   const [media, setMedia] = useState(null);
-
+  let history = useHistory();
   useEffect(() => {
+    props.resetAllFilter();
     getDocumentById(documentId)
       .then((res) => setDocument(res))
       .catch((error) => console.log(error));
@@ -236,6 +246,24 @@ const Document = (props) => {
   };
   const showCommment =
     document && document.comment_status === "open" ? true : false;
+  const handleClickAction = () => {
+    let array = [];
+    array.push(domaineAction);
+    props.loadActionsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickImpact = () => {
+    let array = [];
+    array.push(domaineImpact);
+    props.loadImpactsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickTag = (item) => {
+    props.loadKeywordsFilter(item);
+    history.push("/recherche");
+  };
   return (
     <MainContainer>
       <HeaderContainer>
@@ -247,9 +275,17 @@ const Document = (props) => {
         <RightSideContainer>
           <HeaderRightSideTopContainer>
             <CategoryContainer>
-              {domaineAction && <Category>{domaineAction.name}</Category>}
+              {domaineAction && (
+                <Category onClick={handleClickAction}>
+                  {domaineAction.name}
+                </Category>
+              )}
               <BsDot />
-              {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
+              {domaineImpact && (
+                <Domaine onClick={handleClickImpact}>
+                  {domaineImpact.name}
+                </Domaine>
+              )}
             </CategoryContainer>
 
             {document !== null && document.title && (
@@ -265,7 +301,15 @@ const Document = (props) => {
                 <BsTags style={{ marginRight: "8px" }} />
                 {tags.map((item, index) => {
                   let comma = index < tags.length - 1 ? ", " : "";
-                  return item.name + comma;
+                  return (
+                    <div style={{ display: "flex" }} key={index}>
+                      {" "}
+                      <div onClick={() => handleClickTag(item.name)}>
+                        {item.name}
+                      </div>{" "}
+                      {comma}
+                    </div>
+                  );
                 })}
               </TagContainer>
             )}
@@ -376,10 +420,19 @@ const Document = (props) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  loadImpactsFilter,
+  loadActionsFilter,
+  loadKeywordsFilter,
+  resetAllFilter,
+};
 
 const mapStateToProps = (store) => {
-  return { taxonomie: store.taxonomie, options: store.options };
+  return {
+    taxonomie: store.taxonomie,
+    options: store.options,
+    filters: store.filters,
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Document);

@@ -37,7 +37,7 @@ const KeyWordsContainer = styled.div`
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${(props) => (props.isTop ? "5px 10px" : "5px 22px")};
+  padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
   line-height: 20px;
   border-right: 0.5px solid ${colors.gris};
   position: relative;
@@ -65,7 +65,7 @@ const MainContainer = styled.div`
   padding: 7px;
   flex-wrap: wrap;
   margin: ${(props) =>
-    props.isTop
+    props.page === "recherche" && props.isTop
       ? "auto auto auto -90px"
       : props.page === "recherche"
       ? ""
@@ -158,6 +158,7 @@ const SearchBar = (props) => {
   const [showImpactsOptions, setShowImpactsOptions] = useState(false);
   const [selectedActions, setSelectedActions] = useState(props.filters.actions);
   const [showActionsOptions, setShowActionsOptions] = useState(false);
+  const [focused, setFocused] = useState(false);
   const [isTop, setIsTop] = useState(false);
   const actionsref = useRef();
   const impactsref = useRef();
@@ -178,6 +179,7 @@ const SearchBar = (props) => {
     let mounted = true;
     if (mounted) {
       document.addEventListener("scroll", handleScroll);
+      window.addEventListener("keyup", handleSearch);
       let query = computeQuery(
         keywords,
         selectedType,
@@ -189,14 +191,19 @@ const SearchBar = (props) => {
       );
       getResult(query).then((res) => props.loadResultInfo(res));
     }
-    return function cleanup() {
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("keyup", handleSearch);
       mounted = false;
     };
   }, []);
 
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   const handleScroll = (event) => {
     var searchbar = document.getElementById("el");
-    if (searchbar) {
+    if (searchbar && !isHome) {
       var sticky = searchbar.offsetTop - 20;
       if (window.pageYOffset > sticky) {
         setIsTop(true);
@@ -302,15 +309,26 @@ const SearchBar = (props) => {
   };
 
   const sendSearchRequest = () => {
-    let query = computeQuery(
-      keywords,
-      selectedType,
-      selectedDate,
-      selectedCategorie,
-      selectedImpacts,
-      selectedActions,
-      selectedFormat
+    console.log("recherche lancée");
+    console.log(
+      props.filters.keywords,
+      props.filters.types,
+      props.filters.date,
+      props.filters.categories,
+      props.filters.impacts,
+      props.filters.actions,
+      props.filters.formats
     );
+    let query = computeQuery(
+      props.filters.keywords,
+      props.filters.types,
+      props.filters.date,
+      props.filters.categories,
+      props.filters.impacts,
+      props.filters.actions,
+      props.filters.formats
+    );
+    console.log("query", query);
     getResult(query).then((res) => props.loadResultInfo(res));
   };
   const isHome =
@@ -373,7 +391,12 @@ const SearchBar = (props) => {
     return array;
   };
   const categoriesData = categoriesOptions();
-
+  const handleSearch = (e) => {
+    if (e.code === "Enter") {
+      console.log("enter");
+      sendSearchRequest();
+    }
+  };
   const isArticleSelected =
     selectedType.filter((item) => item.id === 3).length > 0 ||
     selectedType.length === 0;
@@ -381,12 +404,15 @@ const SearchBar = (props) => {
     <MainContainer
       id="el"
       page={props.page}
+      onKeyPress={(e) => e.key === "Enter" && handleSearch()}
       isTop={isTop}
       showAdvancedSearch={showAdvancedSearch}
     >
       <KeyWordsContainer isTop={isTop}>
         <GoSearch style={{ marginRight: isTop ? "5px" : "12px" }} />
         <input
+          onFocus={onFocus}
+          onBlur={onBlur}
           type="text"
           value={keywords}
           className={isTop ? "recherche_input_small" : "recherche_input"}
