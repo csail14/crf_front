@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { isTablet } from "react-device-detect";
+import { useHistory } from "react-router-dom";
 const DomaineTitle = styled.div`
   font-weight: ${(props) => (props.isOpen ? "700" : "500")};
   font-size: 14px;
@@ -33,18 +33,19 @@ const RessourcesLieesContainer = styled.div`
 `;
 const DomaineListDeroulanteDropDown = (props) => {
   const [isOpen, setIsOpen] = useState(props.openID === props.info.id);
+  let history = useHistory();
   useEffect(() => {
     setIsOpen(props.openID === props.info.id);
   }, [props.openID]);
-
   useEffect(() => {
     if (
-      props.info &&
-      props.info.acf &&
-      props.info.acf.ressources_liees &&
-      props.info.acf.ressources_liees.filter(
-        (item) => parseInt(item.ID) === parseInt(props.indicateurId)
-      ).length > 0
+      (props.info &&
+        props.info.acf &&
+        props.info.acf.ressources_liees &&
+        props.info.acf.ressources_liees.filter(
+          (item) => parseInt(item.ID) === parseInt(props.indicateurId[0])
+        ).length > 0) ||
+      parseInt(props.indicateurId[0]) === parseInt(props.info.id)
     ) {
       setIsOpen(true);
       props.setOpenId(props.info.id);
@@ -55,7 +56,10 @@ const DomaineListDeroulanteDropDown = (props) => {
     <>
       <DomaineContainer
         isOpen={isOpen}
-        onClick={() => props.openCloseDropDown(props.info.id)}
+        onClick={() => {
+          props.openCloseDropDown(props.info.id);
+          history.push("/domaine-impact/" + props.info.id);
+        }}
       >
         <DomaineTitle isOpen={isOpen}>{props.info.name}</DomaineTitle>{" "}
         {isOpen ? "" : <MdArrowForwardIos />}

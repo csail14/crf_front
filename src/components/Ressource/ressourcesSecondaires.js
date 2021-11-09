@@ -40,12 +40,12 @@ const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
   useEffect(() => {
     props.resetAllFilter();
-    getRessourceById(indicateurId, "indicateurs")
+    getRessourceById(indicateurId, props.type)
       .then((res) => setIndicateur(res))
       .catch((error) => console.log(error));
   }, []);
 
-  const indicateurId = props.id;
+  const indicateurId = props.id[0];
 
   let tags = indicateur && indicateur.tags;
 

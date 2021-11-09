@@ -7,6 +7,8 @@ import DomaineListDeroulante from "../../components/Ressource/DomainesListDeroul
 import { isMobile } from "react-device-detect";
 import IndicateurDetails from "../../components/Ressource/indicateursDetails";
 import RessourcesSecondaires from "../../components/Ressource/ressourcesSecondaires";
+import { useHistory } from "react-router-dom";
+import DomainesDetails from "../../components/Ressource/domainesDetails";
 import {
   loadKeywordsFilter,
   loadImpactsFilter,
@@ -52,34 +54,33 @@ const LeftSideComponent = styled.div`
 `;
 
 const Indicateur = (props) => {
-  const [indicateur, setIndicateur] = useState(null);
-  const [indicateurId, setIndicateurId] = useState(props.match.params.id);
+  const id = useState(props.match.params.id);
+  let history = useHistory();
+  const type = history.location.pathname.includes("indicateurs")
+    ? "indicateurs"
+    : history.location.pathname.includes("domaine-impact")
+    ? "domaine-impact"
+    : null;
+
   useEffect(() => {
     props.resetAllFilter();
-    getRessourceById(indicateurId, "indicateurs")
-      .then((res) => setIndicateur(res))
-      .catch((error) => console.log(error));
   }, []);
-
-  let tags = indicateur && indicateur.tags;
-
-  if (tags && props.taxonomie && props.taxonomie.tags.length) {
-    tags = tags.map((item) => {
-      return props.taxonomie.tags.filter((el) => el.id === item)[0];
-    });
-  }
 
   return (
     <>
       <MainContainer>
         {!isMobile && (
           <LeftSideComponent>
-            <DomaineListDeroulante id={indicateurId} />
+            <DomaineListDeroulante id={id} />
           </LeftSideComponent>
         )}
-        <IndicateurDetails id={indicateurId} />
+        {type === "indicateurs" ? (
+          <IndicateurDetails id={id} />
+        ) : type === "domaine-impact" ? (
+          <DomainesDetails id={id} />
+        ) : null}
       </MainContainer>
-      <RessourcesSecondaires id={indicateurId} />
+      <RessourcesSecondaires type={type} id={id} />
     </>
   );
 };

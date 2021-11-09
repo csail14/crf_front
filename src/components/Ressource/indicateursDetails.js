@@ -170,7 +170,7 @@ const Indicateur = (props) => {
       .catch((error) => console.log(error));
   }, []);
 
-  const indicateurId = props.id;
+  const indicateurId = props.id[0];
 
   const domaineAction =
     indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;
