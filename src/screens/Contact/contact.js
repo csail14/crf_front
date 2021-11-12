@@ -102,13 +102,35 @@ const Contact = (props) => {
 
 
     }
-
+    //send email on submit
+    const sendEmail = () => {
+        const data = {
+            firstName,
+            lastName,
+            email,
+            phone,
+            message,
+            subject
+        }
+        fetch(`${config.apiUrl}/sendEmail`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => console.log(err))
+    }
     useEffect(() => {
         if (formSubmitted && !formError) {
             setTimeout(() => {
                 setFormSubmitted(false);
                 setFormSuccess(false);
                 setFormError(false);
+                sendEmail();
             }, 5000);
         }
     }, [formSubmitted, formError]);
