@@ -217,6 +217,7 @@ const Indicateur = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+  console.log("domaine", domaineAction);
   return (
     <RightSideContainer>
       <HeaderRightSideTopContainer isMobile={isMobile}>
@@ -235,29 +236,31 @@ const Indicateur = (props) => {
           </Link>
           {" > "}
 
-          <Link
-            //  ACHANGER
-            to={"/"}
+          <div
+            onClick={() => {
+              history.push({
+                pathname: "/domaine-impact/" + domaineImpact.term_id,
+                state: { id: domaineImpact.term_id },
+              });
+            }}
             style={{
-              textDecoration: "none",
               color: colors.gris,
               margin: "0 5px",
+              cursor: "pointer",
             }}
           >
-            {domaineAction && domaineAction.name}
-          </Link>
+            {domaineImpact && domaineImpact.name}
+          </div>
 
           {" > "}
-          <Link
-            to={"#"}
+          <div
             style={{
-              textDecoration: "none",
               color: colors.gris,
               margin: "0 5px",
             }}
           >
             {indicateur && indicateur.title && indicateur.title.rendered}
-          </Link>
+          </div>
         </ArianeContainer>
 
         <CategoryContainer>

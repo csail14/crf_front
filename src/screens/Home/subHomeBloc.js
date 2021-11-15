@@ -79,7 +79,6 @@ const SubHomeBloc = (props) => {
   return (
     <MainContainer isMobile={isMobile}>
       <Link
-        // ACHANGER
         to={props.isSearchOpen ? "#" : "/" + link}
         style={{ textDecoration: "none" }}
       >
@@ -123,10 +122,7 @@ const SubHomeBloc = (props) => {
             })
           : null}
       </LinkMainContainer>
-      <Link //ACHANGER
-        to={"/" + link}
-        style={{ textDecoration: "none" }}
-      >
+      <Link to={"/" + link} style={{ textDecoration: "none" }}>
         <MoreInfoContainer>
           En savoir plus{" "}
           <MdArrowForwardIos

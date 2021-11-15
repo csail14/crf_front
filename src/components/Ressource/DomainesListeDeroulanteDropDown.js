@@ -75,18 +75,18 @@ const DomaineListDeroulanteDropDown = (props) => {
           const isThisRessourceOpen =
             item.ID == parseInt(props.indicateurId) ? true : false;
           return (
-            <Link
+            <RessourcesLieesContainer
               key={index}
-              //  ACHANGER
-              to={"/" + item.post_type + "/" + item.ID}
-              style={{ textDecoration: "none" }}
+              onClick={() => {
+                history.push({
+                  pathname: "/" + item.post_type + "/" + item.post_name,
+                  state: { id: item.ID },
+                });
+              }}
+              isThisRessourceOpen={isThisRessourceOpen}
             >
-              <RessourcesLieesContainer
-                isThisRessourceOpen={isThisRessourceOpen}
-              >
-                {item.post_title}
-              </RessourcesLieesContainer>
-            </Link>
+              {item.post_title}
+            </RessourcesLieesContainer>
           );
         })}
     </>

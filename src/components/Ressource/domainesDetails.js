@@ -90,17 +90,14 @@ const Indicateur = (props) => {
               listIndicateurTemplate.title.rendered}{" "}
           </Link>
           {" > "}
-          <Link
-            //  ACHANGER
-            to={"/domaine-impact/" + domaineId}
+          <div
             style={{
-              textDecoration: "none",
               color: colors.gris,
               margin: "0 5px",
             }}
           >
             {domaine && domaine.name}
-          </Link>
+          </div>
         </ArianeContainer>
 
         {domaine !== null && domaine.name && (
