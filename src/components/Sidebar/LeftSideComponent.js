@@ -138,15 +138,21 @@ const LeftSideComponent = (props) => {
           />
         </MainContainer>
       ) : (
-        <MainContainer className={"main_container"}>
+        <MainContainer
+          isMobile={isMobile}
+          showMenu={showMenu}
+          className={"main_container"}
+        >
           {" "}
           <div className={"sidebar_title"}>
             {isMobile && (
-              <img
-                src={logoMobile}
-                style={{ marginRight: "20px" }}
-                alt="logo-mobile"
-              />
+              <Link to="/home" style={{ textDecoration: "none" }}>
+                <img
+                  src={logoMobile}
+                  style={{ marginRight: "20px" }}
+                  alt="logo-mobile"
+                />
+              </Link>
             )}
             <Link to="/home" style={{ textDecoration: "none" }}>
               {" "}

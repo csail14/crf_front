@@ -8,6 +8,7 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { getMediaById } from "../../utils/api/API";
 import { getArticleById } from "../../utils/api/RessourcesApi";
 import Comments from "../../components/Ressource/Comments";
@@ -160,7 +161,11 @@ const BodyContainer = styled.div`
 const LeftSideBodyComponent = styled.div`
   margin-right: ${(props) => (props.isMobile ? "" : "100px")};
 `;
-const RightSideBodyContainer = styled.div``;
+const RightSideBodyContainer = styled.div`
+  display: ${(props) => (props.isMobile ? "flex" : "")};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "")};
+  align-items: ${(props) => (props.isMobile ? "center" : "")};
+`;
 
 const ContentContainer = styled.div`
   font-size: 18px;
@@ -378,14 +383,16 @@ const Article = (props) => {
         {article &&
           article.acf &&
           article.acf.ressources_principales.length > 0 && (
-            <RightSideBodyContainer>
+            <RightSideBodyContainer isMobile={isMobile}>
               <TitleRessourceContainer>
                 Ressources principales
               </TitleRessourceContainer>
-
               {article.acf.ressources_principales.map((item, index) => {
-                if (item.post_status === "publish")
+                if (isMobile) {
+                  return <ListResultComponent key={index} info={item} />;
+                } else {
                   return <GridResultComponent key={index} info={item} />;
+                }
               })}
             </RightSideBodyContainer>
           )}
@@ -396,9 +403,13 @@ const Article = (props) => {
           {article &&
             article.acf &&
             article.acf.ressources_secondaires.length > 0 &&
-            article.acf.ressources_secondaires.map((item) => {
+            article.acf.ressources_secondaires.map((item, index) => {
               if (item.post_status === "publish")
-                return <GridResultComponent info={item} />;
+                if (isMobile) {
+                  return <ListResultComponent key={index} info={item} />;
+                } else {
+                  return <GridResultComponent key={index} info={item} />;
+                }
             })}
         </AvailableRessourceContainer>
       </BottomContainer>
