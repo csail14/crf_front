@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import styled from "styled-components";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import RightSideLinkContainer from "./RightSideLinkContainer";
 import DOMPurify from "dompurify";
 import { colors } from "../../colors";
@@ -13,7 +13,7 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-  padding: ${isMobile ? "30px" : "80px 140px"};
+  padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
   text-align: left;
   background: radial-gradient(
       68.37% 320.65% at -18.36% 111.75%,
@@ -43,12 +43,12 @@ const SubtitleContainer = styled.div`
 `;
 const BodyContainer = styled.div`
   display: flex;
-  flex-direction: ${isMobile ? "column" : ""};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "")};
   justify-content: center;
 `;
 
 const Textcontainer = styled.div`
-  padding: ${isMobile ? "40px 30px" : "70px 150px"};
+  padding: ${(props) => (props.isMobile ? "40px 30px" : "70px 150px")};
   color: ${colors.gris};
   text-align: justify;
 `;
@@ -84,19 +84,18 @@ const BottomTitleContainer = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: ${isMobile ? "center" : "left"};
+  justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
 `;
 
 const SubHome = (props) => {
   const subHomeTemplate = props.pages.templates.length
-    ? props.pages.templates.filter(
-        (template) => template.slug === props.match.params.id
-      )[0]
+    ? props.pages.templates.filter((template) => template.slug === props.id)[0]
     : null;
+  const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <MainContainer>
-      <HeaderContainer>
+      <HeaderContainer isMobile={isMobile}>
         {subHomeTemplate && subHomeTemplate.title && (
           <HeaderTitleContainer
             style={{ fontWeight: "700" }}
@@ -117,9 +116,10 @@ const SubHome = (props) => {
           ></SubtitleContainer>
         )}
       </HeaderContainer>
-      <BodyContainer>
+      <BodyContainer isMobile={isMobile}>
         {subHomeTemplate && (
           <Textcontainer
+            isMobile={isMobile}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(subHomeTemplate.content.rendered),
             }}
@@ -152,7 +152,7 @@ const SubHome = (props) => {
             ? subHomeTemplate.acf.ressources_disponibles.titre
             : "Les ressources disponibles"}
         </BottomTitleContainer>
-        <AvailableRessourceContainer>
+        <AvailableRessourceContainer isMobile={isMobile}>
           {subHomeTemplate &&
             subHomeTemplate.acf.ressources_disponibles &&
             subHomeTemplate.acf.ressources_disponibles.ressources.map(

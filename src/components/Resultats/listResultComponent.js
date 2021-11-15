@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { BsDot, BsDownload } from "react-icons/bs";
-import { BsTags } from "react-icons/bs";
+import { BsDownload, BsDot } from "react-icons/bs";
+
 import { BiComment } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
-import { getMediaById } from "../../utils/api/API";
+
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import { useHistory } from "react-router-dom";
 import {
-  loadTypeFilter,
   loadKeywordsFilter,
-  loadFormatsFilter,
-  loadCategoriesFilter,
-  loadDateFilter,
   loadImpactsFilter,
   loadActionsFilter,
-  resetAllFilter,
 } from "../../actions/filter/filterActions";
 import {
   getRessourceById,
   getCommentaireByPost,
 } from "../../utils/api/RessourcesApi";
-import { Link } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -69,6 +64,10 @@ const LastUpdateContainer = styled.div`
   color: ${colors.marine};
 `;
 
+const SecondPartContainer = styled.div`
+  display: flex;
+`;
+
 const Category = styled.div`
   display: flex;
   align-items: center;
@@ -90,6 +89,7 @@ const TitleContainer = styled.div`
   line-height: 22px;
   text-transform: uppercase;
   text-align: left;
+  cursor: pointer;
   color: ${colors.marine};
 `;
 
@@ -144,12 +144,21 @@ const UploadContainer = styled.div`
 
 const FirstPartContainer = styled.div`
   display: flex;
-  width: 50%;
+  width: ${(props) => (props.isMobile ? "" : "50%")};
+`;
+
+const CategoryContainer = styled.div`
+  display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  margin-bottom: 13px;
 `;
 
 const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [nbComments, setNbComments] = useState(0);
   let history = useHistory();
   const openInNewTab = (url) => {
@@ -229,40 +238,54 @@ const GridResultComponent = (props) => {
   };
   return (
     <MainContainer>
-      <FirstPartContainer>
+      <FirstPartContainer isMobile={isMobile}>
         <IconContainer type={type}>
           <i className={icon}></i>
         </IconContainer>
 
         <DetailsContainer>
-          <Link
-            to={
-              props && props.info && props.info.post_type
-                ? "/" + props.info.post_type + "/" + props.info.ID
-                : ""
-            }
-            style={{ textDecoration: "none" }}
-          >
-            {" "}
-            {details && details.title && (
-              <TitleContainer
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(details.title.rendered),
-                }}
-              ></TitleContainer>
-            )}
-            {details && details.acf && (
-              <DescriptionContainer
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    details.acf.extrait.length > 150
-                      ? details.acf.extrait.substr(0, 150)
-                      : details.acf.extrait
-                  ),
-                }}
-              ></DescriptionContainer>
-            )}{" "}
-          </Link>
+          {isMobile && (
+            <>
+              {" "}
+              <CategoryContainer>
+                {domaineAction && (
+                  <Category onClick={handleClickAction}>
+                    {domaineAction.name}
+                  </Category>
+                )}
+                <BsDot />
+                {domaineImpact && (
+                  <Domaine onClick={handleClickImpact}>
+                    {domaineImpact.name}
+                  </Domaine>
+                )}
+              </CategoryContainer>{" "}
+            </>
+          )}
+          {details && details.title && (
+            <TitleContainer
+              onClick={() => {
+                history.push({
+                  pathname: "/" + details.type + "/" + details.slug,
+                  state: { id: details.id },
+                });
+              }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(details.title.rendered),
+              }}
+            ></TitleContainer>
+          )}
+          {details && details.acf && !isMobile && (
+            <DescriptionContainer
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(
+                  details.acf.extrait.length > 150
+                    ? details.acf.extrait.substr(0, 150)
+                    : details.acf.extrait
+                ),
+              }}
+            ></DescriptionContainer>
+          )}{" "}
           {details &&
             details.acf &&
             details.acf.document &&
@@ -287,68 +310,76 @@ const GridResultComponent = (props) => {
             )}
         </DetailsContainer>
       </FirstPartContainer>
-      <LastUpdateContainer>
-        {details && moment(details.modified).format("DD/MM/YYYY")}
-      </LastUpdateContainer>
+      {isMobile ? (
+        <></>
+      ) : (
+        <>
+          <LastUpdateContainer>
+            {details && moment(details.modified).format("DD/MM/YYYY")}
+          </LastUpdateContainer>
 
-      {domaineAction && (
-        <Category onClick={handleClickAction}>{domaineAction.name}</Category>
-      )}
+          {domaineAction && (
+            <Category onClick={handleClickAction}>
+              {domaineAction.name}
+            </Category>
+          )}
 
-      {domaineImpact && (
-        <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
-      )}
+          {domaineImpact && (
+            <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
+          )}
 
-      {tags && (
-        <TagContainer>
-          {tags.map((item, index) => {
-            let comma = index < tags.length - 1 ? ", " : "";
-            return (
-              <>
-                {" "}
-                <div onClick={() => handleClickTag(item.name)}>
-                  {item.name}
-                </div>{" "}
-                {comma}
-              </>
-            );
-          })}
-        </TagContainer>
+          {tags && (
+            <TagContainer>
+              {tags.map((item, index) => {
+                let comma = index < tags.length - 1 ? ", " : "";
+                return (
+                  <>
+                    {" "}
+                    <div onClick={() => handleClickTag(item.name)}>
+                      {item.name}
+                    </div>{" "}
+                    {comma}
+                  </>
+                );
+              })}
+            </TagContainer>
+          )}
+          <PostInfoContainer>
+            <div>
+              <Comment>
+                <BiComment size={18} style={{ marginRight: "7px" }} />
+                {nbComments}
+              </Comment>
+            </div>
+            {details && details.acf && details.acf.datas && (
+              <div style={{ display: "flex" }}>
+                <Comment>
+                  <AiOutlineLike
+                    size={18}
+                    style={{
+                      color: colors.gris,
+                      marginRight: "7px",
+                      marginLeft: "7px",
+                    }}
+                  />
+                  {details.acf.datas.likes}
+                </Comment>
+                <Comment>
+                  <AiOutlineEye
+                    size={18}
+                    style={{
+                      color: colors.gris,
+                      marginRight: "7px",
+                      marginLeft: "10px",
+                    }}
+                  />
+                  {details.acf.datas.vues}
+                </Comment>
+              </div>
+            )}
+          </PostInfoContainer>
+        </>
       )}
-      <PostInfoContainer>
-        <div>
-          <Comment>
-            <BiComment size={18} style={{ marginRight: "7px" }} />
-            {nbComments}
-          </Comment>
-        </div>
-        {details && details.acf && details.acf.datas && (
-          <div style={{ display: "flex" }}>
-            <Comment>
-              <AiOutlineLike
-                size={18}
-                style={{
-                  color: colors.gris,
-                  marginRight: "7px",
-                  marginLeft: "7px",
-                }}
-              />
-              {details.acf.datas.likes}
-            </Comment>
-            <Comment>
-              <AiOutlineEye
-                size={18}
-                style={{
-                  color: colors.gris,
-                  marginRight: "7px",
-                  marginLeft: "10px",
-                }}
-              />
-              {details.acf.datas.vues}
-            </Comment>
-          </div>
-        )}
-      </PostInfoContainer>
     </MainContainer>
   );
 };

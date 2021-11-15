@@ -12,6 +12,8 @@ const MainContainer = styled.div`
   font-size: 12px;
   line-height: 19px;
 `;
+
+const FooterLinkContainer = styled.div``;
 class Header extends React.Component {
   render() {
     const copyright =
@@ -22,7 +24,7 @@ class Header extends React.Component {
     const menu = this.props.options && this.props.options.footerMenu;
     return (
       <MainContainer>
-        <div>
+        <FooterLinkContainer>
           {menu &&
             menu.map((item, index) => {
               const url = item.url.replace(
@@ -39,7 +41,7 @@ class Header extends React.Component {
                 </Link>
               );
             })}
-        </div>
+        </FooterLinkContainer>
         <div>{copyright}</div>
       </MainContainer>
     );

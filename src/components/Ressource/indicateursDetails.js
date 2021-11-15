@@ -11,7 +11,7 @@ import moment from "moment";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
 import { Link } from "react-router-dom";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useHistory } from "react-router-dom";
 import {
   loadKeywordsFilter,
@@ -38,7 +38,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: ${isMobile ? "10px 20px" : "50px 0px"};
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
 `;
 
 const Comment = styled.div`
@@ -52,7 +52,7 @@ const Comment = styled.div`
 const HeaderRightSideBottomContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${isMobile ? "10px 20px" : "0px"};
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "0px")};
 `;
 const CategoryContainer = styled.div`
   display: flex;
@@ -106,7 +106,8 @@ const UpdateContainer = styled.div`
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: ${isMobile ? "10px 20px" : "50px 0px"};
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
+  justify-content: ${(props) => (props.isMobile ? "center" : "")};
 `;
 
 const LeftSideBodyComponent = styled.div``;
@@ -163,6 +164,7 @@ const TitleBodyContainer = styled.div`
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
   let history = useHistory();
+  const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
     props.resetAllFilter();
     getRessourceById(indicateurId, "indicateurs")
@@ -215,9 +217,10 @@ const Indicateur = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+  console.log("domaine", domaineAction);
   return (
     <RightSideContainer>
-      <HeaderRightSideTopContainer>
+      <HeaderRightSideTopContainer isMobile={isMobile}>
         <ArianeContainer>
           <Link
             to={"/liste-des-indicateurs"}
@@ -233,28 +236,31 @@ const Indicateur = (props) => {
           </Link>
           {" > "}
 
-          <Link
-            to={"/"}
+          <div
+            onClick={() => {
+              history.push({
+                pathname: "/domaine-impact/" + domaineImpact.term_id,
+                state: { id: domaineImpact.term_id },
+              });
+            }}
             style={{
-              textDecoration: "none",
               color: colors.gris,
               margin: "0 5px",
+              cursor: "pointer",
             }}
           >
-            {domaineAction && domaineAction.name}
-          </Link>
+            {domaineImpact && domaineImpact.name}
+          </div>
 
           {" > "}
-          <Link
-            to={"#"}
+          <div
             style={{
-              textDecoration: "none",
               color: colors.gris,
               margin: "0 5px",
             }}
           >
             {indicateur && indicateur.title && indicateur.title.rendered}
-          </Link>
+          </div>
         </ArianeContainer>
 
         <CategoryContainer>
@@ -294,7 +300,7 @@ const Indicateur = (props) => {
         )}
       </HeaderRightSideTopContainer>
 
-      <HeaderRightSideBottomContainer>
+      <HeaderRightSideBottomContainer isMobile={isMobile}>
         {indicateur && indicateur.acf && indicateur.acf.datas && (
           <LikeContainer>
             <Comment>
@@ -328,7 +334,7 @@ const Indicateur = (props) => {
         </UpdateContainer>
       </HeaderRightSideBottomContainer>
 
-      <BodyContainer>
+      <BodyContainer isMobile={isMobile}>
         <LeftSideBodyComponent>
           {indicateur && indicateur.content && indicateur.content.rendered && (
             <ContentContainer

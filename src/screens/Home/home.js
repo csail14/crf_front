@@ -6,14 +6,14 @@ import SubHomeBloc from "./subHomeBloc";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import { config } from "../../config";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
 
 const HeaderContainer = styled.div`
-  padding: ${isMobile ? "30px" : "80px 140px"};
+  padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
@@ -34,15 +34,17 @@ const SubtitleContainer = styled.div`
 const BodyContainer = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: ${isMobile ? "wrap" : ""};
+  flex-wrap: ${(props) => (props.isMobile ? "wrap" : "")};
 `;
 
 const Home = (props) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
   const homeTemplate = props.pages.templates.length
     ? props.pages.templates.filter((template) => template.slug === "accueil")[0]
     : null;
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isFilterSeledted, setIsFilterSelected] = useState(false);
 
   const toggleIsSearchOpen = (isOpen) => {
     setIsSearchOpen(isOpen);
@@ -50,7 +52,7 @@ const Home = (props) => {
 
   return (
     <MainContainer>
-      <HeaderContainer>
+      <HeaderContainer isMobile={isMobile}>
         {homeTemplate && homeTemplate.title ? (
           <HeaderTitleContainer
             style={{ fontWeight: "700" }}
@@ -71,8 +73,13 @@ const Home = (props) => {
         </HeaderTitleContainer>
         {homeTemplate && <SubtitleContainer></SubtitleContainer>}
       </HeaderContainer>
-      {!isMobile && <SearchBar setIsSearchOpen={toggleIsSearchOpen} />}
-      <BodyContainer>
+      {!isMobile && (
+        <SearchBar
+          setIsFilterSelected={setIsFilterSelected}
+          setIsSearchOpen={toggleIsSearchOpen}
+        />
+      )}
+      <BodyContainer isMobile={isMobile}>
         {homeTemplate
           ? homeTemplate.acf.entrees.map((item, index) => {
               return (

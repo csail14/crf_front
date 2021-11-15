@@ -58,7 +58,10 @@ const DomaineListDeroulanteDropDown = (props) => {
         isOpen={isOpen}
         onClick={() => {
           props.openCloseDropDown(props.info.id);
-          history.push("/domaine-impact/" + props.info.id);
+          history.push({
+            pathname: "/domaine-impact/" + props.info.slug,
+            state: { id: props.info.id },
+          });
         }}
       >
         <DomaineTitle isOpen={isOpen}>{props.info.name}</DomaineTitle>{" "}
@@ -72,17 +75,18 @@ const DomaineListDeroulanteDropDown = (props) => {
           const isThisRessourceOpen =
             item.ID == parseInt(props.indicateurId) ? true : false;
           return (
-            <Link
+            <RessourcesLieesContainer
               key={index}
-              to={"/" + item.post_type + "/" + item.ID}
-              style={{ textDecoration: "none" }}
+              onClick={() => {
+                history.push({
+                  pathname: "/" + item.post_type + "/" + item.post_name,
+                  state: { id: item.ID },
+                });
+              }}
+              isThisRessourceOpen={isThisRessourceOpen}
             >
-              <RessourcesLieesContainer
-                isThisRessourceOpen={isThisRessourceOpen}
-              >
-                {item.post_title}
-              </RessourcesLieesContainer>
-            </Link>
+              {item.post_title}
+            </RessourcesLieesContainer>
           );
         })}
     </>
