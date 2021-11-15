@@ -77,12 +77,17 @@ const RightSideLinkContainer = (props) => {
         .catch((error) => console.log(error));
     }
   }, [props.info]);
-  const url = "/" + props.info.post_type + "/" + props.info.ID;
+  const url = "/" + props.info.post_type + "/" + props.info.post_name;
   return (
     <LinkContainer
       isMobile={isMobile}
       ref={hoverRef}
-      onClick={() => history.push(url)}
+      onClick={() =>
+        history.push({
+          pathname: url,
+          state: { id: props.info.ID },
+        })
+      }
     >
       {props.info.post_title}
       <MdArrowForwardIos style={{ color: colors.rouge }} />

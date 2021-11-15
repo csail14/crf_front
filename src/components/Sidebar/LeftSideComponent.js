@@ -110,7 +110,7 @@ const LeftSideComponent = (props) => {
                 ></i>
               )}
             </div>
-            <SidebarSearch />
+            <SidebarSearch setShowMenu={setShowMenu} />
             <div className={"dropdown_container"}>
               {getTitle().map((item) => {
                 return (

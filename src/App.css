@@ -72,6 +72,14 @@
   font-size: 16px;
   cursor: pointer;
 }
+.recherche_input_mobile {
+  border: none;
+  min-width: 250px;
+  height: 30px;
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
+}
 .recherche_input_small {
   border: none;
   height: 30px;

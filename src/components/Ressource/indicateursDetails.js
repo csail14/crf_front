@@ -107,6 +107,7 @@ const UpdateContainer = styled.div`
 const BodyContainer = styled.div`
   display: flex;
   padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
+  justify-content: ${(props) => (props.isMobile ? "center" : "")};
 `;
 
 const LeftSideBodyComponent = styled.div``;

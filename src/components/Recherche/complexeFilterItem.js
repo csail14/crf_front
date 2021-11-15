@@ -5,13 +5,17 @@ import { BsChevronDown } from "react-icons/bs";
 import styled from "styled-components";
 import FilterOptions from "./filterOptionsItem";
 import { colors } from "../../colors";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const FilterContainer = styled.div`
   display: flex;
+  margin: ${(props) => (props.isMobile ? "5px auto" : "")};
+  background-color: ${(props) => (props.isMobile ? "white" : "")};
   flex-direction: column;
   padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
   line-height: 20px;
-  border-right: 0.5px solid ${colors.gris};
+  border-right: ${(props) =>
+    props.isMobile ? "" : "0.5px solid " + colors.gris};
 `;
 
 const FilterTitle = styled.div`
@@ -70,7 +74,7 @@ const NumberSelected = styled.div`
 const ComplexeFilterItem = (props) => {
   const [keyValue, setKeyValue] = useState("");
   const [searchItem, setSearchItem] = useState(props.data);
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
     if (keyValue !== "") {
       const newArray = filtreSearchItem(keyValue);
@@ -110,7 +114,7 @@ const ComplexeFilterItem = (props) => {
     setKeyValue(e.target.value);
   };
   return (
-    <FilterContainer isTop={props.isTop}>
+    <FilterContainer isMobile={isMobile} isTop={props.isTop}>
       <FilterTitle isTop={props.isTop}>{props.title}</FilterTitle>
       <FilterContent isTop={props.isTop} onClick={props.toggleOptions}>
         {props.selectedObject.length > 1 ? (

@@ -44,6 +44,7 @@ const Home = (props) => {
     : null;
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isFilterSeledted, setIsFilterSelected] = useState(false);
 
   const toggleIsSearchOpen = (isOpen) => {
     setIsSearchOpen(isOpen);
@@ -72,7 +73,12 @@ const Home = (props) => {
         </HeaderTitleContainer>
         {homeTemplate && <SubtitleContainer></SubtitleContainer>}
       </HeaderContainer>
-      {!isMobile && <SearchBar setIsSearchOpen={toggleIsSearchOpen} />}
+      {!isMobile && (
+        <SearchBar
+          setIsFilterSelected={setIsFilterSelected}
+          setIsSearchOpen={toggleIsSearchOpen}
+        />
+      )}
       <BodyContainer isMobile={isMobile}>
         {homeTemplate
           ? homeTemplate.acf.entrees.map((item, index) => {

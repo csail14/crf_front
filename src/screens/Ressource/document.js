@@ -8,6 +8,7 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { getDocumentById } from "../../utils/api/RessourcesApi";
 import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
@@ -208,7 +209,7 @@ const Document = (props) => {
     if (document && document.featured_media) {
       getMediaById(document.featured_media)
         .then((res) => setMedia(res.media_details.sizes.full.source_url))
-        .catch((error) => console.log("res", error));
+        .catch((error) => console.log("error", error));
     } else if (
       domaineAction &&
       domaineAction.acf &&
@@ -414,7 +415,11 @@ const Document = (props) => {
             document.acf.ressources_complementaires.length &&
             document.acf.ressources_complementaires.map((item, index) => {
               if (item.post_status === "publish")
-                return <GridResultComponent key={index} info={item} />;
+                if (isMobile) {
+                  return <ListResultComponent key={index} info={item} />;
+                } else {
+                  return <GridResultComponent key={index} info={item} />;
+                }
             })}
         </AvailableRessourceContainer>
       </BottomContainer>

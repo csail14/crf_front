@@ -12,6 +12,7 @@ import ComplexeFilterItem from "./complexeFilterItem";
 import { getResult } from "../../utils/api/RechercheApi";
 import { computeQuery } from "../../utils/function/function";
 import { useHistory } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 import {
   loadTypeFilter,
@@ -25,13 +26,18 @@ import {
 } from "../../actions/filter/filterActions";
 
 const KeyWordsContainer = styled.div`
+  background-color: ${(props) => (props.isMobile ? "white" : "")};
   display: flex;
   padding: 9px 5px;
   align-items: center;
-  border-right: 0.5px solid ${colors.gris};
+  box-shadow: ${(props) =>
+    props.isMobile ? "0px 26px 70px rgba(0, 0, 0, 0.15)" : ""};
+  border-right: ${(props) =>
+    props.isMobile ? "" : "0.5px solid " + colors.gris};
   padding-right: ${(props) => (props.isTop ? "" : "15px")};
   color: ${colors.gris};
   font-weight: 500;
+  margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   cursor: pointer;
 `;
 const FilterContainer = styled.div`
@@ -39,7 +45,10 @@ const FilterContainer = styled.div`
   flex-direction: column;
   padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
   line-height: 20px;
-  border-right: 0.5px solid ${colors.gris};
+  border-right: ${(props) =>
+    props.isMobile ? "" : "0.5px solid " + colors.gris};
+  margin: ${(props) => (props.isMobile ? "5px auto" : "")};
+  background-color: ${(props) => (props.isMobile ? "white" : "")};
   position: relative;
 `;
 const FilterTitle = styled.div`
@@ -61,7 +70,10 @@ const FilterContent = styled.div`
 `;
 const MainContainer = styled.div`
   display: flex;
-  box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
+  margin: auto;
+  flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
+  box-shadow: ${(props) =>
+    !props.isMobile ? "0px 26px 70px rgba(0, 0, 0, 0.15)" : ""};
   padding: 7px;
   flex-wrap: wrap;
   margin: ${(props) =>
@@ -72,7 +84,7 @@ const MainContainer = styled.div`
       : props.showAdvancedSearch
       ? "-32px auto 70px auto"
       : "-32px auto 0px auto"};
-  background-color: white;
+  background-color: ${(props) => (props.isMobile ? "" : "white")};
   text-align: left;
   align-items: center;
   width: fit-content;
@@ -88,7 +100,10 @@ const SearchButtonContainer = styled.div`
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
+  margin: ${(props) => (props.isMobile ? "5px auto" : "")};
+  width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
   font-size: ${(props) => (props.isTop ? "12px" : "")};
+  text-align: center;
 `;
 const AdvancedSearchBar = styled.div`
   display: flex;
@@ -168,6 +183,7 @@ const SearchBar = (props) => {
   const categorieRef = useRef();
 
   let history = useHistory();
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   useOutsideClick(actionsref, () => setShowActionsOptions(false));
   useOutsideClick(impactsref, () => setShowImpactsOptions(false));
@@ -179,6 +195,7 @@ const SearchBar = (props) => {
     let mounted = true;
     if (mounted) {
       document.addEventListener("scroll", handleScroll);
+
       window.addEventListener("keyup", handleSearch);
       let query = computeQuery(
         keywords,
@@ -191,30 +208,45 @@ const SearchBar = (props) => {
       );
       getResult(query).then((res) => props.loadResultInfo(res));
     }
+    setIsSelectedFitler();
     return () => {
       document.removeEventListener("scroll", handleScroll);
       window.removeEventListener("keyup", handleSearch);
       mounted = false;
     };
-  }, []);
-
+  }, [isMobile]);
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
-
+  const setIsSelectedFitler = () => {
+    if (
+      keywords !== "" ||
+      selectedFormat.length ||
+      selectedType.length ||
+      selectedCategorie.length ||
+      selectedImpacts.length ||
+      selectedActions.length ||
+      (selectedDate && selectedDate.id && selectedDate.id !== 0)
+    ) {
+      props.setIsFilterSelected(true);
+    } else {
+      props.setIsFilterSelected(false);
+    }
+  };
   const handleScroll = (event) => {
-    var searchbar = document.getElementById("el");
-    if (searchbar && !isHome) {
-      var sticky = searchbar.offsetTop - 20;
-      if (window.pageYOffset > sticky) {
-        setIsTop(true);
-        searchbar.classList.add("sticky");
-      } else if (window.pageYOffset < 250) {
-        setIsTop(false);
-        searchbar.classList.remove("sticky");
+    if (!isMobile) {
+      var searchbar = document.getElementById("el");
+      if (searchbar && !isHome) {
+        var sticky = searchbar.offsetTop - 20;
+        if (window.pageYOffset > sticky) {
+          setIsTop(true);
+          searchbar.classList.add("sticky");
+        } else if (window.pageYOffset < 250) {
+          setIsTop(false);
+          searchbar.classList.remove("sticky");
+        }
       }
     }
   };
-
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -309,6 +341,7 @@ const SearchBar = (props) => {
   };
 
   const sendSearchRequest = () => {
+    setIsSelectedFitler();
     let query = computeQuery(
       props.filters.keywords,
       props.filters.types,
@@ -394,22 +427,32 @@ const SearchBar = (props) => {
       page={props.page}
       onKeyPress={(e) => e.key === "Enter" && handleSearch()}
       isTop={isTop}
+      isMobile={isMobile}
       showAdvancedSearch={showAdvancedSearch}
     >
-      <KeyWordsContainer isTop={isTop}>
+      <KeyWordsContainer isMobile={isMobile} isTop={isTop}>
         <GoSearch style={{ marginRight: isTop ? "5px" : "12px" }} />
         <input
           onFocus={onFocus}
           onBlur={onBlur}
           type="text"
           value={keywords}
-          className={isTop ? "recherche_input_small" : "recherche_input"}
+          className={
+            isTop
+              ? "recherche_input_small"
+              : isMobile
+              ? "recherche_input_mobile"
+              : "recherche_input"
+          }
           placeholder={"Rechercher une ressource par mots-cléfs..."}
           onChange={(e) => handleChangeKeywords(e.target.value)}
         />{" "}
       </KeyWordsContainer>
 
-      <div ref={actionsref}>
+      <div
+        style={isMobile ? { width: "-webkit-fill-available" } : {}}
+        ref={actionsref}
+      >
         <ComplexeFilterItem
           isTop={isTop}
           selectedObject={selectedActions}
@@ -421,7 +464,10 @@ const SearchBar = (props) => {
           default="Choisir"
         />
       </div>
-      <div ref={impactsref}>
+      <div
+        style={isMobile ? { width: "-webkit-fill-available" } : {}}
+        ref={impactsref}
+      >
         <ComplexeFilterItem
           isTop={isTop}
           selectedObject={selectedImpacts}
@@ -433,7 +479,10 @@ const SearchBar = (props) => {
           default="Choisir"
         />
       </div>
-      <div ref={typeRef}>
+      <div
+        style={isMobile ? { width: "-webkit-fill-available" } : {}}
+        ref={typeRef}
+      >
         <SimpleFilterItem
           isTop={isTop}
           selectedObject={selectedType}
@@ -445,10 +494,13 @@ const SearchBar = (props) => {
           default="Dans tout le site"
         />
       </div>
-      {isTop && (
+      {(isTop || (isMobile && showAdvancedSearch)) && (
         <>
           {isArticleSelected && (
-            <div ref={categorieRef}>
+            <div
+              style={isMobile ? { width: "-webkit-fill-available" } : {}}
+              ref={categorieRef}
+            >
               <SimpleFilterItem
                 isTop={isTop}
                 selectedObject={selectedCategorie}
@@ -461,7 +513,10 @@ const SearchBar = (props) => {
               />
             </div>
           )}
-          <div ref={formatRef}>
+          <div
+            style={isMobile ? { width: "-webkit-fill-available" } : {}}
+            ref={formatRef}
+          >
             <SimpleFilterItem
               isTop={isTop}
               selectedObject={selectedFormat}
@@ -473,8 +528,15 @@ const SearchBar = (props) => {
               default="Tous les formats"
             />
           </div>
-          <div ref={dateRef}>
-            <FilterContainer isTop={isTop} style={{ border: "none" }}>
+          <div
+            style={isMobile ? { width: "-webkit-fill-available" } : {}}
+            ref={dateRef}
+          >
+            <FilterContainer
+              isMobile={isMobile}
+              isTop={isTop}
+              style={{ border: "none" }}
+            >
               <FilterTitle isTop={isTop}>Date</FilterTitle>
               <FilterContent isTop={isTop} onClick={toggleDateOptions}>
                 {selectedDate.name}{" "}
@@ -507,12 +569,20 @@ const SearchBar = (props) => {
       )}
       {isHome ? (
         <Link style={{ textDecoration: "none" }} to={"/recherche"}>
-          <SearchButtonContainer isTop={isTop} onClick={sendSearchRequest}>
+          <SearchButtonContainer
+            isTop={isTop}
+            isMobile={isMobile}
+            onClick={sendSearchRequest}
+          >
             rechercher
           </SearchButtonContainer>
         </Link>
       ) : (
-        <SearchButtonContainer isTop={isTop} onClick={sendSearchRequest}>
+        <SearchButtonContainer
+          isMobile={isMobile}
+          isTop={isTop}
+          onClick={sendSearchRequest}
+        >
           rechercher
         </SearchButtonContainer>
       )}
@@ -521,7 +591,7 @@ const SearchBar = (props) => {
           Recherche avancée
         </ToggleContainer>
       )}
-      {showAdvancedSearch && !isTop && (
+      {showAdvancedSearch && !isTop && !isMobile && (
         <AdvancedSearchBarContainer>
           <AdvancedSearchBar>
             {isArticleSelected && (

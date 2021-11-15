@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { getRessourceById } from "../../utils/api/RessourcesApi";
 import { Link } from "react-router-dom";
 import DomaineListDeroulante from "../../components/Ressource/DomainesListDeroulante";
 import useMediaQuery from "@mui/material/useMediaQuery";

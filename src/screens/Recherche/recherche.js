@@ -8,7 +8,6 @@ import { config } from "../../config";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
-import { checkAllRessources } from "../../utils/function/function";
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 const MainContainer = styled.div`
   min-height: 100vh;
@@ -32,7 +31,7 @@ const HeaderTitleContainer = styled.div`
 const SubtitleContainer = styled.div`
   margin-top: 26px;
   color: ${colors.gris};
-  max-width: 80%;
+  max-width: ${(props) => (props.isMobile ? "" : "80%")};
 `;
 const BodyContainer = styled.div`
   padding: ${(props) => (props.isViewGrid ? "" : "0 35px")};
@@ -76,7 +75,7 @@ const ButtonView = styled.div`
 `;
 const TriesContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: ${(props) => (props.isMobile ? "center" : "flex-end")};
   padding: 0 40px;
   margin-bottom: 13px;
 `;
@@ -103,7 +102,7 @@ const NoRequestContainer = styled.div`
 `;
 
 const Recherche = (props) => {
-  const [isFilterSeledtec, setIsFilterSelected] = useState(false);
+  const [isFilterSeledted, setIsFilterSelected] = useState(false);
   const [isViewGrid, setIsViewGrid] = useState(true);
   const [viewTrie, setViewTrie] = useState(false);
   const [updateTrie, setUpdateTrie] = useState(true);
@@ -142,7 +141,6 @@ const Recherche = (props) => {
     setPertinenceTrie(!pertinenceTrie);
     triePertinenceResult(resultToDisplay);
   };
-
   const trieViewResult = (resultArray) => {
     let newArray = [];
     resultArray.forEach((item) => newArray.push(item));
@@ -197,24 +195,33 @@ const Recherche = (props) => {
         )}
         {template && template.acf.intro && (
           <SubtitleContainer
+            isMobile={isMobile}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(template.acf.intro),
             }}
           />
         )}
-        {!isMobile && (
-          <SearchBar page="recherche" setIsSearchOpen={toggleIsSearchOpen} />
-        )}
+
+        <SearchBar
+          page="recherche"
+          setIsFilterSelected={setIsFilterSelected}
+          setIsSearchOpen={toggleIsSearchOpen}
+        />
       </HeaderContainer>
       <MiddleContainer>
-        <NumberResultsContainer>
-          {resultToDisplay.length}{" "}
-          <div style={{ fontSize: "28px", marginLeft: "5px" }}> Résultats</div>
-        </NumberResultsContainer>
-
-        <NoRequestContainer>
-          Les dernières ressources mises à jour
-        </NoRequestContainer>
+        {isFilterSeledted ? (
+          <NumberResultsContainer>
+            {resultToDisplay.length}{" "}
+            <div style={{ fontSize: "28px", marginLeft: "5px" }}>
+              {" "}
+              {resultToDisplay.length > 1 ? "Résultats" : "Résultat"}
+            </div>
+          </NumberResultsContainer>
+        ) : (
+          <NoRequestContainer>
+            Les dernières ressources mises à jour
+          </NoRequestContainer>
+        )}
 
         <ButtonViewContainer>
           <ButtonView
@@ -225,7 +232,7 @@ const Recherche = (props) => {
               className="bi bi-grid-3x2-gap"
               style={{ fontSize: "25px", marginRight: "5px" }}
             ></i>
-            Vue grille
+            {!isMobile && "Vue grille"}
           </ButtonView>
           <ButtonView
             onClick={() => setIsViewGrid(false)}
@@ -235,11 +242,11 @@ const Recherche = (props) => {
               className="bi bi-list-ul"
               style={{ fontSize: "25px", marginRight: "5px" }}
             ></i>
-            Vue liste
+            {!isMobile && "Vue liste"}
           </ButtonView>
         </ButtonViewContainer>
       </MiddleContainer>
-      <TriesContainer>
+      <TriesContainer isMobile={isMobile}>
         <Tries onClick={toggleViewTrie} isTrue={viewTrie}>
           nombre de vues{" "}
           {viewTrie ? (

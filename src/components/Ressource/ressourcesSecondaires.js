@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../../colors";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -31,6 +32,7 @@ const BottomTitleContainer = styled.div`
 `;
 
 const AvailableRessourceContainer = styled.div`
+  padding: 0 18px;
   display: flex;
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
@@ -67,7 +69,11 @@ const Indicateur = (props) => {
           indicateur.acf.ressources_liees.length &&
           indicateur.acf.ressources_liees.map((item, index) => {
             if (("item", item.post_status === "publish"))
-              return <GridResultComponent info={item} key={index} />;
+              if (isMobile) {
+                return <ListResultComponent key={index} info={item} />;
+              } else {
+                return <GridResultComponent key={index} info={item} />;
+              }
           })}
       </AvailableRessourceContainer>
     </BottomContainer>
