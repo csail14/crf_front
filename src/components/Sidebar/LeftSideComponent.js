@@ -8,7 +8,7 @@ import AccountContact from "./account_contact";
 import Dropdown from "./Dropdown";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import logoMobile from "../../assets/logo-mobile.png";
-
+import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
 const ImageContainer = styled.div`
   margin: 22px 40px;
   cursor: pointer;
@@ -110,7 +110,10 @@ const LeftSideComponent = (props) => {
                 ></i>
               )}
             </div>
-            <SidebarSearch setShowMenu={setShowMenu} />
+            <SidebarSearch
+              loadKeywordsFilter={props.loadKeywordsFilter}
+              setShowMenu={setShowMenu}
+            />
             <div className={"dropdown_container"}>
               {getTitle().map((item) => {
                 return (
@@ -170,12 +173,13 @@ const LeftSideComponent = (props) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { loadKeywordsFilter };
 
 const mapStateToProps = (store) => {
   return {
     sidebarPages: store.sidebarPages,
     options: store.options,
+    filters: store.filters,
   };
 };
 

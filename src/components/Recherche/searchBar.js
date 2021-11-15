@@ -191,6 +191,14 @@ const SearchBar = (props) => {
   useOutsideClick(formatRef, () => setShowFormatOptions(false));
   useOutsideClick(typeRef, () => setShowTypeOptions(false));
   useOutsideClick(categorieRef, () => setShowCategorieOptions(false));
+
+  useEffect(() => {
+    window.addEventListener("keyup", handleSearch);
+    setIsSelectedFitler();
+    return () => {
+      window.removeEventListener("keyup", handleSearch);
+    };
+  }, [props.filters]);
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -414,7 +422,7 @@ const SearchBar = (props) => {
   };
   const categoriesData = categoriesOptions();
   const handleSearch = (e) => {
-    if (e.code === "Enter") {
+    if (e && e.code === "Enter") {
       sendSearchRequest();
     }
   };
