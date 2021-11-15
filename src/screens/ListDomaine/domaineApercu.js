@@ -62,12 +62,15 @@ function useHover() {
 const ApercuDomaine = (props) => {
   const [hoverRef, isHovered] = useHover();
   let history = useHistory();
-
-  // const url = "/" + props.info.post_type + "/" + props.info.ID;
   return (
     <LinkContainer
       ref={hoverRef}
-      onClick={() => history.push("/domaine-impact/" + props.info.id)}
+      onClick={() =>
+        history.push({
+          pathname: "/domaine-impact/" + props.info.slug,
+          state: { id: props.info.id },
+        })
+      }
     >
       {props.info.name}
 
@@ -79,9 +82,7 @@ const ApercuDomaine = (props) => {
           />
           <ExtraitContainer
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(
-                props.info && props.info.acf && props.info.acf.details
-              ),
+              __html: DOMPurify.sanitize(props.info && props.info.description),
             }}
           ></ExtraitContainer>
         </>

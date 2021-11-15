@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
-import { isMobile } from "react-device-detect";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useHistory } from "react-router-dom";
 const MainContainer = styled.div`
-  margin: ${isMobile ? "50px 35px 10px 35px" : "50px 35px"};
+  margin: ${(props) => (props.isMobile ? "50px 35px 10px 35px" : "50px 35px")};
   max-width: 400px;
 `;
 
@@ -69,14 +69,18 @@ const MoreInfoContainer = styled.div`
 `;
 
 const SubHomeBloc = (props) => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   const link = props.info.push.lien.replace(
     "https://pmis-wp.laguildedupixel.fr/",
     ""
   );
+  let history = useHistory();
   return (
-    <MainContainer>
+    <MainContainer isMobile={isMobile}>
       <Link
-        to={props.isSearchOpen ? "#" : "/subHome/" + link}
+        // ACHANGER
+        to={props.isSearchOpen ? "#" : "/" + link}
         style={{ textDecoration: "none" }}
       >
         <HeaderContainer>
@@ -100,25 +104,29 @@ const SubHomeBloc = (props) => {
           ? props.info.articles_lies.map((item, index) => {
               if (item.post_status === "publish")
                 return (
-                  <Link
+                  <LinkContainer
                     key={index}
-                    style={{ textDecoration: "none" }}
-                    to={
-                      props.isSearchOpen
-                        ? "#"
-                        : "/" + item.post_type + "/" + item.ID
-                    }
+                    onClick={() => {
+                      !props.isSearchOpen
+                        ? history.push({
+                            pathname:
+                              "/" + item.post_type + "/" + item.post_name,
+                            state: { id: item.ID },
+                          })
+                        : console.log();
+                    }}
                   >
-                    <LinkContainer key={index}>
-                      {item.post_title}
-                      <MdArrowForwardIos style={{ color: colors.rouge }} />
-                    </LinkContainer>
-                  </Link>
+                    {item.post_title}
+                    <MdArrowForwardIos style={{ color: colors.rouge }} />
+                  </LinkContainer>
                 );
             })
           : null}
       </LinkMainContainer>
-      <Link to={"/subHome/" + link} style={{ textDecoration: "none" }}>
+      <Link //ACHANGER
+        to={"/" + link}
+        style={{ textDecoration: "none" }}
+      >
         <MoreInfoContainer>
           En savoir plus{" "}
           <MdArrowForwardIos

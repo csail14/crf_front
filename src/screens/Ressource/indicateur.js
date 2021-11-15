@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
 import { Link } from "react-router-dom";
 import DomaineListDeroulante from "../../components/Ressource/DomainesListDeroulante";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import IndicateurDetails from "../../components/Ressource/indicateursDetails";
 import RessourcesSecondaires from "../../components/Ressource/ressourcesSecondaires";
 import { useHistory } from "react-router-dom";
@@ -20,7 +20,7 @@ require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
   display: flex;
-  flex-direction: ${isMobile ? "column" : "row"};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -39,9 +39,9 @@ const MainContainer = styled.div`
       rgba(255, 255, 255, 0.108) 100%
     );
 
-  background-size: ${isMobile ? "100% 480px" : "100% 250px"};
+  background-size: ${(props) => (props.isMobile ? "100% 480px" : "100% 250px")};
   background-repeat: no-repeat;
-  padding-right: ${isMobile ? "" : "100px"};
+  padding-right: ${(props) => (props.isMobile ? "" : "100px")};
   position: relative;
 `;
 
@@ -54,8 +54,9 @@ const LeftSideComponent = styled.div`
 `;
 
 const Indicateur = (props) => {
-  const id = useState(props.match.params.id);
+  const isMobile = useMediaQuery("(max-width:600px)");
   let history = useHistory();
+  const id = useState(history.location.state.id);
   const type = history.location.pathname.includes("indicateurs")
     ? "indicateurs"
     : history.location.pathname.includes("domaine-impact")
@@ -68,7 +69,7 @@ const Indicateur = (props) => {
 
   return (
     <>
-      <MainContainer>
+      <MainContainer isMobile={isMobile}>
         {!isMobile && (
           <LeftSideComponent>
             <DomaineListDeroulante id={id} />

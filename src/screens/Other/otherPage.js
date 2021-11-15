@@ -4,7 +4,7 @@ import styled from "styled-components";
 import DOMPurify from "dompurify";
 import { colors } from "../../colors";
 import { config } from "../../config";
-
+import SubHome from "../SubHome/subHome";
 const MainContainer = styled.div`
   min-height: 92vh;
 `;
@@ -46,38 +46,44 @@ const OtherPage = (props) => {
       )[0]
     : null;
   return (
-    <MainContainer>
-      <HeaderContainer>
-        {template && template.title && (
-          <HeaderTitleContainer
-            style={{ fontWeight: "700" }}
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(template.title.rendered),
-            }}
-          />
-        )}
+    <>
+      {template && template.template === "tpl-sous_home.php" ? (
+        <SubHome id={props.match.params.id} />
+      ) : (
+        <MainContainer>
+          <HeaderContainer>
+            {template && template.title && (
+              <HeaderTitleContainer
+                style={{ fontWeight: "700" }}
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(template.title.rendered),
+                }}
+              />
+            )}
 
-        <HeaderTitleContainer>
-          {template ? template.acf.sous_titre : null}
-        </HeaderTitleContainer>
-        {template && (
-          <SubtitleContainer
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(template.acf.intro),
-            }}
-          ></SubtitleContainer>
-        )}
-      </HeaderContainer>
-      <BodyContainer>
-        {template && (
-          <Textcontainer
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(template.content.rendered),
-            }}
-          ></Textcontainer>
-        )}
-      </BodyContainer>
-    </MainContainer>
+            <HeaderTitleContainer>
+              {template ? template.acf.sous_titre : null}
+            </HeaderTitleContainer>
+            {template && (
+              <SubtitleContainer
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(template.acf.intro),
+                }}
+              ></SubtitleContainer>
+            )}
+          </HeaderContainer>
+          <BodyContainer>
+            {template && (
+              <Textcontainer
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(template.content.rendered),
+                }}
+              ></Textcontainer>
+            )}
+          </BodyContainer>
+        </MainContainer>
+      )}
+    </>
   );
 };
 

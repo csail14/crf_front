@@ -58,7 +58,10 @@ const DomaineListDeroulanteDropDown = (props) => {
         isOpen={isOpen}
         onClick={() => {
           props.openCloseDropDown(props.info.id);
-          history.push("/domaine-impact/" + props.info.id);
+          history.push({
+            pathname: "/domaine-impact/" + props.info.slug,
+            state: { id: props.info.id },
+          });
         }}
       >
         <DomaineTitle isOpen={isOpen}>{props.info.name}</DomaineTitle>{" "}
@@ -74,6 +77,7 @@ const DomaineListDeroulanteDropDown = (props) => {
           return (
             <Link
               key={index}
+              //  ACHANGER
               to={"/" + item.post_type + "/" + item.ID}
               style={{ textDecoration: "none" }}
             >

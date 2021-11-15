@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import { config } from "../../config";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { checkAllRessources } from "../../utils/function/function";
@@ -15,7 +15,7 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-  padding: ${isMobile ? "30px" : "80px 0 140px 100px"};
+  padding: ${(props) => (props.isMobile ? "30px" : "80px 0 140px 100px")};
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
@@ -111,6 +111,7 @@ const Recherche = (props) => {
   const [resultToDisplay, setResultToDisplay] = useState(
     props.ressources.results
   );
+  const isMobile = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
     setResultToDisplay(props.ressources.results);
@@ -181,7 +182,7 @@ const Recherche = (props) => {
   };
   return (
     <MainContainer>
-      <HeaderContainer>
+      <HeaderContainer isMobile={isMobile}>
         {template && template.title ? (
           <HeaderTitleContainer
             style={{ fontWeight: "700" }}

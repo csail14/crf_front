@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { colors } from "../../colors";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 import {
   loadKeywordsFilter,
   loadImpactsFilter,
@@ -32,12 +33,13 @@ const BottomTitleContainer = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: ${isMobile ? "center" : "left"};
+  justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
 `;
 
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
+  const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
     props.resetAllFilter();
     getRessourceById(indicateurId, props.type)
@@ -58,7 +60,7 @@ const Indicateur = (props) => {
   return (
     <BottomContainer>
       <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
-      <AvailableRessourceContainer>
+      <AvailableRessourceContainer isMobile={isMobile}>
         {indicateur &&
           indicateur.acf &&
           indicateur.acf.ressources_liees &&

@@ -15,20 +15,20 @@ class Dropdown extends Component {
     });
   };
 
-  defineUrl = (long_url, type, id = null) => {
+  defineUrl = (long_url, type, slug = null) => {
     const url = long_url.replace("https://pmis-wp.laguildedupixel.fr", "");
     if (type === "Page") {
       if (url === "/liste-des-indicateurs/" || url === "/impact-track/") {
         return url;
       } else {
-        return "/subHome" + url;
+        return url;
       }
     } else if (type === "Article") {
-      return "/post/" + id;
+      return "/post/" + slug;
     } else if (type === "Document") {
-      return "/documents/" + id;
+      return "/documents/" + slug;
     } else if (type === "Indicateur") {
-      return "/indicateurs/" + id;
+      return "/indicateurs/" + slug;
     } else return "/";
   };
 
@@ -53,14 +53,25 @@ class Dropdown extends Component {
 
   placelink = (obj) => {
     return (
-      <div key={obj.id}>
+      <div key={obj.ID}>
         <Link
-          key={obj.id}
-          to={this.defineUrl(obj.url, obj.type_label, obj.object_id)}
+          key={obj.ID}
+          to={
+            obj.type_label === "Page"
+              ? this.defineUrl(obj.url, obj.type_label, obj.post_name)
+              : {
+                  pathname: this.defineUrl(
+                    obj.url,
+                    obj.type_label,
+                    obj.post_name
+                  ),
+                  state: { id: obj.object_id },
+                }
+          }
           className={"dropdown_link_div"}
           onClick={this.props.closeMenu}
         >
-          <p>{obj.title}</p>
+          <p key={obj.id}>{obj.title}</p>
         </Link>
         <br />
       </div>
@@ -68,7 +79,11 @@ class Dropdown extends Component {
   };
 
   render() {
-    const url = this.defineUrl(this.props.url, this.props.type, this.props.id);
+    const url = this.defineUrl(
+      this.props.url,
+      this.props.type,
+      this.props.post_name
+    );
     return (
       <div className={"container"} ref={this.container}>
         <Link

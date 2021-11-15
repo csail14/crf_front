@@ -13,7 +13,7 @@ import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useHistory } from "react-router-dom";
 import {
   loadKeywordsFilter,
@@ -27,7 +27,7 @@ const MainContainer = styled.div``;
 
 const HeaderContainer = styled.div`
   display: flex;
-  flex-direction: ${isMobile ? "column" : "row"};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
 `;
 
 const LastUpdateContainer = styled.div`
@@ -46,7 +46,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: ${isMobile ? "20px" : "50px 50px"};
+  padding: ${(props) => (props.isMobile ? "20px" : "50px 50px")};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -120,18 +120,19 @@ const TagContainer = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: ${isMobile ? "15px 20px" : "15px 50px"};
+  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 50px")};
   border-bottom: 0.5px solid lightgrey;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.div`
-  padding: ${isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
+  padding: ${(props) =>
+    props.isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
 `;
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: ${isMobile ? "10px 20px" : "100px 280px"};
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "100px 280px")};
 `;
 
 const LeftSideBodyComponent = styled.div`
@@ -177,7 +178,7 @@ const UploadButton = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: ${isMobile ? "center" : "left"};
+  justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
 `;
 
@@ -195,6 +196,7 @@ const Document = (props) => {
   const [document, setDocument] = useState(null);
   const [media, setMedia] = useState(null);
   let history = useHistory();
+  const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
     props.resetAllFilter();
     getDocumentById(documentId)
@@ -225,7 +227,7 @@ const Document = (props) => {
     }
   }, [document]);
 
-  const documentId = props.match.params.id;
+  const documentId = history.location.state.id;
   const domaineAction =
     document && document.acf && document.acf.domaine_daction_principal;
 
@@ -266,14 +268,14 @@ const Document = (props) => {
   };
   return (
     <MainContainer>
-      <HeaderContainer>
+      <HeaderContainer isMobile={isMobile}>
         <img
           style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
           src={media ? media : imageExemple}
           alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
-          <HeaderRightSideTopContainer>
+          <HeaderRightSideTopContainer isMobile={isMobile}>
             <CategoryContainer>
               {domaineAction && (
                 <Category onClick={handleClickAction}>
@@ -317,7 +319,7 @@ const Document = (props) => {
 
           <HeaderRightSideBottomContainer>
             {document && document.acf && document.acf.datas && (
-              <LikeContainer>
+              <LikeContainer isMobile={isMobile}>
                 <Comment>
                   <AiOutlineLike
                     size={18}
@@ -338,7 +340,7 @@ const Document = (props) => {
                 </Comment>
               </LikeContainer>
             )}
-            <UpdateContainer>
+            <UpdateContainer isMobile={isMobile}>
               <LastUpdateContainer>
                 publié le{" "}
                 {document && moment(document.date).format("DD MMMM YYYY")}
@@ -351,7 +353,7 @@ const Document = (props) => {
           </HeaderRightSideBottomContainer>
         </RightSideContainer>
       </HeaderContainer>
-      <BodyContainer>
+      <BodyContainer isMobile={isMobile}>
         <LeftSideBodyComponent>
           {document && document.content && document.content.rendered && (
             <ContentContainer
@@ -406,7 +408,7 @@ const Document = (props) => {
       </BodyContainer>
       <BottomContainer>
         <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
-        <AvailableRessourceContainer>
+        <AvailableRessourceContainer isMobile={isMobile}>
           {document &&
             document.acf &&
             document.acf.ressources_complementaires.length &&

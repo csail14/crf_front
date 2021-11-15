@@ -15,7 +15,6 @@ import {
   getRessourceById,
   getCommentaireByPost,
 } from "../../utils/api/RessourcesApi";
-import { Link } from "react-router-dom";
 import {
   loadKeywordsFilter,
   loadImpactsFilter,
@@ -44,6 +43,7 @@ const IconContainer = styled.div`
 `;
 const ImageContainer = styled.div`
   background-color: #f7f9fa;
+  cursor: pointer;
 `;
 const DetailsContainer = styled.div`
   padding: 30px 22px;
@@ -87,6 +87,7 @@ const TitleContainer = styled.div`
   text-align: left;
   margin-bottom: 16px;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 
 const DescriptionContainer = styled.div`
@@ -243,31 +244,34 @@ const GridResultComponent = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+
   return (
     <MainContainer>
-      <Link
-        to={
-          props && props.info && props.info.post_type
-            ? "/" + props.info.post_type + "/" + props.info.ID
-            : ""
-        }
-        style={{ textDecoration: "none" }}
+      <ImageContainer
+        onClick={() => {
+          history.push({
+            pathname:
+              details && details.type && details.slug
+                ? "/" + details.type + "/" + details.slug
+                : "",
+            state: { id: details.id },
+          });
+        }}
       >
-        <ImageContainer>
-          <IconContainer type={type}>
-            <i className={icon}></i>
-          </IconContainer>
-          <img
-            style={{
-              maxWidth: "80%",
-              height: "auto",
-              margin: "  30px 30px 0 30px",
-            }}
-            src={media}
-            alt="result-illu"
-          />
-        </ImageContainer>
-      </Link>
+        <IconContainer type={type}>
+          <i className={icon}></i>
+        </IconContainer>
+        <img
+          style={{
+            maxWidth: "80%",
+            height: "auto",
+            margin: "  30px 30px 0 30px",
+          }}
+          src={media}
+          alt="result-illu"
+        />
+      </ImageContainer>
+
       <DetailsContainer>
         <LastUpdateContainer>
           mis à jour le{" "}
@@ -284,23 +288,24 @@ const GridResultComponent = (props) => {
             <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
           )}
         </CategoryContainer>
-        <Link
-          to={
-            props && props.info && props.info.post_type
-              ? "/" + props.info.post_type + "/" + props.info.ID
-              : ""
-          }
-          style={{ textDecoration: "none" }}
-        >
-          {" "}
-          {details && details.title && (
-            <TitleContainer
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(details.title.rendered),
-              }}
-            ></TitleContainer>
-          )}
-        </Link>
+
+        {details && details.title && (
+          <TitleContainer
+            onClick={() => {
+              history.push({
+                pathname:
+                  details && details.type && details.slug
+                    ? "/" + details.type + "/" + details.slug
+                    : "",
+                state: { id: details.id },
+              });
+            }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(details.title.rendered),
+            }}
+          ></TitleContainer>
+        )}
+
         {details && details.acf && (
           <DescriptionContainer
             dangerouslySetInnerHTML={{

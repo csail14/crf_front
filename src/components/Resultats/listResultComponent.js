@@ -25,7 +25,6 @@ import {
   getRessourceById,
   getCommentaireByPost,
 } from "../../utils/api/RessourcesApi";
-import { Link } from "react-router-dom";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -90,6 +89,7 @@ const TitleContainer = styled.div`
   line-height: 22px;
   text-transform: uppercase;
   text-align: left;
+  cursor: pointer;
   color: ${colors.marine};
 `;
 
@@ -235,34 +235,30 @@ const GridResultComponent = (props) => {
         </IconContainer>
 
         <DetailsContainer>
-          <Link
-            to={
-              props && props.info && props.info.post_type
-                ? "/" + props.info.post_type + "/" + props.info.ID
-                : ""
-            }
-            style={{ textDecoration: "none" }}
-          >
-            {" "}
-            {details && details.title && (
-              <TitleContainer
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(details.title.rendered),
-                }}
-              ></TitleContainer>
-            )}
-            {details && details.acf && (
-              <DescriptionContainer
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    details.acf.extrait.length > 150
-                      ? details.acf.extrait.substr(0, 150)
-                      : details.acf.extrait
-                  ),
-                }}
-              ></DescriptionContainer>
-            )}{" "}
-          </Link>
+          {details && details.title && (
+            <TitleContainer
+              onClick={() => {
+                history.push({
+                  pathname: "/" + details.type + "/" + details.slug,
+                  state: { id: details.id },
+                });
+              }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(details.title.rendered),
+              }}
+            ></TitleContainer>
+          )}
+          {details && details.acf && (
+            <DescriptionContainer
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(
+                  details.acf.extrait.length > 150
+                    ? details.acf.extrait.substr(0, 150)
+                    : details.acf.extrait
+                ),
+              }}
+            ></DescriptionContainer>
+          )}{" "}
           {details &&
             details.acf &&
             details.acf.document &&

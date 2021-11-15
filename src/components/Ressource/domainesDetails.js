@@ -5,7 +5,7 @@ import { colors } from "../../colors";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
 import DOMPurify from "dompurify";
 import { Link } from "react-router-dom";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import {
   loadKeywordsFilter,
@@ -21,7 +21,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: ${isMobile ? "10px 20px" : "50px 0px"};
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
 `;
 
 const TitleContainer = styled.div`
@@ -34,7 +34,7 @@ const TitleContainer = styled.div`
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: ${isMobile ? "10px 20px" : "50px 0px"};
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
 `;
 
 const LeftSideBodyComponent = styled.div``;
@@ -59,7 +59,7 @@ const ArianeContainer = styled.div`
 
 const Indicateur = (props) => {
   const [domaine, setDomaine] = useState(null);
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
     props.resetAllFilter();
     getRessourceById(domaineId, "domaine-impact")
@@ -68,16 +68,14 @@ const Indicateur = (props) => {
   }, []);
 
   const domaineId = props.id[0];
-
   const listIndicateurTemplate = props.pages.templates.length
     ? props.pages.templates.filter(
         (template) => template.slug === "liste-des-indicateurs"
       )[0]
     : null;
-
   return (
     <RightSideContainer>
-      <HeaderRightSideTopContainer>
+      <HeaderRightSideTopContainer isMobile={isMobile}>
         <ArianeContainer>
           <Link
             to={"/liste-des-indicateurs"}
@@ -92,8 +90,8 @@ const Indicateur = (props) => {
               listIndicateurTemplate.title.rendered}{" "}
           </Link>
           {" > "}
-
           <Link
+            //  ACHANGER
             to={"/domaine-impact/" + domaineId}
             style={{
               textDecoration: "none",
@@ -114,7 +112,7 @@ const Indicateur = (props) => {
         )}
       </HeaderRightSideTopContainer>
 
-      <BodyContainer>
+      <BodyContainer isMobile={isMobile}>
         <LeftSideBodyComponent>
           {domaine && domaine.acf && domaine.acf.details && (
             <ContentContainer
