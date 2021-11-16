@@ -44,7 +44,7 @@ const Textcontainer = styled.div`
 `;
 
 const OtherPage = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   const template = props.pages.templates.length
     ? props.pages.templates.filter(

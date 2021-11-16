@@ -11,14 +11,15 @@ const LinkContainer = styled.div`
   position: relative;
   display: flex;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
-  padding: 15px 20px;
+  padding: 22px 30px;
+
   color: ${colors.marine};
   font-weight: 600;
   align-items: center;
   justify-content: space-between;
   background-color: ${colors.grisBackground};
   cursor: pointer;
-  min-width: 150px;
+  min-width: 175px;
   margin 10px 8px 10px 8px;
 `;
 
@@ -31,7 +32,7 @@ const ExtraitContainer = styled.div`
   line-height: 21px;
   text-align: left;
   position: absolute;
-  top: 50px;
+  top: 70px;
   right: 50px;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   z-index: 1;
@@ -78,7 +79,7 @@ const ApercuDomaine = (props) => {
       {isHovered && (
         <>
           <BsFillTriangleFill
-            style={{ position: "absolute", right: "70px", bottom: "-3px" }}
+            style={{ position: "absolute", right: "70px", bottom: "-10px" }}
           />
           <ExtraitContainer
             dangerouslySetInnerHTML={{

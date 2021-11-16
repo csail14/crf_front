@@ -7,6 +7,7 @@ import { colors } from "../../colors";
 import { useHistory } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
+import { config } from "../../config";
 import useMediaQuery from "@mui/material/useMediaQuery";
 require("moment/locale/fr.js");
 
@@ -63,7 +64,7 @@ function useHover() {
 }
 
 const RightSideLinkContainer = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [details, setDetails] = useState(null);
   const [hoverRef, isHovered] = useHover();
   let history = useHistory();

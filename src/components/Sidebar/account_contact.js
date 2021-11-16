@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { FiMail, BsFillPersonFill } from "react-icons/all";
+import { colors } from "../../colors";
 class AccountContact extends Component {
   render() {
     return (
@@ -18,7 +19,9 @@ class AccountContact extends Component {
             <BsFillPersonFill className={"acc_contact_icon"} />
             Austin Robertson
           </p>
-          <a href="google.com">Se déconnecter</a>
+          <a style={{ color: colors.gris, marginTop: "5px" }} href="google.com">
+            Se déconnecter
+          </a>
         </div>
       </div>
     );

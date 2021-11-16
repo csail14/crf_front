@@ -16,6 +16,7 @@ import moment from "moment";
 import DOMPurify from "dompurify";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useHistory } from "react-router-dom";
+import { config } from "../../config";
 import {
   loadKeywordsFilter,
   loadImpactsFilter,
@@ -165,6 +166,7 @@ const RightSideBodyContainer = styled.div`
   display: ${(props) => (props.isMobile ? "flex" : "")};
   flex-direction: ${(props) => (props.isMobile ? "column" : "")};
   align-items: ${(props) => (props.isMobile ? "center" : "")};
+  min-width: ${(props) => (props.isMobile ? "" : "350px")};
 `;
 
 const ContentContainer = styled.div`
@@ -182,6 +184,7 @@ const TitleRessourceContainer = styled.div`
   letter-spacing: 0em;
   text-align: left;
   margin-bottom: 20px;
+  text-transform: uppercase;
 `;
 const AddLikeContainer = styled.div`
   display: flex;
@@ -198,7 +201,7 @@ const Article = (props) => {
   const [article, setArticle] = useState(null);
   const [media, setMedia] = useState(null);
   let history = useHistory();
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   useEffect(() => {
     props.resetAllFilter();

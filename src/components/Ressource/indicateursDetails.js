@@ -8,6 +8,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
 import moment from "moment";
+import { config } from "../../config";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
 import { Link } from "react-router-dom";
@@ -164,7 +165,7 @@ const TitleBodyContainer = styled.div`
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
   let history = useHistory();
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     props.resetAllFilter();
     getRessourceById(indicateurId, "indicateurs")

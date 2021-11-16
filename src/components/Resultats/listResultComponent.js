@@ -6,7 +6,7 @@ import { BsDownload, BsDot } from "react-icons/bs";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
-
+import { config } from "../../config";
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
@@ -158,7 +158,7 @@ const CategoryContainer = styled.div`
 
 const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [nbComments, setNbComments] = useState(0);
   let history = useHistory();
   const openInNewTab = (url) => {

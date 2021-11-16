@@ -6,7 +6,7 @@ import styled from "styled-components";
 import FilterOptions from "./filterOptionsItem";
 import { colors } from "../../colors";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { config } from "../../config";
 const FilterContainer = styled.div`
   display: flex;
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
@@ -74,7 +74,7 @@ const NumberSelected = styled.div`
 const ComplexeFilterItem = (props) => {
   const [keyValue, setKeyValue] = useState("");
   const [searchItem, setSearchItem] = useState(props.data);
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     if (keyValue !== "") {
       const newArray = filtreSearchItem(keyValue);

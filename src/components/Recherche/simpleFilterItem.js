@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { BsChevronDown } from "react-icons/bs";
 import styled from "styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { config } from "../../config";
 import { colors } from "../../colors";
 
 const FilterContainer = styled.div`
@@ -66,7 +66,7 @@ const NumberSelected = styled.div`
 `;
 
 const SimpleFilterItem = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const manageSelectedFilter = (item) => {
     if (item.id === 0) {
       props.setSelectedObject([]);

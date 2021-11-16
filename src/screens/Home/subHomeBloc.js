@@ -6,6 +6,7 @@ import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useHistory } from "react-router-dom";
+import { config } from "../../config";
 const MainContainer = styled.div`
   margin: ${(props) => (props.isMobile ? "50px 35px 10px 35px" : "50px 35px")};
   max-width: 400px;
@@ -69,7 +70,7 @@ const MoreInfoContainer = styled.div`
 `;
 
 const SubHomeBloc = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   const link = props.info.push.lien.replace(
     "https://pmis-wp.laguildedupixel.fr/",

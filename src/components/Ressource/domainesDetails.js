@@ -6,7 +6,7 @@ import { getRessourceById } from "../../utils/api/RessourcesApi";
 import DOMPurify from "dompurify";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { config } from "../../config";
 import {
   loadKeywordsFilter,
   loadImpactsFilter,
@@ -59,7 +59,7 @@ const ArianeContainer = styled.div`
 
 const Indicateur = (props) => {
   const [domaine, setDomaine] = useState(null);
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     props.resetAllFilter();
     getRessourceById(domaineId, "domaine-impact")

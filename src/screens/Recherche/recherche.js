@@ -110,7 +110,7 @@ const Recherche = (props) => {
   const [resultToDisplay, setResultToDisplay] = useState(
     props.ressources.results
   );
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   useEffect(() => {
     setResultToDisplay(props.ressources.results);

@@ -7,7 +7,7 @@ import { getCommentaireByPost } from "../../utils/api/RessourcesApi";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { config } from "../../config";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -86,7 +86,7 @@ const SendButton = styled.div`
 `;
 
 const Comments = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
   const [allComments, setAllComments] = useState([]);
