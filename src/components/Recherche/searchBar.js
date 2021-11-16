@@ -13,6 +13,7 @@ import { getResult } from "../../utils/api/RechercheApi";
 import { computeQuery } from "../../utils/function/function";
 import { useHistory } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { config } from "../../config";
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 import {
   loadTypeFilter,
@@ -183,7 +184,7 @@ const SearchBar = (props) => {
   const categorieRef = useRef();
 
   let history = useHistory();
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   useOutsideClick(actionsref, () => setShowActionsOptions(false));
   useOutsideClick(impactsref, () => setShowImpactsOptions(false));

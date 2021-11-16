@@ -6,7 +6,7 @@ import GridResultComponent from "../../components/Resultats/gridResultComponent"
 import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { config } from "../../config";
 import {
   loadKeywordsFilter,
   loadImpactsFilter,
@@ -41,7 +41,7 @@ const AvailableRessourceContainer = styled.div`
 
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     props.resetAllFilter();
     getRessourceById(indicateurId, props.type)
@@ -61,7 +61,7 @@ const Indicateur = (props) => {
 
   return (
     <BottomContainer>
-      <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
+      <BottomTitleContainer>Ressources liées</BottomTitleContainer>
       <AvailableRessourceContainer isMobile={isMobile}>
         {indicateur &&
           indicateur.acf &&

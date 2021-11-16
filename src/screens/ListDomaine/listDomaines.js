@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { config } from "../../config";
 const MainContainer = styled.div`
   min-height: 92vh;
 `;
@@ -50,7 +50,7 @@ const BodyContainer = styled.div`
 `;
 
 const ListDomaines = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   const template = props.pages.templates.length
     ? props.pages.templates.filter(

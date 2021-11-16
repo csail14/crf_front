@@ -9,8 +9,9 @@ import Dropdown from "./Dropdown";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import logoMobile from "../../assets/logo-mobile.png";
 import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
+import { config } from "../../config";
 const ImageContainer = styled.div`
-  margin: 22px 40px;
+  margin: 22px 20px 22px 8px;
   cursor: pointer;
 `;
 
@@ -25,10 +26,11 @@ const MainContainer = styled.div`
   position: -webkit-sticky;
   top: 0;
   z-index: 2;
+  max-width: ${(props) => (props.isMobile ? "" : "min-content")};
 `;
 
 const LeftSideComponent = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   const [sidebarPages, setSidebarPages] = useState(props.sidebarPages);
   const [showMenu, setShowMenu] = useState(false);

@@ -6,7 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import RightSideLinkContainer from "./RightSideLinkContainer";
 import DOMPurify from "dompurify";
 import { colors } from "../../colors";
-
+import { config } from "../../config";
 const MainContainer = styled.div`
   min-height: 100vh;
   overflow-wrap: break-word;
@@ -92,7 +92,7 @@ const SubHome = (props) => {
   const subHomeTemplate = props.pages.templates.length
     ? props.pages.templates.filter((template) => template.slug === props.id)[0]
     : null;
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>

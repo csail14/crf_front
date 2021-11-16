@@ -34,11 +34,12 @@ const SubtitleContainer = styled.div`
 const BodyContainer = styled.div`
   display: flex;
   justify-content: center;
+  padding-top: 20px;
   flex-wrap: ${(props) => (props.isMobile ? "wrap" : "")};
 `;
-
+const breakPoint = "900px";
 const Home = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${breakPoint})`);
   const homeTemplate = props.pages.templates.length
     ? props.pages.templates.filter((template) => template.slug === "accueil")[0]
     : null;

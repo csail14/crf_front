@@ -23,13 +23,13 @@ const DomaineContainer = styled.div`
 `;
 const RessourcesLieesContainer = styled.div`
   font-weight: ${(props) => (props.isThisRessourceOpen ? "700" : "400")};
+  color: ${(props) => (props.isThisRessourceOpen ? colors.rouge : colors.gris)};
   display: flex;
   padding: 15px 10px 15px 50px;
   align-items: center;
   cursor: pointer;
   font-size: 14px;
   text-align: left;
-  color: ${colors.gris};
 `;
 const DomaineListDeroulanteDropDown = (props) => {
   const [isOpen, setIsOpen] = useState(props.openID === props.info.id);

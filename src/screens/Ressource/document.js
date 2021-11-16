@@ -12,6 +12,7 @@ import ListResultComponent from "../../components/Resultats/listResultComponent"
 import { getDocumentById } from "../../utils/api/RessourcesApi";
 import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
+import { config } from "../../config";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -197,7 +198,7 @@ const Document = (props) => {
   const [document, setDocument] = useState(null);
   const [media, setMedia] = useState(null);
   let history = useHistory();
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     props.resetAllFilter();
     getDocumentById(documentId)

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { config } from "../../config";
 import DomaineListDeroulante from "../../components/Ressource/DomainesListDeroulante";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import IndicateurDetails from "../../components/Ressource/indicateursDetails";
@@ -53,7 +53,7 @@ const LeftSideComponent = styled.div`
 `;
 
 const Indicateur = (props) => {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   let history = useHistory();
   const id = useState(history.location.state.id);
   const type = history.location.pathname.includes("indicateurs")

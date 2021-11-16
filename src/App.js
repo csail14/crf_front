@@ -16,6 +16,7 @@ import ListDomaines from "./screens/ListDomaine/listDomaines";
 import OtherPage from "./screens/Other/otherPage";
 import { useLocation } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { config } from "./config";
 
 const MainContainer = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const BodyContainer = styled.div`
   width: -webkit-fill-available;
 `;
 function App() {
-  const isMobile = useMediaQuery("(max-width:600px)");
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
