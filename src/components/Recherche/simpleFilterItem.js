@@ -3,21 +3,25 @@ import { connect } from "react-redux";
 
 import { BsChevronDown } from "react-icons/bs";
 import styled from "styled-components";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { config } from "../../config";
 import { colors } from "../../colors";
 
 const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px 22px;
+  margin: ${(props) => (props.isMobile ? "5px auto" : "")};
+  background-color: ${(props) => (props.isMobile ? "white" : "")};
+  padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
   line-height: 20px;
-  border-right: 0.5px solid ${colors.gris};
+  border-right: ${(props) =>
+    props.isMobile ? "" : "0.5px solid " + colors.gris};
   position: relative;
 `;
 
 const FilterTitle = styled.div`
   font-weight: 700;
-  font-size: 12px;
+  font-size: ${(props) => (props.isTop ? "10px" : "12px")};
   color: ${colors.gris};
   text-align: left;
   text-transform: uppercase;
@@ -25,7 +29,7 @@ const FilterTitle = styled.div`
 
 const FilterContent = styled.div`
   font-weight: 500;
-  font-size: 16px;
+  font-size: ${(props) => (props.isTop ? "12px" : "16px")};
   color: ${colors.marine};
   align-items: center;
   display: flex;
@@ -62,6 +66,7 @@ const NumberSelected = styled.div`
 `;
 
 const SimpleFilterItem = (props) => {
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const manageSelectedFilter = (item) => {
     if (item.id === 0) {
       props.setSelectedObject([]);
@@ -81,9 +86,9 @@ const SimpleFilterItem = (props) => {
   };
 
   return (
-    <FilterContainer>
-      <FilterTitle>{props.title}</FilterTitle>
-      <FilterContent onClick={props.toggleOptions}>
+    <FilterContainer isMobile={isMobile} isTop={props.isTop}>
+      <FilterTitle isTop={props.isTop}>{props.title}</FilterTitle>
+      <FilterContent isTop={props.isTop} onClick={props.toggleOptions}>
         {props.selectedObject.length > 1 ? (
           <>
             <NumberSelected>({props.selectedObject.length})</NumberSelected>

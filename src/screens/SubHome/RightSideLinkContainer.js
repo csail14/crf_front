@@ -7,7 +7,8 @@ import { colors } from "../../colors";
 import { useHistory } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { getRessourceById } from "../../utils/api/RessourcesApi";
-import { isMobile } from "react-device-detect";
+import { config } from "../../config";
+import useMediaQuery from "@mui/material/useMediaQuery";
 require("moment/locale/fr.js");
 
 const LinkContainer = styled.div`
@@ -20,7 +21,7 @@ const LinkContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  min-width: ${isMobile ? "200px" : "300px"};
+  min-width: ${(props) => (props.isMobile ? "200px" : "300px")};
   margin-bottom: 10px;
 `;
 
@@ -63,6 +64,7 @@ function useHover() {
 }
 
 const RightSideLinkContainer = (props) => {
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [details, setDetails] = useState(null);
   const [hoverRef, isHovered] = useHover();
   let history = useHistory();
@@ -76,9 +78,18 @@ const RightSideLinkContainer = (props) => {
         .catch((error) => console.log(error));
     }
   }, [props.info]);
-  const url = "/" + props.info.post_type + "/" + props.info.ID;
+  const url = "/" + props.info.post_type + "/" + props.info.post_name;
   return (
-    <LinkContainer ref={hoverRef} onClick={() => history.push(url)}>
+    <LinkContainer
+      isMobile={isMobile}
+      ref={hoverRef}
+      onClick={() =>
+        history.push({
+          pathname: url,
+          state: { id: props.info.ID },
+        })
+      }
+    >
       {props.info.post_title}
       <MdArrowForwardIos style={{ color: colors.rouge }} />
       {isHovered && (

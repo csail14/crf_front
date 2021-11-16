@@ -2,7 +2,6 @@ import "./App.css";
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./screens/Home/home";
-import SubHome from "./screens/SubHome/subHome";
 import Footer from "./components/footer";
 import ImpactTrack from "./screens/ImpactTrack/impactTrack";
 import LeftSideComponent from "./components/Sidebar/LeftSideComponent";
@@ -16,30 +15,37 @@ import HOC from "./utils/hoc";
 import ListDomaines from "./screens/ListDomaine/listDomaines";
 import OtherPage from "./screens/Other/otherPage";
 import { useLocation } from "react-router-dom";
-import { isMobile } from "react-device-detect";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { config } from "./config";
 
 const MainContainer = styled.div`
   display: flex;
-  flex-direction: ${isMobile ? "column" : "row"};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
 `;
 const BodyContainer = styled.div`
   width: -webkit-fill-available;
 `;
 function App() {
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
   return (
     <div className="App">
-      <MainContainer>
+      <MainContainer isMobile={isMobile}>
         <LeftSideComponent className="sidebar" />
         <BodyContainer>
           <Switch>
             <Route exact path="/" component={HOC(Home)} />
             <Route exact path="/home" component={HOC(Home)} />
-            <Route exact path="/subHome/:id" component={HOC(SubHome)} />
+            {/* <Route exact path="/subHome/:id" component={HOC(SubHome)} /> */}
             <Route exact path="/indicateurs/:id" component={HOC(Indicateur)} />
+            <Route
+              exact
+              path="/domaine-impact/:id"
+              component={HOC(Indicateur)}
+            />
             <Route
               exact
               path="/liste-des-indicateurs"

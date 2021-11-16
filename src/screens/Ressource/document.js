@@ -8,20 +8,28 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { getDocumentById } from "../../utils/api/RessourcesApi";
 import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
+import { config } from "../../config";
 import DOMPurify from "dompurify";
 import Comments from "../../components/Ressource/Comments";
-import { isMobile } from "react-device-detect";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useHistory } from "react-router-dom";
+import {
+  loadKeywordsFilter,
+  loadImpactsFilter,
+  loadActionsFilter,
+  resetAllFilter,
+} from "../../actions/filter/filterActions";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
 
 const HeaderContainer = styled.div`
   display: flex;
-  flex-direction: ${isMobile ? "column" : "row"};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
 `;
 
 const LastUpdateContainer = styled.div`
@@ -40,7 +48,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: ${isMobile ? "20px" : "50px 50px"};
+  padding: ${(props) => (props.isMobile ? "20px" : "50px 50px")};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -84,10 +92,12 @@ const CategoryContainer = styled.div`
 const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
+  cursor: pointer;
 `;
 const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -102,6 +112,7 @@ const TagContainer = styled.div`
   display: flex;
   font-weight: 400;
   line-height: 16px;
+  cursor: pointer;
   align-items: center;
   text-align: left;
   color: ${colors.marine};
@@ -111,18 +122,19 @@ const TagContainer = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: ${isMobile ? "15px 20px" : "15px 50px"};
+  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 50px")};
   border-bottom: 0.5px solid lightgrey;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.div`
-  padding: ${isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
+  padding: ${(props) =>
+    props.isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
 `;
 
 const BodyContainer = styled.div`
   display: flex;
-  padding: ${isMobile ? "10px 20px" : "100px 280px"};
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "100px 280px")};
 `;
 
 const LeftSideBodyComponent = styled.div`
@@ -168,7 +180,7 @@ const UploadButton = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: ${isMobile ? "center" : "left"};
+  justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
 `;
 
@@ -185,8 +197,10 @@ const AddLikeContainer = styled.div`
 const Document = (props) => {
   const [document, setDocument] = useState(null);
   const [media, setMedia] = useState(null);
-
+  let history = useHistory();
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
+    props.resetAllFilter();
     getDocumentById(documentId)
       .then((res) => setDocument(res))
       .catch((error) => console.log(error));
@@ -196,7 +210,7 @@ const Document = (props) => {
     if (document && document.featured_media) {
       getMediaById(document.featured_media)
         .then((res) => setMedia(res.media_details.sizes.full.source_url))
-        .catch((error) => console.log("res", error));
+        .catch((error) => console.log("error", error));
     } else if (
       domaineAction &&
       domaineAction.acf &&
@@ -215,22 +229,12 @@ const Document = (props) => {
     }
   }, [document]);
 
-  const documentId = props.match.params.id;
+  const documentId = history.location.state.id;
   const domaineAction =
-    document && document.acf && document.acf.domaine_daction_principal
-      ? props.taxonomie.domainesActions.filter(
-          (item) => item.id === document.acf.domaine_daction_principal
-        )[0]
-      : null;
+    document && document.acf && document.acf.domaine_daction_principal;
 
   const domaineImpact =
-    document && document.acf && document.acf.domaine_dimpact_principal
-      ? props.taxonomie
-        ? props.taxonomie.domainesImpacts.filter(
-            (item) => item.id === document.acf.domaine_dimpact_principal
-          )[0]
-        : null
-      : null;
+    document && document.acf && document.acf.domaine_dimpact_principal;
 
   let tags = document && document.tags;
 
@@ -246,20 +250,46 @@ const Document = (props) => {
   };
   const showCommment =
     document && document.comment_status === "open" ? true : false;
+  const handleClickAction = () => {
+    let array = [];
+    array.push(domaineAction);
+    props.loadActionsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickImpact = () => {
+    let array = [];
+    array.push(domaineImpact);
+    props.loadImpactsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickTag = (item) => {
+    props.loadKeywordsFilter(item);
+    history.push("/recherche");
+  };
   return (
     <MainContainer>
-      <HeaderContainer>
+      <HeaderContainer isMobile={isMobile}>
         <img
           style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
           src={media ? media : imageExemple}
           alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
-          <HeaderRightSideTopContainer>
+          <HeaderRightSideTopContainer isMobile={isMobile}>
             <CategoryContainer>
-              {domaineAction && <Category>{domaineAction.name}</Category>}
+              {domaineAction && (
+                <Category onClick={handleClickAction}>
+                  {domaineAction.name}
+                </Category>
+              )}
               <BsDot />
-              {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
+              {domaineImpact && (
+                <Domaine onClick={handleClickImpact}>
+                  {domaineImpact.name}
+                </Domaine>
+              )}
             </CategoryContainer>
 
             {document !== null && document.title && (
@@ -273,8 +303,17 @@ const Document = (props) => {
             {tags && (
               <TagContainer>
                 <BsTags style={{ marginRight: "8px" }} />
-                {tags.map((item) => {
-                  return item.name + ", ";
+                {tags.map((item, index) => {
+                  let comma = index < tags.length - 1 ? ", " : "";
+                  return (
+                    <div style={{ display: "flex" }} key={index}>
+                      {" "}
+                      <div onClick={() => handleClickTag(item.name)}>
+                        {item.name}
+                      </div>{" "}
+                      {comma}
+                    </div>
+                  );
                 })}
               </TagContainer>
             )}
@@ -282,7 +321,7 @@ const Document = (props) => {
 
           <HeaderRightSideBottomContainer>
             {document && document.acf && document.acf.datas && (
-              <LikeContainer>
+              <LikeContainer isMobile={isMobile}>
                 <Comment>
                   <AiOutlineLike
                     size={18}
@@ -303,7 +342,7 @@ const Document = (props) => {
                 </Comment>
               </LikeContainer>
             )}
-            <UpdateContainer>
+            <UpdateContainer isMobile={isMobile}>
               <LastUpdateContainer>
                 publié le{" "}
                 {document && moment(document.date).format("DD MMMM YYYY")}
@@ -316,7 +355,7 @@ const Document = (props) => {
           </HeaderRightSideBottomContainer>
         </RightSideContainer>
       </HeaderContainer>
-      <BodyContainer>
+      <BodyContainer isMobile={isMobile}>
         <LeftSideBodyComponent>
           {document && document.content && document.content.rendered && (
             <ContentContainer
@@ -371,13 +410,17 @@ const Document = (props) => {
       </BodyContainer>
       <BottomContainer>
         <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
-        <AvailableRessourceContainer>
+        <AvailableRessourceContainer isMobile={isMobile}>
           {document &&
             document.acf &&
             document.acf.ressources_complementaires.length &&
             document.acf.ressources_complementaires.map((item, index) => {
               if (item.post_status === "publish")
-                return <GridResultComponent key={index} info={item} />;
+                if (isMobile) {
+                  return <ListResultComponent key={index} info={item} />;
+                } else {
+                  return <GridResultComponent key={index} info={item} />;
+                }
             })}
         </AvailableRessourceContainer>
       </BottomContainer>
@@ -385,10 +428,19 @@ const Document = (props) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  loadImpactsFilter,
+  loadActionsFilter,
+  loadKeywordsFilter,
+  resetAllFilter,
+};
 
 const mapStateToProps = (store) => {
-  return { taxonomie: store.taxonomie, options: store.options };
+  return {
+    taxonomie: store.taxonomie,
+    options: store.options,
+    filters: store.filters,
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Document);

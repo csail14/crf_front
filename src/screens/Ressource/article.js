@@ -8,20 +8,28 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { getMediaById } from "../../utils/api/API";
 import { getArticleById } from "../../utils/api/RessourcesApi";
 import Comments from "../../components/Ressource/Comments";
 import moment from "moment";
 import DOMPurify from "dompurify";
-import { isMobile } from "react-device-detect";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useHistory } from "react-router-dom";
+import { config } from "../../config";
+import {
+  loadKeywordsFilter,
+  loadImpactsFilter,
+  loadActionsFilter,
+  resetAllFilter,
+} from "../../actions/filter/filterActions";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
 
 const HeaderContainer = styled.div`
   display: flex;
-  flex-direction: ${isMobile ? "column" : "row"};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
 `;
 
 const LastUpdateContainer = styled.div`
@@ -40,7 +48,7 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: ${isMobile ? "20px" : "50px 50px"};
+  padding: ${(props) => (props.isMobile ? "20px" : "50px 50px")};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -91,7 +99,7 @@ const BottomTitleContainer = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: ${isMobile ? "center" : "left"};
+  justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
 `;
 const CategoryContainer = styled.div`
@@ -105,10 +113,12 @@ const CategoryContainer = styled.div`
 const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
+  cursor: pointer;
 `;
 const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -126,31 +136,38 @@ const TagContainer = styled.div`
   align-items: center;
   text-align: left;
   color: ${colors.marine};
+  cursor: pointer;
   margin-top: 20px;
   text-decoration: underline;
 `;
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: ${isMobile ? "15px 20px" : "15px 50px"};
+  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 50px")};
   border-bottom: 0.5px solid lightgrey;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.div`
-  padding: ${isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
+  padding: ${(props) =>
+    props.isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
 `;
 
 const BodyContainer = styled.div`
   display: flex;
-  flex-direction: ${isMobile ? "column" : "row"};
-  padding: ${isMobile ? "30px 20px" : "100px 80px"};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
+  padding: ${(props) => (props.isMobile ? "30px 20px" : "100px 80px")};
 `;
 
 const LeftSideBodyComponent = styled.div`
-  margin-right: ${isMobile ? "" : "100px"};
+  margin-right: ${(props) => (props.isMobile ? "" : "100px")};
 `;
-const RightSideBodyContainer = styled.div``;
+const RightSideBodyContainer = styled.div`
+  display: ${(props) => (props.isMobile ? "flex" : "")};
+  flex-direction: ${(props) => (props.isMobile ? "column" : "")};
+  align-items: ${(props) => (props.isMobile ? "center" : "")};
+  min-width: ${(props) => (props.isMobile ? "" : "350px")};
+`;
 
 const ContentContainer = styled.div`
   font-size: 18px;
@@ -167,6 +184,7 @@ const TitleRessourceContainer = styled.div`
   letter-spacing: 0em;
   text-align: left;
   margin-bottom: 20px;
+  text-transform: uppercase;
 `;
 const AddLikeContainer = styled.div`
   display: flex;
@@ -182,8 +200,11 @@ const AddLikeContainer = styled.div`
 const Article = (props) => {
   const [article, setArticle] = useState(null);
   const [media, setMedia] = useState(null);
+  let history = useHistory();
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   useEffect(() => {
+    props.resetAllFilter();
     getArticleById(articleId)
       .then((res) => setArticle(res))
       .catch((error) => console.log(error));
@@ -193,7 +214,7 @@ const Article = (props) => {
     if (article && article.featured_media) {
       getMediaById(article.featured_media)
         .then((res) => setMedia(res.media_details.sizes.full.source_url))
-        .catch((error) => console.log("res", error));
+        .catch((error) => console.log("error", error));
     } else if (
       domaineAction &&
       domaineAction.acf &&
@@ -212,23 +233,13 @@ const Article = (props) => {
     }
   }, [article]);
 
-  const articleId = props.match.params.id;
+  const articleId = history.location.state.id;
 
   const domaineAction =
-    article && article.acf && article.acf.domaine_daction_principal
-      ? props.taxonomie.domainesActions.filter(
-          (item) => item.id === article.acf.domaine_daction_principal
-        )[0]
-      : null;
+    article && article.acf && article.acf.domaine_daction_principal;
 
   const domaineImpact =
-    article && article.acf && article.acf.domaine_dimpact_principal
-      ? props.taxonomie
-        ? props.taxonomie.domainesImpacts.filter(
-            (item) => item.id === article.acf.domaine_dimpact_principal
-          )[0]
-        : null
-      : null;
+    article && article.acf && article.acf.domaine_dimpact_principal;
 
   let tags = article && article.tags;
 
@@ -240,20 +251,47 @@ const Article = (props) => {
 
   const showCommment =
     article && article.comment_status === "open" ? true : false;
+
+  const handleClickAction = () => {
+    let array = [];
+    array.push(domaineAction);
+    props.loadActionsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickImpact = () => {
+    let array = [];
+    array.push(domaineImpact);
+    props.loadImpactsFilter(array);
+    history.push("/recherche");
+  };
+
+  const handleClickTag = (item) => {
+    props.loadKeywordsFilter(item);
+    history.push("/recherche");
+  };
   return (
     <MainContainer>
-      <HeaderContainer>
+      <HeaderContainer isMobile={isMobile}>
         <img
           style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
           src={media ? media : imageExemple}
           alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
-          <HeaderRightSideTopContainer>
+          <HeaderRightSideTopContainer isMobile={isMobile}>
             <CategoryContainer>
-              {domaineAction && <Category>{domaineAction.name}</Category>}
+              {domaineAction && (
+                <Category onClick={handleClickAction}>
+                  {domaineAction.name}
+                </Category>
+              )}
               <BsDot />
-              {domaineImpact && <Domaine>{domaineImpact.name}</Domaine>}
+              {domaineImpact && (
+                <Domaine onClick={handleClickImpact}>
+                  {domaineImpact.name}
+                </Domaine>
+              )}
             </CategoryContainer>
             {article !== null && article.title && (
               <TitleContainer
@@ -266,8 +304,17 @@ const Article = (props) => {
             {tags && (
               <TagContainer>
                 <BsTags style={{ marginRight: "8px" }} />
-                {tags.map((item) => {
-                  return item.name + ", ";
+                {tags.map((item, index) => {
+                  let comma = index < tags.length - 1 ? ", " : "";
+                  return (
+                    <div style={{ display: "flex" }} key={index}>
+                      {" "}
+                      <div onClick={() => handleClickTag(item.name)}>
+                        {item.name}
+                      </div>{" "}
+                      {comma}
+                    </div>
+                  );
                 })}
               </TagContainer>
             )}
@@ -275,7 +322,7 @@ const Article = (props) => {
 
           <HeaderRightSideBottomContainer>
             {article && article.acf && article.acf.datas && (
-              <LikeContainer>
+              <LikeContainer isMobile={isMobile}>
                 <Comment>
                   <AiOutlineLike
                     size={18}
@@ -296,7 +343,7 @@ const Article = (props) => {
                 </Comment>
               </LikeContainer>
             )}
-            <UpdateContainer>
+            <UpdateContainer isMobile={isMobile}>
               <LastUpdateContainer>
                 publié le{" "}
                 {article && moment(article.date).format("DD MMMM YYYY")}
@@ -309,8 +356,8 @@ const Article = (props) => {
           </HeaderRightSideBottomContainer>
         </RightSideContainer>
       </HeaderContainer>
-      <BodyContainer>
-        <LeftSideBodyComponent>
+      <BodyContainer isMobile={isMobile}>
+        <LeftSideBodyComponent isMobile={isMobile}>
           {article && article.content && article.content.rendered && (
             <ContentContainer
               dangerouslySetInnerHTML={{
@@ -319,7 +366,7 @@ const Article = (props) => {
             />
           )}
 
-          <AddLikeContainer>
+          <AddLikeContainer isMobile={isMobile}>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
               size={18}
@@ -336,27 +383,36 @@ const Article = (props) => {
           </AddLikeContainer>
           <Comments postID={articleId} showCommment={showCommment} />
         </LeftSideBodyComponent>
-        <RightSideBodyContainer>
-          <TitleRessourceContainer>
-            Ressources principales
-          </TitleRessourceContainer>
-          {article &&
-            article.acf &&
-            article.acf.ressources_principales.map((item, index) => {
-              if (item.post_status === "publish")
-                return <GridResultComponent key={index} info={item} />;
-            })}
-        </RightSideBodyContainer>
+        {article &&
+          article.acf &&
+          article.acf.ressources_principales.length > 0 && (
+            <RightSideBodyContainer isMobile={isMobile}>
+              <TitleRessourceContainer>
+                Ressources principales
+              </TitleRessourceContainer>
+              {article.acf.ressources_principales.map((item, index) => {
+                if (isMobile) {
+                  return <ListResultComponent key={index} info={item} />;
+                } else {
+                  return <GridResultComponent key={index} info={item} />;
+                }
+              })}
+            </RightSideBodyContainer>
+          )}
       </BodyContainer>
       <BottomContainer>
         <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
-        <AvailableRessourceContainer>
+        <AvailableRessourceContainer isMobile={isMobile}>
           {article &&
             article.acf &&
-            article.acf.ressources_secondaires.length &&
-            article.acf.ressources_secondaires.map((item) => {
+            article.acf.ressources_secondaires.length > 0 &&
+            article.acf.ressources_secondaires.map((item, index) => {
               if (item.post_status === "publish")
-                return <GridResultComponent info={item} />;
+                if (isMobile) {
+                  return <ListResultComponent key={index} info={item} />;
+                } else {
+                  return <GridResultComponent key={index} info={item} />;
+                }
             })}
         </AvailableRessourceContainer>
       </BottomContainer>
@@ -364,10 +420,19 @@ const Article = (props) => {
   );
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  loadImpactsFilter,
+  loadActionsFilter,
+  loadKeywordsFilter,
+  resetAllFilter,
+};
 
 const mapStateToProps = (store) => {
-  return {};
+  return {
+    taxonomie: store.taxonomie,
+    options: store.options,
+    filters: store.filters,
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article);

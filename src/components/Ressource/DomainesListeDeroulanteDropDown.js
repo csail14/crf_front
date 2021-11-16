@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const DomaineTitle = styled.div`
   font-weight: ${(props) => (props.isOpen ? "700" : "500")};
   font-size: 14px;
@@ -22,22 +23,46 @@ const DomaineContainer = styled.div`
 `;
 const RessourcesLieesContainer = styled.div`
   font-weight: ${(props) => (props.isThisRessourceOpen ? "700" : "400")};
+  color: ${(props) => (props.isThisRessourceOpen ? colors.rouge : colors.gris)};
   display: flex;
   padding: 15px 10px 15px 50px;
   align-items: center;
   cursor: pointer;
   font-size: 14px;
   text-align: left;
-  color: ${colors.gris};
 `;
 const DomaineListDeroulanteDropDown = (props) => {
-  const isOpen = props.openID === props.info.id;
+  const [isOpen, setIsOpen] = useState(props.openID === props.info.id);
+  let history = useHistory();
+  useEffect(() => {
+    setIsOpen(props.openID === props.info.id);
+  }, [props.openID]);
+  useEffect(() => {
+    if (
+      (props.info &&
+        props.info.acf &&
+        props.info.acf.ressources_liees &&
+        props.info.acf.ressources_liees.filter(
+          (item) => parseInt(item.ID) === parseInt(props.indicateurId[0])
+        ).length > 0) ||
+      parseInt(props.indicateurId[0]) === parseInt(props.info.id)
+    ) {
+      setIsOpen(true);
+      props.setOpenId(props.info.id);
+    }
+  }, []);
 
   return (
     <>
       <DomaineContainer
         isOpen={isOpen}
-        onClick={() => props.openCloseDropDown(props.info.id)}
+        onClick={() => {
+          props.openCloseDropDown(props.info.id);
+          history.push({
+            pathname: "/domaine-impact/" + props.info.slug,
+            state: { id: props.info.id },
+          });
+        }}
       >
         <DomaineTitle isOpen={isOpen}>{props.info.name}</DomaineTitle>{" "}
         {isOpen ? "" : <MdArrowForwardIos />}
@@ -50,17 +75,18 @@ const DomaineListDeroulanteDropDown = (props) => {
           const isThisRessourceOpen =
             item.ID == parseInt(props.indicateurId) ? true : false;
           return (
-            <Link
+            <RessourcesLieesContainer
               key={index}
-              to={"/" + item.post_type + "/" + item.ID}
-              style={{ textDecoration: "none" }}
+              onClick={() => {
+                history.push({
+                  pathname: "/" + item.post_type + "/" + item.post_name,
+                  state: { id: item.ID },
+                });
+              }}
+              isThisRessourceOpen={isThisRessourceOpen}
             >
-              <RessourcesLieesContainer
-                isThisRessourceOpen={isThisRessourceOpen}
-              >
-                {item.post_title}
-              </RessourcesLieesContainer>
-            </Link>
+              {item.post_title}
+            </RessourcesLieesContainer>
           );
         })}
     </>

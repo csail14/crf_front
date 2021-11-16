@@ -4,13 +4,14 @@ import ApercuDomaine from "./domaineApercu";
 import styled from "styled-components";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { config } from "../../config";
 const MainContainer = styled.div`
   min-height: 92vh;
 `;
 
 const HeaderContainer = styled.div`
-  padding: 80px 140px;
+  padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
   text-align: left;
   background: radial-gradient(
       68.37% 320.65% at -18.36% 111.75%,
@@ -42,13 +43,15 @@ const BodyContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding-right: 200px;
-  padding-left: 50px;
+  padding-right: ${(props) => (props.isMobile ? "30px" : "150px")};
+  padding-left: ${(props) => (props.isMobile ? "30px" : "140px")};
   justify-content: flex-start;
   margin-top: -25px;
 `;
 
 const ListDomaines = (props) => {
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+
   const template = props.pages.templates.length
     ? props.pages.templates.filter(
         (template) => template.slug === "liste-des-indicateurs"
@@ -57,7 +60,7 @@ const ListDomaines = (props) => {
 
   return (
     <MainContainer>
-      <HeaderContainer>
+      <HeaderContainer isMobile={isMobile}>
         {template && template.title ? (
           <HeaderTitleContainer
             style={{ fontWeight: "700" }}
@@ -82,7 +85,7 @@ const ListDomaines = (props) => {
           ></SubtitleContainer>
         )}
       </HeaderContainer>
-      <BodyContainer>
+      <BodyContainer isMobile={isMobile}>
         {props.taxonomie &&
           props.taxonomie.domainesImpacts &&
           props.taxonomie.domainesImpacts.map((item, index) => {

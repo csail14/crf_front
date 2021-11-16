@@ -6,8 +6,8 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { getCommentaireByPost } from "../../utils/api/RessourcesApi";
 import moment from "moment";
 import DOMPurify from "dompurify";
-import { isMobile } from "react-device-detect";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { config } from "../../config";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -70,7 +70,7 @@ const MoreCommentContainer = styled.div`
 
 const SendButton = styled.div`
   display: flex;
-  justify-content: ${isMobile ? "center" : "flex-end"};
+  justify-content: ${(props) => (props.isMobile ? "center" : "flex-end")};
   padding: 17px 29px;
   font-size: 14px;
   font-weight: 700;
@@ -81,11 +81,12 @@ const SendButton = styled.div`
   box-shadow: 0px 10px 40px rgba(0, 32, 49, 0.26);
   text-transform: uppercase;
   margin: 20px 0 20px auto;
-  max-width: ${isMobile ? "" : "max-content"};
-  width: ${isMobile ? "-webkit-fill-available" : ""};
+  max-width: ${(props) => (props.isMobile ? "" : "max-content")};
+  width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
 `;
 
 const Comments = (props) => {
+  const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [newComment, setNewComment] = useState("");
   const [comments, setComments] = useState([]);
   const [allComments, setAllComments] = useState([]);
@@ -158,7 +159,7 @@ const Comments = (props) => {
               placeholder={"Saisissez votre commentaire ici..."}
             />
           </form>
-          <SendButton>Laisser un commentaire</SendButton>
+          <SendButton isMobile={isMobile}>Laisser un commentaire</SendButton>
         </>
       )}
     </MainContainer>

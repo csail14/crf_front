@@ -55,3 +55,14 @@ export const getCommentaireByPost = async (id) => {
       return err;
     });
 };
+
+export const getAllRessources = async () => {
+  return axios
+    .get(config.api_url + "/wp/v2/search")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
