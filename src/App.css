@@ -1,54 +1,57 @@
 .App {
-  text-align: center;
-  font-family: "Raleway";
+    text-align: center;
+    font-family: "Raleway";
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /*Sidebar*/
 .main_container {
-  min-width: 290px;
+    min-width: 290px;
 }
+
 .main_container::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
+
 .main_container {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
 /*title*/
 .sidebar_title {
   width: 71%;
@@ -65,6 +68,7 @@
   position: fixed;
   top: 20px;
 }
+
 .recherche_input {
   border: none;
   min-width: 300px;
@@ -88,96 +92,99 @@
   font-size: 12px;
   cursor: pointer;
 }
+
 .recherche_domaine_input {
-  border: none;
-  min-width: 300px;
-  height: 30px;
-  outline: none;
-  font-size: 16px;
-  background-color: #f7f9fa;
+    border: none;
+    min-width: 300px;
+    height: 30px;
+    outline: none;
+    font-size: 16px;
+    background-color: #f7f9fa;
 }
+
 .search_options:hover {
-  color: white;
-  background-color: #003956;
-  cursor: pointer;
+    color: white;
+    background-color: #003956;
+    cursor: pointer;
 }
+
 .sidebar_title h1 {
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 19px;
-  line-height: 130%;
-  /* or 25px */
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 19px;
+    line-height: 130%;
+    /* or 25px */
 
-  text-transform: uppercase;
+    text-transform: uppercase;
 
-  color: #000000;
+    color: #000000;
 }
 
 /*Searchbar*/
 .form_container {
-  padding-right: 5%;
-  margin: 10% 0;
+    padding-right: 5%;
+    margin: 10% 0;
 }
 
 .sidebar_input input::placeholder {
-  width: 76px;
-  height: 18px;
+    width: 76px;
+    height: 18px;
 
-  font-family: Raleway;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 130%;
-  /* or 18px */
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 130%;
+    /* or 18px */
 
-  /* CRF */
+    /* CRF */
 
-  color: #e30613;
+    color: #e30613;
 }
 
 .sidebar_search {
-  width: 100%;
-  height: 48px;
-  display: flex;
-  align-items: center;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
 
-  /* FFFFFF Bg 1 */
+    /* FFFFFF Bg 1 */
 
-  background: #ffffff;
-  /* shadow mini */
+    background: #ffffff;
+    /* shadow mini */
 
-  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
-  border: none;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
+    border: none;
 }
 
 .sidebar_input {
-  width: 80%;
-  height: 100%;
+    width: 80%;
+    height: 100%;
 }
 
 .sidebar_icon {
-  width: 20%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sidebar_icon button {
-  border: none;
-  background-color: transparent;
+    border: none;
+    background-color: transparent;
 }
 
 .sidebar_search input {
-  height: 100%;
-  border: none;
-  background-color: transparent;
+    height: 100%;
+    border: none;
+    background-color: transparent;
 }
 
 .sidebar_search input:focus {
-  border: none;
-  outline: none;
+    border: none;
+    outline: none;
 }
 
 /*Dropdown*/
@@ -200,13 +207,13 @@
   line-height: 130%;
   /* or 18px */
 
-  text-transform: uppercase;
+    text-transform: uppercase;
 
-  /* mutted text */
+    /* mutted text */
 
-  color: #6c757d;
+    color: #6c757d;
 
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .dropdown_link_div {
@@ -223,11 +230,11 @@
   cursor: pointer;
   /* or 18px */
 
-  text-transform: uppercase;
+    text-transform: uppercase;
 
-  /* mutted text */
+    /* mutted text */
 
-  color: #6c757d;
+    color: #6c757d;
 }
 
 .dropdown_link_div p {
@@ -242,35 +249,38 @@
 }
 
 .dropdown_title {
-  text-align: left;
-  font-family: Raleway, serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 130%;
-  /* or 18px */
+    text-align: left;
+    font-family: Raleway, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 130%;
+    /* or 18px */
 
-  text-transform: uppercase;
+    text-transform: uppercase;
 
-  color: #000000;
+    color: #000000;
 }
+
 .textArea {
-  padding: 37px;
-  height: 120px;
-  width: -webkit-fill-available;
-  background-color: #f7f9fa;
-  border: 1px solid #eaeaea;
-  font-family: "Raleway";
-  margin-bottom: 20px;
+    padding: 37px;
+    height: 120px;
+    width: -webkit-fill-available;
+    background-color: #f7f9fa;
+    border: 1px solid #eaeaea;
+    font-family: "Raleway";
+    margin-bottom: 20px;
 }
 
 .arrow_icon {
-  padding: 0 5%;
+    padding: 0 5%;
 }
+
 /*contact+acc*/
 .acc_contact_container {
   padding: 20px 40px;
 }
+
 .contact_container {
   color: #e30613;
   font-family: Raleway, serif;
@@ -280,6 +290,7 @@
   line-height: 130%;
   text-decoration: none;
 }
+
 .account_container {
   font-family: Raleway, serif;
   font-style: normal;
@@ -287,24 +298,126 @@
   font-size: 16px;
   line-height: 130%;
 }
+
 .contact_container p {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
+
 .account_container p {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
 }
+
 .account_container a {
-  margin-left: 28px;
-  display: flex;
-  font-family: Raleway, serif;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
-  line-height: 130%;
+    margin-left: 28px;
+    display: flex;
+    font-family: Raleway, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 130%;
 }
+
 .acc_contact_icon {
-  margin-right: 5%;
+    margin-right: 5%;
+}
+
+.contactLabel {
+    text-align: left;
+    margin-bottom: 0.3rem;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: uppercase;
+
+    /* CRF gris */
+
+    color: #667385;
+}
+
+.smallForm {
+    width: 20%;
+    max-width: 20%;
+    text-align: right;
+    padding-right: 2rem;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: right;
+    text-transform: uppercase;
+
+    /* CRF gris */
+
+    color: #667385;
+
+    opacity: 0.5;
+}
+
+.formSelect {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+.formMessage {
+    width: 100%;
+    padding: 1rem;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+
+    /* CRF Marine */
+
+    color: #003956;
+}
+
+.formMessageLabel {
+    text-align: left;
+    margin-bottom: 0.3rem;
+}
+.form-control{
+    background: #F7F9FA;
+    border: 1px solid #EAEAEA;
+    box-sizing: border-box;
+    padding: 1rem;
+}
+.formMessage{
+    background: #F7F9FA;
+    border: 1px solid #EAEAEA;
+    box-sizing: border-box;
+    resize: none;
+}
+.formError{
+    color: #e30613;
+    font-family: Raleway;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    text-transform: uppercase;
+    text-align: left;
+    margin-top: 0.3rem;
+}
+.formSuccess{
+    margin-bottom: 1rem;
+    color: green;
+}
+.mandatoryFields{
+    text-align: left;
+    padding-left: 2rem
+;
 }
