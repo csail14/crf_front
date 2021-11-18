@@ -2,7 +2,7 @@
 
 ## Objet
 Le PMIS - Portail de Mesure d'Impact Social de la Croix-Rouge française regroupe les ressources et outils des travaux menés par la CRf autour de l'impact social.
-Ce répo porte uniquement sur le front office de l'application. Il est lié au repo du front : https://gitlab.com/la-guilde-du-pixel/pmis-croix-rouge-francaise/
+Ce répo porte uniquement sur le front office de l'application. Il est lié au repo du back : https://gitlab.com/la-guilde-du-pixel/pmis-croix-rouge-francaise/
 
 ## Documentations fonctionnelles
 - Spécifications fonctionnelles : https://docs.google.com/document/d/1CgAM0bjKBW0oKZIO-YGnR5W70OoVpVxG-8HTvcfvasc/edit?usp=sharing
@@ -12,14 +12,11 @@ Ce répo porte uniquement sur le front office de l'application. Il est lié au r
 ## Langages et outils
 React
 
-# Installer l'application en dev
+# Serveur 
+Pad e pré-requis particulier, seule la technologie Javascript est utilisée. Le vhost doit pointer vers le dossier build dans le dossier du projet.
 
-Pas de pré-requis particulier sur le serveur.
-
-- Cloner le repo
-- Faire pointer le vhost sur le dossier build
-
-Exemple vhost
+## Vhost
+Exemple vhost (git init dans le dossier react)
 
 ```
 <VirtualHost *:80>
@@ -37,7 +34,25 @@ Exemple vhost
 </VirtualHost>
 ```
 
-# Installer React et build l'application 
+# Installer l'application en dev
+
+## Pré-requis 
+- Back office installé et fonctionnel 
+- Serveur LAMP classique (Javascript utilisé uniquement)
+
+## Installation
+
+Initialiser et cloner le projet dans le dossier concerné
+1. git init
+2. git remote add origin https://gitlab.com/la-guilde-du-pixel/pmis-croix-rouge-francaise.git
+3. git pull
+4. git checkout dev
+- Faire pointer le vhost sur le dossier build
+
+Ouvrir l'url de recette : recette-impact-social.croix-rouge.fr
+
+
+# (Développement) Installer React et build l'application 
 
 - cloner le repo
 - `npm install`
