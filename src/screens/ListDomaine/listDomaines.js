@@ -10,7 +10,7 @@ const MainContainer = styled.div`
   min-height: 92vh;
 `;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
   text-align: left;
   background: radial-gradient(
@@ -27,19 +27,30 @@ const HeaderContainer = styled.div`
     );
 `;
 
-const HeaderTitleContainer = styled.div`
+const HeaderTitleContainer = styled.h2`
   font-size: 45px;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
   text-transform: uppercase;
+  margin: 0;
 `;
 
-const SubtitleContainer = styled.div`
+const HeaderSubTitleContainer = styled.h3`
+  font-size: 45px;
+  color: ${colors.marine};
+  line-height: 58px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0;
+`;
+
+const SubtitleContainer = styled.p`
   margin-top: 26px;
   color: ${colors.gris};
 `;
-const BodyContainer = styled.div`
+const BodyContainer = styled.main`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -73,10 +84,10 @@ const ListDomaines = (props) => {
             L'impact social des actions
           </HeaderTitleContainer>
         )}
-        <HeaderTitleContainer>
+        <HeaderSubTitleContainer>
           {" "}
           {template ? template.acf.sous_titre : "De la croix rouge française"}
-        </HeaderTitleContainer>
+        </HeaderSubTitleContainer>
         {template && (
           <SubtitleContainer
             dangerouslySetInnerHTML={{

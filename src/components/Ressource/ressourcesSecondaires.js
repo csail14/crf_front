@@ -16,7 +16,7 @@ import {
 
 require("moment/locale/fr.js");
 
-const BottomContainer = styled.div`
+const BottomContainer = styled.section`
   background-color: ${colors.grisBackground};
   display: flex;
   flex-direction: column;

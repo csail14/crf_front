@@ -37,7 +37,7 @@ const RightSideContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const HeaderRightSideTopContainer = styled.div`
+const HeaderRightSideTopContainer = styled.header`
   width: -webkit-fill-available;
   padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
 `;
@@ -67,19 +67,30 @@ const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.h2`
   font-size: 35px;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
   color: ${colors.marine};
+  margin: 0;
 `;
 const TagContainer = styled.div`
   font-size: 14px;
@@ -92,6 +103,11 @@ const TagContainer = styled.div`
   color: ${colors.marine};
   margin-top: 20px;
   text-decoration: underline;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const LikeContainer = styled.div`
@@ -101,7 +117,7 @@ const LikeContainer = styled.div`
   width: fit-content;
 `;
 
-const UpdateContainer = styled.div`
+const UpdateContainer = styled.time`
   padding: 10px 0px 0 0px;
 `;
 
@@ -132,6 +148,12 @@ const UploadButton = styled.div`
   padding: 17px 29px;
   cursor: pointer;
   max-width: max-content;
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const AddLikeContainer = styled.div`
@@ -218,12 +240,12 @@ const Indicateur = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-  console.log("domaine", domaineAction);
   return (
     <RightSideContainer>
       <HeaderRightSideTopContainer isMobile={isMobile}>
         <ArianeContainer>
           <Link
+            className="cliquable_link"
             to={"/liste-des-indicateurs"}
             style={{
               textDecoration: "none",
@@ -238,6 +260,7 @@ const Indicateur = (props) => {
           {" > "}
 
           <div
+            className="cliquable_link"
             onClick={() => {
               history.push({
                 pathname: "/domaine-impact/" + domaineImpact.term_id,
@@ -306,6 +329,7 @@ const Indicateur = (props) => {
           <LikeContainer>
             <Comment>
               <AiOutlineLike
+                className="cliquable_link"
                 size={18}
                 style={{ color: colors.gris, marginRight: "7px" }}
               />
@@ -313,6 +337,7 @@ const Indicateur = (props) => {
             </Comment>
             <Comment>
               <AiOutlineEye
+                className="cliquable_link"
                 size={18}
                 style={{
                   color: colors.gris,

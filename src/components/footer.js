@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../colors";
 
-const MainContainer = styled.div`
+const MainContainer = styled.footer`
   padding: 18px;
   background-color: ${colors.grisBackground};
   display: flex;
@@ -13,7 +13,7 @@ const MainContainer = styled.div`
   line-height: 19px;
 `;
 
-const FooterLinkContainer = styled.div``;
+const FooterLinkContainer = styled.nav``;
 class Header extends React.Component {
   render() {
     const copyright =
@@ -33,6 +33,7 @@ class Header extends React.Component {
               );
               return (
                 <Link
+                  className="cliquable_link"
                   key={index}
                   style={{ textDecoration: "none", marginRight: "10px" }}
                   to={url}

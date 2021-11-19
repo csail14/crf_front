@@ -23,7 +23,7 @@ import {
 import useMediaQuery from "@mui/material/useMediaQuery";
 require("moment/locale/fr.js");
 
-const MainContainer = styled.div`
+const MainContainer = styled.article`
   justify-content: space-between;
   align-items: center;
   display: flex;
@@ -33,6 +33,13 @@ const MainContainer = styled.div`
   position: relative;
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
   height: fit-content;
+  cursor: pointer;
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const IconContainer = styled.div`
@@ -53,7 +60,7 @@ const DetailsContainer = styled.div`
   flex-direction: column;
 `;
 
-const LastUpdateContainer = styled.div`
+const LastUpdateContainer = styled.time`
   display: flex;
   align-items: center;
   font-size: 12px;
@@ -74,6 +81,11 @@ const Category = styled.div`
   font-weight: 700;
   color: ${colors.rouge};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 const Domaine = styled.div`
   display: flex;
@@ -81,9 +93,15 @@ const Domaine = styled.div`
   font-weight: 700;
   color: ${colors.marine};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.h2`
+  margin: 0;
   font-size: 18px;
   font-weight: 700;
   line-height: 22px;
@@ -91,14 +109,20 @@ const TitleContainer = styled.div`
   text-align: left;
   cursor: pointer;
   color: ${colors.marine};
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
-const DescriptionContainer = styled.div`
+const DescriptionContainer = styled.p`
   font-size: 15px;
   font-weight: 500;
   line-height: 22px;
   text-align: left;
   color: ${colors.gris};
+  margin: 0;
 `;
 
 const TagContainer = styled.div`
@@ -113,6 +137,11 @@ const TagContainer = styled.div`
   text-align: left;
   color: black;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const PostInfoContainer = styled.div`
@@ -123,6 +152,21 @@ const PostInfoContainer = styled.div`
   margin-right: 40px;
 `;
 const Comment = styled.div`
+  display: flex;
+  font-size: 12px;
+  color: ${colors.gris};
+  align-items: center;
+  font-weight: 400;
+  text-align: left;
+  cusor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
+`;
+
+const OtherTypePicto = styled.div`
   display: flex;
   font-size: 12px;
   color: ${colors.gris};
@@ -140,6 +184,11 @@ const UploadContainer = styled.div`
   cursor: pointer;
   margin-top: 5px;
   color: ${colors.marine};
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const FirstPartContainer = styled.div`
@@ -219,7 +268,8 @@ const GridResultComponent = (props) => {
       ? "bi bi-file-earmark-play"
       : "";
 
-  const handleClickAction = () => {
+  const handleClickAction = (e) => {
+    e.stopPropagation();
     let array = [];
     array.push(domaineAction);
     props.loadActionsFilter(array);
@@ -237,7 +287,14 @@ const GridResultComponent = (props) => {
     history.push("/recherche");
   };
   return (
-    <MainContainer>
+    <MainContainer
+      onClick={() => {
+        history.push({
+          pathname: "/" + details.type + "/" + details.slug,
+          state: { id: details.id },
+        });
+      }}
+    >
       <FirstPartContainer isMobile={isMobile}>
         <IconContainer type={type}>
           <i className={icon}></i>
@@ -264,12 +321,6 @@ const GridResultComponent = (props) => {
           )}
           {details && details.title && (
             <TitleContainer
-              onClick={() => {
-                history.push({
-                  pathname: "/" + details.type + "/" + details.slug,
-                  state: { id: details.id },
-                });
-              }}
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(details.title.rendered),
               }}
@@ -291,7 +342,8 @@ const GridResultComponent = (props) => {
             details.acf.document &&
             details.acf.document.fichier_joint.subtype === "pdf" && (
               <UploadContainer
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   openInNewTab(details.acf.document.fichier_joint.url);
                 }}
               >
@@ -335,7 +387,12 @@ const GridResultComponent = (props) => {
                 return (
                   <>
                     {" "}
-                    <div onClick={() => handleClickTag(item.name)}>
+                    <div
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleClickTag(item.name);
+                      }}
+                    >
                       {item.name}
                     </div>{" "}
                     {comma}
@@ -353,7 +410,7 @@ const GridResultComponent = (props) => {
             </div>
             {details && details.acf && details.acf.datas && (
               <div style={{ display: "flex" }}>
-                <Comment>
+                <OtherTypePicto>
                   <AiOutlineLike
                     size={18}
                     style={{
@@ -363,8 +420,8 @@ const GridResultComponent = (props) => {
                     }}
                   />
                   {details.acf.datas.likes}
-                </Comment>
-                <Comment>
+                </OtherTypePicto>
+                <OtherTypePicto>
                   <AiOutlineEye
                     size={18}
                     style={{
@@ -374,7 +431,7 @@ const GridResultComponent = (props) => {
                     }}
                   />
                   {details.acf.datas.vues}
-                </Comment>
+                </OtherTypePicto>
               </div>
             )}
           </PostInfoContainer>

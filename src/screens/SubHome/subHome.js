@@ -12,7 +12,7 @@ const MainContainer = styled.div`
   overflow-wrap: break-word;
 `;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
   text-align: left;
   background: radial-gradient(
@@ -29,15 +29,25 @@ const HeaderContainer = styled.div`
     );
 `;
 
-const HeaderTitleContainer = styled.div`
+const HeaderTitleContainer = styled.h2`
   font-size: 45px;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
   text-transform: uppercase;
+  margin: 0;
+`;
+const HeaderSubTitleContainer = styled.h3`
+  font-size: 45px;
+  color: ${colors.marine};
+  line-height: 58px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 500;
 `;
 
-const SubtitleContainer = styled.div`
+const SubtitleContainer = styled.p`
   margin-top: 26px;
   color: ${colors.gris};
 `;
@@ -60,7 +70,7 @@ const LinkTitleContainer = styled.div`
   text-transform: uppercase;
   margin-bottom: 30px;
 `;
-const LinkMainContainer = styled.div`
+const LinkMainContainer = styled.aside`
   padding: 70px 50px;
   margin-right: 50px;
   text-align: left;
@@ -105,9 +115,9 @@ const SubHome = (props) => {
           />
         )}
 
-        <HeaderTitleContainer>
+        <HeaderSubTitleContainer>
           {subHomeTemplate ? subHomeTemplate.acf.sous_titre : null}
-        </HeaderTitleContainer>
+        </HeaderSubTitleContainer>
         {subHomeTemplate && (
           <SubtitleContainer
             dangerouslySetInnerHTML={{

@@ -19,17 +19,18 @@ const RightSideContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const HeaderRightSideTopContainer = styled.div`
+const HeaderRightSideTopContainer = styled.header`
   width: -webkit-fill-available;
   padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.h3`
   font-size: 35px;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
   color: ${colors.marine};
+  margin: 0;
 `;
 
 const BodyContainer = styled.div`
@@ -79,6 +80,7 @@ const Indicateur = (props) => {
         <ArianeContainer>
           <Link
             to={"/liste-des-indicateurs"}
+            className="cliquable_link"
             style={{
               textDecoration: "none",
               color: colors.gris,

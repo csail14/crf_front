@@ -13,22 +13,23 @@ const MainContainer = styled.div`
   min-height: 100vh;
 `;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "80px 0 140px 100px")};
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
 `;
 
-const HeaderTitleContainer = styled.div`
+const HeaderTitleContainer = styled.h2`
   font-size: 45px;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
   text-transform: uppercase;
+  margin: 0;
 `;
 
-const SubtitleContainer = styled.div`
+const SubtitleContainer = styled.p`
   margin-top: 26px;
   color: ${colors.gris};
   max-width: ${(props) => (props.isMobile ? "" : "80%")};
@@ -72,6 +73,12 @@ const ButtonView = styled.div`
   font-size: 12px;
   text-transform: uppercase;
   align-items: center;
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 const TriesContainer = styled.div`
   display: flex;
@@ -89,6 +96,11 @@ const Tries = styled.div`
   color: ${(props) => (props.isTrue ? "black" : colors.gris)};
   margin: auto 5px;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const NoRequestContainer = styled.div`
