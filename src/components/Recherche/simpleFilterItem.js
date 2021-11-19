@@ -15,7 +15,7 @@ const FilterContainer = styled.div`
   padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
   line-height: 20px;
   border-right: ${(props) =>
-    props.isMobile ? "" : "0.5px solid " + colors.gris};
+    props.isMobile || props.isType ? "" : "0.5px solid " + colors.gris};
   position: relative;
 `;
 
@@ -36,6 +36,11 @@ const FilterContent = styled.div`
   justify-content: space-between;
   width: -webkit-fill-available;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const FilterOptionsContainer = styled.div`
@@ -86,7 +91,11 @@ const SimpleFilterItem = (props) => {
   };
 
   return (
-    <FilterContainer isMobile={isMobile} isTop={props.isTop}>
+    <FilterContainer
+      isType={props.isType}
+      isMobile={isMobile}
+      isTop={props.isTop}
+    >
       <FilterTitle isTop={props.isTop}>{props.title}</FilterTitle>
       <FilterContent isTop={props.isTop} onClick={props.toggleOptions}>
         {props.selectedObject.length > 1 ? (

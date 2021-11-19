@@ -11,6 +11,11 @@ const DomaineTitle = styled.div`
   text-transform: uppercase;
   text-align: left;
   color: ${(props) => (props.isOpen ? colors.rouge : colors.marine)};
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const DomaineContainer = styled.div`
@@ -30,6 +35,11 @@ const RessourcesLieesContainer = styled.div`
   cursor: pointer;
   font-size: 14px;
   text-align: left;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 const DomaineListDeroulanteDropDown = (props) => {
   const [isOpen, setIsOpen] = useState(props.openID === props.info.id);

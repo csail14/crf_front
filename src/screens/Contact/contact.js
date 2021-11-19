@@ -54,6 +54,12 @@ const SubmitButton = styled.button`
   margin: 40px auto;
   cursor: pointer;
   color: #ffffff;
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 const Contact = (props) => {
   const [firstName, setFirstName] = useState("");
@@ -133,19 +139,29 @@ const Contact = (props) => {
       .catch((err) => console.log(err));
   };
 
-  const HeaderContainer = styled.div`
+  const HeaderContainer = styled.header`
     padding: ${isMobile ? "30px" : "80px 140px"};
     text-align: left;
     background-image: url(${config.header_image_url});
     background-size: cover;
     margin-bottom: 78px;
   `;
-  const HeaderTitleContainer = styled.div`
+  const HeaderTitleContainer = styled.h2`
     font-size: 45px;
     color: ${colors.marine};
     line-height: 58px;
     letter-spacing: 0em;
     text-transform: uppercase;
+    margin: 0;
+  `;
+  const HeaderSubTitleContainer = styled.h3`
+    font-size: 45px;
+    color: ${colors.marine};
+    line-height: 58px;
+    letter-spacing: 0em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0;
   `;
   const TermsAndConditions = styled.div`
     line-height: 1.5;
@@ -160,14 +176,14 @@ const Contact = (props) => {
     margin-top: 1rem;
   `;
 
-  const SubtitleContainer = styled.div`
+  const SubtitleContainer = styled.p`
     margin-top: 26px;
     color: ${colors.gris};
   `;
   const contactTemplate = props.pages.templates.length
     ? props.pages.templates.filter((template) => template.slug === "contact")[0]
     : null;
-
+  console.log(contactTemplate);
   return (
     <>
       <HeaderContainer>
@@ -183,18 +199,23 @@ const Contact = (props) => {
             Je contacte
           </HeaderTitleContainer>
         )}
-        <HeaderTitleContainer>
+        <HeaderSubTitleContainer>
           {" "}
           {contactTemplate
             ? contactTemplate.acf.sous_titre
             : "L'EQUIPE DE MESURE D'IMPACT SOCIAL"}
-        </HeaderTitleContainer>
+        </HeaderSubTitleContainer>
         {contactTemplate && (
-          <SubtitleContainer>
-            Mattis sodales lacus tincidunt varius. Quis justo, purus nullam urna
-            pulvinar. Vitae vehicula posuere nulla in sed. Malesuada posuere
-            velit, justo pretium magna interdum.
-          </SubtitleContainer>
+          <SubtitleContainer
+            style={{ fontWeight: "700" }}
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(
+                contactTemplate &&
+                  contactTemplate.acf &&
+                  contactTemplate.acf.intro
+              ),
+            }}
+          />
         )}
       </HeaderContainer>
 
@@ -297,9 +318,13 @@ const Contact = (props) => {
                     name={"subject"}
                   >
                     <option>Choisir le sujet de votre message</option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
+                    {props.options &&
+                      props.options.options &&
+                      props.options.options.acf &&
+                      props.options.options.acf.sujets_contact &&
+                      props.options.options.acf.sujets_contact.map((item) => {
+                        return <option>{item.sujet}</option>;
+                      })}
                   </select>
                   {formSubmitted && !subject && (
                     <div className="formError">Veuillez choisir un sujet</div>
@@ -343,41 +368,15 @@ const Contact = (props) => {
               <SubmitButton>Envoyer</SubmitButton>
             </FormRowFullWidth>
             <FormRowFullWidth>
-              <TermsAndConditions>
-                Pour gérer et suivre votre présente demande d’information, la
-                Croix-Rouge française collecte des données personnelles vous
-                concernant sur la base de son intérêt légitime (article 6 du
-                Règlement Général sur la Protection des Données).
-                <br />
-                Les destinataires de vos données sont la Croix-Rouge française
-                (la structure organisatrice de la formation, la délégation
-                territoriale de l’Hérault ainsi que les services administratifs
-                du Siège) et ses prestataires techniques. Vos données seront
-                conservées pendant un an puis supprimées.
-                <br />
-                Le responsable de traitement est le Directeur général de la
-                Croix-Rouge française.
-                <br />
-                Conformément au Règlement général sur la protection des données
-                personnelles (règlement UE n° 2016/679 du 27 avril 2016), vous
-                disposez d’un droit d’accès, de rectification, de suppression,
-                d’opposition pour motif légitime, de limitation et de
-                portabilité aux données qui vous concernent, que vous pouvez
-                exercer en vous adressant à la Croix-Rouge française, délégation
-                territoriale de l’Hérault au 9 rue Gaston Planté, quartier la
-                Valsière, 34790 GRABELS, ou à l’adresse suivante :
-                gestesquisauvent.34@croix-rouge.fr.
-                <br />
-                En cas de difficulté, vous pouvez contacter le Délégué à la
-                protection des données personnelles au siège de la Croix-Rouge
-                française au 98 rue Didot 75014 Paris ou à l’adresse suivante :
-                dpo@croix-rouge.fr. Vous pouvez également introduire une
-                réclamation auprès de la Commission Nationale de l’Informatique
-                et des Libertés (CNIL).
-                <br />
-                Pour en savoir plus sur le traitement de vos données
-                personnelles, consultez notre politique de confidentialité.
-              </TermsAndConditions>
+              <TermsAndConditions
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    contactTemplate &&
+                      contactTemplate.acf &&
+                      contactTemplate.acf.mentions_legales
+                  ),
+                }}
+              />
             </FormRowFullWidth>
           </form>
         </ContactForm>
@@ -389,7 +388,7 @@ const Contact = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { options: store.options };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contact);

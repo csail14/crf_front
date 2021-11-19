@@ -77,6 +77,11 @@
   font-size: 16px;
   cursor: pointer;
 }
+.recherche_input:hover {
+  opacity: 0.8;
+  transition: opacity 150ms linear, transform 150ms linear;
+  transform: scale(0.98);
+}
 .recherche_input_mobile {
   border: none;
   min-width: 250px;
@@ -91,6 +96,11 @@
   outline: none;
   font-size: 12px;
   cursor: pointer;
+}
+.recherche_input_small:hover {
+  opacity: 0.8;
+  transition: opacity 150ms linear, transform 150ms linear;
+  transform: scale(0.98);
 }
 
 .recherche_domaine_input {
@@ -195,8 +205,10 @@
   cursor: pointer;
   padding: 0 15px 0 38px;
 }
-
-.dropdown_container {
+.cliquable_link:hover {
+  opacity: 0.8;
+  transition: opacity 150ms linear, transform 150ms linear;
+  transform: scale(0.98);
 }
 
 .dropdown_text {
@@ -214,6 +226,12 @@
   color: #6c757d;
 
   text-decoration: none;
+}
+
+.dropdown_text:hover {
+  opacity: 0.8;
+  transition: opacity 150ms linear, transform 150ms linear;
+  transform: scale(0.98);
 }
 
 .dropdown_link_div {
@@ -240,6 +258,11 @@
 .dropdown_link_div p {
   width: 95%;
   text-align: left;
+}
+.dropdown_link_div:hover {
+  opacity: 0.8;
+  transition: opacity 150ms linear, transform 150ms linear;
+  transform: scale(0.98);
 }
 
 .dropdown_link_div:hover {
@@ -290,6 +313,12 @@
   line-height: 130%;
   text-decoration: none;
 }
+
+.contact_container p:hover {
+  opacity: 0.8;
+  transition: opacity 150ms linear, transform 150ms linear;
+  transform: scale(0.98);
+}
 .contact-container {
   margin-right: 250px;
 }
@@ -323,6 +352,11 @@
   line-height: 130%;
 }
 
+.account_container a:hover {
+  opacity: 0.8;
+  transition: opacity 150ms linear, transform 150ms linear;
+  transform: scale(0.98);
+}
 .acc_contact_icon {
   margin-right: 5%;
 }
