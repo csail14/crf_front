@@ -44,7 +44,7 @@ const MainContainer = styled.div`
   position: relative;
 `;
 
-const LeftSideComponent = styled.div`
+const LeftSideComponent = styled.aside`
   display: flex;
   position: -webkit-sticky;
   position: sticky;

@@ -83,6 +83,12 @@ const SendButton = styled.div`
   margin: 20px 0 20px auto;
   max-width: ${(props) => (props.isMobile ? "" : "max-content")};
   width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const Comments = (props) => {

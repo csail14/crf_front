@@ -15,7 +15,7 @@ const ImageContainer = styled.div`
   cursor: pointer;
 `;
 
-const MainContainer = styled.div`
+const MainContainer = styled.aside`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -116,7 +116,7 @@ const LeftSideComponent = (props) => {
               loadKeywordsFilter={props.loadKeywordsFilter}
               setShowMenu={setShowMenu}
             />
-            <div className={"dropdown_container"}>
+            <nav className={"dropdown_container"}>
               {getTitle().map((item) => {
                 return (
                   <Dropdown
@@ -131,7 +131,7 @@ const LeftSideComponent = (props) => {
                   />
                 );
               })}
-            </div>
+            </nav>
           </div>
           <AccountContact
             contact_info={

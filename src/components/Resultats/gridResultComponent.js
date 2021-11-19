@@ -22,12 +22,18 @@ import {
 } from "../../actions/filter/filterActions";
 require("moment/locale/fr.js");
 
-const MainContainer = styled.div`
+const MainContainer = styled.article`
   margin: 10px;
   max-width: 350px;
   position: relative;
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
   height: fit-content;
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const IconContainer = styled.div`
@@ -72,14 +78,24 @@ const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.h2`
   font-size: 18px;
   font-weight: 700;
   line-height: 22px;
@@ -88,9 +104,14 @@ const TitleContainer = styled.div`
   margin-bottom: 16px;
   color: ${colors.marine};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
-const DescriptionContainer = styled.div`
+const DescriptionContainer = styled.p`
   font-size: 15px;
   font-weight: 500;
   line-height: 22px;
@@ -109,6 +130,11 @@ const TagContainer = styled.div`
   color: ${colors.marine};
   margin-bottom: 20px;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const BottomContainer = styled.div`
@@ -127,6 +153,20 @@ const Comment = styled.div`
   align-items: center;
   font-weight: 400;
   text-align: left;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
+`;
+const OtherTypePicto = styled.div`
+  display: flex;
+  font-size: 12px;
+  color: ${colors.gris};
+  align-items: center;
+  font-weight: 400;
+  text-align: left;
 `;
 
 const UploadContainer = styled.div`
@@ -138,6 +178,11 @@ const UploadContainer = styled.div`
   font-weight: 700;
   color: ${colors.marine};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 const GridResultComponent = (props) => {
   const [details, setDetails] = useState(null);
@@ -345,14 +390,14 @@ const GridResultComponent = (props) => {
             </div>
             {details && details.acf && details.acf.datas && (
               <div style={{ display: "flex" }}>
-                <Comment>
+                <OtherTypePicto>
                   <AiOutlineLike
                     size={18}
                     style={{ color: colors.gris, marginRight: "7px" }}
                   />
                   {details.acf.datas.likes}
-                </Comment>
-                <Comment>
+                </OtherTypePicto>
+                <OtherTypePicto>
                   <AiOutlineEye
                     size={18}
                     style={{
@@ -362,7 +407,7 @@ const GridResultComponent = (props) => {
                     }}
                   />
                   {details.acf.datas.vues}
-                </Comment>
+                </OtherTypePicto>
               </div>
             )}
           </PostInfoContainer>

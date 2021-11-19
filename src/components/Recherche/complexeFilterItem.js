@@ -35,6 +35,11 @@ const FilterContent = styled.div`
   justify-content: space-between;
   width: -webkit-fill-available;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const KeyWordsContainer = styled.div`

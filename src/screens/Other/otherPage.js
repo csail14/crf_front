@@ -11,7 +11,7 @@ const MainContainer = styled.div`
   min-height: 92vh;
 `;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
 
   text-align: left;
@@ -19,7 +19,7 @@ const HeaderContainer = styled.div`
   background-size: cover;
 `;
 
-const HeaderTitleContainer = styled.div`
+const HeaderTitleContainer = styled.h2`
   font-size: 45px;
   color: ${colors.marine};
   line-height: 58px;
@@ -27,11 +27,20 @@ const HeaderTitleContainer = styled.div`
   text-transform: uppercase;
 `;
 
+const HeaderSubTitleContainer = styled.h3`
+  font-size: 45px;
+  color: ${colors.marine};
+  line-height: 58px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  font-weight: 500;
+`;
+
 const SubtitleContainer = styled.div`
   margin-top: 26px;
   color: ${colors.gris};
 `;
-const BodyContainer = styled.div`
+const BodyContainer = styled.main`
   display: flex;
   justify-content: center;
   flex-wrap: ${(props) => (props.isMobile ? "wrap" : "")};
@@ -67,9 +76,9 @@ const OtherPage = (props) => {
               />
             )}
 
-            <HeaderTitleContainer>
+            <HeaderSubTitleContainer>
               {template ? template.acf.sous_titre : null}
-            </HeaderTitleContainer>
+            </HeaderSubTitleContainer>
             {template && (
               <SubtitleContainer
                 dangerouslySetInnerHTML={{

@@ -12,7 +12,7 @@ const MainContainer = styled.div`
   max-width: 400px;
 `;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.main`
   display: flex;
   cursor: pointer;
   flex-direction: column;
@@ -23,9 +23,15 @@ const HeaderContainer = styled.div`
   border-radius: 8px;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.h2`
   color: ${colors.rouge};
   margin-top: 30px;
   padding: 5px;
@@ -34,19 +40,19 @@ const TitleContainer = styled.div`
   font-size: 26px;
 `;
 
-const SubTitleContainer = styled.div`
+const SubTitleContainer = styled.p`
   color: ${colors.marine};
-  padding: 5px;
+  padding: 10px;
   font-size: 16px;
   font-weight: 700;
 `;
 
-const LinkMainContainer = styled.div`
+const LinkMainContainer = styled.article`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
 `;
-const LinkContainer = styled.div`
+const LinkContainer = styled.h3`
   display: flex;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
   padding: 15px 20px;
@@ -55,6 +61,12 @@ const LinkContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const MoreInfoContainer = styled.div`
@@ -67,6 +79,14 @@ const MoreInfoContainer = styled.div`
   font-size: 12px;
   justify-content: center;
   cursor: pointer;
+`;
+
+const Text = styled.div`
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const SubHomeBloc = (props) => {
@@ -125,10 +145,12 @@ const SubHomeBloc = (props) => {
       </LinkMainContainer>
       <Link to={"/" + link} style={{ textDecoration: "none" }}>
         <MoreInfoContainer>
-          En savoir plus{" "}
-          <MdArrowForwardIos
-            style={{ color: colors.rouge, marginLeft: "10px" }}
-          />
+          <Text>
+            En savoir plus{" "}
+            <MdArrowForwardIos
+              style={{ color: colors.rouge, marginLeft: "10px" }}
+            />{" "}
+          </Text>
         </MoreInfoContainer>
       </Link>
     </MainContainer>

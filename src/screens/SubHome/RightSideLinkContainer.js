@@ -11,7 +11,7 @@ import { config } from "../../config";
 import useMediaQuery from "@mui/material/useMediaQuery";
 require("moment/locale/fr.js");
 
-const LinkContainer = styled.div`
+const LinkContainer = styled.h3`
   position: relative;
   display: flex;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
@@ -23,6 +23,12 @@ const LinkContainer = styled.div`
   cursor: pointer;
   min-width: ${(props) => (props.isMobile ? "200px" : "300px")};
   margin-bottom: 10px;
+  &:hover {
+    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const ExtraitContainer = styled.div`

@@ -27,7 +27,7 @@ require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
 
-const HeaderContainer = styled.div`
+const HeaderContainer = styled.header`
   display: flex;
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
 `;
@@ -81,7 +81,7 @@ const HeaderRightSideBottomContainer = styled.div`
   flex-direction: column;
   padding: 0px;
 `;
-const BottomContainer = styled.div`
+const BottomContainer = styled.section`
   background-color: ${colors.grisBackground};
   display: flex;
   flex-direction: column;
@@ -114,19 +114,30 @@ const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
-const TitleContainer = styled.div`
+const TitleContainer = styled.h2`
   font-size: 35px;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
   color: ${colors.marine};
+  margin: 0;
 `;
 const TagContainer = styled.div`
   font-size: 14px;
@@ -139,6 +150,11 @@ const TagContainer = styled.div`
   cursor: pointer;
   margin-top: 20px;
   text-decoration: underline;
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 150ms linear, transform 150ms linear;
+    transform: scale(0.98);
+  }
 `;
 
 const LikeContainer = styled.div`
@@ -148,7 +164,7 @@ const LikeContainer = styled.div`
   width: fit-content;
 `;
 
-const UpdateContainer = styled.div`
+const UpdateContainer = styled.time`
   padding: ${(props) =>
     props.isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
 `;
@@ -162,7 +178,7 @@ const BodyContainer = styled.div`
 const LeftSideBodyComponent = styled.div`
   margin-right: ${(props) => (props.isMobile ? "" : "100px")};
 `;
-const RightSideBodyContainer = styled.div`
+const RightSideBodyContainer = styled.aside`
   display: ${(props) => (props.isMobile ? "flex" : "")};
   flex-direction: ${(props) => (props.isMobile ? "column" : "")};
   align-items: ${(props) => (props.isMobile ? "center" : "")};
@@ -381,7 +397,11 @@ const Article = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments postID={articleId} showCommment={showCommment} />
+          <Comments
+            href="#comments"
+            postID={articleId}
+            showCommment={showCommment}
+          />
         </LeftSideBodyComponent>
         {article &&
           article.acf &&
