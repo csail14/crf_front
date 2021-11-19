@@ -2,7 +2,9 @@
   text-align: center;
   font-family: "Raleway";
 }
-
+a{
+  color:inherit;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -124,6 +126,7 @@
   font-weight: bold;
   font-size: 19px;
   line-height: 130%;
+  margin:0;
   /* or 25px */
 
   text-transform: uppercase;
@@ -189,6 +192,8 @@
 .sidebar_search input {
   height: 100%;
   border: none;
+  font-size:14px;
+  font-weight:500;
   background-color: transparent;
 }
 
@@ -198,7 +203,9 @@
 }
 
 /*Dropdown*/
-
+.dropdown_container{
+  font-size:14px;
+}
 .dropdown_div {
   display: flex;
   justify-content: space-between;
@@ -308,7 +315,7 @@
   color: #e30613;
   font-family: Raleway, serif;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 16px;
   line-height: 130%;
   text-decoration: none;
@@ -326,7 +333,7 @@
 .account_container {
   font-family: Raleway, serif;
   font-style: normal;
-  font-weight: bold;
+  font-weight: 500;
   font-size: 16px;
   line-height: 130%;
 }
@@ -347,8 +354,8 @@
   display: flex;
   font-family: Raleway, serif;
   font-style: normal;
-  font-weight: bold;
-  font-size: 12px;
+  font-weight: 500;
+  font-size: 13px;
   line-height: 130%;
 }
 

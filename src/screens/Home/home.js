@@ -26,6 +26,7 @@ const HeaderTitleContainer = styled.h1`
   letter-spacing: 0em;
   text-transform: uppercase;
   margin: 0;
+  font-weight:700;
 `;
 
 const HeaderSubTitleContainer = styled.h2`
@@ -35,7 +36,7 @@ const HeaderSubTitleContainer = styled.h2`
   letter-spacing: 0em;
   text-transform: uppercase;
   margin: 0;
-  font-weight: 500;
+  font-weight: 300;
 `;
 
 const SubtitleContainer = styled.p`
@@ -67,13 +68,12 @@ const Home = (props) => {
       <HeaderContainer isMobile={isMobile}>
         {homeTemplate && homeTemplate.title ? (
           <HeaderTitleContainer
-            style={{ fontWeight: "700" }}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(homeTemplate.title.rendered),
             }}
           />
         ) : (
-          <HeaderTitleContainer style={{ fontWeight: "700" }}>
+          <HeaderTitleContainer>
             L'impact social des actions
           </HeaderTitleContainer>
         )}

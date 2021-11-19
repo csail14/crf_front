@@ -105,15 +105,16 @@ const SearchButtonContainer = styled.div`
   background-color: ${colors.rouge};
   font-weight: 700;
   text-transform: uppercase;
+  font-size:14px;
   cursor: pointer;
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
   font-size: ${(props) => (props.isTop ? "12px" : "")};
   text-align: center;
-  &:hover {
-    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
+  transition: box-shadow 150ms linear, background-color 150ms linear,
       transform 150ms linear;
+  &:hover {
+    box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.98);
   }
 `;
@@ -140,7 +141,7 @@ const ToggleContainer = styled.div`
   right: 0;
   color: ${colors.rouge};
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 13px;
   margin: 10px 5px 0px auto;
   cursor: pointer;

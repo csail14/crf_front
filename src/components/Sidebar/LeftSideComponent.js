@@ -11,7 +11,7 @@ import logoMobile from "../../assets/logo-mobile.png";
 import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
 import { config } from "../../config";
 const ImageContainer = styled.div`
-  margin: 22px 20px 22px 8px;
+  margin: 22px 20px 0px 8px;
   cursor: pointer;
 `;
 
