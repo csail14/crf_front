@@ -55,7 +55,12 @@ const LeftSideComponent = styled.aside`
 const Indicateur = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   let history = useHistory();
-  const id = useState(history.location.state.id);
+  const id =
+    history &&
+    history.location &&
+    history.location.state &&
+    history.location.state.id;
+  const slug = props.match && props.match.params && props.match.params.id;
   const type = history.location.pathname.includes("indicateurs")
     ? "indicateurs"
     : history.location.pathname.includes("domaine-impact")
@@ -71,7 +76,7 @@ const Indicateur = (props) => {
       <MainContainer isMobile={isMobile}>
         {!isMobile && (
           <LeftSideComponent>
-            <DomaineListDeroulante id={id} />
+            <DomaineListDeroulante slug={slug} id={id} />
           </LeftSideComponent>
         )}
         {type === "indicateurs" ? (

@@ -183,7 +183,7 @@ const Contact = (props) => {
   const contactTemplate = props.pages.templates.length
     ? props.pages.templates.filter((template) => template.slug === "contact")[0]
     : null;
-  console.log(contactTemplate);
+
   return (
     <>
       <HeaderContainer>

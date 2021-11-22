@@ -52,10 +52,11 @@ const DomaineListDeroulanteDropDown = (props) => {
       (props.info &&
         props.info.acf &&
         props.info.acf.ressources_liees &&
+        props.info.acf.ressources_liees.length &&
         props.info.acf.ressources_liees.filter(
-          (item) => parseInt(item.ID) === parseInt(props.indicateurId[0])
+          (item) => parseInt(item.post_name) === parseInt(props.slug)
         ).length > 0) ||
-      parseInt(props.indicateurId[0]) === parseInt(props.info.id)
+      parseInt(props.slug) === parseInt(props.info.slug)
     ) {
       setIsOpen(true);
       props.setOpenId(props.info.id);

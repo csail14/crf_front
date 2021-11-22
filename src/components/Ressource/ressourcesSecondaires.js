@@ -4,7 +4,10 @@ import styled from "styled-components";
 import { colors } from "../../colors";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
-import { getRessourceById } from "../../utils/api/RessourcesApi";
+import {
+  getRessourceById,
+  getRessourceBySlug,
+} from "../../utils/api/RessourcesApi";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { config } from "../../config";
 import {
@@ -44,12 +47,23 @@ const Indicateur = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     props.resetAllFilter();
-    getRessourceById(indicateurId, props.type)
-      .then((res) => setIndicateur(res))
-      .catch((error) => console.log(error));
+    if (slug) {
+      getRessourceBySlug(slug, props.type)
+        .then((res) => {
+          if (res.length) {
+            setIndicateur(res[0]);
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      getRessourceById(indicateurId, props.type)
+        .then((res) => setIndicateur(res))
+        .catch((error) => console.log(error));
+    }
   }, []);
 
-  const indicateurId = props.id[0];
+  const indicateurId = props.id && props.id.length && props.id[0];
+  const slug = props.match && props.match.params && props.match.params.id;
 
   let tags = indicateur && indicateur.tags;
 
