@@ -48,16 +48,15 @@ const SubmitButton = styled.button`
   font-size: 14px;
   line-height: 130%;
   /* or 18px */
-  width: 9rem;
-  height: 2.5rem;
+  border:0;
+  padding: 17px 76px;
   text-transform: uppercase;
   margin: 40px auto;
   cursor: pointer;
   color: #ffffff;
+  transition: all 0.3s;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -160,7 +159,7 @@ const Contact = (props) => {
     line-height: 58px;
     letter-spacing: 0em;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: 300;
     margin: 0;
   `;
   const TermsAndConditions = styled.div`
@@ -189,13 +188,12 @@ const Contact = (props) => {
       <HeaderContainer>
         {contactTemplate && contactTemplate.title ? (
           <HeaderTitleContainer
-            style={{ fontWeight: "700" }}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(contactTemplate.title.rendered),
             }}
           />
         ) : (
-          <HeaderTitleContainer style={{ fontWeight: "700" }}>
+          <HeaderTitleContainer>
             Je contacte
           </HeaderTitleContainer>
         )}
@@ -207,7 +205,6 @@ const Contact = (props) => {
         </HeaderSubTitleContainer>
         {contactTemplate && (
           <SubtitleContainer
-            style={{ fontWeight: "700" }}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(
                 contactTemplate &&
