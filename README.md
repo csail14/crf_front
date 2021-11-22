@@ -51,7 +51,7 @@ Exemple vhost (git init dans le dossier react)
 Initialiser et cloner le projet dans le dossier concerné
 
 1. git init
-2. git remote add origin https://gitlab.com/la-guilde-du-pixel/pmis-croix-rouge-francaise.git
+2. git remote add origin https://gitlab.com/la-guilde-du-pixel/pmis-front-croix-rouge-francaise.git
 3. git pull
 4. git checkout dev
 
