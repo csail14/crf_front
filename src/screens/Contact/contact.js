@@ -139,10 +139,11 @@ const Contact = (props) => {
   };
 
   const HeaderContainer = styled.header`
-    padding: ${isMobile ? "30px" : "80px 140px"};
+    padding: ${isMobile ? "30px" : "80px 10%"};
     text-align: left;
     background-image: url(${config.header_image_url});
     background-size: cover;
+    background-position:bottom right;
     margin-bottom: 78px;
   `;
   const HeaderTitleContainer = styled.h2`

@@ -11,7 +11,7 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
+  padding: ${(props) => (props.isMobile ? "30px" : "80px 10%")};
   text-align: left;
   background: radial-gradient(
       68.37% 320.65% at -18.36% 111.75%,
@@ -54,8 +54,8 @@ const BodyContainer = styled.main`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding-right: ${(props) => (props.isMobile ? "30px" : "150px")};
-  padding-left: ${(props) => (props.isMobile ? "30px" : "140px")};
+  padding-right: ${(props) => (props.isMobile ? "30px" : "10%")};
+  padding-left: ${(props) => (props.isMobile ? "30px" : "10%")};
   justify-content: flex-start;
   margin-top: -25px;
 `;

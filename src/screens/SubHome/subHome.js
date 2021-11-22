@@ -13,20 +13,11 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
+  padding: ${(props) => (props.isMobile ? "30px" : "80px 10%")};
   text-align: left;
-  background: radial-gradient(
-      68.37% 320.65% at -18.36% 111.75%,
-      rgba(0, 57, 86, 0.5) 0%,
-      rgba(0, 57, 86, 0.19) 44.84%,
-      rgba(255, 255, 255, 0.09) 100%
-    ),
-    radial-gradient(
-      132.83% 171.01% at 94.89% 166.27%,
-      rgba(227, 6, 19, 0.33) 0%,
-      rgba(227, 6, 19, 0.219) 46.47%,
-      rgba(255, 255, 255, 0.108) 100%
-    );
+  background-image: url(${config.header_image_url});
+  background-size: cover;
+  background-position:bottom right;
 `;
 
 const HeaderTitleContainer = styled.h2`
@@ -44,7 +35,7 @@ const HeaderSubTitleContainer = styled.h3`
   letter-spacing: 0em;
   text-transform: uppercase;
   margin: 0;
-  font-weight: 500;
+  font-weight: 300;
 `;
 
 const SubtitleContainer = styled.p`
@@ -54,13 +45,14 @@ const SubtitleContainer = styled.p`
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.isMobile ? "column" : "")};
-  justify-content: center;
+  justify-content: space-between;
+  padding: ${(props) => (props.isMobile ? "40px 5%" : "70px 10%")};
+
 `;
 
 const Textcontainer = styled.div`
-  padding: ${(props) => (props.isMobile ? "40px 30px" : "70px 150px")};
+  padding: ${(props) => (props.isMobile ? "0" : "0")};
   color: ${colors.gris};
-  text-align: justify;
 `;
 
 const LinkTitleContainer = styled.div`
@@ -74,6 +66,7 @@ const LinkMainContainer = styled.aside`
   padding: 70px 50px;
   margin-right: 50px;
   text-align: left;
+  flex-basis:40%;
 `;
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};

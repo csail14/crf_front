@@ -13,7 +13,7 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "80px 140px")};
+  padding: ${(props) => (props.isMobile ? "30px" : "80px 10%")};
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;

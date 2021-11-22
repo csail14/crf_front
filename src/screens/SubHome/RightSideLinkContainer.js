@@ -18,10 +18,10 @@ const LinkContainer = styled.h3`
   padding: 15px 20px;
   color: ${colors.marine};
   font-weight: 600;
+  font-size:16px;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  min-width: ${(props) => (props.isMobile ? "200px" : "300px")};
   margin-bottom: 10px;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);

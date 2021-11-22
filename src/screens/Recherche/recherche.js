@@ -14,10 +14,11 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "80px 0 140px 100px")};
+  padding: ${(props) => (props.isMobile ? "30px" : "80px 0 140px 10%")};
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
+  background-position:bottom right;
 `;
 
 const HeaderTitleContainer = styled.h2`

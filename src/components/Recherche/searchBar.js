@@ -93,7 +93,7 @@ const MainContainer = styled.div`
   background-color: ${(props) => (props.isMobile ? "" : "white")};
   text-align: left;
   align-items: center;
-  width: fit-content;
+  width: 80%;
   max-width: ${(props) => (props.isTop ? "75%" : "")};
   z-index: 1;
   position: ${(props) => (props.isTop ? "" : "relative")};
