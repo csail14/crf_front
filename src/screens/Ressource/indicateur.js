@@ -80,9 +80,9 @@ const Indicateur = (props) => {
           </LeftSideComponent>
         )}
         {type === "indicateurs" ? (
-          <IndicateurDetails id={id} />
+          <IndicateurDetails type={type} slug={slug} id={id} />
         ) : type === "domaine-impact" ? (
-          <DomainesDetails id={id} />
+          <DomainesDetails slug={slug} id={id} />
         ) : null}
       </MainContainer>
       <RessourcesSecondaires type={type} id={id} />

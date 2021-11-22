@@ -54,9 +54,9 @@ const DomaineListDeroulanteDropDown = (props) => {
         props.info.acf.ressources_liees &&
         props.info.acf.ressources_liees.length &&
         props.info.acf.ressources_liees.filter(
-          (item) => parseInt(item.post_name) === parseInt(props.slug)
+          (item) => item.post_name === props.slug
         ).length > 0) ||
-      parseInt(props.slug) === parseInt(props.info.slug)
+      props.slug === props.info.slug
     ) {
       setIsOpen(true);
       props.setOpenId(props.info.id);

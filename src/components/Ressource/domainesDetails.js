@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../../colors";
-import { getRessourceById } from "../../utils/api/RessourcesApi";
+import {
+  getRessourceById,
+  getRessourceBySlug,
+} from "../../utils/api/RessourcesApi";
 import DOMPurify from "dompurify";
 import { Link } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -63,9 +66,19 @@ const Indicateur = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     props.resetAllFilter();
-    getRessourceById(domaineId, "domaine-impact")
-      .then((res) => setDomaine(res))
-      .catch((error) => console.log(error));
+    if (props.slug) {
+      getRessourceBySlug(props.slug, "domaine-impact")
+        .then((res) => {
+          if (res.length) {
+            setDomaine(res[0]);
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      getRessourceById(domaineId, "domaine-impact")
+        .then((res) => setDomaine(res))
+        .catch((error) => console.log(error));
+    }
   }, []);
 
   const domaineId = props.id[0];

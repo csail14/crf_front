@@ -209,8 +209,8 @@ const Indicateur = (props) => {
   }, []);
 
   const indicateurId = props.id && props.id.length && props.id[0];
-  const slug = props.match && props.match.params && props.match.params.id;
-
+  const slug = props.slug;
+  console.log("slug indicateur", slug);
   const domaineAction =
     indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;
 
@@ -272,12 +272,11 @@ const Indicateur = (props) => {
               listIndicateurTemplate.title.rendered}{" "}
           </Link>
           {" > "}
-
           <div
             className="cliquable_link"
             onClick={() => {
               history.push({
-                pathname: "/domaine-impact/" + domaineImpact.term_id,
+                pathname: "/domaine-impact/" + domaineImpact.slug,
                 state: { id: domaineImpact.term_id },
               });
             }}

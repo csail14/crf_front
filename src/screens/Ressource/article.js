@@ -269,8 +269,6 @@ const Article = (props) => {
     history.location.state &&
     history.location.state.id;
 
-  console.log("slug", slug);
-
   const domaineAction =
     article && article.acf && article.acf.domaine_daction_principal;
 
