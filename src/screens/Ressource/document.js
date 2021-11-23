@@ -441,58 +441,44 @@ const Document = (props) => {
                 }}
               >
                 <BsDownload style={{ marginRight: "8px" }} />
-                Télécharger le document PDF
+                Télécharger le document
               </UploadButton>
             )}
           {document &&
-            document.acf &&
-            document.acf.document &&
-            document.acf.document.format === "Vidéo" && (
-              <>
-                <VideoContainer
-                  dangerouslySetInnerHTML={{
-                    __html: document.acf.document.video,
-                  }}
-                />
-              </>
-            )}
-          {document &&
-            document.acf &&
-            document.acf.document &&
-            document.acf.document.format === "Image" &&
-            document.acf.document.image.sizes && (
-              <img
-                style={isMobile ? {} : { maxWidth: "100%", height: "auto" }}
-                src={document.acf.document.image.sizes.article}
-                alt={media && media.alt_text ? media.alt_text : "A la une"}
-              />
-            )}
-
-          {document &&
-            document.acf &&
-            document.acf.document &&
-            document.acf.document.format === "Web" && (
-              <>
-                <VideoContainer
-                  dangerouslySetInnerHTML={{
-                    __html: document.acf.document.iframe,
-                  }}
-                />
-              </>
-            )}
-          {document &&
-            document.acf &&
-            document.acf.document &&
-            document.acf.document.format === "Lien" && (
-              <UploadButton
-                onClick={() => {
-                  openInNewTab(document.acf.document.lien.url);
+          document.acf &&
+          document.acf.document &&
+          document.acf.document.format === "Vidéo" ? (
+            <>
+              <VideoContainer
+                dangerouslySetInnerHTML={{
+                  __html: document.acf.document.video,
                 }}
-              >
-                <BsDownload style={{ marginRight: "8px" }} />
-                Voir le document
-              </UploadButton>
-            )}
+              />
+            </>
+          ) : document.acf.document.format === "Image" &&
+            document.acf.document.image.sizes ? (
+            <img
+              style={isMobile ? {} : { maxWidth: "100%", height: "auto" }}
+              src={document.acf.document.image.sizes.article}
+              alt={media && media.alt_text ? media.alt_text : "A la une"}
+            />
+          ) : document.acf.document.format === "Web" ? (
+            <VideoContainer
+              dangerouslySetInnerHTML={{
+                __html: document.acf.document.iframe,
+              }}
+            />
+          ) : document.acf.document.format === "Lien" ? (
+            <UploadButton
+              onClick={() => {
+                openInNewTab(document.acf.document.lien.url);
+              }}
+            >
+              <BsDownload style={{ marginRight: "8px" }} />
+              Voir le document
+            </UploadButton>
+          ) : null}
+
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
