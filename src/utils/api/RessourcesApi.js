@@ -23,6 +23,17 @@ export const getRessourceById = async (id, type) => {
     });
 };
 
+export const getRessourceBySlug = async (slug, type) => {
+  return axios
+    .get(config.api_url + "/wp/v2/" + type + "?slug=" + slug)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 export const getDocumentById = async (id) => {
   return axios
     .get(config.api_url + "/wp/v2/documents/" + id)

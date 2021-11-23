@@ -42,6 +42,7 @@ const DomaineListDeroulante = (props) => {
           return (
             <DomaineListDeroulanteDropDown
               indicateurId={props.id}
+              slug={props.slug}
               info={item}
               key={index}
               openID={openID}

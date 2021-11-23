@@ -9,7 +9,10 @@ import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
-import { getDocumentById } from "../../utils/api/RessourcesApi";
+import {
+  getDocumentById,
+  getRessourceBySlug,
+} from "../../utils/api/RessourcesApi";
 import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import { config } from "../../config";
@@ -224,9 +227,19 @@ const Document = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     props.resetAllFilter();
-    getDocumentById(documentId)
-      .then((res) => setDocument(res))
-      .catch((error) => console.log(error));
+    if (slug) {
+      getRessourceBySlug(slug, "documents")
+        .then((res) => {
+          if (res.length) {
+            setDocument(res[0]);
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      getDocumentById(documentId)
+        .then((res) => setDocument(res))
+        .catch((error) => console.log(error));
+    }
   }, []);
 
   useEffect(() => {
@@ -252,7 +265,13 @@ const Document = (props) => {
     }
   }, [document]);
 
-  const documentId = history.location.state.id;
+  const documentId =
+    history &&
+    history.location &&
+    history.location.state &&
+    history.location.state.id;
+
+  const slug = props.match && props.match.params && props.match.params.id;
   const domaineAction =
     document && document.acf && document.acf.domaine_daction_principal;
 
@@ -428,11 +447,7 @@ const Document = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments
-            href="#comments"
-            postID={documentId}
-            showCommment={showCommment}
-          />
+          <Comments postID={documentId} showCommment={showCommment} />
         </LeftSideBodyComponent>
       </BodyContainer>
       <BottomContainer>

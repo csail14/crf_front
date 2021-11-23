@@ -20,6 +20,7 @@ import {
   loadImpactsFilter,
   loadActionsFilter,
 } from "../../actions/filter/filterActions";
+import { HashLink } from "react-router-hash-link";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.article`
@@ -385,8 +386,16 @@ const GridResultComponent = (props) => {
           <PostInfoContainer>
             <div>
               <Comment>
-                <BiComment size={18} style={{ marginRight: "7px" }} />
-                {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
+                <HashLink
+                  to={
+                    details && details.type && details.slug
+                      ? "/" + details.type + "/" + details.slug + "#comments"
+                      : ""
+                  }
+                >
+                  <BiComment size={18} style={{ marginRight: "7px" }} />
+                  {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
+                </HashLink>
               </Comment>
             </div>
             {details && details.acf && details.acf.datas && (

@@ -10,7 +10,10 @@ import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { getMediaById } from "../../utils/api/API";
-import { getArticleById } from "../../utils/api/RessourcesApi";
+import {
+  getArticleById,
+  getRessourceBySlug,
+} from "../../utils/api/RessourcesApi";
 import Comments from "../../components/Ressource/Comments";
 import moment from "moment";
 import DOMPurify from "dompurify";
@@ -219,12 +222,23 @@ const Article = (props) => {
   const [media, setMedia] = useState(null);
   let history = useHistory();
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+  console.log("history", props.match.params.id);
 
   useEffect(() => {
     props.resetAllFilter();
-    getArticleById(articleId)
-      .then((res) => setArticle(res))
-      .catch((error) => console.log(error));
+    if (slug) {
+      getRessourceBySlug(slug, "posts")
+        .then((res) => {
+          if (res.length) {
+            setArticle(res[0]);
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      getArticleById(articleId)
+        .then((res) => setArticle(res))
+        .catch((error) => console.log(error));
+    }
   }, []);
 
   useEffect(() => {
@@ -249,8 +263,12 @@ const Article = (props) => {
       );
     }
   }, [article]);
-
-  const articleId = history.location.state.id;
+  const slug = props.match && props.match.params && props.match.params.id;
+  const articleId =
+    history &&
+    history.location &&
+    history.location.state &&
+    history.location.state.id;
 
   const domaineAction =
     article && article.acf && article.acf.domaine_daction_principal;
@@ -398,11 +416,8 @@ const Article = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments
-            href="#comments"
-            postID={articleId}
-            showCommment={showCommment}
-          />
+          <Comments postID={articleId} showCommment={showCommment} />
+          <div id="comments"></div>
         </LeftSideBodyComponent>
         {article &&
           article.acf &&

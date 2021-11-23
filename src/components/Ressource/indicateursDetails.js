@@ -6,7 +6,10 @@ import { colors } from "../../colors";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
-import { getRessourceById } from "../../utils/api/RessourcesApi";
+import {
+  getRessourceById,
+  getRessourceBySlug,
+} from "../../utils/api/RessourcesApi";
 import moment from "moment";
 import { config } from "../../config";
 import DOMPurify from "dompurify";
@@ -190,13 +193,24 @@ const Indicateur = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
     props.resetAllFilter();
-    getRessourceById(indicateurId, "indicateurs")
-      .then((res) => setIndicateur(res))
-      .catch((error) => console.log(error));
+    if (slug) {
+      getRessourceBySlug(slug, props.type)
+        .then((res) => {
+          if (res.length) {
+            setIndicateur(res[0]);
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      getRessourceById(indicateurId, props.type)
+        .then((res) => setIndicateur(res))
+        .catch((error) => console.log(error));
+    }
   }, []);
 
-  const indicateurId = props.id[0];
-
+  const indicateurId = props.id && props.id.length && props.id[0];
+  const slug = props.slug;
+  console.log("slug indicateur", slug);
   const domaineAction =
     indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;
 
@@ -258,12 +272,11 @@ const Indicateur = (props) => {
               listIndicateurTemplate.title.rendered}{" "}
           </Link>
           {" > "}
-
           <div
             className="cliquable_link"
             onClick={() => {
               history.push({
-                pathname: "/domaine-impact/" + domaineImpact.term_id,
+                pathname: "/domaine-impact/" + domaineImpact.slug,
                 state: { id: domaineImpact.term_id },
               });
             }}
@@ -415,6 +428,7 @@ const Indicateur = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
+          <div id="comments"></div>
           <Comments postID={indicateurId} showCommment={showCommment} />
         </LeftSideBodyComponent>
       </BodyContainer>

@@ -29,6 +29,18 @@ const MainContainer = styled.aside`
   max-width: ${(props) => (props.isMobile ? "" : "min-content")};
 `;
 
+const BackIntranet = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 130%;
+  text-transform: uppercase;
+  color: #828282;
+  padding: 20px 20px 0 20px;
+  cursor: pointer;
+`;
+
 const LeftSideComponent = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
@@ -74,6 +86,15 @@ const LeftSideComponent = (props) => {
           className={"main_container"}
         >
           <div>
+            <a
+              style={{ textDecoration: "none" }}
+              href="https://intranet.croix-rouge.fr"
+            >
+              <BackIntranet>
+                <i class="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
+                Retour à l'intranet
+              </BackIntranet>
+            </a>
             {!isMobile && (
               <ImageContainer>
                 <Link to="/home">
@@ -148,7 +169,10 @@ const LeftSideComponent = (props) => {
           showMenu={showMenu}
           className={"main_container"}
         >
-          {" "}
+          <BackIntranet isMobile={isMobile}>
+            <i class="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
+            Retour à l'intranet
+          </BackIntranet>
           <div className={"sidebar_title"}>
             {isMobile && (
               <Link to="/home" style={{ textDecoration: "none" }}>

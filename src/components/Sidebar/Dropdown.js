@@ -15,19 +15,19 @@ class Dropdown extends Component {
     });
   };
 
-  defineUrl = (long_url, type, slug = null) => {
+  defineUrl = (long_url, type) => {
     const url = long_url.replace("https://pmis-wp.laguildedupixel.fr", "");
+    const urlSlashSeparated = long_url.split("/");
     if (type === "Page") {
-      if (url === "/liste-des-indicateurs/" || url === "/impact-track/") {
-        return url;
-      } else {
-        return url;
-      }
+      return url;
     } else if (type === "Article") {
+      let slug = urlSlashSeparated[urlSlashSeparated.length - 2];
       return "/post/" + slug;
     } else if (type === "Document") {
+      let slug = urlSlashSeparated[urlSlashSeparated.length - 2];
       return "/documents/" + slug;
     } else if (type === "Indicateur") {
+      let slug = urlSlashSeparated[urlSlashSeparated.length - 2];
       return "/indicateurs/" + slug;
     } else return "/";
   };
@@ -58,13 +58,9 @@ class Dropdown extends Component {
           key={obj.ID}
           to={
             obj.type_label === "Page"
-              ? this.defineUrl(obj.url, obj.type_label, obj.post_name)
+              ? this.defineUrl(obj.url, obj.type_label)
               : {
-                  pathname: this.defineUrl(
-                    obj.url,
-                    obj.type_label,
-                    obj.post_name
-                  ),
+                  pathname: this.defineUrl(obj.url, obj.type_label),
                   state: { id: obj.object_id },
                 }
           }

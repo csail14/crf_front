@@ -26,7 +26,7 @@ const HeaderTitleContainer = styled.h1`
   letter-spacing: 0em;
   text-transform: uppercase;
   margin: 0;
-  font-weight:700;
+  font-weight: 700;
 `;
 
 const HeaderSubTitleContainer = styled.h2`
