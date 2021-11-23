@@ -153,7 +153,7 @@ const TagContainer = styled.div`
   color: ${colors.marine};
   cursor: pointer;
   margin-top: 20px;
-  text-decoration: underline;
+
   &:hover {
     opacity: 0.8;
     transition: opacity 150ms linear, transform 150ms linear;
@@ -360,7 +360,10 @@ const Article = (props) => {
                   return (
                     <div style={{ display: "flex" }} key={index}>
                       {" "}
-                      <div onClick={() => handleClickTag(item.name)}>
+                      <div
+                        style={{ textDecoration: "underline" }}
+                        onClick={() => handleClickTag(item.name)}
+                      >
                         {item.name}
                       </div>{" "}
                       {comma}
