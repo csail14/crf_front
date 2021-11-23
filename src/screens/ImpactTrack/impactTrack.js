@@ -10,7 +10,15 @@ const ImpactTrack = (props) => {
       : null;
   const url = template && template.acf && template.acf.lien_impact_track;
   console.log(template);
-  return <script src={url} />;
+  return (
+    <iframe
+      id="impact-track"
+      title="Impact-track"
+      width="100%"
+      height="100%"
+      src={url}
+    ></iframe>
+  );
 };
 
 const mapDispatchToProps = {};
