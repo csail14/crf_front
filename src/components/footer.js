@@ -28,10 +28,7 @@ class Header extends React.Component {
           {menu &&
             menu.map((item, index) => {
               const defineUrl = (long_url, type, slug) => {
-                const url = long_url.replace(
-                  "https://pmis-wp.laguildedupixel.fr",
-                  ""
-                );
+                const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");
                 if (type === "page") {
                   return url;
                 } else if (type === "post") {
@@ -43,7 +40,6 @@ class Header extends React.Component {
                 } else return url;
               };
               const url = defineUrl(item.url, item.object, item.slug);
-
               return (
                 <Link
                   className="cliquable_link"

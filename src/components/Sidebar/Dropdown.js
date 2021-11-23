@@ -16,7 +16,7 @@ class Dropdown extends Component {
   };
 
   defineUrl = (long_url, type, slug) => {
-    const url = long_url.replace("https://pmis-wp.laguildedupixel.fr", "");
+    const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");
     if (type === "Page") {
       return url;
     } else if (type === "Article") {

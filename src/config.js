@@ -1,6 +1,6 @@
 export const config = {
   breakPoint: "900px",
-  api_url: "https://pmis-wp.laguildedupixel.fr/wp-json",
+  api_url: process.env.REACT_APP_ENV_API_LINK,
   header_image_url:
-    "https://pmis-wp.laguildedupixel.fr/wp-content/uploads/2021/10/header.jpeg",
+    process.env.REACT_APP_WP_LINK + "/wp-content/uploads/2021/10/header.jpeg",
 };
