@@ -105,7 +105,6 @@ const TagContainer = styled.div`
   text-align: left;
   color: ${colors.marine};
   margin-top: 20px;
-  text-decoration: underline;
   &:hover {
     opacity: 0.8;
     transition: opacity 150ms linear, transform 150ms linear;
@@ -186,6 +185,7 @@ const TitleBodyContainer = styled.div`
   line-height: 130%;
   text-transform: uppercase;
   margin-bottom: 34px;
+  text-align: left;
 `;
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
@@ -210,7 +210,6 @@ const Indicateur = (props) => {
 
   const indicateurId = props.id && props.id.length && props.id[0];
   const slug = props.slug;
-  console.log("slug indicateur", slug);
   const domaineAction =
     indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;
 
@@ -300,17 +299,21 @@ const Indicateur = (props) => {
           </div>
         </ArianeContainer>
 
-        <CategoryContainer>
-          {domaineAction && (
-            <Category onClick={handleClickAction}>
-              {domaineAction.name}
-            </Category>
-          )}
-          <BsDot />
-          {domaineImpact && (
-            <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
-          )}
-        </CategoryContainer>
+        {(domaineAction || domaineImpact) && (
+          <CategoryContainer>
+            {domaineAction && (
+              <Category onClick={handleClickAction}>
+                {domaineAction.name}
+              </Category>
+            )}
+            <BsDot />
+            {domaineImpact && (
+              <Domaine onClick={handleClickImpact}>
+                {domaineImpact.name}
+              </Domaine>
+            )}
+          </CategoryContainer>
+        )}
         {indicateur !== null && indicateur.title && (
           <TitleContainer
             dangerouslySetInnerHTML={{
@@ -318,7 +321,7 @@ const Indicateur = (props) => {
             }}
           />
         )}
-        {tags && (
+        {tags && tags.length > 0 && (
           <TagContainer>
             <BsTags style={{ marginRight: "8px" }} />
             {tags.map((item, index) => {
@@ -326,7 +329,10 @@ const Indicateur = (props) => {
               return (
                 <div style={{ display: "flex" }} key={index}>
                   {" "}
-                  <div onClick={() => handleClickTag(item.name)}>
+                  <div
+                    style={{ textDecoration: "underline" }}
+                    onClick={() => handleClickTag(item.name)}
+                  >
                     {item.name}
                   </div>{" "}
                   {comma}
@@ -364,11 +370,12 @@ const Indicateur = (props) => {
         )}
         <UpdateContainer>
           <LastUpdateContainer>
-            publié le {document && moment(document.date).format("DD MMMM YYYY")}
+            publié le{" "}
+            {indicateur && moment(indicateur.date).format("DD MMMM YYYY")}
           </LastUpdateContainer>
           <LastUpdateContainer>
             mis à jour le{" "}
-            {document && moment(document.modified).format("DD MMMM YYYY")}
+            {indicateur && moment(indicateur.modified).format("DD MMMM YYYY")}
           </LastUpdateContainer>
         </UpdateContainer>
       </HeaderRightSideBottomContainer>
@@ -419,12 +426,6 @@ const Indicateur = (props) => {
               size={18}
               color={colors.gris}
               style={{ marginRight: "7px", marginLeft: "7px" }}
-              cursor={"pointer"}
-            />
-            <AiOutlineDislike
-              size={18}
-              color={colors.gris}
-              style={{ marginRight: "7px" }}
               cursor={"pointer"}
             />
           </AddLikeContainer>

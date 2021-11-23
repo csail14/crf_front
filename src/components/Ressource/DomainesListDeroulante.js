@@ -39,17 +39,19 @@ const DomaineListDeroulante = (props) => {
       <DomainesMainTitle>Les domaines d’impact</DomainesMainTitle>
       {domaineImpacts &&
         domaineImpacts.map((item, index) => {
-          return (
-            <DomaineListDeroulanteDropDown
-              indicateurId={props.id}
-              slug={props.slug}
-              info={item}
-              key={index}
-              openID={openID}
-              setOpenId={setOpenId}
-              openCloseDropDown={openCloseDropDown}
-            />
-          );
+          if (item.count) {
+            return (
+              <DomaineListDeroulanteDropDown
+                indicateurId={props.id}
+                slug={props.slug}
+                info={item}
+                key={index}
+                openID={openID}
+                setOpenId={setOpenId}
+                openCloseDropDown={openCloseDropDown}
+              />
+            );
+          }
         })}
     </ListDomainContainer>
   );

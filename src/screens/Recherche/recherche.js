@@ -18,7 +18,7 @@ const HeaderContainer = styled.header`
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
-  background-position:bottom right;
+  background-position: bottom right;
 `;
 
 const HeaderTitleContainer = styled.h2`
@@ -87,7 +87,15 @@ const TriesContainer = styled.div`
   padding: 0 40px;
   margin-bottom: 13px;
 `;
-
+const HeaderSubTitleContainer = styled.h3`
+  font-size: 45px;
+  color: ${colors.marine};
+  line-height: 58px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 0;
+`;
 const Tries = styled.div`
   font-weight: bold;
   font-size: 12px;
@@ -128,11 +136,9 @@ const Recherche = (props) => {
   useEffect(() => {
     setResultToDisplay(props.ressources.results);
   }, [props.ressources.results]);
-
+  const slug = props.slug || "recherche";
   const template = props.pages.templates.length
-    ? props.pages.templates.filter(
-        (template) => template.slug === "recherche"
-      )[0]
+    ? props.pages.templates.filter((template) => template.slug === slug)[0]
     : null;
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -206,6 +212,10 @@ const Recherche = (props) => {
             RECHERCHER UNE RESSOURCE
           </HeaderTitleContainer>
         )}
+        <HeaderSubTitleContainer>
+          {" "}
+          {template ? template.acf.sous_titre : ""}
+        </HeaderSubTitleContainer>
         {template && template.acf.intro && (
           <SubtitleContainer
             isMobile={isMobile}

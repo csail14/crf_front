@@ -6,6 +6,10 @@ import { colors } from "../../colors";
 import { config } from "../../config";
 import SubHome from "../SubHome/subHome";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Recherche from "../Recherche/recherche";
+import ListDomaines from "../ListDomaine/listDomaines";
+import ImpactTrack from "../ImpactTrack/impactTrack";
+import Contact from "../Contact/contact";
 
 const MainContainer = styled.div`
   min-height: 92vh;
@@ -17,7 +21,7 @@ const HeaderContainer = styled.header`
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
-  background-position:bottom right;
+  background-position: bottom right;
 `;
 
 const HeaderTitleContainer = styled.h2`
@@ -54,7 +58,7 @@ const Textcontainer = styled.div`
 
 const OtherPage = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-
+  const slug = props.match && props.match.params && props.match.params.id;
   const template = props.pages.templates.length
     ? props.pages.templates.filter(
         (template) => template.slug === props.match.params.id
@@ -64,6 +68,14 @@ const OtherPage = (props) => {
     <>
       {template && template.template === "tpl-sous_home.php" ? (
         <SubHome id={props.match.params.id} />
+      ) : template && template.template === "tpl-recherche.php" ? (
+        <Recherche slug={slug} />
+      ) : template && template.template === "tpl-liste-indicateurs.php" ? (
+        <ListDomaines slug={slug} />
+      ) : template && template.template === "tpl-it.php" ? (
+        <ImpactTrack slug={slug} />
+      ) : template && template.template === "tpl-contact.php" ? (
+        <Contact slug={slug} />
       ) : (
         <MainContainer>
           <HeaderContainer isMobile={isMobile}>

@@ -103,9 +103,9 @@ const Comments = (props) => {
   useEffect(() => {
     const hash = history.location.hash;
     // Check if there is a hash and if an element with that id exists
-    console.log("hash", hash);
+
     const el = hash && document.getElementById(hash.substr(1));
-    console.log("el", el);
+
     if (el) {
       el.scrollIntoView({ block: "center" });
     }

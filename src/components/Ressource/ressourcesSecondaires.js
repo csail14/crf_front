@@ -40,7 +40,7 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
-  padding:0 5%;
+  padding: 0 5%;
 `;
 
 const Indicateur = (props) => {
@@ -75,23 +75,30 @@ const Indicateur = (props) => {
   }
 
   return (
-    <BottomContainer>
-      <BottomTitleContainer>Ressources liées</BottomTitleContainer>
-      <AvailableRessourceContainer isMobile={isMobile}>
-        {indicateur &&
-          indicateur.acf &&
-          indicateur.acf.ressources_liees &&
-          indicateur.acf.ressources_liees.length &&
-          indicateur.acf.ressources_liees.map((item, index) => {
-            if (("item", item.post_status === "publish"))
-              if (isMobile) {
-                return <ListResultComponent key={index} info={item} />;
-              } else {
-                return <GridResultComponent key={index} info={item} />;
-              }
-          })}
-      </AvailableRessourceContainer>
-    </BottomContainer>
+    <>
+      {indicateur &&
+        indicateur.acf &&
+        indicateur.acf.ressources_liees &&
+        indicateur.acf.ressources_liees.length && (
+          <BottomContainer>
+            <BottomTitleContainer>Ressources liées</BottomTitleContainer>
+            <AvailableRessourceContainer isMobile={isMobile}>
+              {indicateur &&
+                indicateur.acf &&
+                indicateur.acf.ressources_liees &&
+                indicateur.acf.ressources_liees.length &&
+                indicateur.acf.ressources_liees.map((item, index) => {
+                  if (("item", item.post_status === "publish"))
+                    if (isMobile) {
+                      return <ListResultComponent key={index} info={item} />;
+                    } else {
+                      return <GridResultComponent key={index} info={item} />;
+                    }
+                })}
+            </AvailableRessourceContainer>
+          </BottomContainer>
+        )}
+    </>
   );
 };
 

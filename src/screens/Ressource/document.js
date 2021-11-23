@@ -131,7 +131,6 @@ const TagContainer = styled.div`
   text-align: left;
   color: ${colors.marine};
   margin-top: 20px;
-  text-decoration: underline;
   &:hover {
     opacity: 0.8;
     transition: opacity 150ms linear, transform 150ms linear;
@@ -202,10 +201,14 @@ const UploadButton = styled.div`
   }
 `;
 
+const VideoContainer = styled.div`
+  margin-top: 20px;
+`;
+
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding:0 5%;
+  padding: 0 5%;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
 `;
@@ -242,28 +245,48 @@ const Document = (props) => {
     }
   }, []);
 
+  const domaineActionId =
+    document && document.acf && document.acf.domaine_daction_principal.term_id;
+
+  const domaineImpactId =
+    document && document.acf && document.acf.domaine_dimpact_principal.term_id;
+
+  const domaineAction =
+    props.taxonomie &&
+    props.taxonomie.domainesActions.filter(
+      (item) => item.id === domaineActionId
+    )[0];
+
+  const domaineImpact =
+    props.taxonomie &&
+    props.taxonomie.domainesImpacts.filter(
+      (item) => item.id === domaineImpactId
+    )[0];
+
   useEffect(() => {
-    if (document && document.featured_media) {
-      getMediaById(document.featured_media)
-        .then((res) => setMedia(res.media_details.sizes.full.source_url))
-        .catch((error) => console.log("error", error));
-    } else if (
-      domaineAction &&
-      domaineAction.acf &&
-      domaineAction.acf.image_par_defaut
-    ) {
-      setMedia(domaineAction.acf.image_par_defaut.sizes.article);
-    } else if (
-      props.options &&
-      props.options.options &&
-      props.options.options.acf &&
-      props.options.options.acf.image_par_defaut_ressources
-    ) {
-      setMedia(
-        props.options.options.acf.image_par_defaut_ressources.sizes.article
-      );
+    if (document) {
+      if (document && document.featured_media) {
+        getMediaById(document.featured_media)
+          .then((res) => setMedia(res.media_details.sizes.full.source_url))
+          .catch((error) => console.log("error", error));
+      } else if (
+        domaineAction &&
+        domaineAction.acf &&
+        domaineAction.acf.image_par_defaut
+      ) {
+        setMedia(domaineAction.acf.image_par_defaut.sizes.article);
+      } else if (
+        props.options &&
+        props.options.options &&
+        props.options.options.acf &&
+        props.options.options.acf.image_par_defaut_ressources
+      ) {
+        setMedia(
+          props.options.options.acf.image_par_defaut_ressources.sizes.article
+        );
+      }
     }
-  }, [document]);
+  }, [document, domaineAction, props.options]);
 
   const documentId =
     history &&
@@ -272,11 +295,6 @@ const Document = (props) => {
     history.location.state.id;
 
   const slug = props.match && props.match.params && props.match.params.id;
-  const domaineAction =
-    document && document.acf && document.acf.domaine_daction_principal;
-
-  const domaineImpact =
-    document && document.acf && document.acf.domaine_dimpact_principal;
 
   let tags = document && document.tags;
 
@@ -310,29 +328,32 @@ const Document = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
         <img
           style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
-          src={media ? media : imageExemple}
+          src={media}
           alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
           <HeaderRightSideTopContainer isMobile={isMobile}>
-            <CategoryContainer>
-              {domaineAction && (
-                <Category onClick={handleClickAction}>
-                  {domaineAction.name}
-                </Category>
-              )}
-              <BsDot />
-              {domaineImpact && (
-                <Domaine onClick={handleClickImpact}>
-                  {domaineImpact.name}
-                </Domaine>
-              )}
-            </CategoryContainer>
+            {(domaineAction || domaineImpact) && (
+              <CategoryContainer>
+                {domaineAction && (
+                  <Category onClick={handleClickAction}>
+                    {domaineAction.name}
+                  </Category>
+                )}
+                <BsDot />
+                {domaineImpact && (
+                  <Domaine onClick={handleClickImpact}>
+                    {domaineImpact.name}
+                  </Domaine>
+                )}
+              </CategoryContainer>
+            )}
 
             {document !== null && document.title && (
               <TitleContainer
@@ -342,7 +363,7 @@ const Document = (props) => {
               />
             )}
 
-            {tags && (
+            {tags && tags.length > 0 && (
               <TagContainer>
                 <BsTags style={{ marginRight: "8px" }} />
                 {tags.map((item, index) => {
@@ -350,7 +371,10 @@ const Document = (props) => {
                   return (
                     <div style={{ display: "flex" }} key={index}>
                       {" "}
-                      <div onClick={() => handleClickTag(item.name)}>
+                      <div
+                        style={{ textDecoration: "underline" }}
+                        onClick={() => handleClickTag(item.name)}
+                      >
                         {item.name}
                       </div>{" "}
                       {comma}
@@ -406,23 +430,48 @@ const Document = (props) => {
               }}
             />
           )}
+
           {document &&
             document.acf &&
             document.acf.document &&
-            document.acf.document.fichier_joint.subtype === "pdf" && (
+            document.acf.document.fichier_joint && (
               <UploadButton
                 onClick={() => {
                   openInNewTab(document.acf.document.fichier_joint.url);
                 }}
               >
                 <BsDownload style={{ marginRight: "8px" }} />
-                Télécharger le document PDF
+                Télécharger le document
               </UploadButton>
             )}
           {document &&
             document.acf &&
             document.acf.document &&
-            document.acf.document.format === "Lien" && (
+            (document.acf.document.video &&
+            document.acf.document.format === "Vidéo" ? (
+              <>
+                <VideoContainer
+                  dangerouslySetInnerHTML={{
+                    __html: document.acf.document.video,
+                  }}
+                />
+              </>
+            ) : document.acf.document.format === "Image" &&
+              document.acf.document.image.sizes &&
+              document.acf.document.image.sizes.article ? (
+              <img
+                style={isMobile ? {} : { maxWidth: "100%", height: "auto" }}
+                src={document.acf.document.image.sizes.article}
+                alt={media && media.alt_text ? media.alt_text : "A la une"}
+              />
+            ) : document.acf.document.format === "Web" ? (
+              <VideoContainer
+                dangerouslySetInnerHTML={{
+                  __html: document.acf.document.iframe,
+                }}
+              />
+            ) : document.acf.document.format === "Lien" &&
+              document.acf.document.lien ? (
               <UploadButton
                 onClick={() => {
                   openInNewTab(document.acf.document.lien.url);
@@ -431,7 +480,8 @@ const Document = (props) => {
                 <BsDownload style={{ marginRight: "8px" }} />
                 Voir le document
               </UploadButton>
-            )}
+            ) : null)}
+
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
@@ -440,32 +490,28 @@ const Document = (props) => {
               style={{ marginRight: "7px", marginLeft: "7px" }}
               cursor={"pointer"}
             />
-            <AiOutlineDislike
-              size={18}
-              color={colors.gris}
-              style={{ marginRight: "7px" }}
-              cursor={"pointer"}
-            />
           </AddLikeContainer>
           <Comments postID={documentId} showCommment={showCommment} />
         </LeftSideBodyComponent>
       </BodyContainer>
-      <BottomContainer>
-        <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
-        <AvailableRessourceContainer isMobile={isMobile}>
-          {document &&
-            document.acf &&
-            document.acf.ressources_complementaires.length &&
-            document.acf.ressources_complementaires.map((item, index) => {
-              if (item.post_status === "publish")
-                if (isMobile) {
-                  return <ListResultComponent key={index} info={item} />;
-                } else {
-                  return <GridResultComponent key={index} info={item} />;
-                }
-            })}
-        </AvailableRessourceContainer>
-      </BottomContainer>
+      {document &&
+        document.acf &&
+        document.acf.ressources_complementaires.length > 0 && (
+          <BottomContainer>
+            <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
+
+            <AvailableRessourceContainer isMobile={isMobile}>
+              {document.acf.ressources_complementaires.map((item, index) => {
+                if (item.post_status === "publish")
+                  if (isMobile) {
+                    return <ListResultComponent key={index} info={item} />;
+                  } else {
+                    return <GridResultComponent key={index} info={item} />;
+                  }
+              })}
+            </AvailableRessourceContainer>
+          </BottomContainer>
+        )}
     </MainContainer>
   );
 };

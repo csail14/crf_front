@@ -94,10 +94,7 @@ const Text = styled.div`
 const SubHomeBloc = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
-  const link = props.info.push.lien.replace(
-    "https://pmis-wp.laguildedupixel.fr/",
-    ""
-  );
+  const link = props.info.push.lien.replace(process.env.REACT_APP_WP_LINK, "");
   let history = useHistory();
   return (
     <MainContainer isMobile={isMobile}>

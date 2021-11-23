@@ -17,7 +17,7 @@ const HeaderContainer = styled.header`
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
-  background-position:bottom right;
+  background-position: bottom right;
 `;
 
 const HeaderTitleContainer = styled.h2`
@@ -47,13 +47,12 @@ const BodyContainer = styled.div`
   flex-direction: ${(props) => (props.isMobile ? "column" : "")};
   justify-content: space-between;
   padding: ${(props) => (props.isMobile ? "40px 5%" : "70px 10%")};
-
 `;
 
 const Textcontainer = styled.div`
   padding: ${(props) => (props.isMobile ? "0" : "0")};
   color: ${colors.gris};
-  flex-basis:55%;
+  flex-basis: 55%;
   text-align: left;
 `;
 
@@ -63,12 +62,11 @@ const LinkTitleContainer = styled.div`
   color: ${colors.marine};
   text-transform: uppercase;
   margin-bottom: 30px;
-  
 `;
 const LinkMainContainer = styled.aside`
   padding: 20px 0px;
   text-align: left;
-  flex-basis:40%;
+  flex-basis: 40%;
 `;
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
@@ -91,7 +89,7 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
-  padding:0 5%;
+  padding: 0 5%;
 `;
 
 const SubHome = (props) => {

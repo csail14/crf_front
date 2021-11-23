@@ -30,10 +30,10 @@ const MainContainer = styled.article`
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
   height: fit-content;
   transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+    transform 150ms linear;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    
+
     transform: scale(0.98);
   }
 `;
@@ -208,30 +208,6 @@ const GridResultComponent = (props) => {
         .catch((error) => console.log(error));
     }
   }, [props.info]);
-
-  useEffect(() => {
-    if (details && details.featured_media) {
-      getMediaById(details.featured_media)
-        .then((res) => setMedia(res.media_details.sizes.full.source_url))
-        .catch((error) => console.log("error", error));
-    } else if (
-      domaineAction &&
-      domaineAction.acf &&
-      domaineAction.acf.image_par_defaut
-    ) {
-      setMedia(domaineAction.acf.image_par_defaut.sizes.article);
-    } else if (
-      props.options &&
-      props.options.options &&
-      props.options.options.acf &&
-      props.options.options.acf.image_par_defaut_ressources
-    ) {
-      setMedia(
-        props.options.options.acf.image_par_defaut_ressources.sizes.article
-      );
-    }
-  }, [details]);
-
   const domaineAction =
     details && details.acf && details.acf.domaine_daction_principal
       ? props.taxonomie.domainesActions.filter(
@@ -246,6 +222,33 @@ const GridResultComponent = (props) => {
           )[0]
         : null
       : null;
+
+  useEffect(() => {
+    if (details) {
+      if (details && details.featured_media) {
+        getMediaById(details.featured_media)
+          .then((res) => {
+            setMedia(res.media_details.sizes.grille.source_url);
+          })
+          .catch((error) => console.log("error", error));
+      } else if (
+        domaineAction &&
+        domaineAction.acf &&
+        domaineAction.acf.image_par_defaut
+      ) {
+        setMedia(domaineAction.acf.image_par_defaut.sizes.grille);
+      } else if (
+        props.options &&
+        props.options.options &&
+        props.options.options.acf &&
+        props.options.options.acf.image_par_defaut_ressources
+      ) {
+        setMedia(
+          props.options.options.acf.image_par_defaut_ressources.sizes.grille
+        );
+      }
+    }
+  }, [details, domaineAction, props.options]);
 
   let tags = details && details.tags;
 
@@ -263,6 +266,8 @@ const GridResultComponent = (props) => {
       ? "bi bi-file-earmark-bar-graph"
       : details && details.acf && details.acf.document.format === "Lien"
       ? "bi bi-link-45deg"
+      : details && details.acf && details.acf.document.format === "Web"
+      ? "bi bi-file-code"
       : details && details.acf && details.acf.document.format === "Texte"
       ? "bi bi-file-earmark-font"
       : details && details.acf && details.acf.document.format === "Tableau"
@@ -324,17 +329,21 @@ const GridResultComponent = (props) => {
           mis à jour le{" "}
           {details && moment(details.modified).format("DD MMMM YYYY")}
         </LastUpdateContainer>
-        <CategoryContainer>
-          {domaineAction && (
-            <Category onClick={handleClickAction}>
-              {domaineAction.name}
-            </Category>
-          )}
-          <BsDot />
-          {domaineImpact && (
-            <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
-          )}
-        </CategoryContainer>
+        {(domaineImpact || domaineAction) && (
+          <CategoryContainer>
+            {domaineAction && (
+              <Category onClick={handleClickAction}>
+                {domaineAction.name}
+              </Category>
+            )}
+            <BsDot />
+            {domaineImpact && (
+              <Domaine onClick={handleClickImpact}>
+                {domaineImpact.name}
+              </Domaine>
+            )}
+          </CategoryContainer>
+        )}
 
         {details && details.title && (
           <TitleContainer
@@ -364,7 +373,7 @@ const GridResultComponent = (props) => {
             }}
           ></DescriptionContainer>
         )}
-        {tags && (
+        {tags && tags.length > 0 && (
           <TagContainer>
             <BsTags style={{ marginRight: "8px" }} />
 
@@ -426,7 +435,7 @@ const GridResultComponent = (props) => {
       {details &&
         details.acf &&
         details.acf.document &&
-        details.acf.document.fichier_joint.subtype === "pdf" && (
+        details.acf.document.fichier_joint && (
           <UploadContainer
             onClick={() => {
               openInNewTab(details.acf.document.fichier_joint.url);

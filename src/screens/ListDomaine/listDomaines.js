@@ -62,11 +62,9 @@ const BodyContainer = styled.main`
 
 const ListDomaines = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-
+  const slug = props.slug || "liste-des-indicateurs";
   const template = props.pages.templates.length
-    ? props.pages.templates.filter(
-        (template) => template.slug === "liste-des-indicateurs"
-      )[0]
+    ? props.pages.templates.filter((template) => template.slug === slug)[0]
     : null;
 
   return (
@@ -100,7 +98,9 @@ const ListDomaines = (props) => {
         {props.taxonomie &&
           props.taxonomie.domainesImpacts &&
           props.taxonomie.domainesImpacts.map((item, index) => {
-            return <ApercuDomaine info={item} key={index} />;
+            if (item.count) {
+              return <ApercuDomaine info={item} key={index} />;
+            }
           })}
       </BodyContainer>
     </MainContainer>
