@@ -48,7 +48,7 @@ const SubmitButton = styled.button`
   font-size: 14px;
   line-height: 130%;
   /* or 18px */
-  border:0;
+  border: 0;
   padding: 17px 76px;
   text-transform: uppercase;
   margin: 40px auto;
@@ -143,7 +143,7 @@ const Contact = (props) => {
     text-align: left;
     background-image: url(${config.header_image_url});
     background-size: cover;
-    background-position:bottom right;
+    background-position: bottom right;
     margin-bottom: 78px;
   `;
   const HeaderTitleContainer = styled.h2`
@@ -180,9 +180,11 @@ const Contact = (props) => {
     margin-top: 26px;
     color: ${colors.gris};
   `;
-  const contactTemplate = props.pages.templates.length
-    ? props.pages.templates.filter((template) => template.slug === "contact")[0]
-    : null;
+  const slug = props.slug || "contact";
+  const contactTemplate =
+    props.pages && props.pages.templates && props.pages.templates.length
+      ? props.pages.templates.filter((template) => template.slug === slug)[0]
+      : null;
 
   return (
     <>
@@ -194,9 +196,7 @@ const Contact = (props) => {
             }}
           />
         ) : (
-          <HeaderTitleContainer>
-            Je contacte
-          </HeaderTitleContainer>
+          <HeaderTitleContainer>Je contacte</HeaderTitleContainer>
         )}
         <HeaderSubTitleContainer>
           {" "}
@@ -386,7 +386,7 @@ const Contact = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return { options: store.options };
+  return { options: store.options, pages: store.pages };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contact);

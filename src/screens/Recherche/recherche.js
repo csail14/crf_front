@@ -18,7 +18,7 @@ const HeaderContainer = styled.header`
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
-  background-position:bottom right;
+  background-position: bottom right;
 `;
 
 const HeaderTitleContainer = styled.h2`
@@ -128,11 +128,9 @@ const Recherche = (props) => {
   useEffect(() => {
     setResultToDisplay(props.ressources.results);
   }, [props.ressources.results]);
-
+  const slug = props.slug || "recherche";
   const template = props.pages.templates.length
-    ? props.pages.templates.filter(
-        (template) => template.slug === "recherche"
-      )[0]
+    ? props.pages.templates.filter((template) => template.slug === slug)[0]
     : null;
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);

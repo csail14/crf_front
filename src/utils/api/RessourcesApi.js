@@ -3,7 +3,7 @@ import { config } from "../../config";
 
 export const getAllPages = async () => {
   return axios
-    .get(config.api_url + "/wp/v2/pages")
+    .get(config.api_url + "/wp/v2/pages?per_page=100")
     .then((response) => {
       return response.data;
     })
