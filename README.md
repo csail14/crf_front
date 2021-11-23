@@ -71,6 +71,7 @@ Avant de pusher sur le repo
 - ajouter fichier .htaccess dans le build : (à refaire àxs chaque le build)
   <IfModule mod_rewrite.c>
 
+```
 RewriteEngine On
 RewriteBase /
 RewriteRule ^index\.html$ - [L]
@@ -78,5 +79,14 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule . /index.html [L]
+```
+
+- Ajouter fichier .env
+
+```
+REACT_APP_ENV_API_LINK=https://pmis-wp.laguildedupixel.fr/wp-json
+REACT_APP_WP_LINK=https://pmis-wp.laguildedupixel.fr
+
+```
 
 </IfModule>
