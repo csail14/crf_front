@@ -27,10 +27,23 @@ class Header extends React.Component {
         <FooterLinkContainer>
           {menu &&
             menu.map((item, index) => {
-              const url = item.url.replace(
-                "https://pmis-wp.laguildedupixel.fr",
-                ""
-              );
+              const defineUrl = (long_url, type, slug) => {
+                const url = long_url.replace(
+                  "https://pmis-wp.laguildedupixel.fr",
+                  ""
+                );
+                if (type === "page") {
+                  return url;
+                } else if (type === "post") {
+                  return "/post/" + slug;
+                } else if (type === "document") {
+                  return "/documents/" + slug;
+                } else if (type === "indicateur") {
+                  return "/indicateurs/" + slug;
+                } else return url;
+              };
+              const url = defineUrl(item.url, item.object, item.slug);
+
               return (
                 <Link
                   className="cliquable_link"
