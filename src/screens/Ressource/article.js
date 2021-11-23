@@ -175,6 +175,7 @@ const UpdateContainer = styled.time`
 
 const BodyContainer = styled.div`
   display: flex;
+  justify-content: center;
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
   padding: ${(props) => (props.isMobile ? "30px 20px" : "100px 80px")};
 `;
