@@ -329,17 +329,21 @@ const GridResultComponent = (props) => {
           mis à jour le{" "}
           {details && moment(details.modified).format("DD MMMM YYYY")}
         </LastUpdateContainer>
-        <CategoryContainer>
-          {domaineAction && (
-            <Category onClick={handleClickAction}>
-              {domaineAction.name}
-            </Category>
-          )}
-          <BsDot />
-          {domaineImpact && (
-            <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
-          )}
-        </CategoryContainer>
+        {(domaineImpact || domaineAction) && (
+          <CategoryContainer>
+            {domaineAction && (
+              <Category onClick={handleClickAction}>
+                {domaineAction.name}
+              </Category>
+            )}
+            <BsDot />
+            {domaineImpact && (
+              <Domaine onClick={handleClickImpact}>
+                {domaineImpact.name}
+              </Domaine>
+            )}
+          </CategoryContainer>
+        )}
 
         {details && details.title && (
           <TitleContainer
@@ -369,7 +373,7 @@ const GridResultComponent = (props) => {
             }}
           ></DescriptionContainer>
         )}
-        {tags && (
+        {tags && tags.length > 0 && (
           <TagContainer>
             <BsTags style={{ marginRight: "8px" }} />
 
@@ -431,7 +435,7 @@ const GridResultComponent = (props) => {
       {details &&
         details.acf &&
         details.acf.document &&
-        details.acf.document.fichier_joint.subtype === "pdf" && (
+        details.acf.document.fichier_joint && (
           <UploadContainer
             onClick={() => {
               openInNewTab(details.acf.document.fichier_joint.url);

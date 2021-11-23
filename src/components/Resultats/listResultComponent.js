@@ -342,7 +342,7 @@ const GridResultComponent = (props) => {
           {details &&
             details.acf &&
             details.acf.document &&
-            details.acf.document.fichier_joint.subtype === "pdf" && (
+            details.acf.document.fichier_joint && (
               <UploadContainer
                 onClick={(e) => {
                   e.stopPropagation();
@@ -382,7 +382,7 @@ const GridResultComponent = (props) => {
             <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
           )}
 
-          {tags && (
+          {tags && tags.length > 0 && (
             <TagContainer>
               {tags.map((item, index) => {
                 let comma = index < tags.length - 1 ? ", " : "";
