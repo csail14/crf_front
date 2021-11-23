@@ -42,6 +42,7 @@ const MainContainer = styled.div`
   background-repeat: no-repeat;
   padding-right: ${(props) => (props.isMobile ? "" : "100px")};
   position: relative;
+  min-height: 95vh;
 `;
 
 const LeftSideComponent = styled.aside`

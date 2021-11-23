@@ -240,40 +240,54 @@ const Article = (props) => {
     }
   }, []);
 
+  const domaineActionId =
+    article && article.acf && article.acf.domaine_daction_principal.term_id;
+
+  const domaineImpactId =
+    article && article.acf && article.acf.domaine_dimpact_principal.term_id;
+
+  const domaineAction =
+    props.taxonomie &&
+    props.taxonomie.domainesActions.filter(
+      (item) => item.id === domaineActionId
+    )[0];
+
+  const domaineImpact =
+    props.taxonomie &&
+    props.taxonomie.domainesImpacts.filter(
+      (item) => item.id === domaineImpactId
+    )[0];
+
   useEffect(() => {
-    if (article && article.featured_media) {
-      getMediaById(article.featured_media)
-        .then((res) => setMedia(res.media_details.sizes.full.source_url))
-        .catch((error) => console.log("error", error));
-    } else if (
-      domaineAction &&
-      domaineAction.acf &&
-      domaineAction.acf.image_par_defaut
-    ) {
-      setMedia(domaineAction.acf.image_par_defaut.sizes.article);
-    } else if (
-      props.options &&
-      props.options.options &&
-      props.options.options.acf &&
-      props.options.options.acf.image_par_defaut_ressources
-    ) {
-      setMedia(
-        props.options.options.acf.image_par_defaut_ressources.sizes.article
-      );
+    if (article) {
+      if (article && article.featured_media) {
+        getMediaById(article.featured_media)
+          .then((res) => setMedia(res.media_details.sizes.full.source_url))
+          .catch((error) => console.log("error", error));
+      } else if (
+        domaineAction &&
+        domaineAction.acf &&
+        domaineAction.acf.image_par_defaut
+      ) {
+        setMedia(domaineAction.acf.image_par_defaut.sizes.article);
+      } else if (
+        props.options &&
+        props.options.options &&
+        props.options.options.acf &&
+        props.options.options.acf.image_par_defaut_ressources
+      ) {
+        setMedia(
+          props.options.options.acf.image_par_defaut_ressources.sizes.article
+        );
+      }
     }
-  }, [article]);
+  }, [article, domaineAction, props.options]);
   const slug = props.match && props.match.params && props.match.params.id;
   const articleId =
     history &&
     history.location &&
     history.location.state &&
     history.location.state.id;
-
-  const domaineAction =
-    article && article.acf && article.acf.domaine_daction_principal;
-
-  const domaineImpact =
-    article && article.acf && article.acf.domaine_dimpact_principal;
 
   let tags = article && article.tags;
 
@@ -304,29 +318,32 @@ const Article = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+  console.log("article", article);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
         <img
           style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
-          src={media ? media : imageExemple}
+          src={media}
           alt={media && media.alt_text ? media.alt_text : "A la une"}
         />
         <RightSideContainer>
           <HeaderRightSideTopContainer isMobile={isMobile}>
-            <CategoryContainer>
-              {domaineAction && (
-                <Category onClick={handleClickAction}>
-                  {domaineAction.name}
-                </Category>
-              )}
-              <BsDot />
-              {domaineImpact && (
-                <Domaine onClick={handleClickImpact}>
-                  {domaineImpact.name}
-                </Domaine>
-              )}
-            </CategoryContainer>
+            {(domaineAction || domaineImpact) && (
+              <CategoryContainer>
+                {domaineAction && (
+                  <Category onClick={handleClickAction}>
+                    {domaineAction.name}
+                  </Category>
+                )}
+                <BsDot />
+                {domaineImpact && (
+                  <Domaine onClick={handleClickImpact}>
+                    {domaineImpact.name}
+                  </Domaine>
+                )}
+              </CategoryContainer>
+            )}
             {article !== null && article.title && (
               <TitleContainer
                 dangerouslySetInnerHTML={{
@@ -335,7 +352,7 @@ const Article = (props) => {
               />
             )}
 
-            {tags && (
+            {tags && tags.length > 0 && (
               <TagContainer>
                 <BsTags style={{ marginRight: "8px" }} />
                 {tags.map((item, index) => {
@@ -408,18 +425,13 @@ const Article = (props) => {
               style={{ marginRight: "7px", marginLeft: "7px" }}
               cursor={"pointer"}
             />
-            <AiOutlineDislike
-              size={18}
-              color={colors.gris}
-              style={{ marginRight: "7px" }}
-              cursor={"pointer"}
-            />
           </AddLikeContainer>
           <Comments postID={articleId} showCommment={showCommment} />
           <div id="comments"></div>
         </LeftSideBodyComponent>
         {article &&
           article.acf &&
+          article.acf.ressources_principales &&
           article.acf.ressources_principales.length > 0 && (
             <RightSideBodyContainer isMobile={isMobile}>
               <TitleRessourceContainer>
@@ -435,22 +447,27 @@ const Article = (props) => {
             </RightSideBodyContainer>
           )}
       </BodyContainer>
-      <BottomContainer>
-        <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
-        <AvailableRessourceContainer isMobile={isMobile}>
-          {article &&
-            article.acf &&
-            article.acf.ressources_secondaires.length > 0 &&
-            article.acf.ressources_secondaires.map((item, index) => {
-              if (item.post_status === "publish")
-                if (isMobile) {
-                  return <ListResultComponent key={index} info={item} />;
-                } else {
-                  return <GridResultComponent key={index} info={item} />;
-                }
-            })}
-        </AvailableRessourceContainer>
-      </BottomContainer>
+      {article &&
+        article.acf &&
+        article.acf.ressources_secondaires &&
+        article.acf.ressources_secondaires.length > 0 && (
+          <BottomContainer>
+            <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
+            <AvailableRessourceContainer isMobile={isMobile}>
+              {article &&
+                article.acf &&
+                article.acf.ressources_secondaires.length > 0 &&
+                article.acf.ressources_secondaires.map((item, index) => {
+                  if (item.post_status === "publish")
+                    if (isMobile) {
+                      return <ListResultComponent key={index} info={item} />;
+                    } else {
+                      return <GridResultComponent key={index} info={item} />;
+                    }
+                })}
+            </AvailableRessourceContainer>
+          </BottomContainer>
+        )}
     </MainContainer>
   );
 };

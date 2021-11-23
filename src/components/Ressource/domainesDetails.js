@@ -126,10 +126,10 @@ const Indicateur = (props) => {
 
       <BodyContainer isMobile={isMobile}>
         <LeftSideBodyComponent>
-          {domaine && domaine.acf && domaine.acf.details && (
+          {domaine && domaine.acf && domaine.acf.detail && (
             <ContentContainer
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(domaine.acf.details),
+                __html: DOMPurify.sanitize(domaine.acf.detail),
               }}
             />
           )}

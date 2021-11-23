@@ -105,14 +105,14 @@ const SearchButtonContainer = styled.div`
   background-color: ${colors.rouge};
   font-weight: 700;
   text-transform: uppercase;
-  font-size:14px;
+  font-size: 14px;
   cursor: pointer;
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
   font-size: ${(props) => (props.isTop ? "12px" : "")};
   text-align: center;
   transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+    transform 150ms linear;
   &:hover {
     box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.98);
@@ -444,8 +444,8 @@ const SearchBar = (props) => {
       sendSearchRequest();
     }
   };
-  const isArticleSelected =
-    selectedType.filter((item) => item.id === 3).length > 0 ||
+  const isDocSelected =
+    selectedType.filter((item) => item.id === 1).length > 0 ||
     selectedType.length === 0;
   return (
     <MainContainer
@@ -523,7 +523,7 @@ const SearchBar = (props) => {
       </div>
       {(isTop || (isMobile && showAdvancedSearch)) && (
         <>
-          {isArticleSelected && (
+          {isDocSelected && (
             <div
               style={isMobile ? { width: "-webkit-fill-available" } : {}}
               ref={categorieRef}
@@ -621,7 +621,7 @@ const SearchBar = (props) => {
       {showAdvancedSearch && !isTop && !isMobile && (
         <AdvancedSearchBarContainer>
           <AdvancedSearchBar>
-            {isArticleSelected && (
+            {isDocSelected && (
               <div ref={categorieRef}>
                 <SimpleFilterItem
                   selectedObject={selectedCategorie}

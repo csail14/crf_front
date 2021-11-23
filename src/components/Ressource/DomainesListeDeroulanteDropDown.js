@@ -85,20 +85,22 @@ const DomaineListDeroulanteDropDown = (props) => {
         props.info.acf.ressources_liees.map((item, index) => {
           const isThisRessourceOpen =
             item.ID == parseInt(props.indicateurId) ? true : false;
-          return (
-            <RessourcesLieesContainer
-              key={index}
-              onClick={() => {
-                history.push({
-                  pathname: "/" + item.post_type + "/" + item.post_name,
-                  state: { id: item.ID },
-                });
-              }}
-              isThisRessourceOpen={isThisRessourceOpen}
-            >
-              {item.post_title}
-            </RessourcesLieesContainer>
-          );
+          if (item.post_type === "indicateurs") {
+            return (
+              <RessourcesLieesContainer
+                key={index}
+                onClick={() => {
+                  history.push({
+                    pathname: "/" + item.post_type + "/" + item.post_name,
+                    state: { id: item.ID },
+                  });
+                }}
+                isThisRessourceOpen={isThisRessourceOpen}
+              >
+                {item.post_title}
+              </RessourcesLieesContainer>
+            );
+          }
         })}
     </>
   );

@@ -35,7 +35,7 @@ const MainContainer = styled.article`
   height: fit-content;
   cursor: pointer;
   transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+    transform 150ms linear;
   &:hover {
     box-shadow: 6px 8px 15px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.99);
@@ -258,6 +258,8 @@ const GridResultComponent = (props) => {
       ? "bi bi-file-earmark-bar-graph"
       : details && details.acf && details.acf.document.format === "Lien"
       ? "bi bi-link-45deg"
+      : details && details.acf && details.acf.document.format === "Web"
+      ? "bi bi-file-code"
       : details && details.acf && details.acf.document.format === "Texte"
       ? "bi bi-file-earmark-font"
       : details && details.acf && details.acf.document.format === "Tableau"

@@ -186,6 +186,7 @@ const TitleBodyContainer = styled.div`
   line-height: 130%;
   text-transform: uppercase;
   margin-bottom: 34px;
+  text-align: left;
 `;
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
@@ -299,17 +300,21 @@ const Indicateur = (props) => {
           </div>
         </ArianeContainer>
 
-        <CategoryContainer>
-          {domaineAction && (
-            <Category onClick={handleClickAction}>
-              {domaineAction.name}
-            </Category>
-          )}
-          <BsDot />
-          {domaineImpact && (
-            <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
-          )}
-        </CategoryContainer>
+        {(domaineAction || domaineImpact) && (
+          <CategoryContainer>
+            {domaineAction && (
+              <Category onClick={handleClickAction}>
+                {domaineAction.name}
+              </Category>
+            )}
+            <BsDot />
+            {domaineImpact && (
+              <Domaine onClick={handleClickImpact}>
+                {domaineImpact.name}
+              </Domaine>
+            )}
+          </CategoryContainer>
+        )}
         {indicateur !== null && indicateur.title && (
           <TitleContainer
             dangerouslySetInnerHTML={{
@@ -317,7 +322,7 @@ const Indicateur = (props) => {
             }}
           />
         )}
-        {tags && (
+        {tags && tags.length > 0 && (
           <TagContainer>
             <BsTags style={{ marginRight: "8px" }} />
             {tags.map((item, index) => {
@@ -363,11 +368,12 @@ const Indicateur = (props) => {
         )}
         <UpdateContainer>
           <LastUpdateContainer>
-            publié le {document && moment(document.date).format("DD MMMM YYYY")}
+            publié le{" "}
+            {indicateur && moment(indicateur.date).format("DD MMMM YYYY")}
           </LastUpdateContainer>
           <LastUpdateContainer>
             mis à jour le{" "}
-            {document && moment(document.modified).format("DD MMMM YYYY")}
+            {indicateur && moment(indicateur.modified).format("DD MMMM YYYY")}
           </LastUpdateContainer>
         </UpdateContainer>
       </HeaderRightSideBottomContainer>
@@ -418,12 +424,6 @@ const Indicateur = (props) => {
               size={18}
               color={colors.gris}
               style={{ marginRight: "7px", marginLeft: "7px" }}
-              cursor={"pointer"}
-            />
-            <AiOutlineDislike
-              size={18}
-              color={colors.gris}
-              style={{ marginRight: "7px" }}
               cursor={"pointer"}
             />
           </AddLikeContainer>

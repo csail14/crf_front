@@ -36,6 +36,12 @@ export const data = {
       id: 5,
       value: "Lien",
     },
+    {
+      name: "Web",
+      icon: "bi bi-file-code",
+      id: 6,
+      value: "Web",
+    },
   ],
   type_ressources: [
     { id: 0, name: "Dans tous le site", type: "all" },

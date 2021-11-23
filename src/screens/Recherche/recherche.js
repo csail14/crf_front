@@ -197,7 +197,6 @@ const Recherche = (props) => {
     }
     setResultToDisplay(newArray);
   };
-  console.log("template", template);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
