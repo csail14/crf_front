@@ -69,6 +69,7 @@ function useHover() {
 const ApercuDomaine = (props) => {
   const [hoverRef, isHovered] = useHover();
   let history = useHistory();
+
   return (
     <LinkContainer
       ref={hoverRef}
@@ -82,7 +83,7 @@ const ApercuDomaine = (props) => {
       {props.info.name}
 
       <MdArrowForwardIos style={{ color: colors.marine }} />
-      {isHovered && (
+      {isHovered && props.info.description !== "" && (
         <>
           <BsFillTriangleFill
             style={{ position: "absolute", right: "70px", bottom: "-10px" }}

@@ -328,6 +328,7 @@ const Document = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
