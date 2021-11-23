@@ -87,7 +87,15 @@ const TriesContainer = styled.div`
   padding: 0 40px;
   margin-bottom: 13px;
 `;
-
+const HeaderSubTitleContainer = styled.h3`
+  font-size: 45px;
+  color: ${colors.marine};
+  line-height: 58px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 0;
+`;
 const Tries = styled.div`
   font-weight: bold;
   font-size: 12px;
@@ -189,6 +197,7 @@ const Recherche = (props) => {
     }
     setResultToDisplay(newArray);
   };
+  console.log("template", template);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -204,6 +213,10 @@ const Recherche = (props) => {
             RECHERCHER UNE RESSOURCE
           </HeaderTitleContainer>
         )}
+        <HeaderSubTitleContainer>
+          {" "}
+          {template ? template.acf.sous_titre : ""}
+        </HeaderSubTitleContainer>
         {template && template.acf.intro && (
           <SubtitleContainer
             isMobile={isMobile}

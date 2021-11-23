@@ -76,7 +76,6 @@ const LeftSideComponent = (props) => {
       return [];
     }
   };
-
   return (
     <>
       {(isMobile && showMenu) || !isMobile ? (
@@ -92,7 +91,11 @@ const LeftSideComponent = (props) => {
             >
               <BackIntranet>
                 <i class="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
-                Retour à l'intranet
+                {props.options &&
+                  props.options.options &&
+                  props.options.options.acf &&
+                  props.options.options.acf.retour_intranet &&
+                  props.options.options.acf.retour_intranet.title}
               </BackIntranet>
             </a>
             {!isMobile && (
@@ -124,7 +127,13 @@ const LeftSideComponent = (props) => {
                 style={{ textDecoration: "none" }}
                 onClick={closeMenu}
               >
-                <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>{" "}
+                <h1>
+                  {" "}
+                  {props.options &&
+                    props.options.options &&
+                    props.options.options.acf &&
+                    props.options.options.acf.titre}
+                </h1>{" "}
               </Link>
               {isMobile && (
                 <i

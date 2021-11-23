@@ -92,7 +92,7 @@ const BottomContainer = styled.section`
   text-align: center;
 `;
 const BottomTitleContainer = styled.div`
-  padding:50px 5% 30px;
+  padding: 50px 5% 30px;
   text-transform: uppercase;
   font-size: 14px;
   color: ${colors.gris};
@@ -104,7 +104,7 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
-  padding:0 5%;
+  padding: 0 5%;
 `;
 const CategoryContainer = styled.div`
   display: flex;
@@ -222,7 +222,6 @@ const Article = (props) => {
   const [media, setMedia] = useState(null);
   let history = useHistory();
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-  console.log("history", props.match.params.id);
 
   useEffect(() => {
     props.resetAllFilter();

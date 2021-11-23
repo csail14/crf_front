@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-
 import { connect } from "react-redux";
 import DOMPurify from "dompurify";
 import { isMobile } from "react-device-detect";
