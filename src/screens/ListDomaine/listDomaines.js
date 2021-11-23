@@ -42,7 +42,7 @@ const HeaderSubTitleContainer = styled.h3`
   line-height: 58px;
   letter-spacing: 0em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 300;
   margin: 0;
 `;
 

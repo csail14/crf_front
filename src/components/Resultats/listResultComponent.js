@@ -34,11 +34,11 @@ const MainContainer = styled.article`
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
   height: fit-content;
   cursor: pointer;
-  &:hover {
-    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
+  transition: box-shadow 150ms linear, background-color 150ms linear,
       transform 150ms linear;
-    transform: scale(0.98);
+  &:hover {
+    box-shadow: 6px 8px 15px 0px rgba(0, 0, 0, 0.3);
+    transform: scale(0.99);
   }
 `;
 

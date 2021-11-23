@@ -28,10 +28,11 @@ const MainContainer = styled.article`
   position: relative;
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
   height: fit-content;
+  transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+    
     transform: scale(0.98);
   }
 `;

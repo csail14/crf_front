@@ -173,7 +173,7 @@ const BottomContainer = styled.section`
   text-align: center;
 `;
 const BottomTitleContainer = styled.div`
-  margin: 50px;
+  margin: 50px 5% 30px;
   text-transform: uppercase;
   font-size: 14px;
   color: ${colors.gris};
@@ -202,6 +202,7 @@ const UploadButton = styled.div`
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  padding:0 5%;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
 `;

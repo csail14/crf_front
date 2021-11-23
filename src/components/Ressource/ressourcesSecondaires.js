@@ -24,7 +24,7 @@ const BottomContainer = styled.section`
   text-align: center;
 `;
 const BottomTitleContainer = styled.div`
-  margin: 50px;
+  padding: 50px 5% 30px;
   text-transform: uppercase;
   font-size: 14px;
   color: ${colors.gris};
@@ -37,6 +37,7 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
+  padding:0 5%;
 `;
 
 const Indicateur = (props) => {

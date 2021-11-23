@@ -53,6 +53,8 @@ const BodyContainer = styled.div`
 const Textcontainer = styled.div`
   padding: ${(props) => (props.isMobile ? "0" : "0")};
   color: ${colors.gris};
+  flex-basis:55%;
+  text-align: left;
 `;
 
 const LinkTitleContainer = styled.div`
@@ -61,10 +63,10 @@ const LinkTitleContainer = styled.div`
   color: ${colors.marine};
   text-transform: uppercase;
   margin-bottom: 30px;
+  
 `;
 const LinkMainContainer = styled.aside`
-  padding: 70px 50px;
-  margin-right: 50px;
+  padding: 20px 0px;
   text-align: left;
   flex-basis:40%;
 `;
@@ -77,7 +79,7 @@ const BottomContainer = styled.div`
 `;
 
 const BottomTitleContainer = styled.div`
-  margin: 50px;
+  padding: 50px 5% 30px;
   text-transform: uppercase;
   font-size: 14px;
   color: ${colors.gris};
@@ -89,6 +91,7 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 0 auto;
+  padding:0 5%;
 `;
 
 const SubHome = (props) => {
