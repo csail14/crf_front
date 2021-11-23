@@ -8,6 +8,8 @@ import moment from "moment";
 import DOMPurify from "dompurify";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { config } from "../../config";
+import { useHistory } from "react-router-dom";
+
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div`
@@ -97,7 +99,17 @@ const Comments = (props) => {
   const [comments, setComments] = useState([]);
   const [allComments, setAllComments] = useState([]);
   const [showAllComments, setShowAllComments] = useState(false);
-
+  let history = useHistory();
+  useEffect(() => {
+    const hash = history.location.hash;
+    // Check if there is a hash and if an element with that id exists
+    console.log("hash", hash);
+    const el = hash && document.getElementById(hash.substr(1));
+    console.log("el", el);
+    if (el) {
+      el.scrollIntoView({ block: "center" });
+    }
+  }, [history.location.hash]);
   const maxComments = isMobile ? 0 : 5;
   useEffect(() => {
     getCommentaireByPost(props.postID)
@@ -121,7 +133,7 @@ const Comments = (props) => {
 
   return (
     <MainContainer>
-      <TitleContainer>
+      <TitleContainer id="comments">
         {allComments.length}
         {allComments.length > 1 ? " commentaires" : " commentaire"}
       </TitleContainer>
@@ -131,6 +143,7 @@ const Comments = (props) => {
       ).map((item, index) => {
         return (
           <CommentContainer key={index}>
+            <div id="comments"></div>
             <Title>
               <Name>{item.author_name}</Name>
               <Date> {moment(item.date).format("DD MMMM YYYY - HH:mm")}</Date>

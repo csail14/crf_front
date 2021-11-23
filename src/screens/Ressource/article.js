@@ -415,11 +415,8 @@ const Article = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments
-            href="#comments"
-            postID={articleId}
-            showCommment={showCommment}
-          />
+          <Comments postID={articleId} showCommment={showCommment} />
+          <div id="comments"></div>
         </LeftSideBodyComponent>
         {article &&
           article.acf &&

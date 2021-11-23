@@ -446,11 +446,7 @@ const Document = (props) => {
               cursor={"pointer"}
             />
           </AddLikeContainer>
-          <Comments
-            href="#comments"
-            postID={documentId}
-            showCommment={showCommment}
-          />
+          <Comments postID={documentId} showCommment={showCommment} />
         </LeftSideBodyComponent>
       </BodyContainer>
       <BottomContainer>
