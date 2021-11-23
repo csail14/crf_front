@@ -43,7 +43,7 @@ const BackIntranet = styled.div`
 
 const LeftSideComponent = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-
+  const [openID, setOpenId] = useState(null);
   const [sidebarPages, setSidebarPages] = useState(props.sidebarPages);
   const [showMenu, setShowMenu] = useState(false);
 
@@ -53,6 +53,13 @@ const LeftSideComponent = (props) => {
 
   const closeMenu = () => {
     setShowMenu(false);
+  };
+  const openCloseDropDown = (id) => {
+    if (id === openID) {
+      setOpenId(null);
+    } else {
+      setOpenId(id);
+    }
   };
 
   const getTitle = () => {
@@ -154,10 +161,12 @@ const LeftSideComponent = (props) => {
                     title={item.title}
                     url={item.url}
                     id={item.object_id}
+                    openID={openID}
                     subItem={getSubItem(item.ID)}
                     type={item.type_label}
                     post_name={item.post_name}
                     closeMenu={closeMenu}
+                    openCloseDropDown={openCloseDropDown}
                   />
                 );
               })}

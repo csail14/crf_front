@@ -445,39 +445,42 @@ const Document = (props) => {
               </UploadButton>
             )}
           {document &&
-          document.acf &&
-          document.acf.document &&
-          document.acf.document.format === "Vidéo" ? (
-            <>
+            document.acf &&
+            document.acf.document &&
+            (document.acf.document.video &&
+            document.acf.document.format === "Vidéo" ? (
+              <>
+                <VideoContainer
+                  dangerouslySetInnerHTML={{
+                    __html: document.acf.document.video,
+                  }}
+                />
+              </>
+            ) : document.acf.document.format === "Image" &&
+              document.acf.document.image.sizes &&
+              document.acf.document.image.sizes.article ? (
+              <img
+                style={isMobile ? {} : { maxWidth: "100%", height: "auto" }}
+                src={document.acf.document.image.sizes.article}
+                alt={media && media.alt_text ? media.alt_text : "A la une"}
+              />
+            ) : document.acf.document.format === "Web" ? (
               <VideoContainer
                 dangerouslySetInnerHTML={{
-                  __html: document.acf.document.video,
+                  __html: document.acf.document.iframe,
                 }}
               />
-            </>
-          ) : document.acf.document.format === "Image" &&
-            document.acf.document.image.sizes ? (
-            <img
-              style={isMobile ? {} : { maxWidth: "100%", height: "auto" }}
-              src={document.acf.document.image.sizes.article}
-              alt={media && media.alt_text ? media.alt_text : "A la une"}
-            />
-          ) : document.acf.document.format === "Web" ? (
-            <VideoContainer
-              dangerouslySetInnerHTML={{
-                __html: document.acf.document.iframe,
-              }}
-            />
-          ) : document.acf.document.format === "Lien" ? (
-            <UploadButton
-              onClick={() => {
-                openInNewTab(document.acf.document.lien.url);
-              }}
-            >
-              <BsDownload style={{ marginRight: "8px" }} />
-              Voir le document
-            </UploadButton>
-          ) : null}
+            ) : document.acf.document.format === "Lien" &&
+              document.acf.document.lien ? (
+              <UploadButton
+                onClick={() => {
+                  openInNewTab(document.acf.document.lien.url);
+                }}
+              >
+                <BsDownload style={{ marginRight: "8px" }} />
+                Voir le document
+              </UploadButton>
+            ) : null)}
 
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
