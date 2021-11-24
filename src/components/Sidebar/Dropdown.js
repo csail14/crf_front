@@ -34,7 +34,10 @@ const Dropdown = (props) => {
     const url = defineUrl(obj.url, obj.type_label, obj.slug);
     const isSelected = url === pathName;
     const handleClick = () => {
-      history.push(url);
+      history.push({
+        pathname: url,
+        state: { id: obj.ID },
+      });
     };
     return (
       <div key={obj.ID}>
