@@ -267,7 +267,7 @@ const Document = (props) => {
     if (document) {
       if (document && document.featured_media) {
         getMediaById(document.featured_media)
-          .then((res) => setMedia(res.media_details.sizes.full.source_url))
+          .then((res) => setMedia(res.media_details.sizes.article.source_url))
           .catch((error) => console.log("error", error));
       } else if (
         domaineAction &&
