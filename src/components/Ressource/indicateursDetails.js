@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { BsDot, BsDownload } from "react-icons/bs";
 import { colors } from "../../colors";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import {
@@ -412,6 +412,7 @@ const Indicateur = (props) => {
             indicateur.acf.fiche_indicateur &&
             indicateur.acf.fiche_indicateur.subtype === "pdf" && (
               <UploadButton
+                id="download-indicateur"
                 onClick={() => {
                   openInNewTab(indicateur.acf.fiche_indicateur.url);
                 }}
@@ -423,6 +424,7 @@ const Indicateur = (props) => {
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
+              id="like"
               size={18}
               color={colors.gris}
               style={{ marginRight: "7px", marginLeft: "7px" }}

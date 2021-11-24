@@ -96,10 +96,11 @@ const SubHomeBloc = (props) => {
 
   const link = props.info.push.lien.replace(process.env.REACT_APP_WP_LINK, "");
   let history = useHistory();
+
   return (
     <MainContainer isMobile={isMobile}>
       <Link
-        to={props.isSearchOpen ? "#" : "/" + link}
+        to={props.isSearchOpen ? "#" : link}
         style={{ textDecoration: "none" }}
       >
         <HeaderContainer>
@@ -142,7 +143,7 @@ const SubHomeBloc = (props) => {
             })
           : null}
       </LinkMainContainer>
-      <Link to={"/" + link} style={{ textDecoration: "none" }}>
+      <Link to={link} style={{ textDecoration: "none" }}>
         <MoreInfoContainer>
           <Text>
             En savoir plus{" "}

@@ -315,11 +315,11 @@ const Contact = (props) => {
                     name={"subject"}
                   >
                     <option>Choisir le sujet de votre message</option>
-                    {props.options &&
-                      props.options.options &&
-                      props.options.options.acf &&
-                      props.options.options.acf.sujets_contact &&
-                      props.options.options.acf.sujets_contact.map((item) => {
+                    {contactTemplate &&
+                      contactTemplate.acf &&
+                      contactTemplate.acf.sujets_contact &&
+                      contactTemplate.acf.sujets_contact.length > 0 &&
+                      contactTemplate.acf.sujets_contact.map((item) => {
                         return <option>{item.sujet}</option>;
                       })}
                   </select>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { GoSearch } from "react-icons/go";
 import { BsChevronDown } from "react-icons/bs";

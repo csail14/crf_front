@@ -217,6 +217,7 @@ const SearchBar = (props) => {
       window.removeEventListener("keyup", handleSearch);
     };
   }, [props.filters]);
+
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -241,8 +242,10 @@ const SearchBar = (props) => {
       mounted = false;
     };
   }, [isMobile]);
+
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
+
   const setIsSelectedFitler = () => {
     if (
       keywords !== "" ||
@@ -258,6 +261,7 @@ const SearchBar = (props) => {
       props.setIsFilterSelected(false);
     }
   };
+
   const handleScroll = (event) => {
     if (!isMobile) {
       var searchbar = document.getElementById("el");
@@ -273,6 +277,7 @@ const SearchBar = (props) => {
       }
     }
   };
+
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -378,7 +383,11 @@ const SearchBar = (props) => {
       props.filters.formats
     );
     getResult(query).then((res) => props.loadResultInfo(res));
+    if (props.addQueryUrl) {
+      props.addQueryUrl();
+    }
   };
+
   const isHome =
     history.location.pathname === "/" || history.location.pathname === "/home";
 
@@ -446,6 +455,10 @@ const SearchBar = (props) => {
   };
   const isDocSelected =
     selectedType.filter((item) => item.id === 1).length > 0 ||
+    selectedType.length === 0;
+
+  const isArticleSelected =
+    selectedType.filter((item) => item.id === 3).length > 0 ||
     selectedType.length === 0;
   return (
     <MainContainer
@@ -523,7 +536,7 @@ const SearchBar = (props) => {
       </div>
       {(isTop || (isMobile && showAdvancedSearch)) && (
         <>
-          {isDocSelected && (
+          {isArticleSelected && (
             <div
               style={isMobile ? { width: "-webkit-fill-available" } : {}}
               ref={categorieRef}
@@ -540,21 +553,23 @@ const SearchBar = (props) => {
               />
             </div>
           )}
-          <div
-            style={isMobile ? { width: "-webkit-fill-available" } : {}}
-            ref={formatRef}
-          >
-            <SimpleFilterItem
-              isTop={isTop}
-              selectedObject={selectedFormat}
-              setSelectedObject={handleChangeFormats}
-              toggleOptions={toggleFormatOptions}
-              showOptions={showFormatOptions}
-              title={"Format"}
-              data={data.format_ressources}
-              default="Tous les formats"
-            />
-          </div>
+          {isDocSelected && (
+            <div
+              style={isMobile ? { width: "-webkit-fill-available" } : {}}
+              ref={formatRef}
+            >
+              <SimpleFilterItem
+                isTop={isTop}
+                selectedObject={selectedFormat}
+                setSelectedObject={handleChangeFormats}
+                toggleOptions={toggleFormatOptions}
+                showOptions={showFormatOptions}
+                title={"Format"}
+                data={data.format_ressources}
+                default="Tous les formats"
+              />
+            </div>
+          )}
           <div
             style={isMobile ? { width: "-webkit-fill-available" } : {}}
             ref={dateRef}
@@ -621,7 +636,7 @@ const SearchBar = (props) => {
       {showAdvancedSearch && !isTop && !isMobile && (
         <AdvancedSearchBarContainer>
           <AdvancedSearchBar>
-            {isDocSelected && (
+            {isArticleSelected && (
               <div ref={categorieRef}>
                 <SimpleFilterItem
                   selectedObject={selectedCategorie}
@@ -634,17 +649,19 @@ const SearchBar = (props) => {
                 />
               </div>
             )}
-            <div ref={formatRef}>
-              <SimpleFilterItem
-                selectedObject={selectedFormat}
-                setSelectedObject={handleChangeFormats}
-                toggleOptions={toggleFormatOptions}
-                showOptions={showFormatOptions}
-                title={"Format"}
-                data={data.format_ressources}
-                default="Tous les formats"
-              />
-            </div>
+            {isDocSelected && (
+              <div ref={formatRef}>
+                <SimpleFilterItem
+                  selectedObject={selectedFormat}
+                  setSelectedObject={handleChangeFormats}
+                  toggleOptions={toggleFormatOptions}
+                  showOptions={showFormatOptions}
+                  title={"Format"}
+                  data={data.format_ressources}
+                  default="Tous les formats"
+                />
+              </div>
+            )}
             <div ref={dateRef}>
               <FilterContainer style={{ border: "none" }}>
                 <FilterTitle>Date</FilterTitle>

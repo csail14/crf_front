@@ -64,6 +64,15 @@ const Home = (props) => {
     setIsSearchOpen(isOpen);
   };
 
+  const addQueryUrl = () => {
+    let string = "?s=" + props.filters.keywords;
+    if (string !== window.location.search && props.filters.keywords !== "") {
+      props.history.push({
+        search: "?s=" + props.filters.keywords,
+      });
+    }
+  };
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -96,6 +105,7 @@ const Home = (props) => {
         <SearchBar
           setIsFilterSelected={setIsFilterSelected}
           setIsSearchOpen={toggleIsSearchOpen}
+          addQueryUrl={addQueryUrl}
         />
       )}
       <BodyContainer isMobile={isMobile}>
@@ -120,6 +130,7 @@ const mapDispatchToProps = {};
 const mapStateToProps = (store) => {
   return {
     pages: store.pages,
+    filters: store.filters,
   };
 };
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import imageExemple from "../../assets/exemple-image.png";
+
 import { BsDot } from "react-icons/bs";
 import { colors } from "../../colors";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
@@ -263,7 +263,7 @@ const Article = (props) => {
     if (article) {
       if (article && article.featured_media) {
         getMediaById(article.featured_media)
-          .then((res) => setMedia(res.media_details.sizes.full.source_url))
+          .then((res) => setMedia(res.media_details.sizes.article.source_url))
           .catch((error) => console.log("error", error));
       } else if (
         domaineAction &&
@@ -319,15 +319,16 @@ const Article = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-  console.log("article", article);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
-        <img
-          style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
-          src={media}
-          alt={media && media.alt_text ? media.alt_text : "A la une"}
-        />
+        {media && (
+          <img
+            style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
+            src={media}
+            alt={media && media.alt_text ? media.alt_text : "A la une"}
+          />
+        )}
         <RightSideContainer>
           <HeaderRightSideTopContainer isMobile={isMobile}>
             {(domaineAction || domaineImpact) && (
@@ -424,6 +425,7 @@ const Article = (props) => {
           <AddLikeContainer isMobile={isMobile}>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
+              id="like"
               size={18}
               color={colors.gris}
               style={{ marginRight: "7px", marginLeft: "7px" }}
