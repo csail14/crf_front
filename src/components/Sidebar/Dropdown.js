@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Dropdown = (props) => {
   const [isOpen, setIsOpen] = useState(props.openID === props.id);
-
+  const [pathName, setPathName] = useState("");
+  let history = useHistory();
   const container = React.createRef();
   useEffect(() => {
     setIsOpen(props.openID === props.id);
   }, [props.openID]);
 
-  // const handleButtonClick = () => {
-  //   setIsOpen(!is)
-  //   this.setState((state) => {
-  //     return {
-  //       open: this.props.openID === this.props.id,
-  //     };
-  //   });
-  // };
+  useEffect(() => {
+    setPathName(window.location.pathname);
+  }, [window.location.pathname]);
 
   const defineUrl = (long_url, type, slug) => {
     const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");
+
     if (type === "Page") {
       return url;
     } else if (type === "Article") {
@@ -32,43 +30,28 @@ const Dropdown = (props) => {
     } else return "/";
   };
 
-  // componentDidMount() {
-  //   document.addEventListener("mousedown", this.handleClickOutside);
-  // }
-
-  // componentWillUnmount() {
-  //   document.removeEventListener("mousedown", this.handleClickOutside);
-  // }
-
-  // handleClickOutside = (event) => {
-  //   if (
-  //     this.container.current &&
-  //     !this.container.current.contains(event.target)
-  //   ) {
-  //     this.setState({
-  //       open: false,
-  //     });
-  //   }
-  // };
-
   const placelink = (obj) => {
+    const url = defineUrl(obj.url, obj.type_label, obj.slug);
+    const isSelected = url === pathName;
+    const handleClick = () => {
+      history.push({
+        pathname: url,
+        state: { id: obj.ID },
+      });
+    };
     return (
       <div key={obj.ID}>
-        <Link
+        <div
           key={obj.ID}
-          to={
-            obj.type_label === "Page"
-              ? defineUrl(obj.url, obj.type_label, obj.slug)
-              : {
-                  pathname: defineUrl(obj.url, obj.type_label, obj.slug),
-                  state: { id: obj.object_id },
-                }
+          className={
+            isSelected
+              ? "dropdown_link_div dropdown_link_div_selected"
+              : "dropdown_link_div"
           }
-          className={"dropdown_link_div"}
-          onClick={() => props.openCloseDropDown(props.id)}
+          onClick={handleClick}
         >
           <p key={obj.id}>{obj.title}</p>
-        </Link>
+        </div>
         <br />
       </div>
     );

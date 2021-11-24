@@ -2,8 +2,8 @@
   text-align: center;
   font-family: "Raleway";
 }
-a{
-  color:inherit;
+a {
+  color: inherit;
 }
 .App-logo {
   height: 40vmin;
@@ -78,7 +78,7 @@ a{
   outline: none;
   font-size: 16px;
   cursor: pointer;
-  width:100%;
+  width: 100%;
 }
 .recherche_input:hover {
   opacity: 0.8;
@@ -126,7 +126,7 @@ a{
   font-weight: bold;
   font-size: 19px;
   line-height: 130%;
-  margin:0;
+  margin: 0;
   /* or 25px */
 
   text-transform: uppercase;
@@ -192,8 +192,8 @@ a{
 .sidebar_search input {
   height: 100%;
   border: none;
-  font-size:14px;
-  font-weight:500;
+  font-size: 14px;
+  font-weight: 500;
   background-color: transparent;
 }
 
@@ -203,8 +203,8 @@ a{
 }
 
 /*Dropdown*/
-.dropdown_container{
-  font-size:14px;
+.dropdown_container {
+  font-size: 14px;
 }
 .dropdown_div {
   display: flex;
@@ -260,6 +260,12 @@ a{
   /* mutted text */
 
   color: #6c757d;
+}
+
+.dropdown_link_div_selected {
+  background: #e30613;
+  color: #ffffff;
+  font-weight: bold;
 }
 
 .dropdown_link_div p {
@@ -445,8 +451,8 @@ a{
   font-size: 16px;
   font-weight: 700;
 }
-.form-control:placeholder{
-  font-weight:400;
+.form-control:placeholder {
+  font-weight: 400;
 }
 .formMessage {
   background: #f7f9fa;
@@ -475,9 +481,9 @@ a{
   text-align: left;
   padding-left: 2rem;
 }
-#el>div{
-  flex:1;
+#el > div {
+  flex: 1;
 }
-#el>div:first-of-type{
-  flex:2;
+#el > div:first-of-type {
+  flex: 2;
 }
