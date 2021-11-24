@@ -92,19 +92,24 @@ const LeftSideComponent = (props) => {
           className={"main_container"}
         >
           <div>
-            <a
-              style={{ textDecoration: "none" }}
-              href="https://intranet.croix-rouge.fr"
-            >
-              <BackIntranet>
-                <i class="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
-                {props.options &&
-                  props.options.options &&
-                  props.options.options.acf &&
-                  props.options.options.acf.retour_intranet &&
-                  props.options.options.acf.retour_intranet.title}
-              </BackIntranet>
-            </a>
+            {props.options &&
+              props.options.options &&
+              props.options.options.acf &&
+              props.options.options.acf.retour_intranet && (
+                <a
+                  style={{ textDecoration: "none" }}
+                  href={props.options.options.acf.retour_intranet.url}
+                  target={props.options.options.acf.retour_intranet.target}
+                >
+                  <BackIntranet>
+                    <i
+                      class="bi bi-chevron-left"
+                      style={{ marginRight: "8px" }}
+                    />{" "}
+                    {props.options.options.acf.retour_intranet.title}
+                  </BackIntranet>
+                </a>
+              )}
             {!isMobile && (
               <ImageContainer>
                 <Link to="/home">
