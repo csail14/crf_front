@@ -328,7 +328,6 @@ const Document = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -430,20 +429,6 @@ const Document = (props) => {
               }}
             />
           )}
-
-          {document &&
-            document.acf &&
-            document.acf.document &&
-            document.acf.document.fichier_joint && (
-              <UploadButton
-                onClick={() => {
-                  openInNewTab(document.acf.document.fichier_joint.url);
-                }}
-              >
-                <BsDownload style={{ marginRight: "8px" }} />
-                Télécharger le document
-              </UploadButton>
-            )}
           {document &&
             document.acf &&
             document.acf.document &&
@@ -479,6 +464,15 @@ const Document = (props) => {
               >
                 <BsDownload style={{ marginRight: "8px" }} />
                 Voir le document
+              </UploadButton>
+            ) : document.acf.document.fichier_joint ? (
+              <UploadButton
+                onClick={() => {
+                  openInNewTab(document.acf.document.fichier_joint.url);
+                }}
+              >
+                <BsDownload style={{ marginRight: "8px" }} />
+                Télécharger le document
               </UploadButton>
             ) : null)}
 
