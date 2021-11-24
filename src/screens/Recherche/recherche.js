@@ -136,10 +136,23 @@ const Recherche = (props) => {
   useEffect(() => {
     setResultToDisplay(props.ressources.results);
   }, [props.ressources.results]);
+
+  useEffect(() => {
+    addQueryUrl();
+  }, []);
   const slug = props.slug || "recherche";
   const template = props.pages.templates.length
     ? props.pages.templates.filter((template) => template.slug === slug)[0]
     : null;
+
+  const addQueryUrl = () => {
+    let string = "?s=" + props.filters.keywords;
+    if (string !== window.location.search && props.filters.keywords !== "") {
+      props.history.push({
+        search: "?s=" + props.filters.keywords,
+      });
+    }
+  };
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -229,6 +242,7 @@ const Recherche = (props) => {
           page="recherche"
           setIsFilterSelected={setIsFilterSelected}
           setIsSearchOpen={toggleIsSearchOpen}
+          addQueryUrl={addQueryUrl}
         />
       </HeaderContainer>
       <MiddleContainer>
@@ -322,6 +336,7 @@ const mapStateToProps = (store) => {
   return {
     pages: store.pages,
     ressources: store.ressources,
+    filters: store.filters,
   };
 };
 

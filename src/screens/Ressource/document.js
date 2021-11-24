@@ -458,6 +458,7 @@ const Document = (props) => {
             ) : document.acf.document.format === "Lien" &&
               document.acf.document.lien ? (
               <UploadButton
+                id="download-document"
                 onClick={() => {
                   openInNewTab(document.acf.document.lien.url);
                 }}
@@ -467,6 +468,7 @@ const Document = (props) => {
               </UploadButton>
             ) : document.acf.document.fichier_joint ? (
               <UploadButton
+                id="download-document"
                 onClick={() => {
                   openInNewTab(document.acf.document.fichier_joint.url);
                 }}
@@ -479,6 +481,7 @@ const Document = (props) => {
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
+              id="like"
               size={18}
               color={colors.gris}
               style={{ marginRight: "7px", marginLeft: "7px" }}

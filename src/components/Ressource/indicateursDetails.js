@@ -412,6 +412,7 @@ const Indicateur = (props) => {
             indicateur.acf.fiche_indicateur &&
             indicateur.acf.fiche_indicateur.subtype === "pdf" && (
               <UploadButton
+                id="download-indicateur"
                 onClick={() => {
                   openInNewTab(indicateur.acf.fiche_indicateur.url);
                 }}
@@ -423,6 +424,7 @@ const Indicateur = (props) => {
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
+              id="like"
               size={18}
               color={colors.gris}
               style={{ marginRight: "7px", marginLeft: "7px" }}

@@ -217,6 +217,7 @@ const SearchBar = (props) => {
       window.removeEventListener("keyup", handleSearch);
     };
   }, [props.filters]);
+
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -241,8 +242,10 @@ const SearchBar = (props) => {
       mounted = false;
     };
   }, [isMobile]);
+
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
+
   const setIsSelectedFitler = () => {
     if (
       keywords !== "" ||
@@ -258,6 +261,7 @@ const SearchBar = (props) => {
       props.setIsFilterSelected(false);
     }
   };
+
   const handleScroll = (event) => {
     if (!isMobile) {
       var searchbar = document.getElementById("el");
@@ -273,6 +277,7 @@ const SearchBar = (props) => {
       }
     }
   };
+
   useEffect(() => {
     let mounted = true;
     if (mounted) {
@@ -378,7 +383,11 @@ const SearchBar = (props) => {
       props.filters.formats
     );
     getResult(query).then((res) => props.loadResultInfo(res));
+    if (props.addQueryUrl) {
+      props.addQueryUrl();
+    }
   };
+
   const isHome =
     history.location.pathname === "/" || history.location.pathname === "/home";
 

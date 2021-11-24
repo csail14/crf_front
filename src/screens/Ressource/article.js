@@ -423,6 +423,7 @@ const Article = (props) => {
           <AddLikeContainer isMobile={isMobile}>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
+              id="like"
               size={18}
               color={colors.gris}
               style={{ marginRight: "7px", marginLeft: "7px" }}
