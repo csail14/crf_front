@@ -54,14 +54,14 @@ const FilterContainer = styled.div`
 `;
 const FilterTitle = styled.div`
   font-weight: 700;
-  font-size: ${(props) => (props.isTop ? "10px" : "12px")};
+  font-size: ${(props) => (props.isTop ? "1rem" : "1.2rem")};
   color: ${colors.gris};
   text-align: left;
   text-transform: uppercase;
 `;
 const FilterContent = styled.div`
   font-weight: 500;
-  font-size: ${(props) => (props.isTop ? "12px" : "16px")};
+  font-size: ${(props) => (props.isTop ? "1.2rem" : "1.6rem")};
   color: ${colors.marine};
   align-items: center;
   display: flex;
@@ -105,11 +105,11 @@ const SearchButtonContainer = styled.div`
   background-color: ${colors.rouge};
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 1.4rem;
   cursor: pointer;
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
-  font-size: ${(props) => (props.isTop ? "12px" : "")};
+  font-size: ${(props) => (props.isTop ? "1.2rem" : "")};
   text-align: center;
   transition: box-shadow 150ms linear, background-color 150ms linear,
     transform 150ms linear;
@@ -142,7 +142,7 @@ const ToggleContainer = styled.div`
   color: ${colors.rouge};
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 1.3rem;
   margin: 10px 5px 0px auto;
   cursor: pointer;
   &:hover {
@@ -152,7 +152,7 @@ const ToggleContainer = styled.div`
   }
 `;
 const FilterOptionsContainer = styled.div`
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 21px;
   text-align: left;
   position: absolute;

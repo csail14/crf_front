@@ -59,7 +59,7 @@ const DetailsContainer = styled.div`
 `;
 
 const LastUpdateContainer = styled.div`
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 500;
   line-height: 14px;
   text-align: left;
@@ -70,7 +70,7 @@ const LastUpdateContainer = styled.div`
 
 const CategoryContainer = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -98,7 +98,7 @@ const Domaine = styled.div`
 `;
 
 const TitleContainer = styled.h2`
-  font-size: 18px;
+  font-size:1.8rem;
   font-weight: 700;
   line-height: 22px;
   text-transform: uppercase;
@@ -114,7 +114,7 @@ const TitleContainer = styled.h2`
 `;
 
 const DescriptionContainer = styled.p`
-  font-size: 15px;
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 22px;
   margin-bottom: 16px;
@@ -123,7 +123,7 @@ const DescriptionContainer = styled.p`
 `;
 
 const TagContainer = styled.div`
-  font-size: 14px;
+  font-size: 1.4rem;
   display: flex;
   font-weight: 400;
   line-height: 16px;
@@ -150,7 +150,7 @@ const PostInfoContainer = styled.div`
 `;
 const Comment = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
@@ -164,7 +164,7 @@ const Comment = styled.div`
 `;
 const OtherTypePicto = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;

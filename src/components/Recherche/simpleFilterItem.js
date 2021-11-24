@@ -21,7 +21,7 @@ const FilterContainer = styled.div`
 
 const FilterTitle = styled.div`
   font-weight: 700;
-  font-size: ${(props) => (props.isTop ? "10px" : "12px")};
+  font-size: ${(props) => (props.isTop ? "1rem" : "1.2rem")};
   color: ${colors.gris};
   text-align: left;
   text-transform: uppercase;
@@ -29,7 +29,7 @@ const FilterTitle = styled.div`
 
 const FilterContent = styled.div`
   font-weight: 500;
-  font-size: ${(props) => (props.isTop ? "12px" : "16px")};
+  font-size: ${(props) => (props.isTop ? "1.2rem" : "1.6rem")};
   color: ${colors.marine};
   align-items: center;
   display: flex;
@@ -44,7 +44,7 @@ const FilterContent = styled.div`
 `;
 
 const FilterOptionsContainer = styled.div`
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 21px;
   text-align: left;
   position: absolute;

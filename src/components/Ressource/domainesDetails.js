@@ -28,7 +28,7 @@ const HeaderRightSideTopContainer = styled.header`
 `;
 
 const TitleContainer = styled.h3`
-  font-size: 35px;
+  font-size: 3.5rem;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
@@ -44,7 +44,7 @@ const BodyContainer = styled.div`
 const LeftSideBodyComponent = styled.div``;
 
 const ContentContainer = styled.div`
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 400;
   line-height: 31px;
   color: ${colors.text};
@@ -53,7 +53,7 @@ const ContentContainer = styled.div`
 
 const ArianeContainer = styled.div`
   font-weight: 600;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 14px;
   display: flex;
   align-items: center;

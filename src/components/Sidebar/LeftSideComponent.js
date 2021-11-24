@@ -33,11 +33,11 @@ const BackIntranet = styled.div`
   display: flex;
   justify-content: flex-start;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 1rem;
   line-height: 130%;
   text-transform: uppercase;
   color: #828282;
-  padding: 20px 20px 0 20px;
+  padding: 21px 5% 0;
   cursor: pointer;
 `;
 
@@ -97,7 +97,7 @@ const LeftSideComponent = (props) => {
               href="https://intranet.croix-rouge.fr"
             >
               <BackIntranet>
-                <i class="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
+                <i class="bi bi-chevron-left" style={{ marginRight: "14px" }} />{" "}
                 {props.options &&
                   props.options.options &&
                   props.options.options.acf &&

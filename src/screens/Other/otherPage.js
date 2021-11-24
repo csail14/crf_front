@@ -25,7 +25,7 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderTitleContainer = styled.h2`
-  font-size: 45px;
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
@@ -33,7 +33,7 @@ const HeaderTitleContainer = styled.h2`
 `;
 
 const HeaderSubTitleContainer = styled.h3`
-  font-size: 45px;
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;

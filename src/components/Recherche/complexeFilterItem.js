@@ -28,7 +28,7 @@ const FilterTitle = styled.div`
 
 const FilterContent = styled.div`
   font-weight: 500;
-  font-size: ${(props) => (props.isTop ? "12px" : "16px")};
+  font-size: ${(props) => (props.isTop ? "1.2rem" : "1.6rem")};
   color: ${colors.marine};
   align-items: center;
   display: flex;
@@ -59,7 +59,7 @@ const FilterOptionsContainer = styled.div`
   flex-wrap: wrap;
   z-index: 1;
   padding: 30px 50px;
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 21px;
   text-align: left;
   position: absolute;

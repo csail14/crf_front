@@ -44,7 +44,7 @@ const SubmitButton = styled.button`
   font-family: Raleway;
   font-style: normal;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1.4rem;
   line-height: 130%;
   /* or 18px */
   border: 0;
@@ -146,7 +146,7 @@ const Contact = (props) => {
     margin-bottom: 78px;
   `;
   const HeaderTitleContainer = styled.h2`
-    font-size: 45px;
+    font-size: 4.5rem;
     color: ${colors.marine};
     line-height: 58px;
     letter-spacing: 0em;
@@ -154,7 +154,7 @@ const Contact = (props) => {
     margin: 0;
   `;
   const HeaderSubTitleContainer = styled.h3`
-    font-size: 45px;
+    font-size: 4.5rem;
     color: ${colors.marine};
     line-height: 58px;
     letter-spacing: 0em;
@@ -167,7 +167,7 @@ const Contact = (props) => {
     font-family: Raleway;
     font-style: normal;
     font-weight: normal;
-    font-size: 10px;
+    font-size: 1rem;
     line-height: 12px;
     text-align: center;
     margin-bottom: 30px;

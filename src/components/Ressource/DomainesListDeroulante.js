@@ -15,7 +15,7 @@ const ListDomainContainer = styled.div`
 `;
 const DomainesMainTitle = styled.div`
   font-weight: bold;
-  font-size: 15px;
+  font-size: 1.5rem;
   line-height: 130%;
   letter-spacing: 0.05em;
   padding: 30px 20px;

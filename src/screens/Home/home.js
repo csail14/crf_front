@@ -17,20 +17,21 @@ const HeaderContainer = styled.header`
   text-align: left;
   background-image: url(${config.header_image_url});
   background-size: cover;
+  background-position:bottom right;
 `;
 
 const HeaderTitleContainer = styled.h1`
-  font-size: 45px;
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
   text-transform: uppercase;
   margin: 0;
-  font-weight: 700;
+  font-weight:700;
 `;
 
 const HeaderSubTitleContainer = styled.h2`
-  font-size: 45px;
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;

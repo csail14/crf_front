@@ -18,7 +18,7 @@ const LinkContainer = styled.h3`
   padding: 15px 20px;
   color: ${colors.marine};
   font-weight: 600;
-  font-size:16px;
+  font-size:1.6rem;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
@@ -35,7 +35,7 @@ const ExtraitContainer = styled.div`
   background-color: ${colors.marine};
   padding: 15px 20px;
   color: white;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 600;
   line-height: 21px;
   text-align: left;

@@ -23,10 +23,11 @@ const HeaderContainer = styled.main`
   border-radius: 8px;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
+  transition: all 150ms linear;
+
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+    
     transform: scale(0.98);
   }
 `;
@@ -37,13 +38,13 @@ const TitleContainer = styled.h2`
   padding: 5px;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 26px;
+  font-size: 2.6rem;
 `;
 
 const SubTitleContainer = styled.p`
   color: ${colors.marine};
   padding: 10px;
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 400;
 `;
 
@@ -57,16 +58,15 @@ const LinkContainer = styled.h3`
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
   padding: 15px 20px;
   color: ${colors.marine};
-  font-weight: 600;
-  font-size:16px;
+  font-weight: 300;
+  font-size:1.6rem;
   align-items: center;
   text-align:left;
   justify-content: space-between;
   cursor: pointer;
   transition: all 150ms;
   &:hover {
-    box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.3);
-    transform 150ms linear;
+    box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.4);
     transform: scale(0.98);
   }
 `;
@@ -78,7 +78,7 @@ const MoreInfoContainer = styled.div`
   padding: 5px;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 1.2rem;
   justify-content: center;
   cursor: pointer;
 `;

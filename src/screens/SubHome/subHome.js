@@ -21,7 +21,7 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderTitleContainer = styled.h2`
-  font-size: 45px;
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
@@ -29,7 +29,7 @@ const HeaderTitleContainer = styled.h2`
   margin: 0;
 `;
 const HeaderSubTitleContainer = styled.h3`
-  font-size: 45px;
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
@@ -58,7 +58,7 @@ const Textcontainer = styled.div`
 
 const LinkTitleContainer = styled.div`
   font-weight: 700;
-  font-size: 15px;
+  font-size: 1.5rem;
   color: ${colors.marine};
   text-transform: uppercase;
   margin-bottom: 30px;
@@ -79,7 +79,7 @@ const BottomContainer = styled.div`
 const BottomTitleContainer = styled.div`
   padding: 50px 5% 30px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
 `;

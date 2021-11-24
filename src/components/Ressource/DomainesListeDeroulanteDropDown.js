@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 const DomaineTitle = styled.div`
   font-weight: ${(props) => (props.isOpen ? "700" : "500")};
-  font-size: 14px;
+  font-size: 1.4rem;
   text-transform: uppercase;
   text-align: left;
   color: ${(props) => (props.isOpen ? colors.rouge : colors.marine)};
@@ -33,7 +33,7 @@ const RessourcesLieesContainer = styled.div`
   padding: 15px 10px 15px 50px;
   align-items: center;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1.4rem;
   text-align: left;
   &:hover {
     opacity: 0.8;

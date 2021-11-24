@@ -27,7 +27,7 @@ import {
 require("moment/locale/fr.js");
 
 const LastUpdateContainer = styled.div`
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 600;
   line-height: 16px;
   text-align: left;
@@ -47,7 +47,7 @@ const HeaderRightSideTopContainer = styled.header`
 
 const Comment = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
@@ -60,7 +60,7 @@ const HeaderRightSideBottomContainer = styled.div`
 `;
 const CategoryContainer = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -88,7 +88,7 @@ const Domaine = styled.div`
 `;
 
 const TitleContainer = styled.h2`
-  font-size: 35px;
+  font-size: 3.5rem;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
@@ -96,7 +96,7 @@ const TitleContainer = styled.h2`
   margin: 0;
 `;
 const TagContainer = styled.div`
-  font-size: 14px;
+  font-size: 1.4rem;
   display: flex;
   font-weight: 400;
   line-height: 16px;
@@ -132,7 +132,7 @@ const BodyContainer = styled.div`
 const LeftSideBodyComponent = styled.div``;
 
 const ContentContainer = styled.div`
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 400;
   line-height: 31px;
   color: ${colors.text};
@@ -143,7 +143,7 @@ const UploadButton = styled.div`
   display: flex;
   margin: auto;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 1.4rem;
   background-color: ${colors.rouge};
   color: white;
   font-weight: 700;
@@ -171,7 +171,7 @@ const AddLikeContainer = styled.div`
 
 const ArianeContainer = styled.div`
   font-weight: 600;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 14px;
   display: flex;
   align-items: center;
@@ -181,7 +181,7 @@ const ArianeContainer = styled.div`
 
 const TitleBodyContainer = styled.div`
   font-weight: bold;
-  font-size: 18px;
+  font-size: 1.8rem;
   line-height: 130%;
   text-transform: uppercase;
   margin-bottom: 34px;

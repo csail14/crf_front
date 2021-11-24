@@ -36,7 +36,7 @@ const HeaderContainer = styled.header`
 `;
 
 const LastUpdateContainer = styled.div`
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 600;
   line-height: 16px;
   text-align: left;
@@ -73,7 +73,7 @@ const HeaderRightSideTopContainer = styled.div`
 
 const Comment = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
@@ -94,7 +94,7 @@ const BottomContainer = styled.section`
 const BottomTitleContainer = styled.div`
   padding: 50px 5% 30px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
 `;
@@ -108,7 +108,7 @@ const AvailableRessourceContainer = styled.div`
 `;
 const CategoryContainer = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 600;
   text-align: left;
   text-transform: uppercase;
@@ -136,7 +136,7 @@ const Domaine = styled.div`
 `;
 
 const TitleContainer = styled.h2`
-  font-size: 35px;
+  font-size: 3.5rem;
   font-weight: 700;
   line-height: 58px;
   text-align: left;
@@ -144,7 +144,7 @@ const TitleContainer = styled.h2`
   margin: 0;
 `;
 const TagContainer = styled.div`
-  font-size: 14px;
+  font-size: 1.4rem;
   display: flex;
   font-weight: 400;
   line-height: 16px;
@@ -191,7 +191,7 @@ const RightSideBodyContainer = styled.aside`
 `;
 
 const ContentContainer = styled.div`
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 400;
   line-height: 31px;
   color: ${colors.text};
@@ -199,7 +199,7 @@ const ContentContainer = styled.div`
 `;
 
 const TitleRessourceContainer = styled.div`
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 700;
   line-height: 23px;
   letter-spacing: 0em;

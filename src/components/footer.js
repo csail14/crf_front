@@ -9,7 +9,7 @@ const MainContainer = styled.footer`
   background-color: ${colors.grisBackground};
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 1.2rem;
   line-height: 19px;
 `;
 

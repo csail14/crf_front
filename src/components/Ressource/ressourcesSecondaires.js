@@ -29,7 +29,7 @@ const BottomContainer = styled.section`
 const BottomTitleContainer = styled.div`
   padding: 50px 5% 30px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
 `;

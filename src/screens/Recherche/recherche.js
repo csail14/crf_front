@@ -22,7 +22,7 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderTitleContainer = styled.h2`
-  font-size: 45px;
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
@@ -46,7 +46,7 @@ const BodyContainer = styled.div`
 const NumberResultsContainer = styled.div`
   color: ${colors.marine};
   font-weight: 600;
-  font-size: 52px;
+  font-size: 5.2rem;
   text-transform: uppercase;
   display: flex;
   align-items: baseline;
@@ -71,7 +71,7 @@ const ButtonView = styled.div`
   background-color: ${(props) => (props.isSelected ? colors.marine : "white")};
   color: ${(props) => (!props.isSelected ? colors.marine : "white")};
   font-weight: 600;
-  font-size: 12px;
+  font-size: 1.2rem;
   text-transform: uppercase;
   align-items: center;
   &:hover {
@@ -88,7 +88,7 @@ const TriesContainer = styled.div`
   margin-bottom: 13px;
 `;
 const HeaderSubTitleContainer = styled.h3`
-  font-size: 45px;
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 58px;
   letter-spacing: 0em;
@@ -98,7 +98,7 @@ const HeaderSubTitleContainer = styled.h3`
 `;
 const Tries = styled.div`
   font-weight: bold;
-  font-size: 12px;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
   text-transform: uppercase;
@@ -114,7 +114,7 @@ const Tries = styled.div`
 
 const NoRequestContainer = styled.div`
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1.4rem;
   display: flex;
   align-items: center;
   text-transform: uppercase;

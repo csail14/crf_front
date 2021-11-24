@@ -19,7 +19,7 @@ const MainContainer = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 700;
   line-height: 23px;
   text-align: left;
@@ -37,7 +37,7 @@ const Title = styled.div`
 `;
 
 const Name = styled.div`
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 19px;
   text-align: left;
@@ -45,7 +45,7 @@ const Name = styled.div`
   margin-right: 8px;
 `;
 const Date = styled.div`
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 400;
   line-height: 19px;
   text-align: left;
@@ -53,16 +53,15 @@ const Date = styled.div`
 `;
 
 const Contenu = styled.div`
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 400;
   line-height: 27px;
   color: ${colors.gris};
-  text-align: justify;
 `;
 const MoreCommentContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 700;
   color: ${colors.marine};
   align-items: center;
@@ -74,7 +73,7 @@ const SendButton = styled.div`
   display: flex;
   justify-content: ${(props) => (props.isMobile ? "center" : "flex-end")};
   padding: 17px 29px;
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 700;
   color: white;
   background-color: ${colors.marine};
@@ -133,7 +132,7 @@ const Comments = (props) => {
 
   return (
     <MainContainer>
-      <TitleContainer id="comments">
+       <TitleContainer id="comments">
         {allComments.length}
         {allComments.length > 1 ? " commentaires" : " commentaire"}
       </TitleContainer>
