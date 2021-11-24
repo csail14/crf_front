@@ -71,10 +71,6 @@ const LastUpdateContainer = styled.time`
   color: ${colors.marine};
 `;
 
-const SecondPartContainer = styled.div`
-  display: flex;
-`;
-
 const Category = styled.div`
   display: flex;
   align-items: center;

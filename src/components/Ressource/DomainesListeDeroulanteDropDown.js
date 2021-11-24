@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 const DomaineTitle = styled.div`
   font-weight: ${(props) => (props.isOpen ? "700" : "500")};
@@ -84,7 +83,7 @@ const DomaineListDeroulanteDropDown = (props) => {
         props.info.acf.ressources_liees &&
         props.info.acf.ressources_liees.map((item, index) => {
           const isThisRessourceOpen =
-            item.ID == parseInt(props.indicateurId) ? true : false;
+            item.ID === parseInt(props.indicateurId) ? true : false;
           if (item.post_type === "indicateurs") {
             return (
               <RessourcesLieesContainer

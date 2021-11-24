@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import imageExemple from "../../assets/exemple-image.png";
 import { BsDot, BsDownload } from "react-icons/bs";
 import { colors } from "../../colors";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
@@ -304,10 +303,6 @@ const Document = (props) => {
     });
   }
 
-  const openInNewTab = (url) => {
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-    if (newWindow) newWindow.opener = null;
-  };
   const showCommment =
     document && document.comment_status === "open" ? true : false;
   const handleClickAction = () => {

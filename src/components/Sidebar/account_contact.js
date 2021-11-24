@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { FiMail, BsFillPersonFill } from "react-icons/all";
 import { colors } from "../../colors";
 

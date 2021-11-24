@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import Embed from "react-embed";
 
 const ImpactTrack = (props) => {
   const slug = props.slug || "impact-track";

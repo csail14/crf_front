@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import imageExemple from "../../assets/exemple-image.png";
+
 import { BsDot } from "react-icons/bs";
 import { colors } from "../../colors";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";

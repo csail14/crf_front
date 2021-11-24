@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { BsDot, BsDownload } from "react-icons/bs";
 import { colors } from "../../colors";
-import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import {

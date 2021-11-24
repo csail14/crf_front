@@ -100,6 +100,7 @@ const Comments = (props) => {
   const [allComments, setAllComments] = useState([]);
   const [showAllComments, setShowAllComments] = useState(false);
   let history = useHistory();
+
   useEffect(() => {
     const hash = history.location.hash;
     // Check if there is a hash and if an element with that id exists
@@ -112,11 +113,12 @@ const Comments = (props) => {
   }, [history.location.hash]);
   const maxComments = isMobile ? 0 : 5;
   useEffect(() => {
-    getCommentaireByPost(props.postID)
-      .then((res) => setAllComments(res))
-      .catch((error) => console.log(error));
+    if (props.postID) {
+      getCommentaireByPost(props.postID)
+        .then((res) => setAllComments(res))
+        .catch((error) => console.log(error));
+    }
   }, []);
-
   useEffect(() => {
     if (allComments.length) {
       if (allComments.length < maxComments + 1) {
