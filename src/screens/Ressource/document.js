@@ -457,25 +457,26 @@ const Document = (props) => {
               />
             ) : document.acf.document.format === "Lien" &&
               document.acf.document.lien ? (
-              <UploadButton
+              <a
+                style={{ color: "inherit", textDecoration: "none" }}
                 id="download-document"
-                onClick={() => {
-                  openInNewTab(document.acf.document.lien.url);
-                }}
+                href={document.acf.document.lien.url}
+                target={document.acf.document.lien.target}
               >
-                <BsDownload style={{ marginRight: "8px" }} />
-                Voir le document
-              </UploadButton>
+                <UploadButton>{document.acf.document.lien.title}</UploadButton>
+              </a>
             ) : document.acf.document.fichier_joint ? (
-              <UploadButton
+              <a
+                style={{ color: "inherit", textDecoration: "none" }}
                 id="download-document"
-                onClick={() => {
-                  openInNewTab(document.acf.document.fichier_joint.url);
-                }}
+                href={document.acf.document.fichier_joint.url}
+                target={document.acf.document.fichier_joint.target}
               >
-                <BsDownload style={{ marginRight: "8px" }} />
-                Télécharger le document
-              </UploadButton>
+                <UploadButton>
+                  <BsDownload style={{ marginRight: "8px" }} />
+                  Télécharger le document
+                </UploadButton>
+              </a>
             ) : null)}
 
           <AddLikeContainer>
