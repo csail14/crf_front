@@ -263,7 +263,7 @@ const Article = (props) => {
     if (article) {
       if (article && article.featured_media) {
         getMediaById(article.featured_media)
-          .then((res) => setMedia(res.media_details.sizes.full.source_url))
+          .then((res) => setMedia(res.media_details.sizes.article.source_url))
           .catch((error) => console.log("error", error));
       } else if (
         domaineAction &&
@@ -319,7 +319,6 @@ const Article = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-  console.log("article", article);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
