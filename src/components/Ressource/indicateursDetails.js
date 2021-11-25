@@ -38,7 +38,7 @@ const RightSideContainer = styled.section`
   width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
-  flex-basis:60%;
+  flex-basis: 60%;
 `;
 const HeaderRightSideTopContainer = styled.header`
   width: -webkit-fill-available;
@@ -202,7 +202,7 @@ const Indicateur = (props) => {
     }
   }, []);
 
-  const indicateurId = props.id && props.id.length && props.id[0];
+  const indicateurId = props.id;
   const slug = props.slug;
   const domaineAction =
     indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;

@@ -9,6 +9,7 @@ import DOMPurify from "dompurify";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { config } from "../../config";
 import { useHistory } from "react-router-dom";
+import { postComment } from "../../utils/api/API";
 
 require("moment/locale/fr.js");
 
@@ -95,6 +96,8 @@ const Comments = (props) => {
   const [comments, setComments] = useState([]);
   const [allComments, setAllComments] = useState([]);
   const [showAllComments, setShowAllComments] = useState(false);
+  const [formError, setFormError] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   let history = useHistory();
 
   useEffect(() => {
@@ -129,9 +132,28 @@ const Comments = (props) => {
     setNewComment(e.target.value);
   };
 
+  const sendComment = () => {
+    let num = Math.floor(Math.random() * 10000);
+
+    if (props.postID && newComment !== "") {
+      postComment("test", num + "@gmail.com", newComment, props.postID).then(
+        (res) => {
+          if (res.status === 201) {
+            setNewComment("");
+            setFormError(false);
+            setFormSubmitted(true);
+          } else {
+            setFormError(true);
+            setFormSubmitted(false);
+          }
+        }
+      );
+    }
+  };
+
   return (
     <MainContainer>
-       <TitleContainer id="comments">
+      <TitleContainer id="comments">
         {allComments.length}
         {allComments.length > 1 ? " commentaires" : " commentaire"}
       </TitleContainer>
@@ -176,9 +198,17 @@ const Comments = (props) => {
               placeholder={"Saisissez votre commentaire ici..."}
             />
           </form>
-          <SendButton isMobile={isMobile}>Laisser un commentaire</SendButton>
+          <SendButton onClick={sendComment} isMobile={isMobile}>
+            Laisser un commentaire
+          </SendButton>
         </>
       )}
+      {formSubmitted && !formError && (
+        <div className="formSuccess">
+          Votre message a bien été envoyé, merci !
+        </div>
+      )}
+      {formError && <div className="formError">Une erreur s'est produite </div>}
     </MainContainer>
   );
 };

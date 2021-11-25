@@ -111,3 +111,24 @@ export const getToken = async () => {
       return err;
     });
 };
+
+export const postComment = async (name, email, content, postId) => {
+  return axios
+    .post(
+      config.api_url +
+        "/wp/v2/comments?author_name=" +
+        name +
+        "&author_email=" +
+        email +
+        "&content=" +
+        content +
+        "&post=" +
+        postId
+    )
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
