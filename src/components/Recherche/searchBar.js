@@ -53,7 +53,7 @@ const FilterContainer = styled.div`
 `;
 const FilterTitle = styled.div`
   font-weight: 700;
-  font-size: ${(props) => (props.isTop ? "1rem" : "1.2rem")};
+  font-size: ${(props) => (props.isTop ? "1.2rem" : "1.2rem")};
   color: ${colors.gris};
   text-transform: uppercase;
 `;
@@ -98,6 +98,15 @@ const MainContainer = styled.div`
   }
   &>div:first-of-type {
     flex: 2;
+  }
+  &.sticky {
+    position: fixed;
+    top: 0px;
+    right:0;
+    width: calc(100% - 266px);
+    max-width:100%;
+    border:10px solid #F7F9FA;
+    border-width:10px 4%;
   }
   
 `;
@@ -479,9 +488,7 @@ const SearchBar = (props) => {
           type="text"
           value={keywords}
           className={
-            isTop
-              ? "recherche_input_small"
-              : isMobile
+              isMobile
               ? "recherche_input_mobile"
               : "recherche_input"
           }

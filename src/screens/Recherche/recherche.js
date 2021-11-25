@@ -76,8 +76,7 @@ const ButtonView = styled.div`
   display: flex;
   cursor: pointer;
   padding: 10px 15px;
-  box-shadow: 0px 2px 4px rgba(0, 57, 86, 0.43);
-  background-color: ${(props) => (props.isSelected ? colors.marine : "white")};
+  background-color: ${(props) => (props.isSelected ? colors.marine : "transparent")};
   color: ${(props) => (!props.isSelected ? colors.marine : "white")};
   font-weight: 600;
   font-size: 1.2rem;
