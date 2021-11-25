@@ -67,7 +67,7 @@ Ouvrir l'url de recette : recette-impact-social.croix-rouge.fr
 
 Avant de pusher sur le repo
 
-- `npm build` pour creer le build de l'application
+- `npm run build` pour creer le build de l'application
 - ajouter fichier .htaccess dans le build : (à refaire àxs chaque le build)
   <IfModule mod_rewrite.c>
 
