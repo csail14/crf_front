@@ -421,7 +421,7 @@ const GridResultComponent = (props) => {
                       : ""
                   }
                 >
-                  <BiComment size={18} style={{ marginRight: "7px" }} />
+                  <BiComment size={18} style={{ marginRight: "7px",verticalAlign:"middle" }} />
                   {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
                 </HashLink>
               </Comment>
