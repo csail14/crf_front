@@ -147,10 +147,10 @@ const UpdateContainer = styled.time`
 const BodyContainer = styled.main`
   display: flex;
   padding: ${(props) => (props.isMobile ? "10px 20px" : "100px 0px")};
-  width:90%;
-  max-width:652px;
+  width: 90%;
+  max-width: 652px;
   justify-content: space-between;
-  margin:auto;
+  margin: auto;
 `;
 
 const LeftSideBodyComponent = styled.div`
@@ -166,7 +166,7 @@ const ContentContainer = styled.div`
 
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
-  padding:89px 4% 50px;
+  padding: 89px 4% 50px;
 `;
 
 const BottomTitleContainer = styled.h4`
@@ -175,7 +175,7 @@ const BottomTitleContainer = styled.h4`
   font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
-  margin:0;
+  margin: 0;
   text-align: center;
 `;
 
@@ -203,10 +203,10 @@ const VideoContainer = styled.div`
 `;
 
 const AvailableRessourceContainer = styled.div`
-display: flex;
-flex-wrap: wrap;
-justify-content: ${(props) => (props.isMobile ? "center" : "left")};
-margin: 47px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: ${(props) => (props.isMobile ? "center" : "left")};
+  margin: 47px auto 0;
 `;
 
 const AddLikeContainer = styled.div`
@@ -342,6 +342,7 @@ const Document = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+  console.log("document", document);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>

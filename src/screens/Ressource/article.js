@@ -84,7 +84,7 @@ const HeaderRightSideBottomContainer = styled.div`
 `;
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
-  padding:89px 4% 50px;
+  padding: 89px 4% 50px;
 `;
 const BottomTitleContainer = styled.h4`
   padding: 0;
@@ -92,7 +92,7 @@ const BottomTitleContainer = styled.h4`
   font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
-  margin:0;
+  margin: 0;
   text-align: center;
 `;
 
@@ -171,15 +171,15 @@ const BodyContainer = styled.main`
   justify-content: space-between;
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
   padding: ${(props) => (props.isMobile ? "30px 20px" : "100px 0px")};
-  width:90%;
-  margin:auto;
-  max-width:1350px;
+  width: 90%;
+  margin: auto;
+  max-width: 1350px;
 `;
 
 const LeftSideBodyComponent = styled.section`
   margin-right: ${(props) => (props.isMobile ? "" : "100px")};
-  flex-basis:calc(90% - 350px);
-  max-width:652px;
+  flex-basis: calc(90% - 350px);
+  max-width: 652px;
 `;
 const RightSideBodyContainer = styled.aside`
   display: ${(props) => (props.isMobile ? "flex" : "")};

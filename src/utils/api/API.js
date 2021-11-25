@@ -132,3 +132,14 @@ export const postComment = async (name, email, content, postId) => {
       return err;
     });
 };
+
+export const addLike = async (type, postId, body) => {
+  return axios
+    .post(config.api_url + "/wp/v2/" + type + "/" + postId)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
