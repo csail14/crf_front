@@ -97,6 +97,7 @@ const SubHome = (props) => {
     ? props.pages.templates.filter((template) => template.slug === props.id)[0]
     : null;
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+  console.log(subHomeTemplate);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -129,44 +130,49 @@ const SubHome = (props) => {
             }}
           ></Textcontainer>
         )}
-        <LinkMainContainer>
-          <LinkTitleContainer>
-            {subHomeTemplate &&
-            subHomeTemplate.acf &&
-            subHomeTemplate.acf.dans_cette_rubrique_2
-              ? subHomeTemplate.acf.dans_cette_rubrique_2.titre
-              : "Dans cette rubrique"}
-          </LinkTitleContainer>
-          {subHomeTemplate &&
-            subHomeTemplate.acf &&
-            subHomeTemplate.acf.dans_cette_rubrique_2 &&
-            subHomeTemplate.acf.dans_cette_rubrique_2.ressources.map(
-              (item, index) => {
-                if (item.post_status === "publish")
-                  return <RightSideLinkContainer info={item} key={index} />;
-              }
-            )}
-        </LinkMainContainer>
-      </BodyContainer>
-      <BottomContainer>
-        <BottomTitleContainer>
-          {subHomeTemplate &&
+        {subHomeTemplate &&
           subHomeTemplate.acf &&
-          subHomeTemplate.acf.ressources_disponibles
-            ? subHomeTemplate.acf.ressources_disponibles.titre
-            : "Les ressources disponibles"}
-        </BottomTitleContainer>
-        <AvailableRessourceContainer isMobile={isMobile}>
-          {subHomeTemplate &&
-            subHomeTemplate.acf.ressources_disponibles &&
-            subHomeTemplate.acf.ressources_disponibles.ressources.map(
-              (item, index) => {
-                if (item.post_status === "publish")
-                  return <GridResultComponent key={index} info={item} />;
-              }
-            )}
-        </AvailableRessourceContainer>
-      </BottomContainer>
+          subHomeTemplate.acf.dans_cette_rubrique_2 &&
+          subHomeTemplate.acf.dans_cette_rubrique_2.ressources.length > 0 && (
+            <LinkMainContainer>
+              <LinkTitleContainer>
+                {subHomeTemplate &&
+                subHomeTemplate.acf &&
+                subHomeTemplate.acf.dans_cette_rubrique_2
+                  ? subHomeTemplate.acf.dans_cette_rubrique_2.titre
+                  : "Dans cette rubrique"}
+              </LinkTitleContainer>
+
+              {subHomeTemplate.acf.dans_cette_rubrique_2.ressources.map(
+                (item, index) => {
+                  if (item.post_status === "publish")
+                    return <RightSideLinkContainer info={item} key={index} />;
+                }
+              )}
+            </LinkMainContainer>
+          )}
+      </BodyContainer>
+      {subHomeTemplate &&
+        subHomeTemplate.acf.ressources_disponibles &&
+        subHomeTemplate.acf.ressources_disponibles.ressources.length > 0 && (
+          <BottomContainer>
+            <BottomTitleContainer>
+              {subHomeTemplate &&
+              subHomeTemplate.acf &&
+              subHomeTemplate.acf.ressources_disponibles
+                ? subHomeTemplate.acf.ressources_disponibles.titre
+                : "Les ressources disponibles"}
+            </BottomTitleContainer>
+            <AvailableRessourceContainer isMobile={isMobile}>
+              {subHomeTemplate.acf.ressources_disponibles.ressources.map(
+                (item, index) => {
+                  if (item.post_status === "publish")
+                    return <GridResultComponent key={index} info={item} />;
+                }
+              )}
+            </AvailableRessourceContainer>
+          </BottomContainer>
+        )}
     </MainContainer>
   );
 };

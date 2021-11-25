@@ -22,7 +22,7 @@ const Dropdown = (props) => {
     if (type === "Page") {
       return url;
     } else if (type === "Article") {
-      return "/post/" + slug;
+      return "/articles/" + slug;
     } else if (type === "Document") {
       return "/documents/" + slug;
     } else if (type === "Indicateur") {

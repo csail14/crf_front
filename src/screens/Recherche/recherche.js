@@ -315,7 +315,7 @@ const Recherche = (props) => {
             if (
               item.type === "indicateurs" ||
               item.type === "documents" ||
-              item.type === "post"
+              item.type === "articles"
             ) {
               let info = { ID: item.id, post_type: item.type };
               return isViewGrid ? (

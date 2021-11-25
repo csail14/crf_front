@@ -266,23 +266,45 @@ const Document = (props) => {
     if (document) {
       if (document && document.featured_media) {
         getMediaById(document.featured_media)
-          .then((res) => setMedia(res.media_details.sizes.article.source_url))
+          .then((res) => {
+            if (
+              res.media_details &&
+              res.media_details.sizes &&
+              res.media_details.sizes.article
+            ) {
+              setMedia(res.media_details.sizes.article.source_url);
+            } else {
+              setMedia(res.media_details.sizes.full.source_url);
+            }
+          })
           .catch((error) => console.log("error", error));
       } else if (
         domaineAction &&
         domaineAction.acf &&
         domaineAction.acf.image_par_defaut
       ) {
-        setMedia(domaineAction.acf.image_par_defaut.sizes.article);
+        if (domaineAction.acf.image_par_defaut.sizes.article) {
+          setMedia(domaineAction.acf.image_par_defaut.sizes.article);
+        } else {
+          setMedia(domaineAction.acf.image_par_defaut.sizes.full);
+        }
       } else if (
         props.options &&
         props.options.options &&
         props.options.options.acf &&
         props.options.options.acf.image_par_defaut_ressources
       ) {
-        setMedia(
+        if (
           props.options.options.acf.image_par_defaut_ressources.sizes.article
-        );
+        ) {
+          setMedia(
+            props.options.options.acf.image_par_defaut_ressources.sizes.article
+          );
+        } else {
+          setMedia(
+            props.options.options.acf.image_par_defaut_ressources.sizes.full
+          );
+        }
       }
     }
   }, [document, domaineAction, props.options]);

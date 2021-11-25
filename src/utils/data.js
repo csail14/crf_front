@@ -47,7 +47,7 @@ export const data = {
     { id: 0, name: "Dans tous le site", type: "all" },
     { id: 1, name: "Document", type: "documents" },
     { id: 2, name: "Indicateur", type: "indicateurs" },
-    { id: 3, name: "Article", type: "post" },
+    { id: 3, name: "Article", type: "articles" },
   ],
   date_ressources: [
     { id: 0, name: "N’importe quand", value: "all" },
