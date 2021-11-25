@@ -22,9 +22,7 @@ const SidebarSearch = (props) => {
           onClick={() => props.setShowMenu(false)}
           className={"sidebar_icon"}
         >
-          <button type={"submit"}>
             <GoSearch />
-          </button>
         </Link>
       </form>
     </div>

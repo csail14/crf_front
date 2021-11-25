@@ -35,10 +35,9 @@ const HeaderContainer = styled.header`
 `;
 
 const LastUpdateContainer = styled.div`
-  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 600;
   line-height: 16px;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
 `;
@@ -72,11 +71,10 @@ const HeaderRightSideTopContainer = styled.div`
 
 const Comment = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
-  text-align: left;
 `;
 const HeaderRightSideBottomContainer = styled.div`
   display: flex;
@@ -85,9 +83,8 @@ const HeaderRightSideBottomContainer = styled.div`
 `;
 const CategoryContainer = styled.div`
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 600;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
 `;
@@ -113,21 +110,19 @@ const Domaine = styled.div`
 `;
 
 const TitleContainer = styled.h2`
-  font-size: 35px;
+  font-size: 3.5rem;
   font-weight: 700;
   line-height: 58px;
-  text-align: left;
   color: ${colors.marine};
   margin: 0;
 `;
 const TagContainer = styled.div`
-  font-size: 14px;
+  font-size: 1.4rem;
   display: flex;
   font-weight: 400;
   line-height: 16px;
   cursor: pointer;
   align-items: center;
-  text-align: left;
   color: ${colors.marine};
   margin-top: 20px;
   &:hover {
@@ -149,9 +144,13 @@ const UpdateContainer = styled.time`
     props.isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
 `;
 
-const BodyContainer = styled.div`
+const BodyContainer = styled.main`
   display: flex;
-  padding: ${(props) => (props.isMobile ? "10px 20px" : "100px 280px")};
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "100px 0px")};
+  width:90%;
+  max-width:652px;
+  justify-content: space-between;
+  margin:auto;
 `;
 
 const LeftSideBodyComponent = styled.div`
@@ -159,11 +158,10 @@ const LeftSideBodyComponent = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 400;
   line-height: 31px;
   color: ${colors.text};
-  text-align: left;
 `;
 
 const BottomContainer = styled.section`
@@ -176,7 +174,7 @@ const BottomContainer = styled.section`
 const BottomTitleContainer = styled.div`
   margin: 50px 5% 30px;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
 `;
@@ -185,7 +183,7 @@ const UploadButton = styled.div`
   display: flex;
   margin: auto;
   text-transform: uppercase;
-  font-size: 14px;
+  font-size: 1.4rem;
   background-color: ${colors.rouge};
   color: white;
   font-weight: 700;
@@ -455,7 +453,6 @@ const Document = (props) => {
             ) : document.acf.document.format === "Lien" &&
               document.acf.document.lien ? (
               <a
-                style={{ color: "inherit", textDecoration: "none" }}
                 id="download-document"
                 href={document.acf.document.lien.url}
                 target={document.acf.document.lien.target}
@@ -464,7 +461,6 @@ const Document = (props) => {
               </a>
             ) : document.acf.document.fichier_joint ? (
               <a
-                style={{ color: "inherit", textDecoration: "none" }}
                 id="download-document"
                 href={document.acf.document.fichier_joint.url}
                 target={document.acf.document.fichier_joint.target}

@@ -12,10 +12,10 @@ const FilterContainer = styled.div`
   flex-direction: column;
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   background-color: ${(props) => (props.isMobile ? "white" : "")};
-  padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
+  padding: ${(props) => (props.isTop ? "5px 10px" : "0px 9%")};
   line-height: 20px;
   border-right: ${(props) =>
-    props.isMobile || props.isType ? "" : "0.5px solid " + colors.gris};
+    props.isMobile || props.isType ? "" : "1px solid #E2E3E5"};
   position: relative;
 `;
 
@@ -23,7 +23,6 @@ const FilterTitle = styled.div`
   font-weight: 700;
   font-size: ${(props) => (props.isTop ? "1rem" : "1.2rem")};
   color: ${colors.gris};
-  text-align: left;
   text-transform: uppercase;
 `;
 
@@ -46,7 +45,6 @@ const FilterContent = styled.div`
 const FilterOptionsContainer = styled.div`
   font-size: 1.6rem;
   line-height: 21px;
-  text-align: left;
   position: absolute;
   top: 60px;
   left: 0px;

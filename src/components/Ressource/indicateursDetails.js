@@ -30,15 +30,15 @@ const LastUpdateContainer = styled.div`
   font-size: 1.4rem;
   font-weight: 600;
   line-height: 16px;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
 `;
 
-const RightSideContainer = styled.div`
+const RightSideContainer = styled.section`
   width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
+  flex-basis:60%;
 `;
 const HeaderRightSideTopContainer = styled.header`
   width: -webkit-fill-available;
@@ -51,7 +51,6 @@ const Comment = styled.div`
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
-  text-align: left;
 `;
 const HeaderRightSideBottomContainer = styled.div`
   display: flex;
@@ -62,7 +61,6 @@ const CategoryContainer = styled.div`
   display: flex;
   font-size: 1.2rem;
   font-weight: 600;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
 `;
@@ -91,7 +89,6 @@ const TitleContainer = styled.h2`
   font-size: 3.5rem;
   font-weight: 700;
   line-height: 58px;
-  text-align: left;
   color: ${colors.marine};
   margin: 0;
 `;
@@ -102,7 +99,6 @@ const TagContainer = styled.div`
   line-height: 16px;
   cursor: pointer;
   align-items: center;
-  text-align: left;
   color: ${colors.marine};
   margin-top: 20px;
   &:hover {
@@ -136,7 +132,6 @@ const ContentContainer = styled.div`
   font-weight: 400;
   line-height: 31px;
   color: ${colors.text};
-  text-align: left;
 `;
 
 const UploadButton = styled.div`
@@ -185,7 +180,6 @@ const TitleBodyContainer = styled.div`
   line-height: 130%;
   text-transform: uppercase;
   margin-bottom: 34px;
-  text-align: left;
 `;
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
@@ -261,7 +255,6 @@ const Indicateur = (props) => {
             className="cliquable_link"
             to={"/liste-des-indicateurs"}
             style={{
-              textDecoration: "none",
               color: colors.gris,
               margin: "0 5px",
             }}

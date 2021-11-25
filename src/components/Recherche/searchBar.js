@@ -29,13 +29,12 @@ import {
 const KeyWordsContainer = styled.div`
   background-color: ${(props) => (props.isMobile ? "white" : "")};
   display: flex;
-  padding: 9px 5px;
+  padding: 0px 1%;
   align-items: center;
   box-shadow: ${(props) =>
     props.isMobile ? "0px 26px 70px rgba(0, 0, 0, 0.15)" : ""};
   border-right: ${(props) =>
-    props.isMobile ? "" : "0.5px solid " + colors.gris};
-  padding-right: ${(props) => (props.isTop ? "" : "15px")};
+    props.isMobile ? "" : "1px solid #E2E3E5"};
   color: ${colors.gris};
   font-weight: 500;
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
@@ -47,7 +46,7 @@ const FilterContainer = styled.div`
   padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
   line-height: 20px;
   border-right: ${(props) =>
-    props.isMobile ? "" : "0.5px solid " + colors.gris};
+    props.isMobile ? "" : "1px solid #E2E3E5"};
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   background-color: ${(props) => (props.isMobile ? "white" : "")};
   position: relative;
@@ -56,7 +55,6 @@ const FilterTitle = styled.div`
   font-weight: 700;
   font-size: ${(props) => (props.isTop ? "1rem" : "1.2rem")};
   color: ${colors.gris};
-  text-align: left;
   text-transform: uppercase;
 `;
 const FilterContent = styled.div`
@@ -88,19 +86,17 @@ const MainContainer = styled.div`
       : props.page === "recherche"
       ? ""
       : props.showAdvancedSearch
-      ? "-32px auto 70px auto"
-      : "-32px auto 0px auto"};
+      ? "-35px auto 70px auto"
+      : "-35px auto 0px auto"};
   background-color: ${(props) => (props.isMobile ? "" : "white")};
-  text-align: left;
   align-items: center;
-  width: 80%;
   max-width: ${(props) => (props.isTop ? "75%" : "")};
   z-index: 1;
   position: ${(props) => (props.isTop ? "" : "relative")};
 `;
 
 const SearchButtonContainer = styled.div`
-  padding: ${(props) => (props.isTop ? "16px 10px" : "16px 25px")};
+  padding: ${(props) => (props.isTop ? "16px 10px" : "20px 30px")};
   color: white;
   background-color: ${colors.rouge};
   font-weight: 700;
@@ -123,8 +119,7 @@ const AdvancedSearchBar = styled.div`
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   padding: 7px;
   margin: 10px auto 0px auto;
-  background-color: white;
-  text-align: left;
+  background-color: white;$
   width: fit-content;
 `;
 const AdvancedSearchBarContainer = styled.div`
@@ -137,7 +132,7 @@ const AdvancedSearchBarContainer = styled.div`
 const ToggleContainer = styled.div`
   text-decoration: underline;
   position: absolute;
-  bottom: -27px;
+  bottom: -32px;
   right: 0;
   color: ${colors.rouge};
   text-transform: uppercase;
@@ -154,7 +149,6 @@ const ToggleContainer = styled.div`
 const FilterOptionsContainer = styled.div`
   font-size: 1.6rem;
   line-height: 21px;
-  text-align: left;
   position: absolute;
   top: 60px;
   left: 0px;
@@ -470,7 +464,7 @@ const SearchBar = (props) => {
       showAdvancedSearch={showAdvancedSearch}
     >
       <KeyWordsContainer isMobile={isMobile} isTop={isTop}>
-        <GoSearch style={{ marginRight: isTop ? "5px" : "12px" }} />
+        <GoSearch style={{ marginRight: isTop ? "5px" : "17px", fontSize: "2.4rem"  }} />
         <input
           onFocus={onFocus}
           onBlur={onBlur}
@@ -610,11 +604,10 @@ const SearchBar = (props) => {
         </>
       )}
       {isHome ? (
-        <Link style={{ textDecoration: "none" }} to={"/recherche"}>
+        <Link to={"/recherche"}>
           <SearchButtonContainer
             isTop={isTop}
             isMobile={isMobile}
-            onClick={sendSearchRequest}
           >
             rechercher
           </SearchButtonContainer>

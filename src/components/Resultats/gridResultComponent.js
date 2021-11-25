@@ -62,7 +62,6 @@ const LastUpdateContainer = styled.div`
   font-size: 1.2rem;
   font-weight: 500;
   line-height: 14px;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
   color: ${colors.marine};
@@ -72,7 +71,6 @@ const CategoryContainer = styled.div`
   display: flex;
   font-size: 1.2rem;
   font-weight: 600;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
 `;
@@ -102,7 +100,6 @@ const TitleContainer = styled.h2`
   font-weight: 700;
   line-height: 22px;
   text-transform: uppercase;
-  text-align: left;
   margin-bottom: 16px;
   color: ${colors.marine};
   cursor: pointer;
@@ -118,7 +115,6 @@ const DescriptionContainer = styled.p`
   font-weight: 500;
   line-height: 22px;
   margin-bottom: 16px;
-  text-align: left;
   color: ${colors.gris};
 `;
 
@@ -128,7 +124,6 @@ const TagContainer = styled.div`
   font-weight: 400;
   line-height: 16px;
   align-items: center;
-  text-align: left;
   color: ${colors.marine};
   margin-bottom: 20px;
   cursor: pointer;
@@ -154,7 +149,6 @@ const Comment = styled.div`
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
-  text-align: left;
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -168,7 +162,6 @@ const OtherTypePicto = styled.div`
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
-  text-align: left;
 `;
 
 const UploadContainer = styled.div`
@@ -260,7 +253,7 @@ const GridResultComponent = (props) => {
 
   const type = details && details.type;
   const icon =
-    type === "post"
+    type === "articles"
       ? "bi bi-folder"
       : type === "indicateurs"
       ? "bi bi-file-earmark-bar-graph"

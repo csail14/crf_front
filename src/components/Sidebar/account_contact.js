@@ -15,19 +15,16 @@ const AccountContact = (props) => {
           target={props.contact_info.target}
           className={"contact_container"}
         >
-          <p>
             <FiMail className={"acc_contact_icon"} />
             {props.contact_info.title}
-          </p>
         </a>
       )}
-      <hr />
       <div className="account_container">
         <p>
           <BsFillPersonFill className={"acc_contact_icon"} />
           Austin Robertson
         </p>
-        <a style={{ color: colors.gris, marginTop: "5px" }} href="google.com">
+        <a href="google.com">
           Se déconnecter
         </a>
       </div>

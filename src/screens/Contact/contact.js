@@ -138,8 +138,7 @@ const Contact = (props) => {
   };
 
   const HeaderContainer = styled.header`
-    padding: ${isMobile ? "30px" : "80px 10%"};
-    text-align: left;
+    padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
     background-image: url(${config.header_image_url});
     background-size: cover;
     background-position: bottom right;
@@ -148,19 +147,20 @@ const Contact = (props) => {
   const HeaderTitleContainer = styled.h2`
     font-size: 4.5rem;
     color: ${colors.marine};
-    line-height: 58px;
-    letter-spacing: 0em;
+    line-height: 50px;
+    letter-spacing: 0.07rem;
     text-transform: uppercase;
     margin: 0;
+    font-weight:700;
   `;
   const HeaderSubTitleContainer = styled.h3`
     font-size: 4.5rem;
     color: ${colors.marine};
-    line-height: 58px;
-    letter-spacing: 0em;
+    line-height: 42px;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
     font-weight: 300;
-    margin: 0;
+    margin: 0 0 34px;
   `;
   const TermsAndConditions = styled.div`
     line-height: 1.5;
@@ -175,10 +175,12 @@ const Contact = (props) => {
     margin-top: 1rem;
   `;
 
-  const SubtitleContainer = styled.p`
-    margin-top: 26px;
-    color: ${colors.gris};
-  `;
+  const SubtitleContainer = styled.div`
+  margin-top: 26px;
+  color: ${colors.gris};
+  max-width:800px;
+  line-height:1.8;
+`;
   const slug = props.slug || "contact";
   const contactTemplate =
     props.pages && props.pages.templates && props.pages.templates.length

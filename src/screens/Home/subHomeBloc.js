@@ -8,47 +8,44 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { useHistory } from "react-router-dom";
 import { config } from "../../config";
 const MainContainer = styled.div`
-  margin: ${(props) => (props.isMobile ? "50px 35px 10px 35px" : "50px 35px")};
-  max-width: 400px;
+  margin: ${(props) => (props.isMobile ? "50px 35px 10px 35px" : "0px 0px")};
+  flex-basis:30%;
+  display:flex;
+  flex-direction:column;
 `;
 
-const HeaderContainer = styled.main`
+const HeaderContainer = styled.article`
   display: flex;
   cursor: pointer;
   flex-direction: column;
-  padding: 20px;
+  padding: 52px 10% 59px;
   background-color: ${colors.grisBackground};
-  min-height: 250px;
-  min-width: 250px;
   border-radius: 8px;
   align-items: center;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
   transition: all 150ms linear;
-
+  text-align:center;
   &:hover {
-    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    
-    transform: scale(0.98);
+    box-shadow: 6px 8px 20px 0px rgba(0, 0, 0, 0.2);
   }
 `;
 
 const TitleContainer = styled.h2`
   color: ${colors.rouge};
-  margin-top: 30px;
-  padding: 5px;
+  margin: 53px 0 0;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 2.6rem;
+  letter-spacing:0.3rem;
 `;
 
 const SubTitleContainer = styled.p`
   color: ${colors.marine};
-  padding: 10px;
+  margin:5px 0 0;
   font-size: 1.6rem;
-  font-weight: 400;
 `;
 
-const LinkMainContainer = styled.article`
+const LinkMainContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
@@ -56,17 +53,19 @@ const LinkMainContainer = styled.article`
 const LinkContainer = styled.h3`
   display: flex;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
-  padding: 15px 20px;
+  padding: 16px 3% 12px 6%;
+  margin:6px 0;
   color: ${colors.marine};
-  font-weight: 300;
+  line-height:1.4;
+  font-weight: 600;
   font-size:1.6rem;
+  letter-spacing:0.2rem;
   align-items: center;
-  text-align:left;
   justify-content: space-between;
   cursor: pointer;
   transition: all 150ms;
   &:hover {
-    box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.4);
+    box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.2);
     transform: scale(0.98);
   }
 `;
@@ -74,13 +73,14 @@ const LinkContainer = styled.h3`
 const MoreInfoContainer = styled.div`
   display: flex;
   color: ${colors.rouge};
-  margin-top: 30px;
+  margin-top: 45px;
   padding: 5px;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 1.2rem;
   justify-content: center;
   cursor: pointer;
+  letter-spacing:0.1rem;
 `;
 
 const Text = styled.div`
@@ -101,15 +101,15 @@ const SubHomeBloc = (props) => {
     <MainContainer isMobile={isMobile}>
       <Link
         to={props.isSearchOpen ? "#" : link}
-        style={{ textDecoration: "none" }}
       >
         <HeaderContainer>
           {" "}
-          <img
-            style={{ maxHeight: "130px", maxWidth: "220px" }}
+          <figure className="home_figure">
+            <img
             src={props.info.push.image ? props.info.push.image.url : null}
             alt="blocImage"
           />
+            </figure>
           <TitleContainer>
             {props.info.push.titre ? props.info.push.titre : ""}
           </TitleContainer>
@@ -143,7 +143,7 @@ const SubHomeBloc = (props) => {
             })
           : null}
       </LinkMainContainer>
-      <Link to={link} style={{ textDecoration: "none" }}>
+      <Link className="autobottom" to={link}>
         <MoreInfoContainer>
           <Text>
             En savoir plus{" "}

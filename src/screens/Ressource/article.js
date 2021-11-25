@@ -39,7 +39,6 @@ const LastUpdateContainer = styled.div`
   font-size: 1.4rem;
   font-weight: 600;
   line-height: 16px;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
 `;
@@ -77,7 +76,6 @@ const Comment = styled.div`
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
-  text-align: left;
 `;
 const HeaderRightSideBottomContainer = styled.div`
   display: flex;
@@ -110,7 +108,6 @@ const CategoryContainer = styled.div`
   display: flex;
   font-size: 1.2rem;
   font-weight: 600;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
 `;
@@ -139,7 +136,6 @@ const TitleContainer = styled.h2`
   font-size: 3.5rem;
   font-weight: 700;
   line-height: 58px;
-  text-align: left;
   color: ${colors.marine};
   margin: 0;
 `;
@@ -149,7 +145,6 @@ const TagContainer = styled.div`
   font-weight: 400;
   line-height: 16px;
   align-items: center;
-  text-align: left;
   color: ${colors.marine};
   cursor: pointer;
   margin-top: 20px;
@@ -173,15 +168,20 @@ const UpdateContainer = styled.time`
     props.isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
 `;
 
-const BodyContainer = styled.div`
+const BodyContainer = styled.main`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
-  padding: ${(props) => (props.isMobile ? "30px 20px" : "100px 80px")};
+  padding: ${(props) => (props.isMobile ? "30px 20px" : "100px 0px")};
+  width:90%;
+  margin:auto;
+  max-width:1350px;
 `;
 
-const LeftSideBodyComponent = styled.div`
+const LeftSideBodyComponent = styled.section`
   margin-right: ${(props) => (props.isMobile ? "" : "100px")};
+  flex-basis:calc(90% - 350px);
+  max-width:652px;
 `;
 const RightSideBodyContainer = styled.aside`
   display: ${(props) => (props.isMobile ? "flex" : "")};
@@ -195,7 +195,6 @@ const ContentContainer = styled.div`
   font-weight: 400;
   line-height: 31px;
   color: ${colors.text};
-  text-align: left;
 `;
 
 const TitleRessourceContainer = styled.div`
@@ -203,7 +202,6 @@ const TitleRessourceContainer = styled.div`
   font-weight: 700;
   line-height: 23px;
   letter-spacing: 0em;
-  text-align: left;
   margin-bottom: 20px;
   text-transform: uppercase;
 `;
@@ -227,7 +225,7 @@ const Article = (props) => {
   useEffect(() => {
     props.resetAllFilter();
     if (slug) {
-      getRessourceBySlug(slug, "posts")
+      getRessourceBySlug(slug, "articles")
         .then((res) => {
           if (res.length) {
             setArticle(res[0]);

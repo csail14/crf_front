@@ -17,8 +17,9 @@ import {
 
 require("moment/locale/fr.js");
 
-const MainContainer = styled.div`
+const MainContainer = styled.main`
   display: flex;
+  justify-content:space-around;
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
   background: linear-gradient(
       0deg,
@@ -40,17 +41,15 @@ const MainContainer = styled.div`
 
   background-size: ${(props) => (props.isMobile ? "100% 480px" : "100% 250px")};
   background-repeat: no-repeat;
-  padding-right: ${(props) => (props.isMobile ? "" : "100px")};
   position: relative;
-  min-height: 95vh;
+  min-height: 95vh; 
 `;
 
 const LeftSideComponent = styled.aside`
-  display: flex;
   position: -webkit-sticky;
   position: sticky;
-  top: 100px;
-  padding: 100px 85px;
+  margin-top: 100px;
+  flex-basis:25%;
 `;
 
 const Indicateur = (props) => {

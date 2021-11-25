@@ -22,7 +22,6 @@ const TitleContainer = styled.div`
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 23px;
-  text-align: left;
   color: black;
   text-transform: uppercase;
   margin-bottom: 20px;
@@ -40,7 +39,6 @@ const Name = styled.div`
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 19px;
-  text-align: left;
   color: black;
   margin-right: 8px;
 `;
@@ -48,7 +46,6 @@ const Date = styled.div`
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 19px;
-  text-align: left;
   color: ${colors.gris};
 `;
 

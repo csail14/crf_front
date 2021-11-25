@@ -8,7 +8,6 @@ const DomaineTitle = styled.div`
   font-weight: ${(props) => (props.isOpen ? "700" : "500")};
   font-size: 1.4rem;
   text-transform: uppercase;
-  text-align: left;
   color: ${(props) => (props.isOpen ? colors.rouge : colors.marine)};
   &:hover {
     opacity: 0.8;
@@ -33,7 +32,6 @@ const RessourcesLieesContainer = styled.div`
   align-items: center;
   cursor: pointer;
   font-size: 1.4rem;
-  text-align: left;
   &:hover {
     opacity: 0.8;
     transition: opacity 150ms linear, transform 150ms linear;

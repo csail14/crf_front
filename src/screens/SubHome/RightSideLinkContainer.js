@@ -38,7 +38,6 @@ const ExtraitContainer = styled.div`
   font-size: 1.4rem;
   font-weight: 600;
   line-height: 21px;
-  text-align: left;
   position: absolute;
   top: 80px;
   right: 50px;

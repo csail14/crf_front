@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { colors } from "../colors";
 
 const MainContainer = styled.footer`
-  padding: 18px;
+  padding: 18px 1%;
   background-color: ${colors.grisBackground};
   display: flex;
   justify-content: space-between;
@@ -23,7 +23,7 @@ class Header extends React.Component {
       this.props.options.options.acf.copyright;
     const menu = this.props.options && this.props.options.footerMenu;
     return (
-      <MainContainer>
+      <MainContainer className="footer">
         <FooterLinkContainer>
           {menu &&
             menu.map((item, index) => {
@@ -31,8 +31,8 @@ class Header extends React.Component {
                 const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");
                 if (type === "page") {
                   return url;
-                } else if (type === "post") {
-                  return "/post/" + slug;
+                } else if (type === "article") {
+                  return "/articles/" + slug;
                 } else if (type === "document") {
                   return "/documents/" + slug;
                 } else if (type === "indicateur") {
@@ -44,7 +44,6 @@ class Header extends React.Component {
                 <Link
                   className="cliquable_link"
                   key={index}
-                  style={{ textDecoration: "none", marginRight: "10px" }}
                   to={url}
                 >
                   {item.title}

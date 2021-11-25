@@ -22,7 +22,7 @@ const Dropdown = (props) => {
     if (type === "Page") {
       return url;
     } else if (type === "Article") {
-      return "/post/" + slug;
+      return "/articles/" + slug;
     } else if (type === "Document") {
       return "/documents/" + slug;
     } else if (type === "Indicateur") {
@@ -52,7 +52,6 @@ const Dropdown = (props) => {
         >
           <p key={obj.id}>{obj.title}</p>
         </div>
-        <br />
       </div>
     );
   };
@@ -62,16 +61,15 @@ const Dropdown = (props) => {
   return (
     <div className={"container"} ref={container}>
       <Link
-        style={{ textDecoration: "none" }}
         to={url}
         className={"dropdown_div"}
         onClick={() => props.openCloseDropDown(props.id)}
       >
-        <p className={"dropdown_text dropdown_title"}>{props.title}</p>
-        <p className={"arrow_icon"}>
+        <span className={"dropdown_text dropdown_title"}>{props.title}</span>
+        <span className={"arrow_icon"}>
           {!isOpen && <BsChevronDown />}
           {isOpen && <BsChevronUp />}
-        </p>
+        </span>
       </Link>
 
       {isOpen && (

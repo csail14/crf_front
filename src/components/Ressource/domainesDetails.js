@@ -31,7 +31,6 @@ const TitleContainer = styled.h3`
   font-size: 3.5rem;
   font-weight: 700;
   line-height: 58px;
-  text-align: left;
   color: ${colors.marine};
   margin: 0;
 `;
@@ -48,7 +47,6 @@ const ContentContainer = styled.div`
   font-weight: 400;
   line-height: 31px;
   color: ${colors.text};
-  text-align: left;
 `;
 
 const ArianeContainer = styled.div`
@@ -95,7 +93,6 @@ const Indicateur = (props) => {
             to={"/liste-des-indicateurs"}
             className="cliquable_link"
             style={{
-              textDecoration: "none",
               color: colors.gris,
               margin: "0 5px",
             }}

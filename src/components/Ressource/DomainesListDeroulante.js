@@ -9,7 +9,6 @@ const ListDomainContainer = styled.div`
   background: #ffffff;
   height: fit-content;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
-  min-width: 250px;
   justify-content: flex-start;
   flex-direction: column;
 `;

@@ -49,7 +49,7 @@ const IconContainer = styled.div`
   background-color: ${(props) =>
     props.type === "documents"
       ? colors.yellowBackground
-      : props.type === "post"
+      : props.type === "articles"
       ? colors.blueBackground
       : colors.redBackground};
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
@@ -66,7 +66,6 @@ const LastUpdateContainer = styled.time`
   font-size: 1.2rem;
   font-weight: 700;
   line-height: 14px;
-  text-align: left;
   text-transform: uppercase;
   color: ${colors.marine};
 `;
@@ -102,7 +101,6 @@ const TitleContainer = styled.h2`
   font-weight: 700;
   line-height: 22px;
   text-transform: uppercase;
-  text-align: left;
   cursor: pointer;
   color: ${colors.marine};
   &:hover {
@@ -116,7 +114,6 @@ const DescriptionContainer = styled.p`
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 22px;
-  text-align: left;
   color: ${colors.gris};
   margin: 0;
 `;
@@ -130,7 +127,6 @@ const TagContainer = styled.div`
   font-weight: 400;
   line-height: 16px;
   align-items: center;
-  text-align: left;
   color: black;
   cursor: pointer;
   &:hover {
@@ -153,7 +149,6 @@ const Comment = styled.div`
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
-  text-align: left;
   cusor: pointer;
   &:hover {
     opacity: 0.8;
@@ -168,7 +163,6 @@ const OtherTypePicto = styled.div`
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
-  text-align: left;
 `;
 
 const UploadContainer = styled.div`
@@ -196,7 +190,6 @@ const CategoryContainer = styled.div`
   display: flex;
   font-size: 1.2rem;
   font-weight: 600;
-  text-align: left;
   text-transform: uppercase;
   margin-bottom: 13px;
 `;
@@ -248,7 +241,7 @@ const GridResultComponent = (props) => {
   }
   const type = details && details.type;
   const icon =
-    type === "post"
+    type === "articles"
       ? "bi bi-folder"
       : type === "indicateurs"
       ? "bi bi-file-earmark-bar-graph"

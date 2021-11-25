@@ -54,7 +54,7 @@ function App() {
             <Route exact path="/recherche" component={HOC(Recherche)} />
             <Route exact path="/contact" component={HOC(Contact)} />
             <Route exact path="/impact-track" component={HOC(ImpactTrack)} />
-            <Route exact path="/post/:id" component={HOC(Article)} />
+            <Route exact path="/articles/:id" component={HOC(Article)} />
             <Route exact path="/documents/:id" component={HOC(Document)} />
             <Route exact path="/:id" component={HOC(OtherPage)} />
           </Switch>

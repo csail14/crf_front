@@ -16,34 +16,37 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "80px 10%")};
-
-  text-align: left;
+  padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
   background-image: url(${config.header_image_url});
   background-size: cover;
   background-position: bottom right;
 `;
 
-const HeaderTitleContainer = styled.h2`
+const HeaderTitleContainer = styled.h1`
   font-size: 4.5rem;
   color: ${colors.marine};
-  line-height: 58px;
-  letter-spacing: 0em;
+  line-height: 50px;
+  letter-spacing: 0.07rem;
   text-transform: uppercase;
+  margin: 0;
+  font-weight:700;
 `;
 
-const HeaderSubTitleContainer = styled.h3`
+const HeaderSubTitleContainer = styled.h2`
   font-size: 4.5rem;
   color: ${colors.marine};
-  line-height: 58px;
-  letter-spacing: 0em;
+  line-height: 42px;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
+  margin: 0 0 34px;
   font-weight: 300;
 `;
 
 const SubtitleContainer = styled.div`
   margin-top: 26px;
   color: ${colors.gris};
+  max-width:800px;
+  line-height:1.8;
 `;
 const BodyContainer = styled.main`
   display: flex;

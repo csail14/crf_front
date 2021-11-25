@@ -11,7 +11,7 @@ import logoMobile from "../../assets/logo-mobile.png";
 import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
 import { config } from "../../config";
 const ImageContainer = styled.div`
-  margin: 22px 20px 0px 8px;
+  margin: 23px 14% 0;
   cursor: pointer;
 `;
 
@@ -29,7 +29,7 @@ const MainContainer = styled.aside`
   max-width: ${(props) => (props.isMobile ? "" : "min-content")};
 `;
 
-const BackIntranet = styled.div`
+const BackIntranet = styled.a`
   display: flex;
   justify-content: flex-start;
   font-weight: bold;
@@ -96,25 +96,20 @@ const LeftSideComponent = (props) => {
               props.options.options &&
               props.options.options.acf &&
               props.options.options.acf.retour_intranet && (
-                <a
-                  style={{ textDecoration: "none" }}
-                  href={props.options.options.acf.retour_intranet.url}
-                  target={props.options.options.acf.retour_intranet.target}
-                >
-                  <BackIntranet>
+                  <BackIntranet href={props.options.options.acf.retour_intranet.url}
+                  target={props.options.options.acf.retour_intranet.target}>
                     <i
-                      class="bi bi-chevron-left"
-                      style={{ marginRight: "8px" }}
+                      className="bi bi-chevron-left"
+                      style={{ marginRight: "13px" }}
                     />{" "}
                     {props.options.options.acf.retour_intranet.title}
                   </BackIntranet>
-                </a>
               )}
             {!isMobile && (
               <ImageContainer>
                 <Link to="/home">
                   <img
-                    style={{ maxWidth: "200px" }}
+                    style={{ maxWidth: "188px" }}
                     src={
                       props.options &&
                       props.options.options &&
@@ -136,7 +131,6 @@ const LeftSideComponent = (props) => {
               )}
               <Link
                 to="/home"
-                style={{ textDecoration: "none" }}
                 onClick={closeMenu}
               >
                 <h1>
@@ -149,7 +143,7 @@ const LeftSideComponent = (props) => {
               </Link>
               {isMobile && (
                 <i
-                  class="bi bi-x-lg"
+                  className="bi bi-x-lg"
                   onClick={() => setShowMenu(!showMenu)}
                 ></i>
               )}
@@ -192,13 +186,14 @@ const LeftSideComponent = (props) => {
           showMenu={showMenu}
           className={"main_container"}
         >
-          <BackIntranet isMobile={isMobile}>
-            <i class="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
+          <BackIntranet href={props.options.options.acf.retour_intranet.url}
+                  target={props.options.options.acf.retour_intranet.target} isMobile={isMobile}>
+            <i className="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
             Retour à l'intranet
           </BackIntranet>
           <div className={"sidebar_title"}>
             {isMobile && (
-              <Link to="/home" style={{ textDecoration: "none" }}>
+              <Link to="/home">
                 <img
                   src={logoMobile}
                   style={{ marginRight: "20px" }}
@@ -206,12 +201,12 @@ const LeftSideComponent = (props) => {
                 />
               </Link>
             )}
-            <Link to="/home" style={{ textDecoration: "none" }}>
+            <Link to="/home">
               {" "}
               <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>{" "}
             </Link>
             <i
-              class="bi bi-list"
+              className="bi bi-list"
               style={{ fontSize: "30px" }}
               onClick={() => setShowMenu(!showMenu)}
             ></i>

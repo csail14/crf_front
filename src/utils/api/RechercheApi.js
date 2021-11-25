@@ -7,7 +7,7 @@ export const getResult = async (query) => {
     .then((response) => {
       return response.data.filter(
         (item) =>
-          item.type === "post" ||
+          item.type === "articles" ||
           item.type === "documents" ||
           item.type === "indicateurs"
       );
