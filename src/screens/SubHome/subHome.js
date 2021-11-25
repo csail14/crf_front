@@ -98,7 +98,6 @@ const SubHome = (props) => {
     ? props.pages.templates.filter((template) => template.slug === props.id)[0]
     : null;
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-  console.log(subHomeTemplate);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>

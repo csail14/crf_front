@@ -5,6 +5,7 @@ import DOMPurify from "dompurify";
 import { isMobile } from "react-device-detect";
 import { config } from "../../config";
 import { colors } from "../../colors";
+import { sendMail } from "../../utils/api/API";
 
 const FormInput = styled.div`
   display: flex;
@@ -78,7 +79,7 @@ const Contact = (props) => {
       setLastName(e.target.value);
     } else if (e.target.name === "email") {
       setEmail(e.target.value);
-    } else if (e.target.name === "phone") {
+    } else if (e.target.name === "tel") {
       setPhone(e.target.value);
     } else if (e.target.name === "message") {
       setMessage(e.target.value);
@@ -116,25 +117,14 @@ const Contact = (props) => {
   //send email on submit
   const sendEmail = () => {
     const data = {
-      firstName,
-      lastName,
-      email,
-      phone,
-      message,
-      subject,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      tel: phone,
+      message: message,
+      subject: subject,
     };
-    fetch(`${config.api_url}/sendEmail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    sendMail(data).then((res) => console.log("response email", res));
   };
 
   const HeaderContainer = styled.header`
@@ -268,10 +258,10 @@ const Contact = (props) => {
                     Téléphone <strong style={{ color: colors.rouge }}>*</strong>
                   </label>
                   <input
-                    name={"phone"}
-                    type="phone"
+                    name={"tel"}
+                    type="tel"
                     className="form-control"
-                    id="phone"
+                    id="tel"
                     placeholder="Votre numéro de téléphone"
                     onChange={handleChange}
                   />

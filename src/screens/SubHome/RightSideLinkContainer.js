@@ -94,20 +94,22 @@ const RightSideLinkContainer = (props) => {
     >
       {props.info.post_title}
       <MdArrowForwardIos style={{ color: colors.rouge }} />
-      {isHovered && (
-        <>
-          <BsFillTriangleFill
-            style={{ position: "absolute", right: "70px", top: "68px" }}
-          />
-          <ExtraitContainer
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(
-                details && details.acf && details.acf.extrait
-              ),
-            }}
-          ></ExtraitContainer>
-        </>
-      )}
+      {isHovered &&
+        details &&
+        details.acf &&
+        details.acf.extrait &&
+        details.acf.extrait !== "" && (
+          <>
+            <BsFillTriangleFill
+              style={{ position: "absolute", right: "70px", top: "68px" }}
+            />
+            <ExtraitContainer
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(details.acf.extrait),
+              }}
+            ></ExtraitContainer>
+          </>
+        )}
     </LinkContainer>
   );
 };
