@@ -42,10 +42,9 @@ const HeaderContainer = styled.header`
     img{
       width:100%;
       height:100%;
-      objectif-fit:cover;
+      object-fit:cover;
     }
   }
-  
 `;
 
 const LastUpdateContainer = styled.div`
@@ -53,7 +52,7 @@ const LastUpdateContainer = styled.div`
   font-weight: 600;
   line-height: 16px;
   text-transform: uppercase;
-  margin-bottom: 13px;
+  margin-top:4px;
 `;
 
 const RightSideContainer = styled.div`
@@ -64,7 +63,8 @@ const RightSideContainer = styled.div`
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: ${(props) => (props.isMobile ? "20px" : "103px 9% 100px 6.3%")};
+  min-height:378px;
+  padding: ${(props) => (props.isMobile ? "20px" : "103px 9% 63px 6.3%")};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -87,9 +87,10 @@ const HeaderRightSideTopContainer = styled.div`
 const Comment = styled.div`
   display: flex;
   font-size: 1.2rem;
-  color: ${colors.gris};
+  color: #8A92A6;
   align-items: center;
   font-weight: 400;
+  margin-right:20px;
 `;
 const HeaderRightSideBottomContainer = styled.div`
   display: flex;
@@ -128,9 +129,9 @@ const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -138,9 +139,9 @@ const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -173,14 +174,14 @@ const TagContainer = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 50px")};
-  border-bottom: 0.5px solid lightgrey;
+  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 6.3%")};
+  border-bottom: 0.5px solid #DCE2EF;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.time`
   padding: ${(props) =>
-    props.isMobile ? "10px 20px 0 20px" : "10px 50px 0 50px"};
+    props.isMobile ? "10px 20px 0 20px" : "14px 0px 0 6.3%"};
 `;
 
 const BodyContainer = styled.main`
@@ -194,22 +195,53 @@ const BodyContainer = styled.main`
 `;
 
 const LeftSideBodyComponent = styled.section`
-  margin-right: ${(props) => (props.isMobile ? "" : "100px")};
-  flex-basis: calc(90% - 350px);
-  max-width: 652px;
+  flex-basis: 52%;
+  max-width: 660px;
+  &:only-child{
+    margin:0 auto;
+  }
 `;
 const RightSideBodyContainer = styled.aside`
   display: ${(props) => (props.isMobile ? "flex" : "")};
   flex-direction: ${(props) => (props.isMobile ? "column" : "")};
   align-items: ${(props) => (props.isMobile ? "center" : "")};
-  min-width: ${(props) => (props.isMobile ? "" : "350px")};
+  flex-basis:35%;
+  max-width:363px;
 `;
 
 const ContentContainer = styled.div`
-  font-size: 1.8rem;
-  font-weight: 400;
-  line-height: 31px;
-  color: ${colors.text};
+line-height:1.9;
+&>*:first-child{
+  margin-top:0;
+}
+h2{
+  font-size:3.5rem;
+  line-height:45px;
+  color:#003956;
+  text-transform:uppercase;
+  margin:20px 0 12px;
+}
+h3{
+  text-transform:uppercase;
+  font-size:1.8rem;
+  margin:20px 0 12px;
+}
+ul{
+  padding-left: 13px;
+  li{
+    margin:17px 0;
+    &::marker{
+      color:${colors.rouge};
+    }
+  }
+}
+a{
+  color: ${colors.rouge};
+  font-weight:bold;
+}
+p{
+  margin:12px 0;
+}
 `;
 
 const TitleRessourceContainer = styled.div`
@@ -223,12 +255,12 @@ const TitleRessourceContainer = styled.div`
 const AddLikeContainer = styled.div`
   display: flex;
   font-weight: 700;
-  margin: 50px auto;
+  margin: 83px auto 52px;
   padding: 27px;
   justify-content: center;
   align-items: center;
-  border-top: 0.5px solid lightGrey;
-  border-bottom: 0.5px solid lightGrey;
+  border-top: 0.5px solid #E6E6E6;
+  border-bottom: 0.5px solid #E6E6E6;
 `;
 
 const Article = (props) => {
@@ -419,7 +451,7 @@ const Article = (props) => {
                 <Comment>
                   <AiOutlineLike
                     size={18}
-                    style={{ color: colors.gris, marginRight: "7px" }}
+                    style={{ color:"#8A92A6",verticalAlign:"middle", marginRight: "7px" }}
                   />
                   {article.acf.datas.likes}
                 </Comment>
@@ -427,7 +459,7 @@ const Article = (props) => {
                   <AiOutlineEye
                     size={18}
                     style={{
-                      color: colors.gris,
+                      color:"#8A92A6",verticalAlign:"middle",
                       marginRight: "7px",
                       marginLeft: "10px",
                     }}

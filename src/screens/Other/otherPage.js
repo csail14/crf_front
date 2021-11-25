@@ -57,19 +57,40 @@ const BodyContainer = styled.main`
 const Textcontainer = styled.div`
   padding: ${(props) => (props.isMobile ? "30px 0" : "100px 0")};
   color: ${colors.text};
-  max-width:652px;
+  line-height:1.9;
+  max-width:660px;
+  margin:0 auto;
   width:90%;
-  line-height:1.6;
+  &>*:first-child{
+    margin-top:0;
+  }
   h2{
+    font-size:3.5rem;
+    line-height:45px;
+    color:#003956;
+    text-transform:uppercase;
+    margin:20px 0 12px;
+  }
+  h3{
     text-transform:uppercase;
     font-size:1.8rem;
-    margin:30px 0 20px;
+    margin:20px 0 12px;
+  }
+  ul{
+    padding-left: 13px;
+    li{
+      margin:17px 0;
+      &::marker{
+        color:${colors.rouge};
+      }
+    }
   }
   a{
     color: ${colors.rouge};
+    font-weight:bold;
   }
   p{
-    margin:20px 0;
+    margin:12px 0;
   }
 `;
 

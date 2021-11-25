@@ -17,36 +17,68 @@ import {
   resetAllFilter,
 } from "../../actions/filter/filterActions";
 
-const RightSideContainer = styled.div`
-  width: -webkit-fill-available;
+const RightSideContainer = styled.section`
   display: flex;
   flex-direction: column;
+  flex-basis: 60%;
+  margin-bottom:50px;
+  max-width:660px;
 `;
 const HeaderRightSideTopContainer = styled.header`
-  width: -webkit-fill-available;
-  padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
+  min-height:378px;
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "63px 0px 30px")};
 `;
 
-const TitleContainer = styled.h3`
-  font-size: 3.5rem;
+const TitleContainer = styled.h1`
+  font-size: 4.5rem;
   font-weight: 700;
   line-height: 58px;
+  text-transform:uppercase;
   color: ${colors.marine};
   margin: 0;
+  letter-spacing:0.05rem;
+  margin-bottom:32px;
 `;
 
-const BodyContainer = styled.div`
-  display: flex;
-  padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
+const BodyContainer = styled.section`
+  margin-top:33px;
 `;
 
 const LeftSideBodyComponent = styled.div``;
 
 const ContentContainer = styled.div`
-  font-size: 1.8rem;
-  font-weight: 400;
-  line-height: 31px;
-  color: ${colors.text};
+line-height:1.9;
+&>*:first-child{
+  margin-top:0;
+}
+h2{
+  font-size:3.5rem;
+  line-height:45px;
+  color:#003956;
+  text-transform:uppercase;
+  margin:20px 0 12px;
+}
+h3{
+  text-transform:uppercase;
+  font-size:1.8rem;
+  margin:20px 0 12px;
+}
+ul{
+  padding-left: 13px;
+  li{
+    margin:17px 0;
+    &::marker{
+      color:${colors.rouge};
+    }
+  }
+}
+a{
+  color: ${colors.rouge};
+  font-weight:bold;
+}
+p{
+  margin:12px 0;
+}
 `;
 
 const ArianeContainer = styled.div`
@@ -56,7 +88,17 @@ const ArianeContainer = styled.div`
   display: flex;
   align-items: center;
   color: #99a0b1;
-  padding-bottom: 40px;
+  padding-bottom: 45px;
+  a,div{
+    color: #99A0B1;
+    margin: 0 5px;
+  }
+  div:not(:last-of-type){
+    cursor:pointer;
+  }
+  a{
+    margin-left:0;
+  }
 `;
 
 const Indicateur = (props) => {
@@ -92,10 +134,6 @@ const Indicateur = (props) => {
           <Link
             to={"/liste-des-indicateurs"}
             className="cliquable_link"
-            style={{
-              color: colors.gris,
-              margin: "0 5px",
-            }}
           >
             {listIndicateurTemplate &&
               listIndicateurTemplate.title &&
@@ -103,10 +141,6 @@ const Indicateur = (props) => {
           </Link>
           {" > "}
           <div
-            style={{
-              color: colors.gris,
-              margin: "0 5px",
-            }}
           >
             {domaine && domaine.name}
           </div>

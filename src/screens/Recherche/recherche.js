@@ -83,10 +83,9 @@ const ButtonView = styled.div`
   font-size: 1.2rem;
   text-transform: uppercase;
   align-items: center;
+  transition: box-shadow 150ms linear, background-color 150ms linear, transform 150ms linear;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -106,9 +105,9 @@ const Tries = styled.div`
   color: ${(props) => (props.isTrue ? "black" : colors.gris)};
   margin: auto 5px;
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;

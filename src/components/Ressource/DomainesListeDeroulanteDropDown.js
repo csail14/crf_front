@@ -18,7 +18,7 @@ const DomaineTitle = styled.div`
 
 const DomaineContainer = styled.div`
   display: flex;
-  padding: 15px 30px;
+  padding: 20px 11%;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
@@ -28,13 +28,13 @@ const RessourcesLieesContainer = styled.div`
   font-weight: ${(props) => (props.isThisRessourceOpen ? "700" : "400")};
   color: ${(props) => (props.isThisRessourceOpen ? colors.rouge : colors.gris)};
   display: flex;
-  padding: 15px 10px 15px 50px;
+  padding: 20px 7% 20px 18%;
   align-items: center;
   cursor: pointer;
   font-size: 1.4rem;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;

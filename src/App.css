@@ -12,7 +12,7 @@ body{
   font-family: "Raleway",arial;
   color:#373737;
 }
-img{
+img, iframe, video{
   max-width:100%;
 }
 a{
@@ -315,12 +315,13 @@ a{
 
 .textArea {
   padding: 37px;
-  height: 120px;
+  height: 195px;
   width: -webkit-fill-available;
   background-color: #f7f9fa;
   border: 1px solid #eaeaea;
   font-family: "Raleway";
-  margin-bottom: 20px;
+  resize:none;
+  font-size:1.6rem;
 }
 
 .arrow_icon {

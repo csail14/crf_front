@@ -76,9 +76,9 @@ const Category = styled.div`
   font-weight: 700;
   color: ${colors.rouge};
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -88,9 +88,9 @@ const Domaine = styled.div`
   font-weight: 700;
   color: ${colors.marine};
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -103,9 +103,9 @@ const TitleContainer = styled.h2`
   text-transform: uppercase;
   cursor: pointer;
   color: ${colors.marine};
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -129,9 +129,9 @@ const TagContainer = styled.div`
   align-items: center;
   color: black;
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -150,9 +150,9 @@ const Comment = styled.div`
   align-items: center;
   font-weight: 400;
   cusor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -174,9 +174,9 @@ const UploadContainer = styled.div`
   cursor: pointer;
   margin-top: 5px;
   color: ${colors.marine};
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;

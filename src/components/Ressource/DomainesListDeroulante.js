@@ -12,13 +12,13 @@ const ListDomainContainer = styled.div`
   justify-content: flex-start;
   flex-direction: column;
 `;
-const DomainesMainTitle = styled.div`
+const DomainesMainTitle = styled.h2`
+  margin:0;
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 130%;
-  letter-spacing: 0.05em;
-  padding: 30px 20px;
-  text-align: center;
+  letter-spacing: 0.1rem;
+  padding: 40px 11% 20px;
   text-transform: uppercase;
   color: ${colors.marine};
 `;

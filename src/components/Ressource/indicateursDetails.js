@@ -32,46 +32,49 @@ const LastUpdateContainer = styled.div`
   font-weight: 600;
   line-height: 16px;
   text-transform: uppercase;
-  margin-bottom: 13px;
+  margin-bottom: 4px;
 `;
 
 const RightSideContainer = styled.section`
-  width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
   flex-basis: 60%;
+  margin-bottom:50px;
+  max-width:660px;
 `;
 const HeaderRightSideTopContainer = styled.header`
-  width: -webkit-fill-available;
-  padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
+  min-height:378px;
+  padding: ${(props) => (props.isMobile ? "10px 20px" : "63px 0px 30px")};
 `;
 
 const Comment = styled.div`
   display: flex;
   font-size: 1.2rem;
-  color: ${colors.gris};
+  color: #8A92A6;
   align-items: center;
   font-weight: 400;
+  margin-right:20px;
 `;
 const HeaderRightSideBottomContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${(props) => (props.isMobile ? "10px 20px" : "0px")};
+  padding: 0px;
 `;
 const CategoryContainer = styled.div`
   display: flex;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 500;
   text-transform: uppercase;
-  margin-bottom: 13px;
+  margin-bottom: 14px;
+  letter-spacing:0.05rem;
 `;
 const Category = styled.div`
   color: ${colors.rouge};
   margin-right: 3px;
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -79,60 +82,91 @@ const Domaine = styled.div`
   margin-left: 2px;
   color: ${colors.marine};
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
 
-const TitleContainer = styled.h2`
-  font-size: 3.5rem;
+const TitleContainer = styled.h1`
+  font-size: 4.5rem;
   font-weight: 700;
   line-height: 58px;
+  text-transform:uppercase;
   color: ${colors.marine};
   margin: 0;
+  letter-spacing:0.05rem;
+  margin-bottom:32px;
 `;
 const TagContainer = styled.div`
   font-size: 1.4rem;
   display: flex;
   font-weight: 400;
   line-height: 16px;
-  cursor: pointer;
   align-items: center;
   color: ${colors.marine};
+  cursor: pointer;
   margin-top: 20px;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
-    transform: scale(0.98);
+    transform: scale(0.99);
   }
 `;
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: 15px 0px;
-  border-bottom: 0.5px solid lightgrey;
+  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 0")};
+  border-bottom: 0.5px solid #DCE2EF;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.time`
-  padding: 10px 0px 0 0px;
+  padding: ${(props) =>
+    props.isMobile ? "10px 20px 0 20px" : "14px 0px 0 0"};
 `;
 
-const BodyContainer = styled.div`
-  display: flex;
-  padding: ${(props) => (props.isMobile ? "10px 20px" : "50px 0px")};
-  justify-content: ${(props) => (props.isMobile ? "center" : "")};
+const BodyContainer = styled.section`
+  margin-top:33px;
 `;
 
-const LeftSideBodyComponent = styled.div``;
+const LeftSideBodyComponent = styled.section`
 
+`;
 const ContentContainer = styled.div`
-  font-size: 1.8rem;
-  font-weight: 400;
-  line-height: 31px;
-  color: ${colors.text};
+line-height:1.9;
+&>*:first-child{
+  margin-top:0;
+}
+h2{
+  font-size:3.5rem;
+  line-height:45px;
+  color:#003956;
+  text-transform:uppercase;
+  margin:20px 0 12px;
+}
+h3{
+  text-transform:uppercase;
+  font-size:1.8rem;
+  margin:20px 0 12px;
+}
+ul{
+  padding-left: 13px;
+  li{
+    margin:17px 0;
+    &::marker{
+      color:${colors.rouge};
+    }
+  }
+}
+a{
+  color: ${colors.rouge};
+  font-weight:bold;
+}
+p{
+  margin:12px 0;
+}
 `;
 
 const UploadButton = styled.div`
@@ -143,26 +177,26 @@ const UploadButton = styled.div`
   background-color: ${colors.rouge};
   color: white;
   font-weight: 700;
-  padding: 17px 29px;
+  padding: 17px 40px;
+  margin-top:50px;
   cursor: pointer;
   max-width: max-content;
+  transition: all 0.3s;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
-    transform: scale(0.98);
+    transform: scale(0.99);
   }
 `;
 
 const AddLikeContainer = styled.div`
   display: flex;
-  margin: 50px auto;
+  font-weight: 700;
+  margin: 83px auto 52px;
   padding: 27px;
   justify-content: center;
-  font-weight: 700;
   align-items: center;
-  border-top: 0.5px solid lightGrey;
-  border-bottom: 0.5px solid lightGrey;
+  border-top: 0.5px solid #E6E6E6;
+  border-bottom: 0.5px solid #E6E6E6;
 `;
 
 const ArianeContainer = styled.div`
@@ -172,15 +206,25 @@ const ArianeContainer = styled.div`
   display: flex;
   align-items: center;
   color: #99a0b1;
-  padding-bottom: 40px;
+  padding-bottom: 45px;
+  a,div{
+    color: #99A0B1;
+    margin: 0 5px;
+  }
+  div:not(:last-of-type){
+    cursor:pointer;
+  }
+  a{
+    margin-left:0;
+  }
 `;
 
-const TitleBodyContainer = styled.div`
+const TitleBodyContainer = styled.h3`
   font-weight: bold;
   font-size: 1.8rem;
   line-height: 130%;
-  text-transform: uppercase;
-  margin-bottom: 34px;
+  text-transform:uppercase;
+  margin:20px 0 12px;
 `;
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
@@ -255,10 +299,6 @@ const Indicateur = (props) => {
           <Link
             className="cliquable_link"
             to={"/liste-des-indicateurs"}
-            style={{
-              color: colors.gris,
-              margin: "0 5px",
-            }}
           >
             {listIndicateurTemplate &&
               listIndicateurTemplate.title &&
@@ -273,21 +313,12 @@ const Indicateur = (props) => {
                 state: { id: domaineImpact.term_id },
               });
             }}
-            style={{
-              color: colors.gris,
-              margin: "0 5px",
-              cursor: "pointer",
-            }}
           >
             {domaineImpact && domaineImpact.name}
           </div>
 
           {" > "}
           <div
-            style={{
-              color: colors.gris,
-              margin: "0 5px",
-            }}
           >
             {indicateur && indicateur.title && indicateur.title.rendered}
           </div>

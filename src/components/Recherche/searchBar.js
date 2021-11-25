@@ -66,9 +66,9 @@ const FilterContent = styled.div`
   justify-content: space-between;
   width: -webkit-fill-available;
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -93,10 +93,10 @@ const MainContainer = styled.div`
   max-width: ${(props) => (props.isTop ? "75%" : "")};
   z-index: 1;
   position: ${(props) => (props.isTop ? "" : "relative")};
-  &> div {
+  &>div {
     flex: 1;
   }
-  &> div:first-of-type {
+  &>div:first-of-type {
     flex: 2;
   }
   
@@ -107,6 +107,7 @@ const SearchButtonContainer = styled.div`
   color: white;
   background-color: ${colors.rouge};
   font-weight: 700;
+  flex:auto 0 0 !important;
   text-transform: uppercase;
   font-size: 1.4rem;
   cursor: pointer;
@@ -126,7 +127,7 @@ const AdvancedSearchBar = styled.div`
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   padding: 7px;
   margin: 10px auto 0px auto;
-  background-color: white;$
+  background-color: white;
   width: fit-content;
 `;
 const AdvancedSearchBarContainer = styled.div`
@@ -147,9 +148,9 @@ const ToggleContainer = styled.div`
   font-size: 1.3rem;
   margin: 10px 5px 0px auto;
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;

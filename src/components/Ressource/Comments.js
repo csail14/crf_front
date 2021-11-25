@@ -70,7 +70,7 @@ const MoreCommentContainer = styled.div`
 const SendButton = styled.div`
   display: flex;
   justify-content: ${(props) => (props.isMobile ? "center" : "flex-end")};
-  padding: 17px 29px;
+  padding: 18px 30px;
   font-size: 1.4rem;
   font-weight: 700;
   color: white;
@@ -79,13 +79,14 @@ const SendButton = styled.div`
   cursor: pointer;
   box-shadow: 0px 10px 40px rgba(0, 32, 49, 0.26);
   text-transform: uppercase;
-  margin: 20px 0 20px auto;
+  margin: 24px 0 20px auto;
   max-width: ${(props) => (props.isMobile ? "" : "max-content")};
   width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
+  transition: box-shadow 150ms linear, background-color 150ms linear,
+      transform 150ms linear;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+    
     transform: scale(0.98);
   }
 `;
