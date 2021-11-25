@@ -12,6 +12,7 @@ import {
   getDocumentById,
   getRessourceBySlug,
 } from "../../utils/api/RessourcesApi";
+import { replaceHostUrl } from "../../utils/function/function";
 import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import { config } from "../../config";
@@ -147,10 +148,10 @@ const UpdateContainer = styled.time`
 const BodyContainer = styled.main`
   display: flex;
   padding: ${(props) => (props.isMobile ? "10px 20px" : "100px 0px")};
-  width:90%;
-  max-width:652px;
+  width: 90%;
+  max-width: 652px;
   justify-content: space-between;
-  margin:auto;
+  margin: auto;
 `;
 
 const LeftSideBodyComponent = styled.div`
@@ -166,7 +167,7 @@ const ContentContainer = styled.div`
 
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
-  padding:89px 4% 50px;
+  padding: 89px 4% 50px;
 `;
 
 const BottomTitleContainer = styled.h4`
@@ -175,7 +176,7 @@ const BottomTitleContainer = styled.h4`
   font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
-  margin:0;
+  margin: 0;
   text-align: center;
 `;
 
@@ -203,10 +204,10 @@ const VideoContainer = styled.div`
 `;
 
 const AvailableRessourceContainer = styled.div`
-display: flex;
-flex-wrap: wrap;
-justify-content: ${(props) => (props.isMobile ? "center" : "left")};
-margin: 47px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: ${(props) => (props.isMobile ? "center" : "left")};
+  margin: 47px auto 0;
 `;
 
 const AddLikeContainer = styled.div`
@@ -342,6 +343,7 @@ const Document = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+  console.log(document);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -442,7 +444,9 @@ const Document = (props) => {
           {document && document.content && document.content.rendered && (
             <ContentContainer
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(document.content.rendered),
+                __html: DOMPurify.sanitize(
+                  replaceHostUrl(document.content.rendered)
+                ),
               }}
             />
           )}
@@ -454,7 +458,7 @@ const Document = (props) => {
               <>
                 <VideoContainer
                   dangerouslySetInnerHTML={{
-                    __html: document.acf.document.video,
+                    __html: replaceHostUrl(document.acf.document.video),
                   }}
                 />
               </>
@@ -469,22 +473,34 @@ const Document = (props) => {
             ) : document.acf.document.format === "Web" ? (
               <VideoContainer
                 dangerouslySetInnerHTML={{
-                  __html: document.acf.document.iframe,
+                  __html: replaceHostUrl(document.acf.document.iframe),
                 }}
               />
             ) : document.acf.document.format === "Lien" &&
               document.acf.document.lien ? (
               <a
                 id="download-document"
-                href={document.acf.document.lien.url}
+                href={replaceHostUrl(document.acf.document.lien.url)}
                 target={document.acf.document.lien.target}
               >
                 <UploadButton>{document.acf.document.lien.title}</UploadButton>
               </a>
-            ) : document.acf.document.fichier_joint ? (
+            ) : document.acf.document.fichier_joint &&
+              document.acf.document.fichier_joint.url ? (
               <a
                 id="download-document"
                 href={document.acf.document.fichier_joint.url}
+                target={document.acf.document.fichier_joint.target}
+              >
+                <UploadButton>
+                  <BsDownload style={{ marginRight: "8px" }} />
+                  Télécharger le document
+                </UploadButton>
+              </a>
+            ) : document.acf.document.fichier_joint ? (
+              <a
+                id="download-document"
+                href={document.acf.document.fichier_joint}
                 target={document.acf.document.fichier_joint.target}
               >
                 <UploadButton>
