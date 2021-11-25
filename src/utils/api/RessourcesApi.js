@@ -47,7 +47,7 @@ export const getDocumentById = async (id) => {
 
 export const getArticleById = async (id) => {
   return axios
-    .get(config.api_url + "/wp/v2/posts/" + id)
+    .get(config.api_url + "/wp/v2/articles/" + id)
     .then((response) => {
       return response.data;
     })

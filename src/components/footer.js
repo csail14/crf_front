@@ -41,11 +41,7 @@ class Header extends React.Component {
               };
               const url = defineUrl(item.url, item.object, item.slug);
               return (
-                <Link
-                  className="cliquable_link"
-                  key={index}
-                  to={url}
-                >
+                <Link className="cliquable_link" key={index} to={url}>
                   {item.title}
                 </Link>
               );
