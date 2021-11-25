@@ -5,6 +5,7 @@ import taxoReducer from "./taxoReducer";
 import optionsReducer from "./optionsReducer";
 import ressourcesReducer from "./ressourcesReducer";
 import filtersReducer from "./filtersReducer";
+import UserReducer from "./userReducer";
 
 const rootReducer = combineReducers({
   options: optionsReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   taxonomie: taxoReducer,
   ressources: ressourcesReducer,
   filters: filtersReducer,
+  user: UserReducer,
 });
 
 export default rootReducer;

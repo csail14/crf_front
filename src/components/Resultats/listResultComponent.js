@@ -205,10 +205,7 @@ const GridResultComponent = (props) => {
   };
   useEffect(() => {
     if (props.info) {
-      getRessourceById(
-        props.info.ID,
-        props.info.post_type === "post" ? "posts" : props.info.post_type
-      )
+      getRessourceById(props.info.ID, props.info.post_type)
         .then((res) => setDetails(res))
         .catch((error) => console.log(error));
       getCommentaireByPost(props.info.ID)
@@ -245,17 +242,35 @@ const GridResultComponent = (props) => {
       ? "bi bi-folder"
       : type === "indicateurs"
       ? "bi bi-file-earmark-bar-graph"
-      : details && details.acf && details.acf.document.format === "Lien"
+      : details &&
+        details.acf &&
+        details.acf.document &&
+        details.acf.document.format === "Lien"
       ? "bi bi-link-45deg"
-      : details && details.acf && details.acf.document.format === "Web"
+      : details &&
+        details.acf &&
+        details.acf.document &&
+        details.acf.document.format === "Web"
       ? "bi bi-file-code"
-      : details && details.acf && details.acf.document.format === "Texte"
+      : details &&
+        details.acf &&
+        details.acf.document &&
+        details.acf.document.format === "Texte"
       ? "bi bi-file-earmark-font"
-      : details && details.acf && details.acf.document.format === "Tableau"
+      : details &&
+        details.acf &&
+        details.acf.document &&
+        details.acf.document.format === "Tableau"
       ? "bi bi-file-earmark-excel"
-      : details && details.acf && details.acf.document.format === "Image"
+      : details &&
+        details.acf &&
+        details.acf.document &&
+        details.acf.document.format === "Image"
       ? "bi bi-file-earmark-image"
-      : details && details.acf && details.acf.document.format === "Vidéo"
+      : details &&
+        details.acf &&
+        details.acf.document &&
+        details.acf.document.format === "Vidéo"
       ? "bi bi-file-earmark-play"
       : "";
 
