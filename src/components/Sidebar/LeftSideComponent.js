@@ -191,11 +191,16 @@ const LeftSideComponent = (props) => {
           showMenu={showMenu}
           className={"main_container"}
         >
+          {props.options &&
+              props.options.options &&
+              props.options.options.acf &&
+              props.options.options.acf.retour_intranet && (
           <BackIntranet href={props.options.options.acf.retour_intranet.url}
                   target={props.options.options.acf.retour_intranet.target} isMobile={isMobile}>
             <i className="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
             Retour à l'intranet
           </BackIntranet>
+          )}
           <div className={"sidebar_title"}>
             {isMobile && (
               <Link to="/home">

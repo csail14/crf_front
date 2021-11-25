@@ -33,6 +33,16 @@ const MainContainer = styled.div``;
 const HeaderContainer = styled.header`
   display: flex;
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
+  figure{
+    margin:0;
+    flex-basis:42%;
+    img{
+      width:100%;
+      height:100%;
+      objectif-fit:cover;
+    }
+  }
+  
 `;
 
 const LastUpdateContainer = styled.div`
@@ -47,10 +57,11 @@ const RightSideContainer = styled.div`
   width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
+  flex-basis:58%;
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
-  padding: ${(props) => (props.isMobile ? "20px" : "50px 50px")};
+  padding: ${(props) => (props.isMobile ? "20px" : "103px 9% 100px 6.3%")};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -104,10 +115,11 @@ const AvailableRessourceContainer = styled.div`
 `;
 const CategoryContainer = styled.div`
   display: flex;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 500;
   text-transform: uppercase;
-  margin-bottom: 13px;
+  margin-bottom: 32px;
+  letter-spacing:0.05rem;
 `;
 const Category = styled.div`
   color: ${colors.rouge};
@@ -130,12 +142,15 @@ const Domaine = styled.div`
   }
 `;
 
-const TitleContainer = styled.h2`
-  font-size: 3.5rem;
+const TitleContainer = styled.h1`
+  font-size: 4.5rem;
   font-weight: 700;
   line-height: 58px;
+  text-transform:uppercase;
   color: ${colors.marine};
   margin: 0;
+  letter-spacing:0.05rem;
+  margin-bottom:32px;
 `;
 const TagContainer = styled.div`
   font-size: 1.4rem;
@@ -146,11 +161,10 @@ const TagContainer = styled.div`
   color: ${colors.marine};
   cursor: pointer;
   margin-top: 20px;
-
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
-    transform: scale(0.98);
+    transform: scale(0.99);
   }
 `;
 
@@ -341,11 +355,12 @@ const Article = (props) => {
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
         {media && (
+          <figure>
           <img
-            style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
             src={media}
             alt={media && media.alt_text ? media.alt_text : "A la une"}
           />
+          </figure>
         )}
         <RightSideContainer>
           <HeaderRightSideTopContainer isMobile={isMobile}>
