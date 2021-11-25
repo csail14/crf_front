@@ -7,23 +7,26 @@ import { colors } from "../../colors";
 import { useHistory } from "react-router-dom";
 import DOMPurify from "dompurify";
 
-const LinkContainer = styled.div`
+const LinkContainer = styled.p`
   position: relative;
   display: flex;
+  margin:0;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
-  padding: 22px 30px;
+  padding: 22px 14px;
   color: ${colors.marine};
   font-weight: 600;
   align-items: center;
   justify-content: space-between;
   background-color: ${colors.grisBackground};
   cursor: pointer;
-  min-width: 175px;
-  margin 10px 8px 10px 8px;
+  flex-basis:24%;
+  margin-right:1%;
+  letter-spacing:0.15rem;
+  margin-bottom:20px;
+  transition: box-shadow 150ms linear, background-color 150ms linear,transform 150ms linear;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+      
     transform: scale(0.98);
     Z-index:1;
   }

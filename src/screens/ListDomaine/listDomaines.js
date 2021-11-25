@@ -11,10 +11,11 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
+  padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
   background-image: url(${config.header_image_url});
   background-size: cover;
   background-position:bottom right;
+  min-height:378px;
 `;
 
 const HeaderTitleContainer = styled.h2`
@@ -24,6 +25,7 @@ const HeaderTitleContainer = styled.h2`
   letter-spacing: 0.07rem;
   text-transform: uppercase;
   margin: 0;
+  
 `;
 
 const HeaderSubTitleContainer = styled.h3`
@@ -46,10 +48,9 @@ const BodyContainer = styled.main`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding-right: ${(props) => (props.isMobile ? "30px" : "10%")};
-  padding-left: ${(props) => (props.isMobile ? "30px" : "10%")};
+  padding: ${(props) => (props.isMobile ? "30px" : "0 9%")};
   justify-content: flex-start;
-  margin-top: -25px;
+  margin-top: -29px;
 `;
 
 const ListDomaines = (props) => {

@@ -6,9 +6,11 @@ html{
 }
 body{
   font-size:1.6rem;
+  
 }
 .App {
   font-family: "Raleway",arial;
+  color:#373737;
 }
 img{
   max-width:100%;
@@ -73,6 +75,11 @@ a{
   align-items: center;
   padding: 7px 14%;
   font-weight: bold;
+  transition:all 0.3s;
+}
+.sidebar_title:hover{
+  opacity:0.8;
+  transform: scale(0.99);
 }
 .sticky {
   position: fixed;
@@ -87,10 +94,10 @@ a{
   font-size: 1.6rem;
   cursor: pointer;
   width: 100%;
+  transition: opacity 150ms linear, transform 150ms linear;
 }
 .recherche_input:hover {
   opacity: 0.8;
-  transition: opacity 150ms linear, transform 150ms linear;
 }
 .recherche_input_mobile {
   border: none;
@@ -106,10 +113,10 @@ a{
   outline: none;
   font-size: 1.2rem;
   cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
 }
 .recherche_input_small:hover {
   opacity: 0.8;
-  transition: opacity 150ms linear, transform 150ms linear;
   transform: scale(0.98);
 }
 
@@ -247,13 +254,13 @@ a{
   /* mutted text */
 
   color: #6c757d;
-
+  transition: opacity 150ms linear, transform 150ms linear;
   text-decoration: none;
 }
 
 .dropdown_text:hover {
   opacity: 0.8;
-  transition: opacity 150ms linear, transform 150ms linear;
+
   transform: scale(0.98);
 }
 
@@ -336,12 +343,13 @@ a{
   margin:0;
   display: block;
     padding: 20px 0;
+    transition: opacity 150ms linear, transform 150ms linear;
 }
 
 .contact_container:hover {
   opacity: 0.8;
-  transition: opacity 150ms linear, transform 150ms linear;
-  transform: scale(0.98);
+
+  transform: scale(0.99);
 }
 
 .account_container {
@@ -370,12 +378,13 @@ a{
   line-height: 130%;
   color:#8A92A6;
   text-decoration: underline;
-  margin-top:5px;
+  margin-top:5px; 
+   transition: opacity 150ms linear, transform 150ms linear;
 }
 
 .account_container a:hover {
   opacity: 0.8;
-  transition: opacity 150ms linear, transform 150ms linear;
+
   transform: scale(0.98);
 }
 .acc_contact_icon {
@@ -485,19 +494,6 @@ a{
 .mandatoryFields {
   padding-left: 2rem;
 }
-#el > div {
-  flex: 1;
-}
-#el > div:first-of-type {
-  flex: 2;
-}
-header+#el{
-  width:76%;
-}
-.home_figure{
-  height:179px;
-  margin:0;
-}
-.autobottom{
-  margin-top:auto;
-}
+
+
+

@@ -46,10 +46,9 @@ const SubtitleContainer = styled.div`
   line-height:1.8;
 `;
 const BodyContainer = styled.div`
-  padding: ${(props) => (props.isViewGrid ? "" : "0 35px")};
+  padding: 0 4%;
   display: flex;
   flex-direction: ${(props) => (props.isViewGrid ? "row" : "column")};
-  justify-content: center;
   flex-wrap: wrap;
 `;
 
@@ -63,7 +62,7 @@ const NumberResultsContainer = styled.div`
 `;
 
 const MiddleContainer = styled.div`
-  padding: 40px;
+  padding: 40px 4%;
   display: flex;
   justify-content: space-between;
 `;
@@ -94,7 +93,7 @@ const ButtonView = styled.div`
 const TriesContainer = styled.div`
   display: flex;
   justify-content: ${(props) => (props.isMobile ? "center" : "flex-end")};
-  padding: 0 40px;
+  padding: 0 4%;
   margin-bottom: 13px;
 `;
 

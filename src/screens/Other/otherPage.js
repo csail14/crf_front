@@ -55,8 +55,22 @@ const BodyContainer = styled.main`
 `;
 
 const Textcontainer = styled.div`
-  padding: ${(props) => (props.isMobile ? "30px" : "70px 150px")};
-  color: ${colors.gris};
+  padding: ${(props) => (props.isMobile ? "30px 0" : "100px 0")};
+  color: ${colors.text};
+  max-width:652px;
+  width:90%;
+  line-height:1.6;
+  h2{
+    text-transform:uppercase;
+    font-size:1.8rem;
+    margin:30px 0 20px;
+  }
+  a{
+    color: ${colors.rouge};
+  }
+  p{
+    margin:20px 0;
+  }
 `;
 
 const OtherPage = (props) => {
@@ -102,7 +116,7 @@ const OtherPage = (props) => {
               ></SubtitleContainer>
             )}
           </HeaderContainer>
-          <BodyContainer isMobile={isMobile}>
+          <BodyContainer className="bodyContent" isMobile={isMobile}>
             {template && (
               <Textcontainer
                 isMobile={isMobile}

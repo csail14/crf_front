@@ -15,18 +15,18 @@ const LinkContainer = styled.h3`
   position: relative;
   display: flex;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
-  padding: 15px 20px;
+  padding: 13px 20px;
+  line-height:1.5;
   color: ${colors.marine};
   font-weight: 600;
   font-size:1.6rem;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin:11px 0;
+  transition: box-shadow 150ms linear, background-color 150ms linear,transform 150ms linear;
   &:hover {
-    box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+    box-shadow: 6px 8px 15px 0px rgba(0, 0, 0, 0.2);
     transform: scale(0.98);
   }
 `;

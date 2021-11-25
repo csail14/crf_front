@@ -93,6 +93,13 @@ const MainContainer = styled.div`
   max-width: ${(props) => (props.isTop ? "75%" : "")};
   z-index: 1;
   position: ${(props) => (props.isTop ? "" : "relative")};
+  &> div {
+    flex: 1;
+  }
+  &> div:first-of-type {
+    flex: 2;
+  }
+  
 `;
 
 const SearchButtonContainer = styled.div`

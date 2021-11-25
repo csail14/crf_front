@@ -13,7 +13,8 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
+  padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
+  min-height:378px;
   background-image: url(${config.header_image_url});
   background-size: cover;
   background-position:bottom right;
@@ -49,48 +50,57 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.isMobile ? "column" : "")};
   justify-content: space-between;
-  padding: ${(props) => (props.isMobile ? "40px 5%" : "70px 10%")};
+  padding: ${(props) => (props.isMobile ? "40px 5%" : "41px 0 60px")};
+  max-width:1350px;
+  width:90%;
+  margin:0 auto;
 `;
 
 const Textcontainer = styled.div`
   padding: ${(props) => (props.isMobile ? "0" : "0")};
-  color: ${colors.gris};
-  flex-basis: 55%;
+  flex-basis: 50%;
+  line-height:1.75;
+  p{
+    margin:28px 0;
+  }
 `;
 
-const LinkTitleContainer = styled.div`
+const LinkTitleContainer = styled.h2`
   font-weight: 700;
   font-size: 1.5rem;
   color: ${colors.marine};
   text-transform: uppercase;
   margin-bottom: 30px;
+  margin-top:0;
+  letter-spacing: 0.1rem;
 `;
 const LinkMainContainer = styled.aside`
-  padding: 20px 0px;
-  flex-basis: 40%;
+  padding: 36px 5% 0 0;
+  flex-basis: 35%;
 `;
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
+  padding:89px 4% 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  text-align: center;
 `;
 
-const BottomTitleContainer = styled.div`
-  padding: 50px 5% 30px;
+const BottomTitleContainer = styled.h4`
+  padding: 0;
   text-transform: uppercase;
   font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
+  margin:0;
+  text-align: center;
 `;
 
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
-  margin: 0 auto;
-  padding: 0 5%;
+  margin: 47px auto 0;
 `;
 
 const SubHome = (props) => {
@@ -124,6 +134,7 @@ const SubHome = (props) => {
       <BodyContainer isMobile={isMobile}>
         {subHomeTemplate && (
           <Textcontainer
+            className="content_p"
             isMobile={isMobile}
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(subHomeTemplate.content.rendered),

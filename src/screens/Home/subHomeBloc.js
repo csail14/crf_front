@@ -12,6 +12,9 @@ const MainContainer = styled.div`
   flex-basis:30%;
   display:flex;
   flex-direction:column;
+  a:last-of-type{
+      margin-top:auto;
+  }
 `;
 
 const HeaderContainer = styled.article`
@@ -27,6 +30,14 @@ const HeaderContainer = styled.article`
   text-align:center;
   &:hover {
     box-shadow: 6px 8px 20px 0px rgba(0, 0, 0, 0.2);
+  }
+  figure{
+    height:179px;
+    margin:0;
+    display:flex;
+    img{
+      margin:auto;
+    }
   }
 `;
 
@@ -84,9 +95,9 @@ const MoreInfoContainer = styled.div`
 `;
 
 const Text = styled.div`
+transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
     transform: scale(0.98);
   }
 `;
@@ -104,7 +115,7 @@ const SubHomeBloc = (props) => {
       >
         <HeaderContainer>
           {" "}
-          <figure className="home_figure">
+          <figure>
             <img
             src={props.info.push.image ? props.info.push.image.url : null}
             alt="blocImage"
@@ -143,7 +154,7 @@ const SubHomeBloc = (props) => {
             })
           : null}
       </LinkMainContainer>
-      <Link className="autobottom" to={link}>
+      <Link to={link}>
         <MoreInfoContainer>
           <Text>
             En savoir plus{" "}

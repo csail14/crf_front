@@ -13,6 +13,11 @@ import { config } from "../../config";
 const ImageContainer = styled.div`
   margin: 23px 14% 0;
   cursor: pointer;
+  transition:all 0.3s;
+  &:hover{
+    transform: scale(0.99);
+    
+  }
 `;
 
 const MainContainer = styled.aside`

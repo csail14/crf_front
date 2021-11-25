@@ -24,23 +24,31 @@ import { HashLink } from "react-router-hash-link";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.article`
-  margin: 10px;
-  max-width: 350px;
+  flex-basis:24%;
+  margin-right:1.3%;
+  margin-bottom:20px;
   position: relative;
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
   height: fit-content;
   transition: box-shadow 150ms linear, background-color 150ms linear,
     transform 150ms linear;
+  &:nth-of-type(4n){
+    margin-right:0;
+  }
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-
     transform: scale(0.98);
   }
 `;
 
 const IconContainer = styled.div`
   position: absolute;
-  padding: 13px;
+  padding: 1px 5px 5px 5px;
+  text-align:center;
+  line-height:52px;
+  font-size:2.5rem;
+  width:50px;
+  height:52px;
   background-color: ${(props) =>
     props.type === "documents"
       ? colors.yellowBackground
@@ -54,16 +62,17 @@ const ImageContainer = styled.div`
   cursor: pointer;
 `;
 const DetailsContainer = styled.div`
-  padding: 30px 22px;
+  padding: 27px 6% 20px;
   background-color: white;
 `;
 
-const LastUpdateContainer = styled.div`
+const LastUpdateContainer = styled.time`
   font-size: 1.2rem;
   font-weight: 500;
   line-height: 14px;
   text-transform: uppercase;
-  margin-bottom: 13px;
+  margin-bottom: 16px;
+  display:block;
   color: ${colors.marine};
 `;
 
@@ -72,7 +81,7 @@ const CategoryContainer = styled.div`
   font-size: 1.2rem;
   font-weight: 600;
   text-transform: uppercase;
-  margin-bottom: 13px;
+  margin-bottom: 8px;
 `;
 const Category = styled.div`
   color: ${colors.rouge};
@@ -100,13 +109,12 @@ const TitleContainer = styled.h2`
   font-weight: 700;
   line-height: 22px;
   text-transform: uppercase;
-  margin-bottom: 16px;
-  color: ${colors.marine};
+  margin:0 0 16px;
+  color: #131313;
   cursor: pointer;
+  transition: opacity 150ms linear;
   &:hover {
     opacity: 0.8;
-    transition: opacity 150ms linear, transform 150ms linear;
-    transform: scale(0.98);
   }
 `;
 
@@ -114,7 +122,7 @@ const DescriptionContainer = styled.p`
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 22px;
-  margin-bottom: 16px;
+  margin: 16px 0 22px;
   color: ${colors.gris};
 `;
 
@@ -309,9 +317,8 @@ const GridResultComponent = (props) => {
         {media ? (
           <img
             style={{
-              maxWidth: "80%",
               height: "auto",
-              margin: "  30px 30px 0 30px",
+              padding: "  30px 7% 0",
             }}
             src={media}
             alt="result-illu"
@@ -390,7 +397,6 @@ const GridResultComponent = (props) => {
         )}
         <BottomContainer>
           <PostInfoContainer>
-            <div>
               <Comment>
                 <HashLink
                   to={
@@ -403,13 +409,12 @@ const GridResultComponent = (props) => {
                   {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
                 </HashLink>
               </Comment>
-            </div>
             {details && details.acf && details.acf.datas && (
               <div style={{ display: "flex" }}>
                 <OtherTypePicto>
                   <AiOutlineLike
                     size={18}
-                    style={{ color: colors.gris, marginRight: "7px" }}
+                    style={{ color: colors.gris, marginRight: "7px", verticalAlign:"middle" }}
                   />
                   {details.acf.datas.likes}
                 </OtherTypePicto>
@@ -420,6 +425,7 @@ const GridResultComponent = (props) => {
                       color: colors.gris,
                       marginRight: "7px",
                       marginLeft: "10px",
+                      verticalAlign:"middle"
                     }}
                   />
                   {details.acf.datas.vues}
