@@ -348,13 +348,15 @@ const Document = (props) => {
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
-        {media && (
-          <img
-            style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
-            src={media}
-            alt={media && media.alt_text ? media.alt_text : "A la une"}
-          />
-        )}
+        <figure>
+          {media && (
+            <img
+              style={isMobile ? {} : { maxWidth: "45%", height: "auto" }}
+              src={media}
+              alt={media && media.alt_text ? media.alt_text : "A la une"}
+            />
+          )}
+        </figure>
         <RightSideContainer>
           <HeaderRightSideTopContainer isMobile={isMobile}>
             {(domaineAction || domaineImpact) && (

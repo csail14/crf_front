@@ -328,19 +328,21 @@ const GridResultComponent = (props) => {
         <IconContainer type={type}>
           <i className={icon}></i>
         </IconContainer>
-        {media ? (
-          <img
-            style={{
-              maxWidth: "80%",
-              height: "auto",
-              margin: "  30px 30px 0 30px",
-            }}
-            src={media}
-            alt="result-illu"
-          />
-        ) : (
-          <div style={{ width: "150px", height: "200px" }}></div>
-        )}
+        <figure>
+          {media ? (
+            <img
+              style={{
+                maxWidth: "80%",
+                height: "auto",
+                margin: "  30px 30px 0 30px",
+              }}
+              src={media}
+              alt="result-illu"
+            />
+          ) : (
+            <div style={{ width: "150px", height: "200px" }}></div>
+          )}
+        </figure>
       </ImageContainer>
 
       <DetailsContainer>
