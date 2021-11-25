@@ -23,6 +23,7 @@ import {
   loadActionsFilter,
   resetAllFilter,
 } from "../../actions/filter/filterActions";
+import { replaceHostUrl } from "../../utils/function/function";
 
 require("moment/locale/fr.js");
 
@@ -393,7 +394,9 @@ const Indicateur = (props) => {
                 <ContentContainer
                   dangerouslySetInnerHTML={{
                     __html: DOMPurify.sanitize(
-                      indicateur.acf.dernier_resultat_connu.texte
+                      replaceHostUrl(
+                        indicateur.acf.dernier_resultat_connu.texte
+                      )
                     ),
                   }}
                 />

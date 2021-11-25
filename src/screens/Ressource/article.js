@@ -26,6 +26,9 @@ import {
   loadActionsFilter,
   resetAllFilter,
 } from "../../actions/filter/filterActions";
+
+import { replaceHostUrl } from "../../utils/function/function";
+
 require("moment/locale/fr.js");
 
 const MainContainer = styled.div``;
@@ -337,6 +340,7 @@ const Article = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -435,11 +439,12 @@ const Article = (props) => {
           {article && article.content && article.content.rendered && (
             <ContentContainer
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(article.content.rendered),
+                __html: DOMPurify.sanitize(
+                  replaceHostUrl(article.content.rendered)
+                ),
               }}
             />
           )}
-
           <AddLikeContainer isMobile={isMobile}>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike

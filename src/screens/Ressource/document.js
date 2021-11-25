@@ -12,6 +12,7 @@ import {
   getDocumentById,
   getRessourceBySlug,
 } from "../../utils/api/RessourcesApi";
+import { replaceHostUrl } from "../../utils/function/function";
 import { getMediaById } from "../../utils/api/API";
 import moment from "moment";
 import { config } from "../../config";
@@ -342,7 +343,7 @@ const Document = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-  console.log("document", document);
+  console.log(document);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -443,7 +444,9 @@ const Document = (props) => {
           {document && document.content && document.content.rendered && (
             <ContentContainer
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(document.content.rendered),
+                __html: DOMPurify.sanitize(
+                  replaceHostUrl(document.content.rendered)
+                ),
               }}
             />
           )}
@@ -455,7 +458,7 @@ const Document = (props) => {
               <>
                 <VideoContainer
                   dangerouslySetInnerHTML={{
-                    __html: document.acf.document.video,
+                    __html: replaceHostUrl(document.acf.document.video),
                   }}
                 />
               </>
@@ -470,22 +473,34 @@ const Document = (props) => {
             ) : document.acf.document.format === "Web" ? (
               <VideoContainer
                 dangerouslySetInnerHTML={{
-                  __html: document.acf.document.iframe,
+                  __html: replaceHostUrl(document.acf.document.iframe),
                 }}
               />
             ) : document.acf.document.format === "Lien" &&
               document.acf.document.lien ? (
               <a
                 id="download-document"
-                href={document.acf.document.lien.url}
+                href={replaceHostUrl(document.acf.document.lien.url)}
                 target={document.acf.document.lien.target}
               >
                 <UploadButton>{document.acf.document.lien.title}</UploadButton>
               </a>
-            ) : document.acf.document.fichier_joint ? (
+            ) : document.acf.document.fichier_joint &&
+              document.acf.document.fichier_joint.url ? (
               <a
                 id="download-document"
                 href={document.acf.document.fichier_joint.url}
+                target={document.acf.document.fichier_joint.target}
+              >
+                <UploadButton>
+                  <BsDownload style={{ marginRight: "8px" }} />
+                  Télécharger le document
+                </UploadButton>
+              </a>
+            ) : document.acf.document.fichier_joint ? (
+              <a
+                id="download-document"
+                href={document.acf.document.fichier_joint}
                 target={document.acf.document.fichier_joint.target}
               >
                 <UploadButton>
