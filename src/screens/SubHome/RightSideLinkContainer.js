@@ -19,7 +19,7 @@ const LinkContainer = styled.h3`
   line-height:1.5;
   color: ${colors.marine};
   font-weight: 600;
-  font-size:1.6rem;
+  font-size: 1.6rem;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
@@ -75,10 +75,7 @@ const RightSideLinkContainer = (props) => {
   let history = useHistory();
   useEffect(() => {
     if (props.info) {
-      getRessourceById(
-        props.info.ID,
-        props.info.post_type === "post" ? "posts" : props.info.post_type
-      )
+      getRessourceById(props.info.ID, props.info.post_type)
         .then((res) => setDetails(res))
         .catch((error) => console.log(error));
     }
@@ -97,20 +94,22 @@ const RightSideLinkContainer = (props) => {
     >
       {props.info.post_title}
       <MdArrowForwardIos style={{ color: colors.rouge }} />
-      {isHovered && (
-        <>
-          <BsFillTriangleFill
-            style={{ position: "absolute", right: "70px", top: "68px" }}
-          />
-          <ExtraitContainer
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(
-                details && details.acf && details.acf.extrait
-              ),
-            }}
-          ></ExtraitContainer>
-        </>
-      )}
+      {isHovered &&
+        details &&
+        details.acf &&
+        details.acf.extrait &&
+        details.acf.extrait !== "" && (
+          <>
+            <BsFillTriangleFill
+              style={{ position: "absolute", right: "70px", top: "68px" }}
+            />
+            <ExtraitContainer
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(details.acf.extrait),
+              }}
+            ></ExtraitContainer>
+          </>
+        )}
     </LinkContainer>
   );
 };

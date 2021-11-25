@@ -8,7 +8,6 @@ const ImpactTrack = (props) => {
       ? props.pages.templates.filter((template) => template.slug === slug)[0]
       : null;
   const url = template && template.acf && template.acf.lien_impact_track;
-  console.log(template);
   return (
     <iframe
       id="impact-track"

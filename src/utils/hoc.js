@@ -8,6 +8,7 @@ import {
   getAllOptions,
   getFooterMenu,
   getAllCategories,
+  getToken,
 } from "./api/API";
 
 import { getAllPages } from "./api/RessourcesApi";
@@ -18,6 +19,7 @@ import {
   loadSidebarInfo,
   loadOptionsInfo,
 } from "../actions/pages/pagesActions";
+import { loadToken } from "../actions/user/userActions";
 import { loadTaxoInfo } from "../actions/Taxonomie/taxonomieActions";
 
 export default function (ChildComponent, withAuth = false) {
@@ -35,6 +37,7 @@ export default function (ChildComponent, withAuth = false) {
       this.checkSidebarPages(this.props.sidebarPages);
       this.checkTaxo(this.props.taxonomie);
       this.checkOptions(this.props.options);
+      this.checkToken(this.props.user.token);
       if (true) {
         try {
         } catch (error) {
@@ -46,6 +49,12 @@ export default function (ChildComponent, withAuth = false) {
     checkSidebarPages = (sidebarPages) => {
       getAllSidebarPages().then((res) => {
         this.props.loadSidebarInfo(res);
+      });
+    };
+
+    checkToken = (token) => {
+      getToken().then((res) => {
+        this.props.loadToken(res);
       });
     };
 
@@ -107,6 +116,7 @@ export default function (ChildComponent, withAuth = false) {
     loadOptionsInfo,
     loadSidebarInfo,
     loadTaxoInfo,
+    loadToken,
   };
 
   const mapStateToProps = (store) => {
@@ -115,6 +125,7 @@ export default function (ChildComponent, withAuth = false) {
       sidebarPages: store.sidebarPages,
       options: store.options,
       taxonomie: store.taxonomie,
+      user: store.user,
     };
   };
 
