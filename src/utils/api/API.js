@@ -88,3 +88,26 @@ export const getFooterMenu = async () => {
       return err;
     });
 };
+
+export const sendMail = async (body) => {
+  return axios
+    .post(config.api_url + "/wp/v2/contact/send", body)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getToken = async () => {
+  const body = config.user;
+  return axios
+    .post(config.api_url + "/jwt-auth/v1/token", body)
+    .then((response) => {
+      return response.data.token;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
