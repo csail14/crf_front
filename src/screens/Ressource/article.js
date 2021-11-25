@@ -82,27 +82,25 @@ const HeaderRightSideBottomContainer = styled.div`
   flex-direction: column;
   padding: 0px;
 `;
-const BottomContainer = styled.section`
+const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  padding:89px 4% 50px;
 `;
-const BottomTitleContainer = styled.div`
-  padding: 50px 5% 30px;
+const BottomTitleContainer = styled.h4`
+  padding: 0;
   text-transform: uppercase;
   font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
+  margin:0;
+  text-align: center;
 `;
 
 const AvailableRessourceContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
-  margin: 0 auto;
-  padding: 0 5%;
+  margin: 47px auto 0;
 `;
 const CategoryContainer = styled.div`
   display: flex;

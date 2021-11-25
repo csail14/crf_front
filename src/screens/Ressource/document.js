@@ -164,19 +164,19 @@ const ContentContainer = styled.div`
   color: ${colors.text};
 `;
 
-const BottomContainer = styled.section`
+const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
+  padding:89px 4% 50px;
 `;
-const BottomTitleContainer = styled.div`
-  margin: 50px 5% 30px;
+
+const BottomTitleContainer = styled.h4`
+  padding: 0;
   text-transform: uppercase;
   font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
+  margin:0;
+  text-align: center;
 `;
 
 const UploadButton = styled.div`
@@ -203,11 +203,10 @@ const VideoContainer = styled.div`
 `;
 
 const AvailableRessourceContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 5%;
-  justify-content: ${(props) => (props.isMobile ? "center" : "left")};
-  margin: 0 auto;
+display: flex;
+flex-wrap: wrap;
+justify-content: ${(props) => (props.isMobile ? "center" : "left")};
+margin: 47px auto 0;
 `;
 
 const AddLikeContainer = styled.div`

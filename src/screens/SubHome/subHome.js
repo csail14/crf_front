@@ -81,9 +81,6 @@ const LinkMainContainer = styled.aside`
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
   padding:89px 4% 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `;
 
 const BottomTitleContainer = styled.h4`
