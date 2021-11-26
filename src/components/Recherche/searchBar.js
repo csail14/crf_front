@@ -33,8 +33,7 @@ const KeyWordsContainer = styled.div`
   align-items: center;
   box-shadow: ${(props) =>
     props.isMobile ? "0px 26px 70px rgba(0, 0, 0, 0.15)" : ""};
-  border-right: ${(props) =>
-    props.isMobile ? "" : "1px solid #E2E3E5"};
+  border-right: ${(props) => (props.isMobile ? "" : "1px solid #E2E3E5")};
   color: ${colors.gris};
   font-weight: 500;
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
@@ -45,8 +44,7 @@ const FilterContainer = styled.div`
   flex-direction: column;
   padding: ${(props) => (props.isTop ? "5px 10px" : "5px 18px")};
   line-height: 20px;
-  border-right: ${(props) =>
-    props.isMobile ? "" : "1px solid #E2E3E5"};
+  border-right: ${(props) => (props.isMobile ? "" : "1px solid #E2E3E5")};
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   background-color: ${(props) => (props.isMobile ? "white" : "")};
   position: relative;
@@ -93,22 +91,21 @@ const MainContainer = styled.div`
   max-width: ${(props) => (props.isTop ? "75%" : "")};
   z-index: 1;
   position: ${(props) => (props.isTop ? "" : "relative")};
-  &>div {
+  & > div {
     flex: 1;
   }
-  &>div:first-of-type {
+  & > div:first-of-type {
     flex: 2;
   }
   &.sticky {
     position: fixed;
     top: 0px;
-    right:0;
+    right: 0;
     width: calc(100% - 266px);
-    max-width:100%;
-    border:10px solid #F7F9FA;
-    border-width:10px 4%;
+    max-width: 100%;
+    border: 10px solid #f7f9fa;
+    border-width: 10px 4%;
   }
-  
 `;
 
 const SearchButtonContainer = styled.div`
@@ -116,7 +113,7 @@ const SearchButtonContainer = styled.div`
   color: white;
   background-color: ${colors.rouge};
   font-weight: 700;
-  flex:auto 0 0 !important;
+  flex: auto 0 0 !important;
   text-transform: uppercase;
   font-size: 1.4rem;
   cursor: pointer;
@@ -277,7 +274,7 @@ const SearchBar = (props) => {
     if (!isMobile) {
       var searchbar = document.getElementById("el");
       if (searchbar && !isHome) {
-        var sticky = searchbar.offsetTop - 20;
+        var sticky = searchbar.offsetTop;
         if (window.pageYOffset > sticky) {
           setIsTop(true);
           searchbar.classList.add("sticky");
@@ -481,17 +478,15 @@ const SearchBar = (props) => {
       showAdvancedSearch={showAdvancedSearch}
     >
       <KeyWordsContainer isMobile={isMobile} isTop={isTop}>
-        <GoSearch style={{ marginRight: isTop ? "5px" : "17px", fontSize: "2.4rem"  }} />
+        <GoSearch
+          style={{ marginRight: isTop ? "5px" : "17px", fontSize: "2.4rem" }}
+        />
         <input
           onFocus={onFocus}
           onBlur={onBlur}
           type="text"
           value={keywords}
-          className={
-              isMobile
-              ? "recherche_input_mobile"
-              : "recherche_input"
-          }
+          className={isMobile ? "recherche_input_mobile" : "recherche_input"}
           placeholder={"Rechercher une ressource par mots-cléfs..."}
           onChange={(e) => handleChangeKeywords(e.target.value)}
         />{" "}
@@ -620,10 +615,7 @@ const SearchBar = (props) => {
       )}
       {isHome ? (
         <Link to={"/recherche"}>
-          <SearchButtonContainer
-            isTop={isTop}
-            isMobile={isMobile}
-          >
+          <SearchButtonContainer isTop={isTop} isMobile={isMobile}>
             rechercher
           </SearchButtonContainer>
         </Link>
