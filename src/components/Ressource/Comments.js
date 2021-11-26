@@ -83,10 +83,10 @@ const SendButton = styled.div`
   max-width: ${(props) => (props.isMobile ? "" : "max-content")};
   width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
   transition: box-shadow 150ms linear, background-color 150ms linear,
-      transform 150ms linear;
+    transform 150ms linear;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-    
+
     transform: scale(0.98);
   }
 `;
@@ -114,6 +114,7 @@ const Comments = (props) => {
   const maxComments = isMobile ? 0 : 5;
   useEffect(() => {
     if (props.postID) {
+      console.log("get commentaire bloc commentaire", props.postID);
       getCommentaireByPost(props.postID)
         .then((res) => setAllComments(res))
         .catch((error) => console.log(error));

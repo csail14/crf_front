@@ -353,11 +353,7 @@ const Document = (props) => {
     }
   }, [document, domaineAction, props.options]);
 
-  const documentId =
-    history &&
-    history.location &&
-    history.location.state &&
-    history.location.state.id;
+  const documentId = document && document.id;
 
   const slug = props.match && props.match.params && props.match.params.id;
 
@@ -399,6 +395,7 @@ const Document = (props) => {
       ).then((res) => console.log("retour like", res));
     }
   };
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>

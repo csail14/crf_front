@@ -169,7 +169,7 @@ const UploadContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size:1.2rem;
+  font-size: 1.2rem;
   font-weight: 700;
   cursor: pointer;
   margin-top: 5px;

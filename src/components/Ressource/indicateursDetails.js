@@ -245,7 +245,7 @@ const Indicateur = (props) => {
     }
   }, []);
 
-  const indicateurId = props.id;
+  const indicateurId = indicateur && indicateur.id;
   const slug = props.slug;
   const domaineAction =
     indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;
