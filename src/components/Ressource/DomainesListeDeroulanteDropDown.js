@@ -77,9 +77,8 @@ const DomaineListDeroulanteDropDown = (props) => {
       </DomaineContainer>
       {isOpen &&
         props.info &&
-        props.info.acf &&
-        props.info.acf.ressources_liees &&
-        props.info.acf.ressources_liees.map((item, index) => {
+        props.info.indicateurs &&
+        props.info.indicateurs.map((item, index) => {
           const isThisRessourceOpen =
             item.ID === parseInt(props.indicateurId) ? true : false;
           if (item.post_type === "indicateurs") {

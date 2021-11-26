@@ -15,12 +15,12 @@ const FormInput = styled.div`
 
 const ContactForm = styled.div`
   width: 90%;
-  max-width:1000px;
+  max-width: 1000px;
   margin: 0 auto;
 `;
 const FormRow = styled.div`
   width: 90%;
-  max-width:660px;
+  max-width: 660px;
   margin: 0;
   display: flex;
   flex-direction: row;
@@ -37,9 +37,9 @@ const FormGroup = styled.div`
   align-items: center;
 `;
 const FormRowFullWidth = styled.div`
-  .mandatoryFields{
-    text-transform:uppercase;
-    font-size:1rem;
+  .mandatoryFields {
+    text-transform: uppercase;
+    font-size: 1rem;
   }
 `;
 const SubmitButton = styled.button`
@@ -111,8 +111,6 @@ const Contact = (props) => {
         setFormSuccess(false);
       } else {
         setEmailError(false);
-        setFormError(false);
-        setFormSuccess(true);
         sendEmail();
       }
     }
@@ -126,8 +124,22 @@ const Contact = (props) => {
       tel: phone,
       message: message,
       subject: subject,
+      destination:
+        contactTemplate.acf && contactTemplate.acf.mail_destination_contact
+          ? contactTemplate.acf.mail_destination_contact
+          : "",
     };
-    sendMail(data).then((res) => console.log("response email", res));
+    sendMail(data)
+      .then((res) => {
+        if (res && res.status === "success") {
+          setFormError(false);
+          setFormSuccess(true);
+        } else {
+          setFormError(true);
+          setFormSuccess(false);
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   const HeaderContainer = styled.header`
@@ -144,7 +156,7 @@ const Contact = (props) => {
     letter-spacing: 0.07rem;
     text-transform: uppercase;
     margin: 0;
-    font-weight:700;
+    font-weight: 700;
   `;
   const HeaderSubTitleContainer = styled.h3`
     font-size: 4.5rem;
@@ -166,17 +178,17 @@ const Contact = (props) => {
     margin-bottom: 30px;
     color: #939393;
     margin-top: 1rem;
-    a{
-      color:${colors.rouge};
+    a {
+      color: ${colors.rouge};
     }
   `;
 
   const SubtitleContainer = styled.div`
-  margin-top: 26px;
-  color: ${colors.gris};
-  max-width:800px;
-  line-height:1.8;
-`;
+    margin-top: 26px;
+    color: ${colors.gris};
+    max-width: 800px;
+    line-height: 1.8;
+  `;
   const slug = props.slug || "contact";
   const contactTemplate =
     props.pages && props.pages.templates && props.pages.templates.length
@@ -347,15 +359,28 @@ const Contact = (props) => {
             <FormGroup>
               <small className={"smallForm"}></small>
               <FormRow>
-                  <FormRowFullWidth>
-                    <p className="mandatoryFields">* informations indispensables</p>
+                <FormRowFullWidth>
+                  <p className="mandatoryFields">
+                    * informations indispensables
+                  </p>
+                  <div className="text-center">
                     {formSubmitted && !formError && (
                       <div className="formSuccess">
+                        <i
+                          class="bi bi-check-lg"
+                          style={{ marginRight: 8 }}
+                        ></i>
                         Votre message a bien été envoyé, merci !
                       </div>
                     )}
-                    <p className="text-center"><SubmitButton>Envoyer</SubmitButton></p>
-                    <TermsAndConditions
+                    {formSubmitted && formError && (
+                      <div className="formError">Une erreur s'est produite</div>
+                    )}
+                  </div>
+                  <p className="text-center">
+                    <SubmitButton>Envoyer</SubmitButton>
+                  </p>
+                  <TermsAndConditions
                     dangerouslySetInnerHTML={{
                       __html: DOMPurify.sanitize(
                         contactTemplate &&
@@ -370,12 +395,9 @@ const Contact = (props) => {
             <FormGroup>
               <small className={"smallForm"}></small>
               <FormRow>
-                <FormRowFullWidth>
-                  
-                </FormRowFullWidth>
+                <FormRowFullWidth></FormRowFullWidth>
               </FormRow>
             </FormGroup>
-           
           </form>
         </ContactForm>
       </div>
