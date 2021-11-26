@@ -13,7 +13,7 @@ const ListDomainContainer = styled.div`
   flex-direction: column;
 `;
 const DomainesMainTitle = styled.h2`
-  margin:0;
+  margin: 0;
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 130%;

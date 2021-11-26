@@ -11,7 +11,6 @@ export const replaceHostUrl = (string, type) => {
   const host = "http://" + window.location.host;
   if (string) {
     const replacedString = string.replace(process.env.REACT_APP_WP_LINK, host);
-    console.log(replacedString);
     return replacedString;
   } else return;
 };
