@@ -10,17 +10,18 @@ import { sendMail } from "../../utils/api/API";
 const FormInput = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
   width: 48%;
 `;
 
 const ContactForm = styled.div`
-  width: 80%;
+  width: 90%;
+  max-width:1000px;
   margin: 0 auto;
 `;
 const FormRow = styled.div`
-  width: 80%;
-  margin: 0 auto;
+  width: 90%;
+  max-width:660px;
+  margin: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -29,15 +30,17 @@ const FormInputFullWidth = styled.div`
   width: 100%;
 `;
 const FormGroup = styled.div`
-  margin-bottom: 1rem;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;
 const FormRowFullWidth = styled.div`
-  width: 80%;
-  margin-left: 20%;
+  .mandatoryFields{
+    text-transform:uppercase;
+    font-size:1rem;
+  }
 `;
 const SubmitButton = styled.button`
   background: #e30613;
@@ -51,7 +54,7 @@ const SubmitButton = styled.button`
   border: 0;
   padding: 17px 76px;
   text-transform: uppercase;
-  margin: 40px auto;
+  margin: 20px auto;
   cursor: pointer;
   color: #ffffff;
   transition: all 0.3s;
@@ -163,6 +166,9 @@ const Contact = (props) => {
     margin-bottom: 30px;
     color: #939393;
     margin-top: 1rem;
+    a{
+      color:${colors.rouge};
+    }
   `;
 
   const SubtitleContainer = styled.div`
@@ -223,7 +229,6 @@ const Contact = (props) => {
                     type="text"
                     className="form-control"
                     id="name"
-                    placeholder="Votre prénom"
                     onChange={handleChange}
                   />
                   {formSubmitted && !firstName && (
@@ -241,7 +246,6 @@ const Contact = (props) => {
                     type="text"
                     className="form-control"
                     id="name"
-                    placeholder="Votre nom"
                     onChange={handleChange}
                   />
                   {formSubmitted && !lastName && (
@@ -262,7 +266,6 @@ const Contact = (props) => {
                     type="tel"
                     className="form-control"
                     id="tel"
-                    placeholder="Votre numéro de téléphone"
                     onChange={handleChange}
                   />
                   {formSubmitted && !phone && (
@@ -281,7 +284,6 @@ const Contact = (props) => {
                     type="email"
                     className="form-control"
                     id="email"
-                    placeholder="Votre adresse mail"
                     onChange={handleChange}
                   />
                   {formSubmitted && !email && (
@@ -342,31 +344,38 @@ const Contact = (props) => {
                 </FormInputFullWidth>
               </FormRow>
             </FormGroup>
-            <FormRowFullWidth className={"mandatoryFields"}>
-              <small className={"smallForm"}>
-                * informations indispensables
-              </small>
-            </FormRowFullWidth>
-            <FormRowFullWidth>
-              {formSubmitted && !formError && (
-                <div className="formSuccess">
-                  Votre message a bien été envoyé, merci !
-                </div>
-              )}
-
-              <SubmitButton>Envoyer</SubmitButton>
-            </FormRowFullWidth>
-            <FormRowFullWidth>
-              <TermsAndConditions
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    contactTemplate &&
-                      contactTemplate.acf &&
-                      contactTemplate.acf.mentions_legales
-                  ),
-                }}
-              />
-            </FormRowFullWidth>
+            <FormGroup>
+              <small className={"smallForm"}></small>
+              <FormRow>
+                  <FormRowFullWidth>
+                    <p className="mandatoryFields">* informations indispensables</p>
+                    {formSubmitted && !formError && (
+                      <div className="formSuccess">
+                        Votre message a bien été envoyé, merci !
+                      </div>
+                    )}
+                    <p className="text-center"><SubmitButton>Envoyer</SubmitButton></p>
+                    <TermsAndConditions
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(
+                        contactTemplate &&
+                          contactTemplate.acf &&
+                          contactTemplate.acf.mentions_legales
+                      ),
+                    }}
+                  />
+                </FormRowFullWidth>
+              </FormRow>
+            </FormGroup>
+            <FormGroup>
+              <small className={"smallForm"}></small>
+              <FormRow>
+                <FormRowFullWidth>
+                  
+                </FormRowFullWidth>
+              </FormRow>
+            </FormGroup>
+           
           </form>
         </ContactForm>
       </div>

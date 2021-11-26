@@ -40,7 +40,9 @@ a{
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+.text-center{
+  text-align:center;
+}
 .App-link {
   color: #61dafb;
 }
@@ -310,16 +312,7 @@ a{
   color: #000000;
 }
 
-.textArea {
-  padding: 37px;
-  height: 195px;
-  width: -webkit-fill-available;
-  background-color: #f7f9fa;
-  border: 1px solid #eaeaea;
-  font-family: "Raleway";
-  resize:none;
-  font-size:1.6rem;
-}
+
 
 .arrow_icon {
   padding: 0 5%;
@@ -390,9 +383,7 @@ a{
 }
 
 .contactLabel {
-  margin-bottom: 0.3rem;
-  font-family: Raleway;
-  font-style: normal;
+  margin-bottom:18px;
   font-weight: 600;
   font-size: 1.4rem;
   line-height: 16px;
@@ -405,9 +396,9 @@ a{
 
 .smallForm {
   width: 20%;
-  max-width: 20%;
+  max-width: 154px;
   text-align: right;
-  padding-right: 2rem;
+  margin-right:8%;
   font-family: Raleway;
   font-style: normal;
   font-weight: 600;
@@ -428,7 +419,7 @@ a{
   background: #ffffff;
   border: 1px solid #eaeaea;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 14px 20px;
   font-family: Raleway;
   font-size: 1.6rem;
 }
@@ -454,17 +445,27 @@ a{
 .formMessageLabel {
   margin-bottom: 0.3rem;
 }
-.form-control {
+.form-control, .formMessage {
   background: #f7f9fa;
   border: 1px solid #eaeaea;
   box-sizing: border-box;
-  padding: 1rem;
+  padding: 14px 20px;
   font-family: Raleway;
   color: #003956;
   font-size: 1.6rem;
   font-weight: 700;
 }
-.form-control:placeholder {
+.formMessage{
+  height:280px;
+}
+.form-control:focus,.formMessage:focus{
+  background:white;
+  box-shadow: 0px 10px 13px rgba(17, 38, 146, 0.05);
+}
+.form-control:focus-visible,.formMessage:focus-visible{
+  outline:0;
+}
+.form-control::placeholder {
   font-weight: 400;
 }
 .formMessage {
@@ -472,6 +473,16 @@ a{
   border: 1px solid #eaeaea;
   box-sizing: border-box;
   resize: none;
+}
+.textArea {
+  padding: 37px;
+  height: 195px;
+  width: -webkit-fill-available;
+  background-color: #f7f9fa;
+  border: 1px solid #eaeaea;
+  font-family: "Raleway";
+  resize:none;
+  font-size:1.6rem;
 }
 .formError {
   color: #e30613;
@@ -489,9 +500,11 @@ a{
   font-weight: bold;
   font-size: 1.6rem;
 }
-.mandatoryFields {
-  padding-left: 2rem;
-}
 
+.mandatoryFields{
+  text-transform:uppercase;
+  font-size:1rem;
+  opacity: 0.8;
+}
 
 
