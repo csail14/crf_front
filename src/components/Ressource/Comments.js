@@ -114,7 +114,6 @@ const Comments = (props) => {
   const maxComments = isMobile ? 0 : 5;
   useEffect(() => {
     if (props.postID) {
-      console.log("get commentaire bloc commentaire", props.postID);
       getCommentaireByPost(props.postID)
         .then((res) => setAllComments(res))
         .catch((error) => console.log(error));
