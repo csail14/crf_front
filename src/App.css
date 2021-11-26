@@ -465,7 +465,7 @@ a{
 .form-control:focus-visible,.formMessage:focus-visible{
   outline:0;
 }
-.form-control::placeholder {
+.form-control::placeholder,.formMessage::placeholder {
   font-weight: 400;
 }
 .formMessage {
