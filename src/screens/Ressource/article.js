@@ -349,11 +349,7 @@ const Article = (props) => {
     }
   }, [article, domaineAction, props.options]);
   const slug = props.match && props.match.params && props.match.params.id;
-  const articleId =
-    history &&
-    history.location &&
-    history.location.state &&
-    history.location.state.id;
+  const articleId = article && article.id;
 
   let tags = article && article.tags;
 
@@ -395,7 +391,7 @@ const Article = (props) => {
       ).then((res) => console.log("retour like", res));
     }
   };
-  console.log(props.user);
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>

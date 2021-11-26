@@ -24,16 +24,16 @@ import { HashLink } from "react-router-hash-link";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.article`
-  flex-basis:24%;
-  margin-right:1.3%;
-  margin-bottom:20px;
+  flex-basis: 24%;
+  margin-right: 1.3%;
+  margin-bottom: 20px;
   position: relative;
   box-shadow: 0px 10px 30px rgba(17, 38, 146, 0.05);
   height: fit-content;
   transition: box-shadow 150ms linear, background-color 150ms linear,
     transform 150ms linear;
-  &:nth-of-type(4n){
-    margin-right:0;
+  &:nth-of-type(4n) {
+    margin-right: 0;
   }
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
@@ -44,11 +44,11 @@ const MainContainer = styled.article`
 const IconContainer = styled.div`
   position: absolute;
   padding: 1px 5px 5px 5px;
-  text-align:center;
-  line-height:52px;
-  font-size:2.5rem;
-  width:50px;
-  height:52px;
+  text-align: center;
+  line-height: 52px;
+  font-size: 2.5rem;
+  width: 50px;
+  height: 52px;
   background-color: ${(props) =>
     props.type === "documents"
       ? colors.yellowBackground
@@ -72,7 +72,7 @@ const LastUpdateContainer = styled.time`
   line-height: 14px;
   text-transform: uppercase;
   margin-bottom: 16px;
-  display:block;
+  display: block;
   color: ${colors.marine};
 `;
 
@@ -105,11 +105,11 @@ const Domaine = styled.div`
 `;
 
 const TitleContainer = styled.h2`
-  font-size:1.8rem;
+  font-size: 1.8rem;
   font-weight: 700;
   line-height: 22px;
   text-transform: uppercase;
-  margin:0 0 16px;
+  margin: 0 0 16px;
   color: #131313;
   cursor: pointer;
   transition: opacity 150ms linear;
@@ -413,24 +413,31 @@ const GridResultComponent = (props) => {
         )}
         <BottomContainer>
           <PostInfoContainer>
-              <Comment>
-                <HashLink
-                  to={
-                    details && details.type && details.slug
-                      ? "/" + details.type + "/" + details.slug + "#comments"
-                      : ""
-                  }
-                >
-                  <BiComment size={18} style={{ marginRight: "7px",verticalAlign:"middle" }} />
-                  {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
-                </HashLink>
-              </Comment>
+            <Comment>
+              <HashLink
+                to={
+                  details && details.type && details.slug
+                    ? "/" + details.type + "/" + details.slug + "#comments"
+                    : ""
+                }
+              >
+                <BiComment
+                  size={18}
+                  style={{ marginRight: "7px", verticalAlign: "middle" }}
+                />
+                {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
+              </HashLink>
+            </Comment>
             {details && details.acf && details.acf.datas && (
               <div style={{ display: "flex" }}>
                 <OtherTypePicto>
                   <AiOutlineLike
                     size={18}
-                    style={{ color: colors.gris, marginRight: "7px", verticalAlign:"middle" }}
+                    style={{
+                      color: colors.gris,
+                      marginRight: "7px",
+                      verticalAlign: "middle",
+                    }}
                   />
                   {details.acf.datas.likes}
                 </OtherTypePicto>
@@ -441,7 +448,7 @@ const GridResultComponent = (props) => {
                       color: colors.gris,
                       marginRight: "7px",
                       marginLeft: "10px",
-                      verticalAlign:"middle"
+                      verticalAlign: "middle",
                     }}
                   />
                   {details.acf.datas.vues}
