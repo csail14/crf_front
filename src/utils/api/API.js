@@ -144,7 +144,6 @@ export const addLike = async (type, postId, like, token) => {
     "Content-Type": "application/json",
     Authorization: "Bearer " + token,
   };
-  console.log(type, postId, like);
   return axios
     .post(config.api_url + "/wp/v2/" + type + "/" + postId, body, {
       headers: headers,

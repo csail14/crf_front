@@ -395,7 +395,7 @@ const Article = (props) => {
       ).then((res) => console.log("retour like", res));
     }
   };
-  console.log(props.user);
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
