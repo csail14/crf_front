@@ -9,7 +9,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
-import { getMediaById } from "../../utils/api/API";
+import { getMediaById, addLike } from "../../utils/api/API";
 import {
   getArticleById,
   getRessourceBySlug,
@@ -385,6 +385,17 @@ const Article = (props) => {
     history.push("/recherche");
   };
 
+  const addOneLike = () => {
+    if (article && props.user) {
+      addLike(
+        article.type,
+        article.id,
+        parseInt(article.acf.datas.likes + 1),
+        props.user.token
+      ).then((res) => console.log("retour like", res));
+    }
+  };
+  console.log(props.user);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -496,6 +507,7 @@ const Article = (props) => {
           <AddLikeContainer isMobile={isMobile}>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
+              onClick={addOneLike}
               id="like"
               size={18}
               color={colors.gris}
@@ -561,6 +573,7 @@ const mapStateToProps = (store) => {
     taxonomie: store.taxonomie,
     options: store.options,
     filters: store.filters,
+    user: store.user,
   };
 };
 

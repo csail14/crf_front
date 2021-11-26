@@ -17,6 +17,8 @@ import OtherPage from "./screens/Other/otherPage";
 import { useLocation } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { config } from "./config";
+import { SecureRoute, Security, LoginCallback } from "@okta/okta-react";
+import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 
 const MainContainer = styled.div`
   display: flex;
@@ -25,38 +27,60 @@ const MainContainer = styled.div`
 const BodyContainer = styled.div`
   width: -webkit-fill-available;
 `;
-function App() {
+function App(props) {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const location = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  const oktaAuth = new OktaAuth({
+    issuer: "https://{yourOktaDomain}.com/oauth2/default",
+    clientId: "{clientId}",
+    redirectUri: window.location.origin + "/login/callback",
+  });
+
+  const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+    props.history.replace(
+      toRelativeUrl(originalUri || "/", window.location.origin)
+    );
+  };
+
   return (
     <div className="App">
       <MainContainer isMobile={isMobile}>
         <LeftSideComponent className="sidebar" />
         <BodyContainer>
           <Switch>
-            <Route exact path="/" component={HOC(Home)} />
-            <Route exact path="/home" component={HOC(Home)} />
-            {/* <Route exact path="/subHome/:id" component={HOC(SubHome)} /> */}
-            <Route exact path="/indicateurs/:id" component={HOC(Indicateur)} />
-            <Route
-              exact
-              path="/domaine-impact/:id"
-              component={HOC(Indicateur)}
-            />
-            <Route
-              exact
-              path="/liste-des-indicateurs"
-              component={HOC(ListDomaines)}
-            />
-            <Route exact path="/recherche" component={HOC(Recherche)} />
-            <Route exact path="/contact" component={HOC(Contact)} />
-            <Route exact path="/impact-track" component={HOC(ImpactTrack)} />
-            <Route exact path="/articles/:id" component={HOC(Article)} />
-            <Route exact path="/documents/:id" component={HOC(Document)} />
-            <Route exact path="/:id" component={HOC(OtherPage)} />
+            <Security
+              oktaAuth={oktaAuth}
+              restoreOriginalUri={restoreOriginalUri}
+            >
+              <Route exact path="/" component={HOC(Home)} />
+              <Route exact path="/home" component={HOC(Home)} />
+              {/* <Route exact path="/subHome/:id" component={HOC(SubHome)} /> */}
+              <Route
+                exact
+                path="/indicateurs/:id"
+                component={HOC(Indicateur)}
+              />
+              <Route
+                exact
+                path="/domaine-impact/:id"
+                component={HOC(Indicateur)}
+              />
+              <Route
+                exact
+                path="/liste-des-indicateurs"
+                component={HOC(ListDomaines)}
+              />
+              <Route exact path="/recherche" component={HOC(Recherche)} />
+              <Route exact path="/contact" component={HOC(Contact)} />
+              <Route exact path="/impact-track" component={HOC(ImpactTrack)} />
+              <Route exact path="/articles/:id" component={HOC(Article)} />
+              <Route exact path="/documents/:id" component={HOC(Document)} />
+              <Route exact path="/:id" component={HOC(OtherPage)} />
+            </Security>
           </Switch>
           <Footer />
         </BodyContainer>
