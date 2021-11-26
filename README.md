@@ -82,10 +82,13 @@ RewriteRule . /index.html [L]
 ```
 
 - Ajouter fichier .env
+Le user est un utilisateur Wordpress abonné pour l'authentification POST
 
 ```
 REACT_APP_ENV_API_LINK=https://pmis-wp.laguildedupixel.fr/wp-json
 REACT_APP_WP_LINK=https://pmis-wp.laguildedupixel.fr
+REACT_APP_USER= post
+REACT_APP_USER_PASSWORD=f^ZEYfVJcjVeQ(3Pja
 
 ```
 
