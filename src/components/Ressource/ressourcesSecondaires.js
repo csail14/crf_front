@@ -63,7 +63,7 @@ const Indicateur = (props) => {
     }
   }, []);
 
-  const indicateurId = props.id && props.id.length && props.id[0];
+  const indicateurId = props.id;
   const slug = props.match && props.match.params && props.match.params.id;
 
   let tags = indicateur && indicateur.tags;
