@@ -45,6 +45,7 @@ Exemple vhost (git init dans le dossier react)
 
 - Back office installé et fonctionnel
 - Serveur LAMP classique (Javascript utilisé uniquement)
+- npm installé sur serveur
 
 ## Installation
 
@@ -54,34 +55,12 @@ Initialiser et cloner le projet dans le dossier concerné
 2. git remote add origin https://gitlab.com/la-guilde-du-pixel/pmis-front-croix-rouge-francaise.git
 3. git pull
 4. git checkout dev
+5. Ajouter .env à la racine
+5. commande "npm install"
+6. commande "npm run build"
+7. Faire pointer le vhost sur le dossier build
 
-- Faire pointer le vhost sur le dossier build
-
-Ouvrir l'url de recette : recette-impact-social.croix-rouge.fr
-
-# (Développement) Installer React et build l'application
-
-1. cloner le repo
-2. `npm install`
-3. `npm start` pour lancer l'application en local
-
-Avant de pusher sur le repo
-
-- `npm run build` pour creer le build de l'application
-- ajouter fichier .htaccess dans le build : (à refaire àxs chaque le build)
-  <IfModule mod_rewrite.c>
-
-```
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.html$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-RewriteRule . /index.html [L]
-```
-
-- Ajouter fichier .env
+- Contenu .env
 Le user est un utilisateur Wordpress abonné pour l'authentification POST
 
 ```
@@ -92,4 +71,32 @@ REACT_APP_USER_PASSWORD=f^ZEYfVJcjVeQ(3Pja
 
 ```
 
+- Contenu du .htaccess
+```
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . /index.html [L]
 </IfModule>
+
+```
+
+Ouvrir l'url de recette : rec-impact-social.croix-rouge.fr
+
+## Mettre à jour l'application 
+1. git pull
+2. commande "npm run build"
+
+# (Développement) Installer React et build l'application
+
+1. cloner le repo
+2. `npm install`
+3. `npm start` pour lancer l'application en local
+
+Pour build l'application : 
+- `npm run build`
+  
