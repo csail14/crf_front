@@ -23,6 +23,7 @@ import {
   loadActionsFilter,
   resetAllFilter,
 } from "../../actions/filter/filterActions";
+import { addLike } from "../../utils/api/API";
 
 require("moment/locale/fr.js");
 
@@ -289,7 +290,16 @@ const Indicateur = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-  console.log(indicateur);
+  const addOneLike = () => {
+    if (indicateur && props.user) {
+      addLike(
+        indicateur.type,
+        indicateur.id,
+        parseInt(indicateur.acf.datas.likes + 1),
+        props.user.token
+      ).then((res) => console.log("retour like", res));
+    }
+  };
   return (
     <RightSideContainer>
       <HeaderRightSideTopContainer isMobile={isMobile}>
@@ -443,6 +453,7 @@ const Indicateur = (props) => {
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
+              onClick={addOneLike}
               id="like"
               size={18}
               color={colors.gris}
@@ -470,6 +481,7 @@ const mapStateToProps = (store) => {
     taxonomie: store.taxonomie,
     pages: store.pages,
     filters: store.filters,
+    user: store.user,
   };
 };
 

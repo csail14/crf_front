@@ -133,9 +133,22 @@ export const postComment = async (name, email, content, postId) => {
     });
 };
 
-export const addLike = async (type, postId, body) => {
+export const addLike = async (type, postId, like, token) => {
+  const body = {
+    acf: {
+      datas: { vues: "2", likes: like },
+    },
+  };
+
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + token,
+  };
+  console.log(type, postId, like);
   return axios
-    .post(config.api_url + "/wp/v2/" + type + "/" + postId)
+    .post(config.api_url + "/wp/v2/" + type + "/" + postId, body, {
+      headers: headers,
+    })
     .then((response) => {
       return response;
     })

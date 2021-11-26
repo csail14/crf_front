@@ -12,7 +12,7 @@ import {
   getDocumentById,
   getRessourceBySlug,
 } from "../../utils/api/RessourcesApi";
-import { getMediaById } from "../../utils/api/API";
+import { getMediaById, addLike } from "../../utils/api/API";
 import moment from "moment";
 import { config } from "../../config";
 import DOMPurify from "dompurify";
@@ -389,7 +389,16 @@ const Document = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-  console.log(document);
+  const addOneLike = () => {
+    if (document && props.user) {
+      addLike(
+        document.type,
+        document.id,
+        parseInt(document.acf.datas.likes + 1),
+        props.user.token
+      ).then((res) => console.log("retour like", res));
+    }
+  };
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -560,6 +569,7 @@ const Document = (props) => {
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
             <AiOutlineLike
+              onClick={addOneLike}
               id="like"
               size={18}
               color={colors.gris}
@@ -604,6 +614,7 @@ const mapStateToProps = (store) => {
     taxonomie: store.taxonomie,
     options: store.options,
     filters: store.filters,
+    user: store.user,
   };
 };
 
