@@ -41,18 +41,17 @@ const RessourcesLieesContainer = styled.div`
 const DomaineListDeroulanteDropDown = (props) => {
   const [isOpen, setIsOpen] = useState(props.openID === props.info.id);
   let history = useHistory();
+
   useEffect(() => {
     setIsOpen(props.openID === props.info.id);
   }, [props.openID]);
   useEffect(() => {
     if (
       (props.info &&
-        props.info.acf &&
-        props.info.acf.ressources_liees &&
-        props.info.acf.ressources_liees.length &&
-        props.info.acf.ressources_liees.filter(
-          (item) => item.post_name === props.slug
-        ).length > 0) ||
+        props.info.indicateurs &&
+        props.info.indicateurs.length > 0 &&
+        props.info.indicateurs.filter((item) => item.post_name === props.slug)
+          .length > 0) ||
       props.slug === props.info.slug
     ) {
       setIsOpen(true);
