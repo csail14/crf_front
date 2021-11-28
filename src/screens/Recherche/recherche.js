@@ -9,6 +9,8 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
+import { useHistory } from "react-router-dom";
+
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
@@ -27,7 +29,7 @@ const HeaderTitleContainer = styled.h1`
   letter-spacing: 0.07rem;
   text-transform: uppercase;
   margin: 0;
-  font-weight:700;
+  font-weight: 700;
 `;
 const HeaderSubTitleContainer = styled.h2`
   font-size: 4.5rem;
@@ -42,8 +44,8 @@ const HeaderSubTitleContainer = styled.h2`
 const SubtitleContainer = styled.div`
   margin-top: 26px;
   color: ${colors.gris};
-  max-width:800px;
-  line-height:1.8;
+  max-width: 800px;
+  line-height: 1.8;
 `;
 const BodyContainer = styled.div`
   padding: 0 4%;
@@ -76,13 +78,15 @@ const ButtonView = styled.div`
   display: flex;
   cursor: pointer;
   padding: 10px 15px;
-  background-color: ${(props) => (props.isSelected ? colors.marine : "transparent")};
+  background-color: ${(props) =>
+    props.isSelected ? colors.marine : "transparent"};
   color: ${(props) => (!props.isSelected ? colors.marine : "white")};
   font-weight: 600;
   font-size: 1.2rem;
   text-transform: uppercase;
   align-items: center;
-  transition: box-shadow 150ms linear, background-color 150ms linear, transform 150ms linear;
+  transition: box-shadow 150ms linear, background-color 150ms linear,
+    transform 150ms linear;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.98);
@@ -147,11 +151,13 @@ const Recherche = (props) => {
   const addQueryUrl = () => {
     let string = "?s=" + props.filters.keywords;
     if (string !== window.location.search && props.filters.keywords !== "") {
-      props.history.push({
+      history.push({
         search: "?s=" + props.filters.keywords,
       });
     }
   };
+
+  let history = useHistory();
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 

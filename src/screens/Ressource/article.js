@@ -351,14 +351,13 @@ const Article = (props) => {
   const slug = props.match && props.match.params && props.match.params.id;
   const articleId = article && article.id;
 
-  let tags = article && article.tags;
-
+  let tags = article && article.post_tag;
+  console.log("article", article);
   if (tags && props.taxonomie && props.taxonomie.tags.length) {
     tags = tags.map((item) => {
       return props.taxonomie.tags.filter((el) => el.id === item)[0];
     });
   }
-
   const showCommment =
     article && article.comment_status === "open" ? true : false;
 
