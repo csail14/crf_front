@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import DOMPurify from "dompurify";
-import { isMobile } from "react-device-detect";
 import { config } from "../../config";
 import { colors } from "../../colors";
 import { sendMail } from "../../utils/api/API";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const FormInput = styled.div`
   display: flex;
@@ -63,6 +63,55 @@ const SubmitButton = styled.button`
     transform: scale(0.98);
   }
 `;
+
+const HeaderContainer = styled.header`
+  padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
+  background-image: url(${config.header_image_url});
+  background-size: cover;
+  background-position: bottom right;
+  margin-bottom: 78px;
+`;
+const HeaderTitleContainer = styled.h2`
+  font-size: 4.5rem;
+  color: ${colors.marine};
+  line-height: 50px;
+  letter-spacing: 0.07rem;
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 700;
+`;
+const HeaderSubTitleContainer = styled.h3`
+  font-size: 4.5rem;
+  color: ${colors.marine};
+  line-height: 42px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin: 0 0 34px;
+`;
+const TermsAndConditions = styled.div`
+  line-height: 1.5;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 12px;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #939393;
+  margin-top: 1rem;
+  a {
+    color: ${colors.rouge};
+  }
+`;
+
+const SubtitleContainer = styled.div`
+  margin-top: 26px;
+  color: ${colors.gris};
+  max-width: 800px;
+  line-height: 1.8;
+`;
+
 const Contact = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -91,8 +140,6 @@ const Contact = (props) => {
     }
   };
 
-  // api call to send email
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormSubmitted(true);
@@ -115,8 +162,11 @@ const Contact = (props) => {
       }
     }
   };
+
   //send email on submit
   const sendEmail = () => {
+    const recaptchaValue = recaptchaRef.current.getValue();
+    console.log(recaptchaValue);
     const data = {
       firstName: firstName,
       lastName: lastName,
@@ -142,61 +192,20 @@ const Contact = (props) => {
       .catch((error) => console.log(error));
   };
 
-  const HeaderContainer = styled.header`
-    padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
-    background-image: url(${config.header_image_url});
-    background-size: cover;
-    background-position: bottom right;
-    margin-bottom: 78px;
-  `;
-  const HeaderTitleContainer = styled.h2`
-    font-size: 4.5rem;
-    color: ${colors.marine};
-    line-height: 50px;
-    letter-spacing: 0.07rem;
-    text-transform: uppercase;
-    margin: 0;
-    font-weight: 700;
-  `;
-  const HeaderSubTitleContainer = styled.h3`
-    font-size: 4.5rem;
-    color: ${colors.marine};
-    line-height: 42px;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    font-weight: 300;
-    margin: 0 0 34px;
-  `;
-  const TermsAndConditions = styled.div`
-    line-height: 1.5;
-    font-family: Raleway;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 1rem;
-    line-height: 12px;
-    text-align: center;
-    margin-bottom: 30px;
-    color: #939393;
-    margin-top: 1rem;
-    a {
-      color: ${colors.rouge};
-    }
-  `;
+  const onChange = (value) => {
+    console.log("Captcha value:", value);
+  };
 
-  const SubtitleContainer = styled.div`
-    margin-top: 26px;
-    color: ${colors.gris};
-    max-width: 800px;
-    line-height: 1.8;
-  `;
   const slug = props.slug || "contact";
   const contactTemplate =
     props.pages && props.pages.templates && props.pages.templates.length
       ? props.pages.templates.filter((template) => template.slug === slug)[0]
       : null;
 
+  const recaptchaRef = React.createRef();
+
   return (
-    <>
+    <div>
       <HeaderContainer>
         {contactTemplate && contactTemplate.title ? (
           <HeaderTitleContainer
@@ -377,6 +386,12 @@ const Contact = (props) => {
                       <div className="formError">Une erreur s'est produite</div>
                     )}
                   </div>
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey="6LftnV8dAAAAAJUUeKlp5u-MWgP0qAfCiEODp7_4"
+                    onChange={onChange}
+                  />
+                  ,
                   <p className="text-center">
                     <SubmitButton>Envoyer</SubmitButton>
                   </p>
@@ -401,7 +416,7 @@ const Contact = (props) => {
           </form>
         </ContactForm>
       </div>
-    </>
+    </div>
   );
 };
 
