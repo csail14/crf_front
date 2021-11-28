@@ -352,7 +352,6 @@ const Article = (props) => {
   const articleId = article && article.id;
 
   let tags = article && article.post_tag;
-  console.log("article", article);
   if (tags && props.taxonomie && props.taxonomie.tags.length) {
     tags = tags.map((item) => {
       return props.taxonomie.tags.filter((el) => el.id === item)[0];

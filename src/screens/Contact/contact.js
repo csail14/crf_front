@@ -5,7 +5,7 @@ import DOMPurify from "dompurify";
 import { config } from "../../config";
 import { colors } from "../../colors";
 import { sendMail } from "../../utils/api/API";
-import ReCAPTCHA from "react-google-recaptcha";
+import Reaptcha from "reaptcha";
 
 const FormInput = styled.div`
   display: flex;
@@ -123,6 +123,8 @@ const Contact = (props) => {
   const [formError, setFormError] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const [captchaError, setCaptchaError] = useState(false);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
   const handleChange = (e) => {
     if (e.target.name === "firstName") {
@@ -156,6 +158,8 @@ const Contact = (props) => {
       if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
         setEmailError(true);
         setFormSuccess(false);
+      } else if (!isCaptchaVerified) {
+        setCaptchaError(true);
       } else {
         setEmailError(false);
         sendEmail();
@@ -165,8 +169,6 @@ const Contact = (props) => {
 
   //send email on submit
   const sendEmail = () => {
-    const recaptchaValue = recaptchaRef.current.getValue();
-    console.log(recaptchaValue);
     const data = {
       firstName: firstName,
       lastName: lastName,
@@ -192,17 +194,15 @@ const Contact = (props) => {
       .catch((error) => console.log(error));
   };
 
-  const onChange = (value) => {
-    console.log("Captcha value:", value);
-  };
-
   const slug = props.slug || "contact";
   const contactTemplate =
     props.pages && props.pages.templates && props.pages.templates.length
       ? props.pages.templates.filter((template) => template.slug === slug)[0]
       : null;
 
-  const recaptchaRef = React.createRef();
+  const onVerify = () => {
+    setIsCaptchaVerified(true);
+  };
 
   return (
     <div>
@@ -365,10 +365,18 @@ const Contact = (props) => {
                 </FormInputFullWidth>
               </FormRow>
             </FormGroup>
+
             <FormGroup>
               <small className={"smallForm"}></small>
               <FormRow>
                 <FormRowFullWidth>
+                  <Reaptcha
+                    sitekey="6LftnV8dAAAAAJUUeKlp5u-MWgP0qAfCiEODp7_4"
+                    onVerify={onVerify}
+                  />
+                  {formSubmitted && captchaError && (
+                    <div className="formError">Veuillez vérfier le Captcha</div>
+                  )}
                   <p className="mandatoryFields">
                     * informations indispensables
                   </p>
@@ -386,12 +394,7 @@ const Contact = (props) => {
                       <div className="formError">Une erreur s'est produite</div>
                     )}
                   </div>
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey="6LftnV8dAAAAAJUUeKlp5u-MWgP0qAfCiEODp7_4"
-                    onChange={onChange}
-                  />
-                  ,
+
                   <p className="text-center">
                     <SubmitButton>Envoyer</SubmitButton>
                   </p>
