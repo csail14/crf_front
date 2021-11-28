@@ -67,7 +67,7 @@ const Indicateur = (props) => {
   const indicateurId = indicateur && indicateur.id;
   const slug = props.slug;
 
-  let tags = indicateur && indicateur.tags;
+  let tags = indicateur && indicateur.post_tag;
 
   if (tags && props.taxonomie && props.taxonomie.tags.length) {
     tags = tags.map((item) => {

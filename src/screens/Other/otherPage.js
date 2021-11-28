@@ -29,7 +29,7 @@ const HeaderTitleContainer = styled.h1`
   letter-spacing: 0.07rem;
   text-transform: uppercase;
   margin: 0;
-  font-weight:700;
+  font-weight: 700;
 `;
 
 const HeaderSubTitleContainer = styled.h2`
@@ -45,8 +45,8 @@ const HeaderSubTitleContainer = styled.h2`
 const SubtitleContainer = styled.div`
   margin-top: 26px;
   color: ${colors.gris};
-  max-width:800px;
-  line-height:1.8;
+  max-width: 800px;
+  line-height: 1.8;
 `;
 const BodyContainer = styled.main`
   display: flex;
@@ -57,40 +57,40 @@ const BodyContainer = styled.main`
 const Textcontainer = styled.div`
   padding: ${(props) => (props.isMobile ? "30px 0" : "100px 0")};
   color: ${colors.text};
-  line-height:1.9;
-  max-width:660px;
-  margin:0 auto;
-  width:90%;
-  &>*:first-child{
-    margin-top:0;
+  line-height: 1.9;
+  max-width: 660px;
+  margin: 0 auto;
+  width: 90%;
+  & > *:first-child {
+    margin-top: 0;
   }
-  h2{
-    font-size:3.5rem;
-    line-height:45px;
-    color:#003956;
-    text-transform:uppercase;
-    margin:20px 0 12px;
+  h2 {
+    font-size: 3.5rem;
+    line-height: 45px;
+    color: #003956;
+    text-transform: uppercase;
+    margin: 20px 0 12px;
   }
-  h3{
-    text-transform:uppercase;
-    font-size:1.8rem;
-    margin:20px 0 12px;
+  h3 {
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    margin: 20px 0 12px;
   }
-  ul{
+  ul {
     padding-left: 13px;
-    li{
-      margin:17px 0;
-      &::marker{
-        color:${colors.rouge};
+    li {
+      margin: 17px 0;
+      &::marker {
+        color: ${colors.rouge};
       }
     }
   }
-  a{
+  a {
     color: ${colors.rouge};
-    font-weight:bold;
+    font-weight: bold;
   }
-  p{
-    margin:12px 0;
+  p {
+    margin: 12px 0;
   }
 `;
 
@@ -102,6 +102,7 @@ const OtherPage = (props) => {
         (template) => template.slug === props.match.params.id
       )[0]
     : null;
+
   return (
     <>
       {template && template.template === "tpl-sous_home.php" ? (
@@ -114,6 +115,8 @@ const OtherPage = (props) => {
         <ImpactTrack slug={slug} />
       ) : template && template.template === "tpl-contact.php" ? (
         <Contact slug={slug} />
+      ) : slug === "home" ? (
+        <></>
       ) : (
         <MainContainer>
           <HeaderContainer isMobile={isMobile}>

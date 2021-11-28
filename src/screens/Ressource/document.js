@@ -357,7 +357,7 @@ const Document = (props) => {
 
   const slug = props.match && props.match.params && props.match.params.id;
 
-  let tags = document && document.tags;
+  let tags = document && document.post_tag;
 
   if (tags && props.taxonomie && props.taxonomie.tags.length) {
     tags = tags.map((item) => {

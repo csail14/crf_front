@@ -25,7 +25,7 @@ export const getMediaById = async (id) => {
 
 export const getAllTags = async () => {
   return axios
-    .get(config.api_url + "/wp/v2/tags")
+    .get(config.api_url + "/wp/v2/post_tag")
     .then((response) => {
       return response.data;
     })
