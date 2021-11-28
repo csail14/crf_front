@@ -259,7 +259,7 @@ const Indicateur = (props) => {
       )[0]
     : null;
 
-  let tags = indicateur && indicateur.tags;
+  let tags = indicateur && indicateur.post_tag;
 
   if (tags && props.taxonomie && props.taxonomie.tags.length) {
     tags = tags.map((item) => {

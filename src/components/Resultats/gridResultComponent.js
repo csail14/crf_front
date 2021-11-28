@@ -248,7 +248,7 @@ const GridResultComponent = (props) => {
     }
   }, [details, domaineAction, props.options]);
 
-  let tags = details && details.tags;
+  let tags = details && details.post_tag;
 
   if (tags && props.taxonomie && props.taxonomie.tags.length) {
     tags = tags.map((item) => {
