@@ -3,16 +3,12 @@ import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./screens/Home/home";
 import Footer from "./components/footer";
-import ImpactTrack from "./screens/ImpactTrack/impactTrack";
 import LeftSideComponent from "./components/Sidebar/LeftSideComponent";
-import Recherche from "./screens/Recherche/recherche";
-import Contact from "./screens/Contact/contact";
 import Article from "./screens/Ressource/article";
 import Document from "./screens/Ressource/document";
 import Indicateur from "./screens/Ressource/indicateur";
 import styled from "styled-components";
 import HOC from "./utils/hoc";
-import ListDomaines from "./screens/ListDomaine/listDomaines";
 import OtherPage from "./screens/Other/otherPage";
 import { useLocation } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -58,7 +54,6 @@ function App(props) {
             >
               <Route exact path="/" component={HOC(Home)} />
               <Route exact path="/home" component={HOC(Home)} />
-              {/* <Route exact path="/subHome/:id" component={HOC(SubHome)} /> */}
               <Route
                 exact
                 path="/indicateurs/:id"
@@ -69,14 +64,6 @@ function App(props) {
                 path="/domaine-impact/:id"
                 component={HOC(Indicateur)}
               />
-              <Route
-                exact
-                path="/liste-des-indicateurs"
-                component={HOC(ListDomaines)}
-              />
-              <Route exact path="/recherche" component={HOC(Recherche)} />
-              <Route exact path="/contact" component={HOC(Contact)} />
-              <Route exact path="/impact-track" component={HOC(ImpactTrack)} />
               <Route exact path="/articles/:id" component={HOC(Article)} />
               <Route exact path="/documents/:id" component={HOC(Document)} />
               <Route exact path="/:id" component={HOC(OtherPage)} />

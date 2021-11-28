@@ -46,6 +46,7 @@ const AvailableRessourceContainer = styled.div`
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+
   useEffect(() => {
     props.resetAllFilter();
     if (slug) {
@@ -56,15 +57,15 @@ const Indicateur = (props) => {
           }
         })
         .catch((error) => console.log(error));
-    } else {
+    } else if (indicateurId) {
       getRessourceById(indicateurId, props.type)
         .then((res) => setIndicateur(res))
         .catch((error) => console.log(error));
     }
   }, []);
 
-  const indicateurId = props.id;
-  const slug = props.match && props.match.params && props.match.params.id;
+  const indicateurId = indicateur && indicateur.id;
+  const slug = props.slug;
 
   let tags = indicateur && indicateur.tags;
 

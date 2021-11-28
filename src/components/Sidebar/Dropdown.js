@@ -36,7 +36,7 @@ const Dropdown = (props) => {
     const handleClick = () => {
       history.push({
         pathname: url,
-        state: { id: obj.ID },
+        state: { id: obj.object_id },
       });
     };
     return (

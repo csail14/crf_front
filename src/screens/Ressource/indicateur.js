@@ -41,14 +41,14 @@ const MainContainer = styled.main`
   background-size: ${(props) => (props.isMobile ? "100% 480px" : "100% 378px")};
   background-repeat: no-repeat;
   position: relative;
-  min-height: 95vh; 
+  min-height: 95vh;
 `;
 
 const LeftSideComponent = styled.aside`
   position: -webkit-sticky;
   position: sticky;
   margin: 119px 5.5% 0 5%;
-  flex-basis:20%;
+  flex-basis: 20%;
 `;
 
 const Indicateur = (props) => {
@@ -79,12 +79,12 @@ const Indicateur = (props) => {
           </LeftSideComponent>
         )}
         {type === "indicateurs" ? (
-          <IndicateurDetails type={type} slug={slug} id={id} />
+          <IndicateurDetails type={type} slug={slug} />
         ) : type === "domaine-impact" ? (
           <DomainesDetails slug={slug} id={id} />
         ) : null}
       </MainContainer>
-      <RessourcesSecondaires type={type} id={id} />
+      <RessourcesSecondaires type={type} slug={slug} />
     </>
   );
 };
