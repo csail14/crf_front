@@ -90,7 +90,7 @@ const ListDomaines = (props) => {
         {props.taxonomie &&
           props.taxonomie.domainesImpacts &&
           props.taxonomie.domainesImpacts.map((item, index) => {
-            if (item.count) {
+            if (item.indicateurs.length) {
               return <ApercuDomaine info={item} key={index} />;
             }
           })}

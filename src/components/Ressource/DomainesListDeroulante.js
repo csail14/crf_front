@@ -38,7 +38,7 @@ const DomaineListDeroulante = (props) => {
       <DomainesMainTitle>Les domaines d’impact</DomainesMainTitle>
       {domaineImpacts &&
         domaineImpacts.map((item, index) => {
-          if (item.count) {
+          if (item.indicateurs.length > 0) {
             return (
               <DomaineListDeroulanteDropDown
                 indicateurId={props.id}
