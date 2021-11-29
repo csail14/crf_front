@@ -9,11 +9,11 @@ import { useHistory } from "react-router-dom";
 import { config } from "../../config";
 const MainContainer = styled.div`
   margin: ${(props) => (props.isMobile ? "50px 35px 10px 35px" : "0px 0px")};
-  flex-basis:30%;
-  display:flex;
-  flex-direction:column;
-  a:last-of-type{
-      margin-top:auto;
+  flex-basis: 30%;
+  display: flex;
+  flex-direction: column;
+  a:last-of-type {
+    margin-top: auto;
   }
 `;
 
@@ -27,16 +27,16 @@ const HeaderContainer = styled.article`
   align-items: center;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
   transition: all 150ms linear;
-  text-align:center;
+  text-align: center;
   &:hover {
     box-shadow: 6px 8px 20px 0px rgba(0, 0, 0, 0.2);
   }
-  figure{
-    height:179px;
-    margin:0;
-    display:flex;
-    img{
-      margin:auto;
+  figure {
+    height: 179px;
+    margin: 0;
+    display: flex;
+    img {
+      margin: auto;
     }
   }
 `;
@@ -47,12 +47,12 @@ const TitleContainer = styled.h2`
   font-weight: 700;
   text-transform: uppercase;
   font-size: 2.6rem;
-  letter-spacing:0.3rem;
+  letter-spacing: 0.3rem;
 `;
 
 const SubTitleContainer = styled.p`
   color: ${colors.marine};
-  margin:5px 0 0;
+  margin: 5px 0 0;
   font-size: 1.6rem;
 `;
 
@@ -65,12 +65,12 @@ const LinkContainer = styled.h3`
   display: flex;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
   padding: 16px 3% 12px 6%;
-  margin:6px 0;
+  margin: 6px 0;
   color: ${colors.marine};
-  line-height:1.4;
+  line-height: 1.4;
   font-weight: 600;
-  font-size:1.6rem;
-  letter-spacing:0.2rem;
+  font-size: 1.6rem;
+  letter-spacing: 0.2rem;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
@@ -91,11 +91,11 @@ const MoreInfoContainer = styled.div`
   font-size: 1.2rem;
   justify-content: center;
   cursor: pointer;
-  letter-spacing:0.1rem;
+  letter-spacing: 0.1rem;
 `;
 
 const Text = styled.div`
-transition: opacity 150ms linear, transform 150ms linear;
+  transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
@@ -104,23 +104,21 @@ transition: opacity 150ms linear, transform 150ms linear;
 
 const SubHomeBloc = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-
-  const link = props.info.push.lien.replace(process.env.REACT_APP_WP_LINK, "");
+  console.log("props", props.info);
+  const link = props.info.push.lien;
   let history = useHistory();
 
   return (
     <MainContainer isMobile={isMobile}>
-      <Link
-        to={props.isSearchOpen ? "#" : link}
-      >
+      <a href={props.isSearchOpen ? "#" : link}>
         <HeaderContainer>
           {" "}
           <figure>
             <img
-            src={props.info.push.image ? props.info.push.image.url : null}
-            alt="blocImage"
-          />
-            </figure>
+              src={props.info.push.image ? props.info.push.image.url : null}
+              alt="blocImage"
+            />
+          </figure>
           <TitleContainer>
             {props.info.push.titre ? props.info.push.titre : ""}
           </TitleContainer>
@@ -129,7 +127,7 @@ const SubHomeBloc = (props) => {
             {props.info.push.sous_titre ? props.info.push.sous_titre : ""}
           </SubTitleContainer>
         </HeaderContainer>
-      </Link>
+      </a>
       <LinkMainContainer>
         {props.info.articles_lies
           ? props.info.articles_lies.map((item, index) => {

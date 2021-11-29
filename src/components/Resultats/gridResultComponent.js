@@ -226,7 +226,15 @@ const GridResultComponent = (props) => {
       if (details && details.featured_media) {
         getMediaById(details.featured_media)
           .then((res) => {
-            setMedia(res.media_details.sizes.grille.source_url);
+            if (
+              res.media_details &&
+              res.media_details.sizes &&
+              res.media_details.sizes.grille
+            ) {
+              setMedia(res.media_details.sizes.grille.source_url);
+            } else {
+              setMedia(res.media_details.sizes.full.source_url);
+            }
           })
           .catch((error) => console.log("error", error));
       } else if (
@@ -234,16 +242,28 @@ const GridResultComponent = (props) => {
         domaineAction.acf &&
         domaineAction.acf.image_par_defaut
       ) {
-        setMedia(domaineAction.acf.image_par_defaut.sizes.grille);
+        if (domaineAction.acf.image_par_defaut.sizes.grille) {
+          setMedia(domaineAction.acf.image_par_defaut.sizes.grille);
+        } else {
+          setMedia(domaineAction.acf.image_par_defaut.sizes.full);
+        }
       } else if (
         props.options &&
         props.options.options &&
         props.options.options.acf &&
         props.options.options.acf.image_par_defaut_ressources
       ) {
-        setMedia(
+        if (
           props.options.options.acf.image_par_defaut_ressources.sizes.grille
-        );
+        ) {
+          setMedia(
+            props.options.options.acf.image_par_defaut_ressources.sizes.grille
+          );
+        } else {
+          setMedia(
+            props.options.options.acf.image_par_defaut_ressources.sizes.full
+          );
+        }
       }
     }
   }, [details, domaineAction, props.options]);

@@ -88,6 +88,8 @@ const LeftSideComponent = (props) => {
       return [];
     }
   };
+
+  console.log(props.options);
   return (
     <>
       {(isMobile && showMenu) || !isMobile ? (

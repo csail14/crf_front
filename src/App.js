@@ -15,6 +15,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { config } from "./config";
 import { SecureRoute, Security, LoginCallback } from "@okta/okta-react";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
+import { useHistory } from "react-router-dom";
 
 const MainContainer = styled.div`
   display: flex;
@@ -23,23 +24,24 @@ const MainContainer = styled.div`
 const BodyContainer = styled.div`
   width: -webkit-fill-available;
 `;
+
+const oktaAuth = new OktaAuth({
+  issuer: "https://rec-connect.croix-rouge.fr/oauth2/default",
+  clientId: "0oa3e1vqpgyuzhUj90x7",
+  redirectUri: "https://rec-connect.croix-rouge.fr/",
+});
+
 function App(props) {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const location = useLocation();
+  let history = useHistory();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  const oktaAuth = new OktaAuth({
-    issuer: "https://{yourOktaDomain}.com/oauth2/default",
-    clientId: "{clientId}",
-    redirectUri: window.location.origin + "/login/callback",
-  });
-
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
-    props.history.replace(
-      toRelativeUrl(originalUri || "/", window.location.origin)
-    );
+    history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
   };
 
   return (
