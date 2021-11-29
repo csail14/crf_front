@@ -104,7 +104,7 @@ const Text = styled.div`
 
 const SubHomeBloc = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-  console.log("props", props.info);
+
   const link = props.info.push.lien;
   let history = useHistory();
 
