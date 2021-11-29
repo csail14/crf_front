@@ -14,12 +14,12 @@ const MainContainer = styled.div`
 
 const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
-  min-height:378px;
+  min-height: 378px;
   background-image: url(${config.header_image_url});
   background-size: cover;
-  background-position:bottom right;
-  &+#el{
-    width:90%;
+  background-position: bottom right;
+  & + #el {
+    width: 90%;
   }
 `;
 
@@ -30,7 +30,7 @@ const HeaderTitleContainer = styled.h1`
   letter-spacing: 0.07rem;
   text-transform: uppercase;
   margin: 0;
-  font-weight:700;
+  font-weight: 700;
 `;
 
 const HeaderSubTitleContainer = styled.h2`
@@ -46,16 +46,16 @@ const HeaderSubTitleContainer = styled.h2`
 const SubtitleContainer = styled.div`
   margin-top: 26px;
   color: ${colors.gris};
-  max-width:800px;
-  line-height:1.8;
+  max-width: 800px;
+  line-height: 1.8;
 `;
 const BodyContainer = styled.main`
   display: flex;
-  width:90%;
-  max-width:1350px;
+  width: 90%;
+  max-width: 1350px;
   justify-content: space-between;
-  padding:73px 0 96px 0;
-  margin:auto;
+  padding: 73px 0 96px 0;
+  margin: auto;
   flex-wrap: ${(props) => (props.isMobile ? "wrap" : "")};
 `;
 const breakPoint = "900px";
@@ -71,7 +71,6 @@ const Home = (props) => {
   const toggleIsSearchOpen = (isOpen) => {
     setIsSearchOpen(isOpen);
   };
-
   const addQueryUrl = () => {
     let string = "?s=" + props.filters.keywords;
     if (string !== window.location.search && props.filters.keywords !== "") {
