@@ -31,7 +31,7 @@ class Header extends React.Component {
               const defineUrl = (long_url, type, slug) => {
                 const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");
                 if (type === "page") {
-                  return url;
+                  return "/" + slug;
                 } else if (type === "article") {
                   return "/articles/" + slug;
                 } else if (type === "document") {

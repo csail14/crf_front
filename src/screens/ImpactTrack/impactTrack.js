@@ -22,7 +22,7 @@ const ImpactTrack = (props) => {
 const mapDispatchToProps = {};
 
 const mapStateToProps = (store) => {
-  return {};
+  return { pages: store.pages };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ImpactTrack);

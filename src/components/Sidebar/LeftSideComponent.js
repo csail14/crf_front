@@ -170,6 +170,7 @@ const LeftSideComponent = (props) => {
                     post_name={item.post_name}
                     closeMenu={closeMenu}
                     openCloseDropDown={openCloseDropDown}
+                    slug={item.slug}
                   />
                 );
               })}
