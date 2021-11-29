@@ -148,7 +148,6 @@ const Contact = (props) => {
     e.preventDefault();
     const captchaToken = await recaptchaRef.current.executeAsync();
     recaptchaRef.current.reset();
-
     if (captchaToken) {
       setIsCaptchaVerified(true);
       setCaptchaError(false);
@@ -376,7 +375,7 @@ const Contact = (props) => {
                 <FormRowFullWidth>
                   <ReCAPTCHA
                     ref={recaptchaRef}
-                    sitekey={"6LftnV8dAAAAAJUUeKlp5u-MWgP0qAfCiEODp7_4"}
+                    sitekey={process.env.REACT_APP_GOOGLE_CAPTCHA_SITEKEY}
                     size="invisible"
                   />
 

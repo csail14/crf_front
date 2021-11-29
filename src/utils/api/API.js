@@ -157,7 +157,7 @@ export const addLike = async (type, postId, like, token) => {
 };
 
 export const checkCaptchaToken = async (token) => {
-  const privateKey = "6LftnV8dAAAAAOGNkDQj8Dx9hw1lDpzldSOwzKic";
+  const privateKey = process.env.REACT_APP_GOOGLE_CAPTCHA_PRIVATEKEY;
   const headers = {
     "Content-type": "application/json",
     "Access-Control-Allow-Origin": "*",
