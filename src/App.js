@@ -21,7 +21,7 @@ const MainContainer = styled.div`
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
 `;
 const BodyContainer = styled.div`
-  width: -webkit-fill-available;
+  width: ${(props) => (props.isMobile ? "calc(100%)" : "calc(100% - 266px)")};
 `;
 function App(props) {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
