@@ -48,10 +48,10 @@ function App(props) {
         <LeftSideComponent className="sidebar" />
         <BodyContainer>
           <Switch>
-            <Security
+            {/* <Security
               oktaAuth={oktaAuth}
               restoreOriginalUri={restoreOriginalUri}
-            >
+            > */}
               <Route exact path="/" component={HOC(Home)} />
               <Route exact path="/home" component={HOC(Home)} />
               <Route
@@ -67,7 +67,7 @@ function App(props) {
               <Route exact path="/articles/:id" component={HOC(Article)} />
               <Route exact path="/documents/:id" component={HOC(Document)} />
               <Route exact path="/:id" component={HOC(OtherPage)} />
-            </Security>
+            {/* </Security> */}
           </Switch>
           <Footer />
         </BodyContainer>
