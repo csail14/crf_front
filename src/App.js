@@ -46,7 +46,7 @@ function App(props) {
     <div className="App">
       <MainContainer isMobile={isMobile}>
         <LeftSideComponent className="sidebar" />
-        <BodyContainer>
+        <BodyContainer isMobile={isMobile}>
           <Switch>
             <Security
               oktaAuth={oktaAuth}
