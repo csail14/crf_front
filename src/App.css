@@ -92,6 +92,7 @@ a{
   outline: none;
   font-size: 1.6rem;
   cursor: pointer;
+  font-family: "Raleway",arial;
   width: 100%;
   transition: opacity 150ms linear, transform 150ms linear;
 }
