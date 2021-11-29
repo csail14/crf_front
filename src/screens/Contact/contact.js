@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import DOMPurify from "dompurify";
 import { config } from "../../config";
 import { colors } from "../../colors";
-import { sendMail } from "../../utils/api/API";
-import Reaptcha from "reaptcha";
+import { sendMail, checkCaptchaToken } from "../../utils/api/API";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const FormInput = styled.div`
   display: flex;
@@ -126,6 +126,8 @@ const Contact = (props) => {
   const [captchaError, setCaptchaError] = useState(false);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
+  const recaptchaRef = useRef(null);
+
   const handleChange = (e) => {
     if (e.target.name === "firstName") {
       setFirstName(e.target.value);
@@ -142,9 +144,17 @@ const Contact = (props) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const captchaToken = await recaptchaRef.current.executeAsync();
+    recaptchaRef.current.reset();
+
+    if (captchaToken) {
+      setIsCaptchaVerified(true);
+      setCaptchaError(false);
+    }
     setFormSubmitted(true);
+    setFormSuccess(false);
     if (
       firstName === "" ||
       lastName === "" ||
@@ -153,17 +163,13 @@ const Contact = (props) => {
       message === "" ||
       subject === ""
     ) {
-      setFormError(true);
+    } else if (!isCaptchaVerified) {
+      setCaptchaError(true);
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      setEmailError(true);
+      setFormSuccess(false);
     } else {
-      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-        setEmailError(true);
-        setFormSuccess(false);
-      } else if (!isCaptchaVerified) {
-        setCaptchaError(true);
-      } else {
-        setEmailError(false);
-        sendEmail();
-      }
+      sendEmail();
     }
   };
 
@@ -186,6 +192,8 @@ const Contact = (props) => {
         if (res && res.status === "success") {
           setFormError(false);
           setFormSuccess(true);
+          setEmailError(false);
+          setIsCaptchaVerified(false);
         } else {
           setFormError(true);
           setFormSuccess(false);
@@ -199,10 +207,6 @@ const Contact = (props) => {
     props.pages && props.pages.templates && props.pages.templates.length
       ? props.pages.templates.filter((template) => template.slug === slug)[0]
       : null;
-
-  const onVerify = () => {
-    setIsCaptchaVerified(true);
-  };
 
   return (
     <div>
@@ -334,8 +338,8 @@ const Contact = (props) => {
                       contactTemplate.acf &&
                       contactTemplate.acf.sujets_contact &&
                       contactTemplate.acf.sujets_contact.length > 0 &&
-                      contactTemplate.acf.sujets_contact.map((item) => {
-                        return <option>{item.sujet}</option>;
+                      contactTemplate.acf.sujets_contact.map((item, index) => {
+                        return <option key={index}>{item.sujet}</option>;
                       })}
                   </select>
                   {formSubmitted && !subject && (
@@ -370,10 +374,12 @@ const Contact = (props) => {
               <small className={"smallForm"}></small>
               <FormRow>
                 <FormRowFullWidth>
-                  <Reaptcha
-                    sitekey="6LftnV8dAAAAAJUUeKlp5u-MWgP0qAfCiEODp7_4"
-                    onVerify={onVerify}
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={"6LftnV8dAAAAAJUUeKlp5u-MWgP0qAfCiEODp7_4"}
+                    size="invisible"
                   />
+
                   {formSubmitted && captchaError && (
                     <div className="formError">Veuillez vérfier le Captcha</div>
                   )}
@@ -381,7 +387,7 @@ const Contact = (props) => {
                     * informations indispensables
                   </p>
                   <div className="text-center">
-                    {formSubmitted && !formError && (
+                    {formSubmitted && formSuccess && (
                       <div className="formSuccess">
                         <i
                           class="bi bi-check-lg"

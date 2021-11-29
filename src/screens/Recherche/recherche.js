@@ -143,6 +143,7 @@ const Recherche = (props) => {
   useEffect(() => {
     addQueryUrl();
   }, []);
+
   const slug = props.slug || "recherche";
   const template = props.pages.templates.length
     ? props.pages.templates.filter((template) => template.slug === slug)[0]

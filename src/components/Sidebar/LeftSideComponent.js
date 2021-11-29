@@ -13,10 +13,9 @@ import { config } from "../../config";
 const ImageContainer = styled.div`
   margin: 23px 14% 0;
   cursor: pointer;
-  transition:all 0.3s;
-  &:hover{
+  transition: all 0.3s;
+  &:hover {
     transform: scale(0.99);
-    
   }
 `;
 
@@ -59,6 +58,7 @@ const LeftSideComponent = (props) => {
   const closeMenu = () => {
     setShowMenu(false);
   };
+
   const openCloseDropDown = (id) => {
     if (id === openID) {
       setOpenId(null);
@@ -101,14 +101,16 @@ const LeftSideComponent = (props) => {
               props.options.options &&
               props.options.options.acf &&
               props.options.options.acf.retour_intranet && (
-                  <BackIntranet href={props.options.options.acf.retour_intranet.url}
-                  target={props.options.options.acf.retour_intranet.target}>
-                    <i
-                      className="bi bi-chevron-left"
-                      style={{ marginRight: "13px" }}
-                    />{" "}
-                    {props.options.options.acf.retour_intranet.title}
-                  </BackIntranet>
+                <BackIntranet
+                  href={props.options.options.acf.retour_intranet.url}
+                  target={props.options.options.acf.retour_intranet.target}
+                >
+                  <i
+                    className="bi bi-chevron-left"
+                    style={{ marginRight: "13px" }}
+                  />{" "}
+                  {props.options.options.acf.retour_intranet.title}
+                </BackIntranet>
               )}
             {!isMobile && (
               <ImageContainer>
@@ -134,10 +136,7 @@ const LeftSideComponent = (props) => {
                   alt="logo-mobile"
                 />
               )}
-              <Link
-                to="/home"
-                onClick={closeMenu}
-              >
+              <Link to="/home" onClick={closeMenu}>
                 <h1>
                   {" "}
                   {props.options &&
@@ -192,15 +191,21 @@ const LeftSideComponent = (props) => {
           className={"main_container"}
         >
           {props.options &&
-              props.options.options &&
-              props.options.options.acf &&
-              props.options.options.acf.retour_intranet && (
-          <BackIntranet href={props.options.options.acf.retour_intranet.url}
-                  target={props.options.options.acf.retour_intranet.target} isMobile={isMobile}>
-            <i className="bi bi-chevron-left" style={{ marginRight: "8px" }} />{" "}
-            Retour à l'intranet
-          </BackIntranet>
-          )}
+            props.options.options &&
+            props.options.options.acf &&
+            props.options.options.acf.retour_intranet && (
+              <BackIntranet
+                href={props.options.options.acf.retour_intranet.url}
+                target={props.options.options.acf.retour_intranet.target}
+                isMobile={isMobile}
+              >
+                <i
+                  className="bi bi-chevron-left"
+                  style={{ marginRight: "8px" }}
+                />{" "}
+                Retour à l'intranet
+              </BackIntranet>
+            )}
           <div className={"sidebar_title"}>
             {isMobile && (
               <Link to="/home">
