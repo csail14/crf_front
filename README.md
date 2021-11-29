@@ -59,6 +59,7 @@ Initialiser et cloner le projet dans le dossier concerné
 5. commande "npm install"
 6. commande "npm run build"
 7. Faire pointer le vhost sur le dossier build
+8. ajouter le .htaccess dans le dossier build
 
 - Contenu .env
 Le user est un utilisateur Wordpress abonné pour l'authentification POST
@@ -90,6 +91,7 @@ Ouvrir l'url de recette : rec-impact-social.croix-rouge.fr
 ## Mettre à jour l'application 
 1. git pull
 2. commande "npm run build"
+3. remettre htaccess dans dossier build
 
 # (Développement) Installer React et build l'application
 
