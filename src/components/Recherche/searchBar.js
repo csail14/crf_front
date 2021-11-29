@@ -449,7 +449,7 @@ const SearchBar = (props) => {
   };
   const categoriesOptions = () => {
     let array = [];
-    props.taxonomie.categories
+    props.taxonomie.categories && props.taxonomie.categories.length > 0
       ? props.taxonomie.categories.forEach((item) => array.push(item))
       : array.push();
     array.unshift(categorieAll);

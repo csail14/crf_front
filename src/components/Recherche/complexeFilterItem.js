@@ -14,8 +14,7 @@ const FilterContainer = styled.div`
   flex-direction: column;
   padding: ${(props) => (props.isTop ? "5px 10px" : "0 9%")};
   line-height: 20px;
-  border-right: ${(props) =>
-    props.isMobile ? "" : "1px solid #E2E3E5"};
+  border-right: ${(props) => (props.isMobile ? "" : "1px solid #E2E3E5")};
 `;
 
 const FilterTitle = styled.div`
@@ -78,22 +77,22 @@ const ComplexeFilterItem = (props) => {
   const [keyValue, setKeyValue] = useState("");
   const [searchItem, setSearchItem] = useState(props.data);
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+
   useEffect(() => {
     if (keyValue !== "") {
+      const filtreSearchItem = (value) => {
+        let array = [];
+        props.data.forEach((item) => array.push(item));
+        return array.filter((item) =>
+          item.name.toLowerCase().includes(value.toLowerCase())
+        );
+      };
       const newArray = filtreSearchItem(keyValue);
       setSearchItem(newArray);
     } else {
       setSearchItem(props.data);
     }
   }, [keyValue, props.data]);
-
-  const filtreSearchItem = (value) => {
-    let array = [];
-    props.data.forEach((item) => array.push(item));
-    return array.filter((item) =>
-      item.name.toLowerCase().includes(value.toLowerCase())
-    );
-  };
 
   const manageSelectedFilter = (item) => {
     if (item.id === 0) {

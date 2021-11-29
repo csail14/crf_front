@@ -26,6 +26,7 @@ class Header extends React.Component {
       <MainContainer className="footer">
         <FooterLinkContainer>
           {menu &&
+            menu.length > 0 &&
             menu.map((item, index) => {
               const defineUrl = (long_url, type, slug) => {
                 const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");

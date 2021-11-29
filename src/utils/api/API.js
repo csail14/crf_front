@@ -155,3 +155,25 @@ export const addLike = async (type, postId, like, token) => {
       return err;
     });
 };
+
+export const checkCaptchaToken = async (token) => {
+  const privateKey = process.env.REACT_APP_GOOGLE_CAPTCHA_PRIVATEKEY;
+  const headers = {
+    "Content-type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  };
+  return axios
+    .get(
+      "https://www.google.com/recaptcha/api/siteverify?secret=" +
+        privateKey +
+        "&response=" +
+        token,
+      { headers: headers }
+    )
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
