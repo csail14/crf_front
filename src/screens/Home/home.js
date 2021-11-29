@@ -13,13 +13,13 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
+  padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
   min-height:378px;
   background-image: url(${config.header_image_url});
   background-size: cover;
   background-position:bottom right;
   &+#el{
-    width:76%;
+    width:90%;
   }
 `;
 

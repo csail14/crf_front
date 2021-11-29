@@ -98,6 +98,9 @@ a{
 .recherche_input:hover {
   opacity: 0.8;
 }
+.recherche_input::placeholder{
+  font-family: "Raleway",arial;
+}
 .recherche_input_mobile {
   border: none;
   min-width: 250px;

@@ -65,7 +65,7 @@ const SubmitButton = styled.button`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
+  padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
   background-image: url(${config.header_image_url});
   background-size: cover;
   background-position: bottom right;
