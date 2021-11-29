@@ -18,9 +18,8 @@ const Dropdown = (props) => {
 
   const defineUrl = (long_url, type, slug) => {
     const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");
-
     if (type === "Page") {
-      return url;
+      return "/" + slug;
     } else if (type === "Article") {
       return "/articles/" + slug;
     } else if (type === "Document") {
@@ -57,7 +56,6 @@ const Dropdown = (props) => {
   };
 
   const url = defineUrl(props.url, props.type, props.slug);
-
   return (
     <div className={"container"} ref={container}>
       <Link
