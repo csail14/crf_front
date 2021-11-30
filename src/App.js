@@ -22,7 +22,7 @@ const MainContainer = styled.div`
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
 `;
 const BodyContainer = styled.div`
-  width: -webkit-fill-available;
+  width: ${(props) => (props.isMobile ? "calc(100%)" : "calc(100% - 266px)")};
 `;
 
 const oktaAuth = new OktaAuth({
@@ -48,7 +48,7 @@ function App(props) {
     <div className="App">
       <MainContainer isMobile={isMobile}>
         <LeftSideComponent className="sidebar" />
-        <BodyContainer>
+        <BodyContainer isMobile={isMobile}>
           <Switch>
             <Security
               oktaAuth={oktaAuth}
