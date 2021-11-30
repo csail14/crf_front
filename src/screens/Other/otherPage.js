@@ -10,6 +10,7 @@ import Recherche from "../Recherche/recherche";
 import ListDomaines from "../ListDomaine/listDomaines";
 import ImpactTrack from "../ImpactTrack/impactTrack";
 import Contact from "../Contact/contact";
+import header from "../../assets/header.jpeg";
 
 const MainContainer = styled.div`
   min-height: 92vh;
@@ -17,7 +18,7 @@ const MainContainer = styled.div`
 
 const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
-  background-image: url(${config.header_image_url});
+  background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
 `;

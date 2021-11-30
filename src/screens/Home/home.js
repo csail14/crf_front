@@ -6,6 +6,7 @@ import SubHomeBloc from "./subHomeBloc";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import { config } from "../../config";
+import header from "../../assets/header.jpeg";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const MainContainer = styled.div`
@@ -15,7 +16,7 @@ const MainContainer = styled.div`
 const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
   min-height: 378px;
-  background-image: url(${config.header_image_url});
+  background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
   & + #el {

@@ -6,13 +6,15 @@ import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { config } from "../../config";
+import header from "../../assets/header.jpeg";
+
 const MainContainer = styled.div`
   min-height: 92vh;
 `;
 
 const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
-  background-image: url(${config.header_image_url});
+  background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
   min-height: 378px;
