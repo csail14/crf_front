@@ -7,6 +7,7 @@ import RightSideLinkContainer from "./RightSideLinkContainer";
 import DOMPurify from "dompurify";
 import { colors } from "../../colors";
 import { config } from "../../config";
+import header from "../../assets/header.jpeg";
 const MainContainer = styled.div`
   min-height: 100vh;
   overflow-wrap: break-word;
@@ -14,10 +15,10 @@ const MainContainer = styled.div`
 
 const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
-  min-height:378px;
-  background-image: url(${config.header_image_url});
+  min-height: 378px;
+  background-image: url(${header});
   background-size: cover;
-  background-position:bottom right;
+  background-position: bottom right;
 `;
 
 const HeaderTitleContainer = styled.h1`
@@ -27,7 +28,7 @@ const HeaderTitleContainer = styled.h1`
   letter-spacing: 0.07rem;
   text-transform: uppercase;
   margin: 0;
-  font-weight:700;
+  font-weight: 700;
 `;
 
 const HeaderSubTitleContainer = styled.h2`
@@ -43,25 +44,25 @@ const HeaderSubTitleContainer = styled.h2`
 const SubtitleContainer = styled.div`
   margin-top: 26px;
   color: ${colors.gris};
-  max-width:800px;
-  line-height:1.8;
+  max-width: 800px;
+  line-height: 1.8;
 `;
 const BodyContainer = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.isMobile ? "column" : "")};
   justify-content: space-between;
   padding: ${(props) => (props.isMobile ? "40px 5%" : "41px 0 60px")};
-  max-width:1350px;
-  width:90%;
-  margin:0 auto;
+  max-width: 1350px;
+  width: 90%;
+  margin: 0 auto;
 `;
 
 const Textcontainer = styled.div`
   padding: ${(props) => (props.isMobile ? "0" : "0")};
   flex-basis: 50%;
-  line-height:1.75;
-  p{
-    margin:28px 0;
+  line-height: 1.75;
+  p {
+    margin: 28px 0;
   }
 `;
 
@@ -71,7 +72,7 @@ const LinkTitleContainer = styled.h2`
   color: ${colors.marine};
   text-transform: uppercase;
   margin-bottom: 30px;
-  margin-top:0;
+  margin-top: 0;
   letter-spacing: 0.1rem;
 `;
 const LinkMainContainer = styled.aside`
@@ -80,7 +81,7 @@ const LinkMainContainer = styled.aside`
 `;
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
-  padding:89px 4% 50px;
+  padding: 89px 4% 50px;
 `;
 
 const BottomTitleContainer = styled.h4`
@@ -89,7 +90,7 @@ const BottomTitleContainer = styled.h4`
   font-size: 1.4rem;
   color: ${colors.gris};
   font-weight: 600;
-  margin:0;
+  margin: 0;
   text-align: center;
 `;
 

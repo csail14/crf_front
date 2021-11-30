@@ -6,7 +6,6 @@ const AccountContact = (props) => {
   const url =
     props.contact_info &&
     props.contact_info.url.replace(process.env.REACT_APP_WP_LINK, "");
-
   return (
     <div className={"acc_contact_container"}>
       {props && props.contact_info && (
@@ -15,8 +14,8 @@ const AccountContact = (props) => {
           target={props.contact_info.target}
           className={"contact_container"}
         >
-            <FiMail className={"acc_contact_icon"} />
-            {props.contact_info.title}
+          <FiMail className={"acc_contact_icon"} />
+          {props.contact_info.title}
         </a>
       )}
       <div className="account_container">
@@ -24,9 +23,7 @@ const AccountContact = (props) => {
           <BsFillPersonFill className={"acc_contact_icon"} />
           Austin Robertson
         </p>
-        <a href="google.com">
-          Se déconnecter
-        </a>
+        <a href="google.com">Se déconnecter</a>
       </div>
     </div>
   );

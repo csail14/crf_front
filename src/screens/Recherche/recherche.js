@@ -10,14 +10,14 @@ import GridResultComponent from "../../components/Resultats/gridResultComponent"
 import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 import { useHistory } from "react-router-dom";
-
+import header from "../../assets/header.jpeg";
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
 
 const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
-  background-image: url(${config.header_image_url});
+  background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
 `;

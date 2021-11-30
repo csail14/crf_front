@@ -6,7 +6,7 @@ import { config } from "../../config";
 import { colors } from "../../colors";
 import { sendMail, checkCaptchaToken } from "../../utils/api/API";
 import ReCAPTCHA from "react-google-recaptcha";
-
+import header from "../../assets/header.jpeg";
 const FormInput = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,7 +66,7 @@ const SubmitButton = styled.button`
 
 const HeaderContainer = styled.header`
   padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
-  background-image: url(${config.header_image_url});
+  background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
   margin-bottom: 78px;
@@ -178,7 +178,7 @@ const Contact = (props) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      tel: phone,
+      phone: phone,
       message: message,
       subject: subject,
       destination:
