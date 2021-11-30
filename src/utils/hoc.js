@@ -47,9 +47,15 @@ export default function (ChildComponent, withAuth = false) {
     };
 
     checkSidebarPages = (sidebarPages) => {
-      getAllSidebarPages().then((res) => {
-        this.props.loadSidebarInfo(res);
-      });
+      if (
+        sidebarPages &&
+        sidebarPages.templates &&
+        sidebarPages.templates.length === 0
+      ) {
+        getAllSidebarPages().then((res) => {
+          this.props.loadSidebarInfo(res);
+        });
+      }
     };
 
     checkToken = (token) => {

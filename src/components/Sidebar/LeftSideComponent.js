@@ -10,6 +10,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import logoMobile from "../../assets/logo-mobile.png";
 import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
 import { config } from "../../config";
+
 const ImageContainer = styled.div`
   margin: 23px 14% 0;
   cursor: pointer;
@@ -113,22 +114,21 @@ const LeftSideComponent = (props) => {
                   {props.options.options.acf.retour_intranet.title}
                 </BackIntranet>
               )}
-            {!isMobile && (
-              <ImageContainer>
-                <Link to="/home">
-                  <img
-                    style={{ maxWidth: "188px" }}
-                    src={
-                      props.options &&
-                      props.options.options &&
-                      props.options.options.acf &&
-                      props.options.options.acf.logo.url
-                    }
-                    alt="logoBandeauCroixRouge"
-                  />
-                </Link>
-              </ImageContainer>
-            )}
+            {!isMobile &&
+              props.options &&
+              props.options.options &&
+              props.options.options.acf &&
+              props.options.options.acf.logo && (
+                <ImageContainer>
+                  <Link to="/home">
+                    <img
+                      style={{ maxWidth: "188px" }}
+                      src={props.options.options.acf.logo.url}
+                      alt="logoBandeauCroixRouge"
+                    />
+                  </Link>
+                </ImageContainer>
+              )}
             <div className={"sidebar_title"}>
               {isMobile && (
                 <img
