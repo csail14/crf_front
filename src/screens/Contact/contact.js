@@ -178,7 +178,7 @@ const Contact = (props) => {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      tel: phone,
+      phone: phone,
       message: message,
       subject: subject,
       destination:
