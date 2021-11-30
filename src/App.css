@@ -481,7 +481,7 @@ a{
 .textArea {
   padding: 37px;
   height: 195px;
-  width: -webkit-fill-available;
+  width:100%;
   background-color: #f7f9fa;
   border: 1px solid #eaeaea;
   font-family: "Raleway";
