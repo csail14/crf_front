@@ -56,12 +56,15 @@ const Dropdown = (props) => {
   };
 
   const url = defineUrl(props.url, props.type, props.slug);
+
   return (
     <div className={"container"} ref={container}>
       <Link
         to={url}
         className={"dropdown_div"}
-        onClick={() => props.openCloseDropDown(props.id)}
+        onClick={() => {
+          props.openCloseDropDown(props.id);
+        }}
       >
         <span className={"dropdown_text dropdown_title"}>{props.title}</span>
         <span className={"arrow_icon"}>

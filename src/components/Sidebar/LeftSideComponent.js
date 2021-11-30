@@ -10,6 +10,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import logoMobile from "../../assets/logo-mobile.png";
 import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
 import { config } from "../../config";
+
 const ImageContainer = styled.div`
   margin: 23px 14% 0;
   cursor: pointer;
