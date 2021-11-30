@@ -24,7 +24,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 require("moment/locale/fr.js");
 
 const MainContainer = styled.article`
-  justify-content: space-between;
   align-items: center;
   display: flex;
   margin: 10px auto;
@@ -45,6 +44,7 @@ const MainContainer = styled.article`
 const IconContainer = styled.div`
   display: flex;
   padding: 13px 28px;
+  font-size: 2.5rem;
   align-items: center;
   background-color: ${(props) =>
     props.type === "documents"
@@ -63,11 +63,15 @@ const DetailsContainer = styled.div`
 const LastUpdateContainer = styled.time`
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 14px;
   text-transform: uppercase;
-  color: ${colors.marine};
+  color: #6C757D;
+  flex-basis:8.5%;
+  &+div:last-of-type{
+    margin-left:auto;
+  }
 `;
 
 const Category = styled.div`
@@ -75,8 +79,13 @@ const Category = styled.div`
   align-items: center;
   font-weight: 700;
   color: ${colors.rouge};
+  flex-basis:10%;
   cursor: pointer;
   transition: opacity 150ms linear, transform 150ms linear;
+  font-size:1.4rem;
+  &+div:last-of-type{
+    margin-left:auto;
+  }
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
@@ -87,7 +96,12 @@ const Domaine = styled.div`
   align-items: center;
   font-weight: 700;
   color: ${colors.marine};
+  font-size:1.4rem;
   cursor: pointer;
+  flex-basis:10%;
+  &+div:last-of-type{
+    margin-left:auto;
+  }
   transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
@@ -102,7 +116,7 @@ const TitleContainer = styled.h2`
   line-height: 22px;
   text-transform: uppercase;
   cursor: pointer;
-  color: ${colors.marine};
+  color: #131313;
   transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
@@ -110,18 +124,18 @@ const TitleContainer = styled.h2`
   }
 `;
 
-const DescriptionContainer = styled.p`
+const DescriptionContainer = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
-  line-height: 22px;
   color: ${colors.gris};
-  margin: 0;
+  p{
+    margin: 10px 0 0;
+  }
 `;
 
 const TagContainer = styled.div`
   display: flex;
   align-items: center;
-  text-decoration: underline;
   font-size: 1.4rem;
   display: flex;
   font-weight: 400;
@@ -129,19 +143,26 @@ const TagContainer = styled.div`
   align-items: center;
   color: black;
   cursor: pointer;
+  flex-basis:12%;
   transition: opacity 150ms linear, transform 150ms linear;
+  margin-right:0;
+  margin-left:auto;
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
   }
+  span{
+    text-decoration: underline;
+  }
 `;
 
 const PostInfoContainer = styled.div`
-  display: flex;
   align-items: center;
   display: flex;
-  justify-content: space-between;
-  margin-right: 40px;
+  flex-basis: 12.5%;
+  justify-content:flex-end;
+  padding-right:2%;
+  margin-right:0;
 `;
 const Comment = styled.div`
   display: flex;
@@ -150,6 +171,7 @@ const Comment = styled.div`
   align-items: center;
   font-weight: 400;
   cusor: pointer;
+  margin-right:5%;
   transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
@@ -163,17 +185,17 @@ const OtherTypePicto = styled.div`
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
+  margin-right:5%;
 `;
 
 const UploadContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   cursor: pointer;
-  margin-top: 5px;
-  color: ${colors.marine};
+  margin-top: 10px;
+  color: black;
   transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
@@ -183,7 +205,7 @@ const UploadContainer = styled.div`
 
 const FirstPartContainer = styled.div`
   display: flex;
-  width: ${(props) => (props.isMobile ? "" : "50%")};
+  flex-basis: ${(props) => (props.isMobile ? "" : "47%")};
 `;
 
 const CategoryContainer = styled.div`
@@ -393,14 +415,14 @@ const GridResultComponent = (props) => {
                 return (
                   <>
                     {" "}
-                    <div
+                    <span
                       onClick={(e) => {
                         e.stopPropagation();
                         handleClickTag(item.name);
                       }}
                     >
                       {item.name}
-                    </div>{" "}
+                    </span>{" "}
                     {comma}
                   </>
                 );
@@ -408,12 +430,10 @@ const GridResultComponent = (props) => {
             </TagContainer>
           )}
           <PostInfoContainer>
-            <div>
               <Comment>
                 <BiComment size={18} style={{ marginRight: "7px" }} />
                 {nbComments}
               </Comment>
-            </div>
             {details && details.acf && details.acf.datas && (
               <div style={{ display: "flex" }}>
                 <OtherTypePicto>
