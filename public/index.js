@@ -25,5 +25,6 @@ function getFavIcon() {
     });
   return script;
 }
+
 let favIconScript = getFavIcon();
 document.head.append(favIconScript);
