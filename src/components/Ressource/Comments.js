@@ -143,6 +143,7 @@ const Comments = (props) => {
             setNewComment("");
             setFormError(false);
             setFormSubmitted(true);
+            window.location.reload(false);
           } else {
             setFormError(true);
             setFormSubmitted(false);
