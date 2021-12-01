@@ -137,7 +137,7 @@ const Comments = (props) => {
     let num = Math.floor(Math.random() * 10000);
 
     if (props.postID && newComment !== "") {
-      postComment("test", num + "@gmail.com", newComment, props.postID).then(
+      postComment("Anonyme", num + "@gmail.com", newComment, props.postID).then(
         (res) => {
           if (res.status === 201) {
             setNewComment("");
