@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { BsDot, BsDownload } from "react-icons/bs";
@@ -192,19 +192,24 @@ const GridResultComponent = (props) => {
   const [media, setMedia] = useState(null);
   const [nbComments, setNbComments] = useState(0);
   let history = useHistory();
-  const openInNewTab = (url) => {
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-    if (newWindow) newWindow.opener = null;
-  };
+
+  const componentMounted = useRef(true);
+
   useEffect(() => {
-    if (props.info) {
-      getRessourceById(props.info.ID, props.info.post_type)
-        .then((res) => setDetails(res))
-        .catch((error) => console.log(error));
-      getCommentaireByPost(props.info.ID)
-        .then((res) => setNbComments(res.length))
-        .catch((error) => console.log(error));
+    if (componentMounted.current) {
+      if (props.info) {
+        getRessourceById(props.info.ID, props.info.post_type)
+          .then((res) => setDetails(res))
+          .catch((error) => console.log(error));
+        getCommentaireByPost(props.info.ID)
+          .then((res) => setNbComments(res.length))
+          .catch((error) => console.log(error));
+      }
     }
+    return () => {
+      // This code runs when component is unmounted
+      componentMounted.current = false; // (4) set it to false when we leave the page
+    };
   }, [props.info]);
   const domaineAction =
     details && details.acf && details.acf.domaine_daction_principal
@@ -222,48 +227,54 @@ const GridResultComponent = (props) => {
       : null;
 
   useEffect(() => {
-    if (details) {
-      if (details && details.featured_media) {
-        getMediaById(details.featured_media)
-          .then((res) => {
-            if (
-              res.media_details &&
-              res.media_details.sizes &&
-              res.media_details.sizes.grille
-            ) {
-              setMedia(res.media_details.sizes.grille.source_url);
-            } else {
-              setMedia(res.media_details.sizes.full.source_url);
-            }
-          })
-          .catch((error) => console.log("error", error));
-      } else if (
-        domaineAction &&
-        domaineAction.acf &&
-        domaineAction.acf.image_par_defaut
-      ) {
-        if (domaineAction.acf.image_par_defaut.sizes.grille) {
-          setMedia(domaineAction.acf.image_par_defaut.sizes.grille);
-        } else {
-          setMedia(domaineAction.acf.image_par_defaut.sizes.full);
-        }
-      } else if (
-        props.options &&
-        props.options.options &&
-        props.options.options.acf &&
-        props.options.options.acf.image_par_defaut_ressources
-      ) {
-        if (
-          props.options.options.acf.image_par_defaut_ressources.sizes.grille
+    if (componentMounted.current) {
+      if (details) {
+        if (details && details.featured_media) {
+          getMediaById(details.featured_media)
+            .then((res) => {
+              if (
+                res.media_details &&
+                res.media_details.sizes &&
+                res.media_details.sizes.grille
+              ) {
+                setMedia(res.media_details.sizes.grille.source_url);
+              } else {
+                setMedia(res.media_details.sizes.full.source_url);
+              }
+            })
+            .catch((error) => console.log("error", error));
+        } else if (
+          domaineAction &&
+          domaineAction.acf &&
+          domaineAction.acf.image_par_defaut
         ) {
-          setMedia(
+          if (domaineAction.acf.image_par_defaut.sizes.grille) {
+            setMedia(domaineAction.acf.image_par_defaut.sizes.grille);
+          } else {
+            setMedia(domaineAction.acf.image_par_defaut.sizes.full);
+          }
+        } else if (
+          props.options &&
+          props.options.options &&
+          props.options.options.acf &&
+          props.options.options.acf.image_par_defaut_ressources
+        ) {
+          if (
             props.options.options.acf.image_par_defaut_ressources.sizes.grille
-          );
-        } else {
-          setMedia(
-            props.options.options.acf.image_par_defaut_ressources.sizes.full
-          );
+          ) {
+            setMedia(
+              props.options.options.acf.image_par_defaut_ressources.sizes.grille
+            );
+          } else {
+            setMedia(
+              props.options.options.acf.image_par_defaut_ressources.sizes.full
+            );
+          }
         }
+        return () => {
+          // This code runs when component is unmounted
+          componentMounted.current = false; // (4) set it to false when we leave the page
+        };
       }
     }
   }, [details, domaineAction, props.options]);
