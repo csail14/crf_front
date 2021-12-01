@@ -172,7 +172,7 @@ const OtherTypePicto = styled.div`
   font-weight: 400;
 `;
 
-const UploadContainer = styled.div`
+const UploadContainer = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -332,7 +332,6 @@ const GridResultComponent = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-
   return (
     <MainContainer>
       <ImageContainer
@@ -482,11 +481,7 @@ const GridResultComponent = (props) => {
         details.acf &&
         details.acf.document &&
         details.acf.document.fichier_joint && (
-          <UploadContainer
-            onClick={() => {
-              openInNewTab(details.acf.document.fichier_joint.url);
-            }}
-          >
+          <UploadContainer href={details.acf.document.fichier_joint}>
             <BsDownload style={{ marginRight: "8px" }} />
             TÉLÉCHARGER
             {details.acf.document.fichier_joint.filesize && (
