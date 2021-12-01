@@ -2,19 +2,21 @@ import React, { useEffect, useState } from "react";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Dropdown = (props) => {
   const [isOpen, setIsOpen] = useState(props.openID === props.id);
   const [pathName, setPathName] = useState("");
   let history = useHistory();
+  const location = useLocation();
   const container = React.createRef();
   useEffect(() => {
     setIsOpen(props.openID === props.id);
   }, [props.openID]);
 
   useEffect(() => {
-    setPathName(window.location.pathname);
-  }, [window.location.pathname]);
+    setPathName(location.pathname);
+  }, [location]);
 
   const defineUrl = (long_url, type, slug) => {
     const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");

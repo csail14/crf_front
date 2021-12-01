@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { BsDownload, BsDot } from "react-icons/bs";
@@ -67,10 +67,10 @@ const LastUpdateContainer = styled.time`
   font-weight: 700;
   line-height: 14px;
   text-transform: uppercase;
-  color: #6C757D;
-  flex-basis:8.5%;
-  &+div:last-of-type{
-    margin-left:auto;
+  color: #6c757d;
+  flex-basis: 8.5%;
+  & + div:last-of-type {
+    margin-left: auto;
   }
 `;
 
@@ -79,12 +79,12 @@ const Category = styled.div`
   align-items: center;
   font-weight: 700;
   color: ${colors.rouge};
-  flex-basis:10%;
+  flex-basis: 10%;
   cursor: pointer;
   transition: opacity 150ms linear, transform 150ms linear;
-  font-size:1.4rem;
-  &+div:last-of-type{
-    margin-left:auto;
+  font-size: 1.4rem;
+  & + div:last-of-type {
+    margin-left: auto;
   }
   &:hover {
     opacity: 0.8;
@@ -96,11 +96,11 @@ const Domaine = styled.div`
   align-items: center;
   font-weight: 700;
   color: ${colors.marine};
-  font-size:1.4rem;
+  font-size: 1.4rem;
   cursor: pointer;
-  flex-basis:10%;
-  &+div:last-of-type{
-    margin-left:auto;
+  flex-basis: 10%;
+  & + div:last-of-type {
+    margin-left: auto;
   }
   transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
@@ -128,7 +128,7 @@ const DescriptionContainer = styled.div`
   font-size: 1.5rem;
   font-weight: 500;
   color: ${colors.gris};
-  p{
+  p {
     margin: 10px 0 0;
   }
 `;
@@ -143,15 +143,15 @@ const TagContainer = styled.div`
   align-items: center;
   color: black;
   cursor: pointer;
-  flex-basis:12%;
+  flex-basis: 12%;
   transition: opacity 150ms linear, transform 150ms linear;
-  margin-right:0;
-  margin-left:auto;
+  margin-right: 0;
+  margin-left: auto;
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
   }
-  span{
+  span {
     text-decoration: underline;
   }
 `;
@@ -160,9 +160,9 @@ const PostInfoContainer = styled.div`
   align-items: center;
   display: flex;
   flex-basis: 12.5%;
-  justify-content:flex-end;
-  padding-right:2%;
-  margin-right:0;
+  justify-content: flex-end;
+  padding-right: 2%;
+  margin-right: 0;
 `;
 const Comment = styled.div`
   display: flex;
@@ -171,7 +171,7 @@ const Comment = styled.div`
   align-items: center;
   font-weight: 400;
   cusor: pointer;
-  margin-right:5%;
+  margin-right: 5%;
   transition: opacity 150ms linear, transform 150ms linear;
   &:hover {
     opacity: 0.8;
@@ -185,10 +185,10 @@ const OtherTypePicto = styled.div`
   color: ${colors.gris};
   align-items: center;
   font-weight: 400;
-  margin-right:5%;
+  margin-right: 5%;
 `;
 
-const UploadContainer = styled.div`
+const UploadContainer = styled.a`
   display: flex;
   align-items: center;
   font-size: 1.4rem;
@@ -221,19 +221,22 @@ const GridResultComponent = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [nbComments, setNbComments] = useState(0);
   let history = useHistory();
-  const openInNewTab = (url) => {
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-    if (newWindow) newWindow.opener = null;
-  };
+  const componentMounted = useRef(true);
   useEffect(() => {
-    if (props.info) {
-      getRessourceById(props.info.ID, props.info.post_type)
-        .then((res) => setDetails(res))
-        .catch((error) => console.log(error));
-      getCommentaireByPost(props.info.ID)
-        .then((res) => setNbComments(res.length))
-        .catch((error) => console.log(error));
+    if (componentMounted.current) {
+      if (props.info) {
+        getRessourceById(props.info.ID, props.info.post_type)
+          .then((res) => setDetails(res))
+          .catch((error) => console.log(error));
+        getCommentaireByPost(props.info.ID)
+          .then((res) => setNbComments(res.length))
+          .catch((error) => console.log(error));
+      }
     }
+    return () => {
+      // This code runs when component is unmounted
+      componentMounted.current = false; // (4) set it to false when we leave the page
+    };
   }, [props.info]);
 
   const domaineAction =
@@ -369,12 +372,7 @@ const GridResultComponent = (props) => {
             details.acf &&
             details.acf.document &&
             details.acf.document.fichier_joint && (
-              <UploadContainer
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openInNewTab(details.acf.document.fichier_joint.url);
-                }}
-              >
+              <UploadContainer href={details.acf.document.fichier_joint}>
                 <BsDownload style={{ marginRight: "8px" }} />
                 TÉLÉCHARGER
                 {details.acf.document.fichier_joint.filesize && (
@@ -413,7 +411,7 @@ const GridResultComponent = (props) => {
               {tags.map((item, index) => {
                 let comma = index < tags.length - 1 ? ", " : "";
                 return (
-                  <>
+                  <div key={index}>
                     {" "}
                     <span
                       onClick={(e) => {
@@ -424,16 +422,16 @@ const GridResultComponent = (props) => {
                       {item.name}
                     </span>{" "}
                     {comma}
-                  </>
+                  </div>
                 );
               })}
             </TagContainer>
           )}
           <PostInfoContainer>
-              <Comment>
-                <BiComment size={18} style={{ marginRight: "7px" }} />
-                {nbComments}
-              </Comment>
+            <Comment>
+              <BiComment size={18} style={{ marginRight: "7px" }} />
+              {nbComments}
+            </Comment>
             {details && details.acf && details.acf.datas && (
               <div style={{ display: "flex" }}>
                 <OtherTypePicto>

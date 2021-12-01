@@ -114,7 +114,6 @@ const Comments = (props) => {
   const maxComments = isMobile ? 0 : 5;
   useEffect(() => {
     if (props.postID) {
-      console.log("getComment", props.postID);
       getCommentaireByPost(props.postID)
         .then((res) => setAllComments(res))
         .catch((error) => console.log(error));
@@ -138,12 +137,13 @@ const Comments = (props) => {
     let num = Math.floor(Math.random() * 10000);
 
     if (props.postID && newComment !== "") {
-      postComment("test", num + "@gmail.com", newComment, props.postID).then(
+      postComment("Anonyme", num + "@gmail.com", newComment, props.postID).then(
         (res) => {
           if (res.status === 201) {
             setNewComment("");
             setFormError(false);
             setFormSubmitted(true);
+            window.location.reload(false);
           } else {
             setFormError(true);
             setFormSubmitted(false);
@@ -152,44 +152,47 @@ const Comments = (props) => {
       );
     }
   };
-  console.log(props.postID);
   return (
     <MainContainer>
-      <TitleContainer id="comments">
-        {allComments.length}
-        {allComments.length > 1 ? " commentaires" : " commentaire"}
-      </TitleContainer>
-      {(showAllComments
-        ? allComments && allComments
-        : comments && comments
-      ).map((item, index) => {
-        return (
-          <CommentContainer key={index}>
-            <div id="comments"></div>
-            <Title>
-              <Name>{item.author_name}</Name>
-              <Date> {moment(item.date).format("DD MMMM YYYY - HH:mm")}</Date>
-            </Title>
-            <Contenu
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(item.content.rendered),
-              }}
-            />
-          </CommentContainer>
-        );
-      })}
-      {allComments.length > maxComments && (
-        <MoreCommentContainer
-          onClick={() => setShowAllComments(!showAllComments)}
-        >
-          {showAllComments
-            ? "Voir moins de commentaires"
-            : "Voir tous les commentaires"}{" "}
-          <MdArrowForwardIos style={{ marginLeft: "5px" }} />
-        </MoreCommentContainer>
-      )}
       {props.showCommment && (
         <>
+          <TitleContainer id="comments">
+            {allComments.length}
+            {allComments.length > 1 ? " commentaires" : " commentaire"}
+          </TitleContainer>
+          {(showAllComments
+            ? allComments && allComments
+            : comments && comments
+          ).map((item, index) => {
+            return (
+              <CommentContainer key={index}>
+                <div id="comments"></div>
+                <Title>
+                  <Name>{item.author_name}</Name>
+                  <Date>
+                    {" "}
+                    {moment(item.date).format("DD MMMM YYYY - HH:mm")}
+                  </Date>
+                </Title>
+                <Contenu
+                  dangerouslySetInnerHTML={{
+                    __html: DOMPurify.sanitize(item.content.rendered),
+                  }}
+                />
+              </CommentContainer>
+            );
+          })}
+          {allComments.length > maxComments && (
+            <MoreCommentContainer
+              onClick={() => setShowAllComments(!showAllComments)}
+            >
+              {showAllComments
+                ? "Voir moins de commentaires"
+                : "Voir tous les commentaires"}{" "}
+              <MdArrowForwardIos style={{ marginLeft: "5px" }} />
+            </MoreCommentContainer>
+          )}
+
           <form>
             <textarea
               type="text"
@@ -203,14 +206,17 @@ const Comments = (props) => {
           <SendButton onClick={sendComment} isMobile={isMobile}>
             Laisser un commentaire
           </SendButton>
+
+          {formSubmitted && !formError && (
+            <div className="formSuccess">
+              Votre message a bien été envoyé, merci !
+            </div>
+          )}
+          {formError && (
+            <div className="formError">Une erreur s'est produite </div>
+          )}
         </>
       )}
-      {formSubmitted && !formError && (
-        <div className="formSuccess">
-          Votre message a bien été envoyé, merci !
-        </div>
-      )}
-      {formError && <div className="formError">Une erreur s'est produite </div>}
     </MainContainer>
   );
 };
