@@ -28,6 +28,18 @@ class Header extends React.Component {
           {menu &&
             menu.length > 0 &&
             menu.map((item, index) => {
+              if (item.classes && item.classes[0] === "ot-sdk-show-settings") {
+                return (
+                  <a
+                    href={item.url}
+                    id="ot-sdk-btn"
+                    className="ot-sdk-show-settings cliquable_link"
+                  >
+                    {" "}
+                    {item.title}
+                  </a>
+                );
+              }
               const defineUrl = (long_url, type, slug) => {
                 const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");
                 if (type === "page") {
