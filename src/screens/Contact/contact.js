@@ -2,9 +2,9 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import DOMPurify from "dompurify";
-import { config } from "../../config";
+
 import { colors } from "../../colors";
-import { sendMail, checkCaptchaToken } from "../../utils/api/API";
+import { sendMail } from "../../utils/api/API";
 import ReCAPTCHA from "react-google-recaptcha";
 import header from "../../assets/header.jpeg";
 const FormInput = styled.div`
@@ -123,8 +123,6 @@ const Contact = (props) => {
   const [formError, setFormError] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
   const [emailError, setEmailError] = useState(false);
-  const [captchaError, setCaptchaError] = useState(false);
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
   const recaptchaRef = useRef(null);
 
@@ -143,33 +141,30 @@ const Contact = (props) => {
       setSubject(e.target.value);
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const captchaToken = await recaptchaRef.current.executeAsync();
-    recaptchaRef.current.reset();
-    if (captchaToken) {
-      setIsCaptchaVerified(true);
-      setCaptchaError(false);
-    }
-    setFormSubmitted(true);
-    setFormSuccess(false);
-    if (
-      firstName === "" ||
-      lastName === "" ||
-      email === "" ||
-      phone === "" ||
-      message === "" ||
-      subject === ""
-    ) {
-    } else if (!isCaptchaVerified) {
-      setCaptchaError(true);
-    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      setEmailError(true);
-      setFormSuccess(false);
-    } else {
-      sendEmail();
-    }
+    recaptchaRef.current.executeAsync().then((token) => {
+      if (token) {
+        setFormSubmitted(true);
+        setFormSuccess(false);
+        if (
+          firstName === "" ||
+          lastName === "" ||
+          email === "" ||
+          phone === "" ||
+          message === "" ||
+          subject === ""
+        ) {
+        } else if (
+          !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+        ) {
+          setEmailError(true);
+          setFormSuccess(false);
+        } else {
+          sendEmail();
+        }
+      }
+    });
   };
 
   const cleanForm = () => {
@@ -203,7 +198,6 @@ const Contact = (props) => {
           setFormError(false);
           setFormSuccess(true);
           setEmailError(false);
-          setIsCaptchaVerified(false);
           cleanForm();
           setFormSubmitted(false);
         } else {
@@ -396,10 +390,6 @@ const Contact = (props) => {
                     sitekey={process.env.REACT_APP_GOOGLE_CAPTCHA_SITEKEY}
                     size="invisible"
                   />
-
-                  {formSubmitted && captchaError && (
-                    <div className="formError">Veuillez vérfier le Captcha</div>
-                  )}
                   <p className="mandatoryFields">
                     * informations indispensables
                   </p>
