@@ -172,6 +172,15 @@ const Contact = (props) => {
     }
   };
 
+  const cleanForm = () => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+    setSubject("");
+  };
+
   //send email on submit
   const sendEmail = () => {
     const data = {
@@ -195,6 +204,8 @@ const Contact = (props) => {
           setFormSuccess(true);
           setEmailError(false);
           setIsCaptchaVerified(false);
+          cleanForm();
+          setFormSubmitted(false);
         } else {
           setFormError(true);
           setFormSuccess(false);
@@ -255,6 +266,7 @@ const Contact = (props) => {
                     type="text"
                     className="form-control"
                     id="name"
+                    value={firstName}
                     onChange={handleChange}
                   />
                   {formSubmitted && !firstName && (
@@ -272,6 +284,7 @@ const Contact = (props) => {
                     type="text"
                     className="form-control"
                     id="name"
+                    value={lastName}
                     onChange={handleChange}
                   />
                   {formSubmitted && !lastName && (
@@ -290,6 +303,7 @@ const Contact = (props) => {
                   <input
                     name={"tel"}
                     type="tel"
+                    value={phone}
                     className="form-control"
                     id="tel"
                     onChange={handleChange}
@@ -308,6 +322,7 @@ const Contact = (props) => {
                   <input
                     name={"email"}
                     type="email"
+                    value={email}
                     className="form-control"
                     id="email"
                     onChange={handleChange}
@@ -358,6 +373,7 @@ const Contact = (props) => {
                     name={"message"}
                     className="formMessage"
                     id="message"
+                    value={message}
                     rows="3"
                     placeholder="Saisissez ici votre message"
                     onChange={handleChange}
@@ -388,7 +404,7 @@ const Contact = (props) => {
                     * informations indispensables
                   </p>
                   <div className="text-center">
-                    {formSubmitted && formSuccess && (
+                    {formSuccess && (
                       <div className="formSuccess">
                         <i
                           class="bi bi-check-lg"
@@ -397,7 +413,7 @@ const Contact = (props) => {
                         Votre message a bien été envoyé, merci !
                       </div>
                     )}
-                    {formSubmitted && formError && (
+                    {formError && (
                       <div className="formError">Une erreur s'est produite</div>
                     )}
                   </div>
