@@ -61,6 +61,8 @@ const ListDomaines = (props) => {
     ? props.pages.templates.filter((template) => template.slug === slug)[0]
     : null;
 
+  //console.log(window.location);
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>

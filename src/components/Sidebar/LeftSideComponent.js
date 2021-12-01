@@ -89,7 +89,6 @@ const LeftSideComponent = (props) => {
       return [];
     }
   };
-
   return (
     <>
       {(isMobile && showMenu) || !isMobile ? (

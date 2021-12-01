@@ -114,7 +114,6 @@ const Comments = (props) => {
   const maxComments = isMobile ? 0 : 5;
   useEffect(() => {
     if (props.postID) {
-      console.log("getComment", props.postID);
       getCommentaireByPost(props.postID)
         .then((res) => setAllComments(res))
         .catch((error) => console.log(error));
@@ -152,7 +151,6 @@ const Comments = (props) => {
       );
     }
   };
-  console.log(props.postID);
   return (
     <MainContainer>
       <TitleContainer id="comments">

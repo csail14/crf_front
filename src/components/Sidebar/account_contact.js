@@ -1,22 +1,24 @@
 import React from "react";
 import { FiMail, BsFillPersonFill } from "react-icons/all";
-import { colors } from "../../colors";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const AccountContact = (props) => {
+  const location = useLocation();
   const url =
     props.contact_info &&
     props.contact_info.url.replace(process.env.REACT_APP_WP_LINK, "");
   return (
     <div className={"acc_contact_container"}>
       {props && props.contact_info && (
-        <a
-          href={url}
+        <Link
+          to={{ pathname: url, state: { from: location.pathname } }}
           target={props.contact_info.target}
           className={"contact_container"}
         >
           <FiMail className={"acc_contact_icon"} />
           {props.contact_info.title}
-        </a>
+        </Link>
       )}
       <div className="account_container">
         <p>

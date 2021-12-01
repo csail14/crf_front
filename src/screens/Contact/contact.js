@@ -179,6 +179,7 @@ const Contact = (props) => {
       lastName: lastName,
       email: email,
       phone: phone,
+      referer: props.previousPage,
       message: message,
       subject: subject,
       destination:
@@ -186,6 +187,7 @@ const Contact = (props) => {
           ? contactTemplate.acf.mail_destination_contact
           : "",
     };
+
     sendMail(data)
       .then((res) => {
         if (res && res.status === "success") {

@@ -104,6 +104,9 @@ const OtherPage = (props) => {
       )[0]
     : null;
 
+  const previousPage =
+    props.location && props.location.state && props.location.state.from;
+
   return (
     <>
       {template && template.template === "tpl-sous_home.php" ? (
@@ -115,7 +118,7 @@ const OtherPage = (props) => {
       ) : template && template.template === "tpl-it.php" ? (
         <ImpactTrack slug={slug} />
       ) : template && template.template === "tpl-contact.php" ? (
-        <Contact slug={slug} />
+        <Contact slug={slug} previousPage={previousPage} />
       ) : slug === "home" ? (
         <></>
       ) : (
