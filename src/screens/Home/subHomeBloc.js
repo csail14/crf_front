@@ -152,16 +152,16 @@ const SubHomeBloc = (props) => {
             })
           : null}
       </LinkMainContainer>
-      <Link to={link}>
+      <a href={link}>
         <MoreInfoContainer>
           <Text>
-            En savoir plus{" "}
+            En savoir plus
             <MdArrowForwardIos
               style={{ color: colors.rouge, marginLeft: "10px" }}
             />{" "}
           </Text>
         </MoreInfoContainer>
-      </Link>
+      </a>
     </MainContainer>
   );
 };
