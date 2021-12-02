@@ -1,12 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("https://pmis-wp.laguildedupixel.fr/wp-json/acf/v3/options/options")
-    .then((res) => res.json())
-    .then(
-      (resp) =>
-        (document.body.innerHTML += resp && resp.acf && resp.acf.script_cookies)
-    )
-    .catch((err) => console.log(err));
-});
+async function addCookieScript() {
+  const promise = await fetch(
+    "https://pmis-wp.laguildedupixel.fr/wp-json/acf/v3/options/options"
+  );
+  let script = await promise.json();
+  script = script.acf.script_cookies ? script.acf.script_cookies : null;
+  return script;
+}
+
+addCookieScript().then((res) => (document.body.innerHTML += res));
 
 function getFavIcon() {
   var script = document.createElement("link");
