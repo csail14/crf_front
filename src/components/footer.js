@@ -31,6 +31,7 @@ class Header extends React.Component {
               if (item.classes && item.classes[0] === "ot-sdk-show-settings") {
                 return (
                   <a
+                    key={index}
                     href={item.url}
                     id="ot-sdk-btn"
                     className="ot-sdk-show-settings cliquable_link"
