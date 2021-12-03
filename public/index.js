@@ -5,12 +5,11 @@ async function addCookieScript() {
   );
   let script = await promise.json();
   script = script.acf.script_cookies ? script.acf.script_cookies : null;
-  console.log(script);
   div.id = "cookies";
   div.innerHTML = script;
   return div;
 }
-addCookieScript().then((res) => document.body.append(res));
+//addCookieScript().then((res) => document.body.append(res));
 
 function getFavIcon() {
   var script = document.createElement("link");
