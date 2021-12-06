@@ -5,20 +5,19 @@ import { useLocation } from "react-router-dom";
 
 const AccountContact = (props) => {
   const location = useLocation();
-  const url =
-    props.contact_info &&
-    props.contact_info.url.replace(process.env.REACT_APP_WP_LINK, "");
+  const url = props.contact_info && props.contact_info.url;
   return (
     <div className={"acc_contact_container"}>
       {props && props.contact_info && (
-        <Link
-          to={{ pathname: url, state: { from: location.pathname } }}
+        <a
+          href={url}
+          //to={{ pathname: url, state: { from: location.pathname } }}
           target={props.contact_info.target}
           className={"contact_container"}
         >
           <FiMail className={"acc_contact_icon"} />
           {props.contact_info.title}
-        </Link>
+        </a>
       )}
       <div className="account_container">
         <p>
