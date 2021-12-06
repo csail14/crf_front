@@ -183,7 +183,10 @@ const Contact = (props) => {
       lastName: lastName,
       email: email,
       phone: phone,
-      referer: props.previousPage,
+      referer:
+        props.previousPage && props.previousPage !== ""
+          ? props.previousPage
+          : window.location.href,
       message: message,
       subject: subject,
       destination:
