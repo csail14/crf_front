@@ -91,7 +91,6 @@ Ouvrir l'url de recette : rec-impact-social.croix-rouge.fr
 ## Mettre à jour l'application 
 1. git pull
 2. commande "npm run build"
-3. remettre htaccess dans dossier build
 
 # (Développement) Installer React et build l'application
 
