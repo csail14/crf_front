@@ -12,9 +12,11 @@ import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
 import { config } from "../../config";
 
 const ImageContainer = styled.div`
-  margin: 23px 14% 0;
+  margin:10px 0 0;
+  padding: 23px 14% 0;
   cursor: pointer;
   transition: all 0.3s;
+  background:white;
   &:hover {
     transform: scale(0.99);
   }
