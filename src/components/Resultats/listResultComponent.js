@@ -68,6 +68,7 @@ const LastUpdateContainer = styled.time`
   line-height: 14px;
   text-transform: uppercase;
   color: #6c757d;
+  padding-right:5px;
   flex-basis: 8.5%;
   & + div:last-of-type {
     margin-left: auto;
@@ -83,6 +84,7 @@ const Category = styled.div`
   cursor: pointer;
   transition: opacity 150ms linear, transform 150ms linear;
   font-size: 1.4rem;
+  padding-right:5px;
   & + div:last-of-type {
     margin-left: auto;
   }
@@ -95,6 +97,7 @@ const Domaine = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
+  padding-right:5px;
   color: ${colors.marine};
   font-size: 1.4rem;
   cursor: pointer;
@@ -137,11 +140,12 @@ const TagContainer = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.4rem;
-  display: flex;
+  flex-wrap:wrap;
   font-weight: 400;
   line-height: 16px;
   align-items: center;
   color: black;
+  padding-right:5px;
   cursor: pointer;
   flex-basis: 12%;
   transition: opacity 150ms linear, transform 150ms linear;
@@ -420,7 +424,7 @@ const GridResultComponent = (props) => {
                       }}
                     >
                       {item.name}
-                    </span>{" "}
+                    </span>{""}
                     {comma}
                   </div>
                 );
