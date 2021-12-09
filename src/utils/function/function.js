@@ -46,20 +46,20 @@ export const computeQuery = (keyword, types, date, cat, di, da, format) => {
     });
   }
   if (di.length) {
-    query !== "" ? (query = query + "&") : (query = query);
-    query = query + "di=";
     di.forEach((item, index) => {
+      query !== "" ? (query = query + "&") : (query = query);
+      query = query + "di[]=";
       let s = item.id;
-      index === di.length - 1 ? (s = s) : (s = s + ",");
+      index === di.length - 1 ? (s = s) : (s = s + "");
       query = query + s;
     });
   }
   if (da.length) {
-    query !== "" ? (query = query + "&") : (query = query);
-    query = query + "da=";
     da.forEach((item, index) => {
+      query !== "" ? (query = query + "&") : (query = query);
+      query = query + "da[]=";
       let s = item.id;
-      index === da.length - 1 ? (s = s) : (s = s + ",");
+      index === da.length - 1 ? (s = s) : (s = s + "");
       query = query + s;
     });
   }
@@ -71,5 +71,6 @@ export const computeQuery = (keyword, types, date, cat, di, da, format) => {
       query = query + s;
     });
   }
+
   return query;
 };
