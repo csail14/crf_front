@@ -439,7 +439,7 @@ const Indicateur = (props) => {
           {indicateur &&
             indicateur.acf &&
             indicateur.acf.fiche_indicateur &&
-            indicateur.acf.fiche_indicateur.subtype === "pdf" && (
+            indicateur.acf.fiche_indicateur.filename && (
               <UploadButton
                 id="download-indicateur"
                 onClick={() => {

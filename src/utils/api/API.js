@@ -25,7 +25,7 @@ export const getMediaById = async (id) => {
 
 export const getAllTags = async () => {
   return axios
-    .get(config.api_url + "/wp/v2/post_tag")
+    .get(config.api_url + "/wp/v2/post_tag?per_page=100")
     .then((response) => {
       return response.data;
     })
@@ -36,7 +36,7 @@ export const getAllTags = async () => {
 
 export const getAllDomainesActions = async () => {
   return axios
-    .get(config.api_url + "/wp/v2/domaine-action")
+    .get(config.api_url + "/wp/v2/domaine-action?per_page=100")
     .then((response) => {
       return response.data;
     })
@@ -47,7 +47,7 @@ export const getAllDomainesActions = async () => {
 
 export const getAllDomainesImpacts = async () => {
   return axios
-    .get(config.api_url + "/wp/v2/domaine-impact")
+    .get(config.api_url + "/wp/v2/domaine-impact?per_page=100")
     .then((response) => {
       return response.data;
     })
