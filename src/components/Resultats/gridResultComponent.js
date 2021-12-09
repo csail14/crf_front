@@ -491,8 +491,12 @@ const GridResultComponent = (props) => {
       {details &&
         details.acf &&
         details.acf.document &&
-        details.acf.document.fichier_joint && (
-          <UploadContainer href={details.acf.document.fichier_joint}>
+        (details.acf.document.format === "Texte" ||
+          details.acf.document.format === "Tableau") && (
+          <UploadContainer
+            href={details.acf.document.fichier_joint}
+            target="_blank"
+          >
             <BsDownload style={{ marginRight: "8px" }} />
             TÉLÉCHARGER
             {details.acf.document.fichier_joint.filesize && (
