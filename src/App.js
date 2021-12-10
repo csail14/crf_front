@@ -28,8 +28,26 @@ const BodyContainer = styled.div`
 const oktaAuth = new OktaAuth({
   issuer: "https://rec-connect.croix-rouge.fr/oauth2/default",
   clientId: "0oa3e1vqpgyuzhUj90x7",
-  redirectUri: "https://rec-connect.croix-rouge.fr/",
+  redirectUri: window.location.origin + "/login/callback",
 });
+
+function getFaviconEl() {
+  let element = document.getElementById("favicon");
+  fetch("https://pmis-wp.laguildedupixel.fr/wp-json/wp/v2/options/favicon")
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .then((resp) => {
+      element.rel = "icon";
+      element.href = resp;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  return element;
+}
 
 function App(props) {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
@@ -43,7 +61,8 @@ function App(props) {
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
     history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
   };
-
+  getFaviconEl();
+  console.log(getFaviconEl());
   return (
     <div className="App">
       <MainContainer isMobile={isMobile}>

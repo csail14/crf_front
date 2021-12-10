@@ -176,6 +176,7 @@ const Recherche = (props) => {
     trieDateResult(resultToDisplay);
   };
   const togglepertinenceTrie = () => {
+    console.log(resultToDisplay);
     setPertinenceTrie(!pertinenceTrie);
     triePertinenceResult(resultToDisplay);
   };
@@ -194,10 +195,10 @@ const Recherche = (props) => {
     let newArray = [];
     resultArray.forEach((item) => newArray.push(item));
     if (pertinenceTrie) {
-      newArray.sort((a, b) => (a.pertinence - b.pertinence > 0 ? 1 : -1));
+      newArray.sort((a, b) => (a.relevance - b.relevance > 0 ? 1 : -1));
     }
     if (!pertinenceTrie) {
-      newArray.sort((a, b) => (b.pertinence - a.pertinence > 0 ? -1 : 1));
+      newArray.sort((a, b) => (b.relevance - a.relevance > 0 ? -1 : 1));
     }
     setResultToDisplay(newArray);
   };
@@ -317,6 +318,7 @@ const Recherche = (props) => {
       </TriesContainer>
       <BodyContainer isViewGrid={isViewGrid}>
         {resultToDisplay &&
+          resultToDisplay.length > 0 &&
           resultToDisplay.map((item, index) => {
             if (
               item.type === "indicateurs" ||
@@ -324,8 +326,9 @@ const Recherche = (props) => {
               item.type === "articles"
             ) {
               let info = { ID: item.id, post_type: item.type };
+
               return isViewGrid ? (
-                <GridResultComponent key={index} info={info} />
+                <GridResultComponent key={index} info={item} />
               ) : (
                 <ListResultComponent key={index} info={info} />
               );
