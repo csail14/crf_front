@@ -188,140 +188,85 @@ const UploadContainer = styled.a`
   }
 `;
 const GridResultComponent = (props) => {
-  const [details, setDetails] = useState(null);
   const [media, setMedia] = useState(null);
-  const [nbComments, setNbComments] = useState(0);
+
   let history = useHistory();
 
   const componentMounted = useRef(true);
 
-  useEffect(() => {
-    if (componentMounted.current) {
-      if (props.info) {
-        getRessourceById(props.info.ID, props.info.post_type)
-          .then((res) => setDetails(res))
-          .catch((error) => console.log(error));
-        getCommentaireByPost(props.info.ID)
-          .then((res) => setNbComments(res.length))
-          .catch((error) => console.log(error));
-      }
-    }
-    return () => {
-      // This code runs when component is unmounted
-      componentMounted.current = false; // (4) set it to false when we leave the page
-    };
-  }, [props.info]);
   const domaineAction =
-    details && details.acf && details.acf.domaine_daction_principal
-      ? props.taxonomie.domainesActions.filter(
-          (item) => item.id === details.acf.domaine_daction_principal.term_id
-        )[0]
+    props.info && props.info.domaine_action
+      ? props.taxonomie
+        ? props.taxonomie.domainesActions.filter(
+            (item) => item.id === props.info.domaine_action.term_id
+          )[0]
+        : null
       : null;
   const domaineImpact =
-    details && details.acf && details.acf.domaine_dimpact_principal
+    props.info && props.info.domaine_impact
       ? props.taxonomie
         ? props.taxonomie.domainesImpacts.filter(
-            (item) => item.id === details.acf.domaine_dimpact_principal.term_id
+            (item) => item.id === props.info.domaine_impact.term_id
           )[0]
         : null
       : null;
 
   useEffect(() => {
     if (componentMounted.current) {
-      if (details) {
-        if (details && details.featured_media) {
-          getMediaById(details.featured_media)
-            .then((res) => {
-              if (
-                res.media_details &&
-                res.media_details.sizes &&
-                res.media_details.sizes.grille
-              ) {
-                setMedia(res.media_details.sizes.grille.source_url);
-              } else {
-                setMedia(res.media_details.sizes.full.source_url);
-              }
-            })
-            .catch((error) => console.log("error", error));
-        } else if (
-          domaineAction &&
-          domaineAction.acf &&
-          domaineAction.acf.image_par_defaut
-        ) {
-          if (domaineAction.acf.image_par_defaut.sizes.grille) {
-            setMedia(domaineAction.acf.image_par_defaut.sizes.grille);
-          } else {
-            setMedia(domaineAction.acf.image_par_defaut.sizes.full);
-          }
-        } else if (
-          props.options &&
-          props.options.options &&
-          props.options.options.acf &&
-          props.options.options.acf.image_par_defaut_ressources
-        ) {
-          if (
-            props.options.options.acf.image_par_defaut_ressources.sizes.grille
-          ) {
-            setMedia(
-              props.options.options.acf.image_par_defaut_ressources.sizes.grille
-            );
-          } else {
-            setMedia(
-              props.options.options.acf.image_par_defaut_ressources.sizes.full
-            );
-          }
+      if (props.info && props.info.image) {
+        setMedia(props.info.image);
+      } else if (
+        domaineAction &&
+        domaineAction.acf &&
+        domaineAction.acf.image_par_defaut
+      ) {
+        if (domaineAction.acf.image_par_defaut.sizes.grille) {
+          setMedia(domaineAction.acf.image_par_defaut.sizes.grille);
+        } else {
+          setMedia(domaineAction.acf.image_par_defaut.sizes.full);
         }
-        return () => {
-          // This code runs when component is unmounted
-          componentMounted.current = false; // (4) set it to false when we leave the page
-        };
+      } else if (
+        props.options &&
+        props.options.options &&
+        props.options.options.acf &&
+        props.options.options.acf.image_par_defaut_ressources
+      ) {
+        if (
+          props.options.options.acf.image_par_defaut_ressources.sizes.grille
+        ) {
+          setMedia(
+            props.options.options.acf.image_par_defaut_ressources.sizes.grille
+          );
+        } else {
+          setMedia(
+            props.options.options.acf.image_par_defaut_ressources.sizes.full
+          );
+        }
       }
+      return () => {
+        // This code runs when component is unmounted
+        componentMounted.current = false; // (4) set it to false when we leave the page
+      };
     }
-  }, [details, domaineAction, props.options]);
+  }, [props.info, domaineAction, props.options]);
 
-  let tags = details && details.post_tag;
-
-  if (tags && props.taxonomie && props.taxonomie.tags.length) {
-    tags = tags.map((item) => {
-      return props.taxonomie.tags.filter((el) => el.id === item)[0];
-    });
-  }
-
-  const type = details && details.type;
+  const type = props.info && props.info.type;
   const icon =
     type === "articles"
       ? "bi bi-folder"
       : type === "indicateurs"
       ? "bi bi-file-earmark-bar-graph"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Lien"
+      : props.info && props.info.format === "Lien"
       ? "bi bi-link-45deg"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Web"
+      : props.info && props.info.format === "Web"
       ? "bi bi-file-code"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Texte"
+      : props.info && props.info.format === "Texte"
       ? "bi bi-file-earmark-font"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Tableau"
+      : props.info && props.info.format === "Tableau"
       ? "bi bi-file-earmark-excel"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Image"
+      : props.info && props.info.format === "Image"
       ? "bi bi-file-earmark-image"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Vidéo"
+      : props.info && props.info.format === "Vidéo"
       ? "bi bi-file-earmark-play"
       : "";
 
@@ -349,10 +294,8 @@ const GridResultComponent = (props) => {
         onClick={() => {
           history.push({
             pathname:
-              details && details.type && details.slug
-                ? "/" + details.type + "/" + details.slug
-                : "",
-            state: { id: details.id },
+              props.info && props.info.link ? "/" + props.info.link : "",
+            state: { id: props.info && props.info.id },
           });
         }}
       >
@@ -377,7 +320,8 @@ const GridResultComponent = (props) => {
       <DetailsContainer>
         <LastUpdateContainer>
           mis à jour le{" "}
-          {details && moment(details.modified).format("DD MMMM YYYY")}
+          {props.info &&
+            moment(props.info.date_modified).format("DD MMMM YYYY")}
         </LastUpdateContainer>
         {(domaineImpact || domaineAction) && (
           <CategoryContainer>
@@ -395,50 +339,48 @@ const GridResultComponent = (props) => {
           </CategoryContainer>
         )}
 
-        {details && details.title && (
+        {props.info && props.info.title && (
           <TitleContainer
             onClick={() => {
               history.push({
-                pathname:
-                  details && details.type && details.slug
-                    ? "/" + details.type + "/" + details.slug
-                    : "",
-                state: { id: details.id },
+                pathname: props.info.link ? "/" + props.info.link : "",
+                state: { id: props.info.link.id },
               });
             }}
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(details.title.rendered),
+              __html: DOMPurify.sanitize(props.info.title.rendered),
             }}
           ></TitleContainer>
         )}
 
-        {details && details.acf && (
+        {props.info && props.info.excerpt && (
           <DescriptionContainer
             dangerouslySetInnerHTML={{
               __html: DOMPurify.sanitize(
-                details.acf.extrait.length > 150
-                  ? details.acf.extrait.substr(0, 150)
-                  : details.acf.extrait
+                props.info.excerpt.length > 150
+                  ? props.info.excerpt.substr(0, 150)
+                  : props.info.excerpt
               ),
             }}
           ></DescriptionContainer>
         )}
-        {tags && tags.length > 0 && (
+        {props.info && props.info.tags && props.info.tags.length > 0 && (
           <TagContainer>
             <BsTags style={{ marginRight: "8px" }} />
-
-            {tags.map((item, index) => {
-              let comma = index < tags.length - 1 ? ", " : "";
-              return (
-                <div style={{ display: "flex" }} key={index}>
-                  {" "}
-                  <div onClick={() => handleClickTag(item.name)}>
-                    {item.name}
-                  </div>{" "}
-                  {comma}
-                </div>
-              );
-            })}
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {props.info.tags.map((item, index) => {
+                let comma = index < props.info.tags.length - 1 ? ", " : "";
+                return (
+                  <div style={{ display: "flex" }} key={index}>
+                    {" "}
+                    <div onClick={() => handleClickTag(item.name)}>
+                      {item.name}
+                    </div>{" "}
+                    {comma}
+                  </div>
+                );
+              })}
+            </div>
           </TagContainer>
         )}
         <BottomContainer>
@@ -446,8 +388,8 @@ const GridResultComponent = (props) => {
             <Comment>
               <HashLink
                 to={
-                  details && details.type && details.slug
-                    ? "/" + details.type + "/" + details.slug + "#comments"
+                  props.info && props.info.link
+                    ? "/" + props.info.link + "#comments"
                     : ""
                 }
               >
@@ -455,10 +397,13 @@ const GridResultComponent = (props) => {
                   size={18}
                   style={{ marginRight: "7px", verticalAlign: "middle" }}
                 />
-                {nbComments} {nbComments > 1 ? "Commentaires" : "Commentaire"}
+                {props.info && props.info.nb_com}{" "}
+                {props.info && props.info.nb_com > 1
+                  ? "Commentaires"
+                  : "Commentaire"}
               </HashLink>
             </Comment>
-            {details && details.acf && details.acf.datas && (
+            {props.info && props.info.datas && (
               <div style={{ display: "flex" }}>
                 <OtherTypePicto>
                   <AiOutlineLike
@@ -469,7 +414,7 @@ const GridResultComponent = (props) => {
                       verticalAlign: "middle",
                     }}
                   />
-                  {details.acf.datas.likes}
+                  {props.info.datas.likes}
                 </OtherTypePicto>
                 <OtherTypePicto>
                   <AiOutlineEye
@@ -481,31 +426,22 @@ const GridResultComponent = (props) => {
                       verticalAlign: "middle",
                     }}
                   />
-                  {details.acf.datas.vues}
+                  {props.info.datas.vues}
                 </OtherTypePicto>
               </div>
             )}
           </PostInfoContainer>
         </BottomContainer>
       </DetailsContainer>
-      {details &&
-        details.acf &&
-        details.acf.document &&
-        (details.acf.document.format === "Texte" ||
-          details.acf.document.format === "Tableau") && (
-          <UploadContainer
-            href={details.acf.document.fichier_joint}
-            target="_blank"
-          >
+      {props.info &&
+        props.info.download &&
+        (props.info.format === "Texte" || props.info.format === "Tableau") && (
+          <UploadContainer href={props.info.download.url} target="_blank">
             <BsDownload style={{ marginRight: "8px" }} />
             TÉLÉCHARGER
-            {details.acf.document.fichier_joint.filesize && (
+            {props.info.download.filesize && (
               <div style={{ color: "grey", marginLeft: "5px" }}>
-                {"(" +
-                  (details.acf.document.fichier_joint.filesize / 10000).toFixed(
-                    1
-                  )}{" "}
-                Mo)
+                {"(" + (props.info.download.filesize / 10000).toFixed(1)} Mo)
               </div>
             )}
           </UploadContainer>

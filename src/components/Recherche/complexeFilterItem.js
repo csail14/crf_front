@@ -64,8 +64,6 @@ const FilterOptionsContainer = styled.div`
   left: 0px;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   z-index: 1;
-
-  width: max-content;
 `;
 
 const NumberSelected = styled.div`
@@ -142,17 +140,19 @@ const ComplexeFilterItem = (props) => {
             />{" "}
             <GoSearch style={{ marginRight: "12px" }} />
           </KeyWordsContainer>
-          <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", flexWrap: "wrap" }}>
             {searchItem.map((item, index) => {
               let isSelected = props.selectedObject.indexOf(item) !== -1;
-              return (
-                <FilterOptions
-                  isSelected={isSelected}
-                  manageSelectedFilter={manageSelectedFilter}
-                  key={index}
-                  item={item}
-                />
-              );
+              if (item.count > 0) {
+                return (
+                  <FilterOptions
+                    isSelected={isSelected}
+                    manageSelectedFilter={manageSelectedFilter}
+                    key={index}
+                    item={item}
+                  />
+                );
+              }
             })}
           </div>
         </FilterOptionsContainer>
