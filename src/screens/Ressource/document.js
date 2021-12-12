@@ -398,6 +398,13 @@ const Document = (props) => {
     }
   };
 
+  const ressources_complementaires =
+    document &&
+    document.acf &&
+    document.acf.ressources_complementaires.filter(
+      (item) => item.status === "publish"
+    );
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -579,24 +586,21 @@ const Document = (props) => {
           <Comments postID={documentId} showCommment={showCommment} />
         </LeftSideBodyComponent>
       </BodyContainer>
-      {document &&
-        document.acf &&
-        document.acf.ressources_complementaires.length > 0 && (
-          <BottomContainer>
-            <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
+      {ressources_complementaires && ressources_complementaires.length > 0 && (
+        <BottomContainer>
+          <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
 
-            <AvailableRessourceContainer isMobile={isMobile}>
-              {document.acf.ressources_complementaires.map((item, index) => {
-                if (item.post_status === "publish")
-                  if (isMobile) {
-                    return <ListResultComponent key={index} info={item} />;
-                  } else {
-                    return <GridResultComponent key={index} info={item} />;
-                  }
-              })}
-            </AvailableRessourceContainer>
-          </BottomContainer>
-        )}
+          <AvailableRessourceContainer isMobile={isMobile}>
+            {ressources_complementaires.map((item, index) => {
+              if (isMobile) {
+                return <ListResultComponent key={index} info={item} />;
+              } else {
+                return <GridResultComponent key={index} info={item} />;
+              }
+            })}
+          </AvailableRessourceContainer>
+        </BottomContainer>
+      )}
     </MainContainer>
   );
 };
