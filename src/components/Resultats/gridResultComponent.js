@@ -273,6 +273,7 @@ const GridResultComponent = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
+
   return (
     <MainContainer>
       <ImageContainer

@@ -400,6 +400,20 @@ const Article = (props) => {
     }
   };
 
+  const ressources_secondaires =
+    article &&
+    article.acf &&
+    article.acf.ressources_secondaires.filter(
+      (item) => item.status === "publish"
+    );
+
+  const ressources_principales =
+    article &&
+    article.acf &&
+    article.acf.ressources_principales.filter(
+      (item) => item.status === "publish"
+    );
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -522,44 +536,37 @@ const Article = (props) => {
           <Comments postID={articleId} showCommment={showCommment} />
           <div id="comments"></div>
         </LeftSideBodyComponent>
-        {article &&
-          article.acf &&
-          article.acf.ressources_principales &&
-          article.acf.ressources_principales.length > 0 && (
-            <RightSideBodyContainer isMobile={isMobile}>
-              <TitleRessourceContainer>
-                Ressources principales
-              </TitleRessourceContainer>
-              {article.acf.ressources_principales.map((item, index) => {
-                if (isMobile) {
-                  return <ListResultComponent key={index} info={item} />;
-                } else {
-                  return <GridResultComponent key={index} info={item} />;
-                }
-              })}
-            </RightSideBodyContainer>
-          )}
+        {ressources_principales && ressources_principales.length > 0 && (
+          <RightSideBodyContainer isMobile={isMobile}>
+            <TitleRessourceContainer>
+              Ressources principales
+            </TitleRessourceContainer>
+            {ressources_principales.map((item, index) => {
+              if (isMobile) {
+                return <ListResultComponent key={index} info={item} />;
+              } else {
+                return <GridResultComponent key={index} info={item} />;
+              }
+            })}
+          </RightSideBodyContainer>
+        )}
       </BodyContainer>
-      {article &&
-        article.acf &&
-        article.acf.ressources_secondaires &&
-        article.acf.ressources_secondaires.length > 0 && (
-          <BottomContainer>
-            <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
-            <AvailableRessourceContainer isMobile={isMobile}>
-              {article &&
-                article.acf &&
-                article.acf.ressources_secondaires.length > 0 &&
-                article.acf.ressources_secondaires.map((item, index) => {
+      {ressources_secondaires && ressources_secondaires.length > 0 && (
+        <BottomContainer>
+          <BottomTitleContainer>Ressources secondaires</BottomTitleContainer>
+          <AvailableRessourceContainer isMobile={isMobile}>
+            {ressources_secondaires.length > 0 &&
+              ressources_secondaires.map((item, index) => {
+                if (item.status === "publish")
                   if (isMobile) {
                     return <ListResultComponent key={index} info={item} />;
                   } else {
                     return <GridResultComponent key={index} info={item} />;
                   }
-                })}
-            </AvailableRessourceContainer>
-          </BottomContainer>
-        )}
+              })}
+          </AvailableRessourceContainer>
+        </BottomContainer>
+      )}
     </MainContainer>
   );
 };

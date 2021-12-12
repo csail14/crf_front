@@ -75,30 +75,27 @@ const Indicateur = (props) => {
     });
   }
 
+  const ressources_liees =
+    indicateur &&
+    indicateur.acf &&
+    indicateur.acf.ressources_liees.filter((item) => item.status === "publish");
+
   return (
     <>
-      {indicateur &&
-        indicateur.acf &&
-        indicateur.acf.ressources_liees &&
-        indicateur.acf.ressources_liees.length && (
-          <BottomContainer>
-            <BottomTitleContainer>Ressources liées</BottomTitleContainer>
-            <AvailableRessourceContainer isMobile={isMobile}>
-              {indicateur &&
-                indicateur.acf &&
-                indicateur.acf.ressources_liees &&
-                indicateur.acf.ressources_liees.length &&
-                indicateur.acf.ressources_liees.map((item, index) => {
-                  if (("item", item.status === "publish"))
-                    if (isMobile) {
-                      return <ListResultComponent key={index} info={item} />;
-                    } else {
-                      return <GridResultComponent key={index} info={item} />;
-                    }
-                })}
-            </AvailableRessourceContainer>
-          </BottomContainer>
-        )}
+      {ressources_liees && ressources_liees.length && (
+        <BottomContainer>
+          <BottomTitleContainer>Ressources liées</BottomTitleContainer>
+          <AvailableRessourceContainer isMobile={isMobile}>
+            {ressources_liees.map((item, index) => {
+              if (isMobile) {
+                return <ListResultComponent key={index} info={item} />;
+              } else {
+                return <GridResultComponent key={index} info={item} />;
+              }
+            })}
+          </AvailableRessourceContainer>
+        </BottomContainer>
+      )}
     </>
   );
 };
