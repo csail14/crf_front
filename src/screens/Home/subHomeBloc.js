@@ -115,7 +115,7 @@ const SubHomeBloc = (props) => {
           {" "}
           <figure>
             <img
-              src={props.info.push.image ? props.info.push.image.url : null}
+              src={props.info.push.image ? props.info.push.image : null}
               alt="blocImage"
             />
           </figure>
@@ -131,24 +131,22 @@ const SubHomeBloc = (props) => {
       <LinkMainContainer>
         {props.info.articles_lies
           ? props.info.articles_lies.map((item, index) => {
-              if (item.post_status === "publish")
-                return (
-                  <LinkContainer
-                    key={index}
-                    onClick={() => {
-                      !props.isSearchOpen
-                        ? history.push({
-                            pathname:
-                              "/" + item.post_type + "/" + item.post_name,
-                            state: { id: item.ID },
-                          })
-                        : console.log();
-                    }}
-                  >
-                    {item.post_title}
-                    <MdArrowForwardIos style={{ color: colors.rouge }} />
-                  </LinkContainer>
-                );
+              return (
+                <LinkContainer
+                  key={index}
+                  onClick={() => {
+                    !props.isSearchOpen
+                      ? history.push({
+                          pathname: "/" + item.link,
+                          state: { id: item.id },
+                        })
+                      : console.log();
+                  }}
+                >
+                  {item.title && item.title.rendered}
+                  <MdArrowForwardIos style={{ color: colors.rouge }} />
+                </LinkContainer>
+              );
             })
           : null}
       </LinkMainContainer>

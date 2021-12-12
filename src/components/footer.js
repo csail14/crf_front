@@ -19,8 +19,7 @@ class Header extends React.Component {
     const copyright =
       this.props.options &&
       this.props.options.options &&
-      this.props.options.options.acf &&
-      this.props.options.options.acf.copyright;
+      this.props.options.options.copyright;
     const menu = this.props.options && this.props.options.footerMenu;
     return (
       <MainContainer className="footer">

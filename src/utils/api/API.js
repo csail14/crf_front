@@ -69,7 +69,7 @@ export const getAllCategories = async () => {
 
 export const getAllOptions = async () => {
   return axios
-    .get(config.api_url + "/acf/v3/options/options")
+    .get(config.api_url + "/wp/v2/options/options-generales")
     .then((response) => {
       return response.data;
     })
@@ -133,10 +133,12 @@ export const postComment = async (name, email, content, postId) => {
     });
 };
 
-export const addLike = async (type, postId, like, token) => {
+export const addLikeView = async (type, postId, like, vues, token) => {
+  vues = parseInt(vues) + 1;
+
   const body = {
     acf: {
-      datas: { vues: "2", likes: like },
+      datas: { vues: vues.toString(), likes: like },
     },
   };
 

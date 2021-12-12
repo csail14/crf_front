@@ -80,6 +80,7 @@ const Home = (props) => {
       });
     }
   };
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>

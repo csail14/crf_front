@@ -176,7 +176,6 @@ const Recherche = (props) => {
     trieDateResult(resultToDisplay);
   };
   const togglepertinenceTrie = () => {
-    console.log(resultToDisplay);
     setPertinenceTrie(!pertinenceTrie);
     triePertinenceResult(resultToDisplay);
   };

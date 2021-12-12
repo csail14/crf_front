@@ -16,15 +16,16 @@ const LinkContainer = styled.h3`
   display: flex;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
   padding: 13px 20px;
-  line-height:1.5;
+  line-height: 1.5;
   color: ${colors.marine};
   font-weight: 600;
   font-size: 1.6rem;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  margin:11px 0;
-  transition: box-shadow 150ms linear, background-color 150ms linear,transform 150ms linear;
+  margin: 11px 0;
+  transition: box-shadow 150ms linear, background-color 150ms linear,
+    transform 150ms linear;
   &:hover {
     box-shadow: 6px 8px 15px 0px rgba(0, 0, 0, 0.2);
     transform: scale(0.98);
@@ -70,17 +71,11 @@ function useHover() {
 
 const RightSideLinkContainer = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-  const [details, setDetails] = useState(null);
+
   const [hoverRef, isHovered] = useHover();
   let history = useHistory();
-  useEffect(() => {
-    if (props.info) {
-      getRessourceById(props.info.ID, props.info.post_type)
-        .then((res) => setDetails(res))
-        .catch((error) => console.log(error));
-    }
-  }, [props.info]);
-  const url = "/" + props.info.post_type + "/" + props.info.post_name;
+
+  const url = "/" + props.info.link;
   return (
     <LinkContainer
       isMobile={isMobile}
@@ -88,28 +83,24 @@ const RightSideLinkContainer = (props) => {
       onClick={() =>
         history.push({
           pathname: url,
-          state: { id: props.info.ID },
+          state: { id: props.info.id },
         })
       }
     >
-      {props.info.post_title}
+      {props.info.title && props.info.title.rendered}
       <MdArrowForwardIos style={{ color: colors.rouge }} />
-      {isHovered &&
-        details &&
-        details.acf &&
-        details.acf.extrait &&
-        details.acf.extrait !== "" && (
-          <>
-            <BsFillTriangleFill
-              style={{ position: "absolute", right: "70px", top: "68px" }}
-            />
-            <ExtraitContainer
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(details.acf.extrait),
-              }}
-            ></ExtraitContainer>
-          </>
-        )}
+      {isHovered && props.info && props.info.excerpt && (
+        <>
+          <BsFillTriangleFill
+            style={{ position: "absolute", right: "70px", top: "68px" }}
+          />
+          <ExtraitContainer
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(props.info.excerpt),
+            }}
+          ></ExtraitContainer>
+        </>
+      )}
     </LinkContainer>
   );
 };
