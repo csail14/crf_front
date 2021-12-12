@@ -115,7 +115,7 @@ const SubHomeBloc = (props) => {
           {" "}
           <figure>
             <img
-              src={props.info.push.image ? props.info.push.image : null}
+              src={props.info.push.image.url ? props.info.push.image.url : null}
               alt="blocImage"
             />
           </figure>
