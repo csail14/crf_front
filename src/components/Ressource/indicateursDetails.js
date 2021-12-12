@@ -23,7 +23,7 @@ import {
   loadActionsFilter,
   resetAllFilter,
 } from "../../actions/filter/filterActions";
-import { addLike } from "../../utils/api/API";
+import { addLikeView } from "../../utils/api/API";
 
 require("moment/locale/fr.js");
 
@@ -245,6 +245,18 @@ const Indicateur = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (indicateur) {
+      addLikeView(
+        indicateur.type,
+        indicateur.id,
+        indicateur.acf.datas.likes,
+        indicateur.acf.datas.vues,
+        props.user.token
+      );
+    }
+  }, [indicateur]);
+
   const indicateurId = indicateur && indicateur.id;
   const slug = props.slug;
   const domaineAction =
@@ -292,12 +304,13 @@ const Indicateur = (props) => {
   };
   const addOneLike = () => {
     if (indicateur && props.user) {
-      addLike(
+      addLikeView(
         indicateur.type,
         indicateur.id,
         parseInt(indicateur.acf.datas.likes + 1),
+        indicateur.acf.datas.vues,
         props.user.token
-      ).then((res) => console.log("retour like", res));
+      );
     }
   };
   return (

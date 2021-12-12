@@ -15,7 +15,9 @@ const Dropdown = (props) => {
   }, [props.openID]);
 
   useEffect(() => {
-    setPathName(location.pathname);
+    if (location.pathname !== pathName) {
+      setPathName(location.pathname);
+    }
   }, [location]);
 
   const defineUrl = (long_url, type, slug) => {

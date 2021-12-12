@@ -12,7 +12,7 @@ import {
   getDocumentById,
   getRessourceBySlug,
 } from "../../utils/api/RessourcesApi";
-import { getMediaById, addLike } from "../../utils/api/API";
+import { getMediaById, addLikeView } from "../../utils/api/API";
 import moment from "moment";
 import { config } from "../../config";
 import DOMPurify from "dompurify";
@@ -288,6 +288,18 @@ const Document = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (document) {
+      addLikeView(
+        document.type,
+        document.id,
+        document.acf.datas.likes,
+        document.acf.datas.vues,
+        props.user.token
+      );
+    }
+  }, [document]);
+
   const domaineActionId =
     document && document.acf && document.acf.domaine_daction_principal.term_id;
 
@@ -335,20 +347,9 @@ const Document = (props) => {
       } else if (
         props.options &&
         props.options.options &&
-        props.options.options.acf &&
-        props.options.options.acf.image_par_defaut_ressources
+        props.options.options.image_par_defaut_ressources
       ) {
-        if (
-          props.options.options.acf.image_par_defaut_ressources.sizes.article
-        ) {
-          setMedia(
-            props.options.options.acf.image_par_defaut_ressources.sizes.article
-          );
-        } else {
-          setMedia(
-            props.options.options.acf.image_par_defaut_ressources.sizes.full
-          );
-        }
+        setMedia(props.options.options.image_par_defaut_ressources.url);
       }
     }
   }, [document, domaineAction, props.options]);
@@ -387,12 +388,13 @@ const Document = (props) => {
   };
   const addOneLike = () => {
     if (document && props.user) {
-      addLike(
+      addLikeView(
         document.type,
         document.id,
         parseInt(document.acf.datas.likes + 1),
+        document.acf.datas.vues,
         props.user.token
-      ).then((res) => console.log("retour like", res));
+      );
     }
   };
 

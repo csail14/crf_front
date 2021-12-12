@@ -89,7 +89,7 @@ const Indicateur = (props) => {
                 indicateur.acf.ressources_liees &&
                 indicateur.acf.ressources_liees.length &&
                 indicateur.acf.ressources_liees.map((item, index) => {
-                  if (("item", item.post_status === "publish"))
+                  if (("item", item.status === "publish"))
                     if (isMobile) {
                       return <ListResultComponent key={index} info={item} />;
                     } else {

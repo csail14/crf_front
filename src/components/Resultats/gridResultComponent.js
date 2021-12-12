@@ -215,33 +215,18 @@ const GridResultComponent = (props) => {
     if (componentMounted.current) {
       if (props.info && props.info.image) {
         setMedia(props.info.image);
-      } else if (
-        domaineAction &&
-        domaineAction.acf &&
-        domaineAction.acf.image_par_defaut
-      ) {
-        if (domaineAction.acf.image_par_defaut.sizes.grille) {
-          setMedia(domaineAction.acf.image_par_defaut.sizes.grille);
+      } else if (domaineAction && domaineAction.image_par_defaut) {
+        if (domaineAction.image_par_defaut.sizes.grille) {
+          setMedia(domaineAction.image_par_defaut.sizes.grille);
         } else {
-          setMedia(domaineAction.acf.image_par_defaut.sizes.full);
+          setMedia(domaineAction.image_par_defaut.sizes.full);
         }
       } else if (
         props.options &&
         props.options.options &&
-        props.options.options.acf &&
-        props.options.options.acf.image_par_defaut_ressources
+        props.options.options.image_par_defaut_ressources
       ) {
-        if (
-          props.options.options.acf.image_par_defaut_ressources.sizes.grille
-        ) {
-          setMedia(
-            props.options.options.acf.image_par_defaut_ressources.sizes.grille
-          );
-        } else {
-          setMedia(
-            props.options.options.acf.image_par_defaut_ressources.sizes.full
-          );
-        }
+        setMedia(props.options.options.image_par_defaut_ressources.url);
       }
       return () => {
         // This code runs when component is unmounted

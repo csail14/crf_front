@@ -106,6 +106,22 @@ const SubHome = (props) => {
     ? props.pages.templates.filter((template) => template.slug === props.id)[0]
     : null;
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+
+  const ressources_disponibles =
+    subHomeTemplate &&
+    subHomeTemplate.acf.ressources_disponibles &&
+    subHomeTemplate.acf.ressources_disponibles.ressources.filter(
+      (item) => item.status === "publish"
+    );
+
+  const dans_cette_rubrique =
+    subHomeTemplate &&
+    subHomeTemplate.acf &&
+    subHomeTemplate.acf.dans_cette_rubrique_2 &&
+    subHomeTemplate.acf.dans_cette_rubrique_2.ressources.filter(
+      (item) => item.status === "publish"
+    );
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -139,49 +155,40 @@ const SubHome = (props) => {
             }}
           ></Textcontainer>
         )}
-        {subHomeTemplate &&
-          subHomeTemplate.acf &&
-          subHomeTemplate.acf.dans_cette_rubrique_2 &&
-          subHomeTemplate.acf.dans_cette_rubrique_2.ressources.length > 0 && (
-            <LinkMainContainer>
-              <LinkTitleContainer>
-                {subHomeTemplate &&
-                subHomeTemplate.acf &&
-                subHomeTemplate.acf.dans_cette_rubrique_2
-                  ? subHomeTemplate.acf.dans_cette_rubrique_2.titre
-                  : "Dans cette rubrique"}
-              </LinkTitleContainer>
-
-              {subHomeTemplate.acf.dans_cette_rubrique_2.ressources.map(
-                (item, index) => {
-                  if (item.post_status === "publish")
-                    return <RightSideLinkContainer info={item} key={index} />;
-                }
-              )}
-            </LinkMainContainer>
-          )}
-      </BodyContainer>
-      {subHomeTemplate &&
-        subHomeTemplate.acf.ressources_disponibles &&
-        subHomeTemplate.acf.ressources_disponibles.ressources.length > 0 && (
-          <BottomContainer>
-            <BottomTitleContainer>
+        {dans_cette_rubrique.length > 0 && (
+          <LinkMainContainer>
+            <LinkTitleContainer>
               {subHomeTemplate &&
               subHomeTemplate.acf &&
-              subHomeTemplate.acf.ressources_disponibles
-                ? subHomeTemplate.acf.ressources_disponibles.titre
-                : "Les ressources disponibles"}
-            </BottomTitleContainer>
-            <AvailableRessourceContainer isMobile={isMobile}>
-              {subHomeTemplate.acf.ressources_disponibles.ressources.map(
-                (item, index) => {
-                  if (item.post_status === "publish")
-                    return <GridResultComponent key={index} info={item} />;
-                }
-              )}
-            </AvailableRessourceContainer>
-          </BottomContainer>
+              subHomeTemplate.acf.dans_cette_rubrique_2
+                ? subHomeTemplate.acf.dans_cette_rubrique_2.titre
+                : "Dans cette rubrique"}
+            </LinkTitleContainer>
+
+            {dans_cette_rubrique.map((item, index) => {
+              if (item.status === "publish")
+                return <RightSideLinkContainer info={item} key={index} />;
+            })}
+          </LinkMainContainer>
         )}
+      </BodyContainer>
+      {ressources_disponibles.length > 0 && (
+        <BottomContainer>
+          <BottomTitleContainer>
+            {subHomeTemplate &&
+            subHomeTemplate.acf &&
+            subHomeTemplate.acf.ressources_disponibles
+              ? subHomeTemplate.acf.ressources_disponibles.titre
+              : "Les ressources disponibles"}
+          </BottomTitleContainer>
+          <AvailableRessourceContainer isMobile={isMobile}>
+            {ressources_disponibles.map((item, index) => {
+              if (item.status === "publish")
+                return <GridResultComponent key={index} info={item} />;
+            })}
+          </AvailableRessourceContainer>
+        </BottomContainer>
+      )}
     </MainContainer>
   );
 };

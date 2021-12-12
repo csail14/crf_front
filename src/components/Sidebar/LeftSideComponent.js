@@ -12,11 +12,11 @@ import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
 import { config } from "../../config";
 
 const ImageContainer = styled.div`
-  margin:10px 0 0;
+  margin: 10px 0 0;
   padding: 23px 14% 0;
   cursor: pointer;
   transition: all 0.3s;
-  background:white;
+  background: white;
   &:hover {
     transform: scale(0.99);
   }
@@ -102,29 +102,27 @@ const LeftSideComponent = (props) => {
           <div>
             {props.options &&
               props.options.options &&
-              props.options.options.acf &&
-              props.options.options.acf.retour_intranet && (
+              props.options.options.retour_intranet && (
                 <BackIntranet
-                  href={props.options.options.acf.retour_intranet.url}
-                  target={props.options.options.acf.retour_intranet.target}
+                  href={props.options.options.retour_intranet.url}
+                  target={props.options.options.retour_intranet.target}
                 >
                   <i
                     className="bi bi-chevron-left"
                     style={{ marginRight: "13px" }}
                   />{" "}
-                  {props.options.options.acf.retour_intranet.title}
+                  {props.options.options.retour_intranet.title}
                 </BackIntranet>
               )}
             {!isMobile &&
               props.options &&
               props.options.options &&
-              props.options.options.acf &&
-              props.options.options.acf.logo && (
+              props.options.options.logo && (
                 <ImageContainer>
                   <Link to="/home">
                     <img
                       style={{ maxWidth: "188px" }}
-                      src={props.options.options.acf.logo.url}
+                      src={props.options.options.logo.url}
                       alt="logoBandeauCroixRouge"
                     />
                   </Link>
@@ -143,8 +141,7 @@ const LeftSideComponent = (props) => {
                   {" "}
                   {props.options &&
                     props.options.options &&
-                    props.options.options.acf &&
-                    props.options.options.acf.titre}
+                    props.options.options.titre}
                 </h1>{" "}
               </Link>
               {isMobile && (
@@ -182,8 +179,7 @@ const LeftSideComponent = (props) => {
             contact_info={
               props.options &&
               props.options.options &&
-              props.options.options.acf &&
-              props.options.options.acf.contact
+              props.options.options.contact
             }
           />
         </MainContainer>
@@ -195,11 +191,10 @@ const LeftSideComponent = (props) => {
         >
           {props.options &&
             props.options.options &&
-            props.options.options.acf &&
-            props.options.options.acf.retour_intranet && (
+            props.options.options.retour_intranet && (
               <BackIntranet
-                href={props.options.options.acf.retour_intranet.url}
-                target={props.options.options.acf.retour_intranet.target}
+                href={props.options.options.retour_intranet.url}
+                target={props.options.options.retour_intranet.target}
                 isMobile={isMobile}
               >
                 <i

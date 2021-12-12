@@ -9,7 +9,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
-import { getMediaById, addLike } from "../../utils/api/API";
+import { getMediaById, addLikeView } from "../../utils/api/API";
 import {
   getArticleById,
   getRessourceBySlug,
@@ -284,11 +284,31 @@ const Article = (props) => {
     }
   }, []);
 
+  useEffect(() => {
+    if (article) {
+      addLikeView(
+        "articles",
+        article.id,
+        article.acf.datas.likes,
+        article.acf.datas.vues,
+        props.user.token
+      );
+    }
+  }, [article]);
+
   const domaineActionId =
-    article && article.acf && article.acf.domaine_daction_principal.term_id;
+    article &&
+    article.acf &&
+    article.acf.domaine_daction_principal &&
+    article.acf.domaine_daction_principal.length > 0 &&
+    article.acf.domaine_daction_principal[0].term_id;
 
   const domaineImpactId =
-    article && article.acf && article.acf.domaine_dimpact_principal.term_id;
+    article &&
+    article.acf &&
+    article.acf.domaine_dimpact_principal &&
+    article.acf.domaine_dimpact_principal.length > 0 &&
+    article.acf.domaine_dimpact_principal[0].term_id;
 
   const domaineAction =
     props.taxonomie &&
@@ -331,20 +351,9 @@ const Article = (props) => {
       } else if (
         props.options &&
         props.options.options &&
-        props.options.options.acf &&
-        props.options.options.acf.image_par_defaut_ressources
+        props.options.options.image_par_defaut_ressources
       ) {
-        if (
-          props.options.options.acf.image_par_defaut_ressources.sizes.article
-        ) {
-          setMedia(
-            props.options.options.acf.image_par_defaut_ressources.sizes.article
-          );
-        } else {
-          setMedia(
-            props.options.options.acf.image_par_defaut_ressources.sizes.full
-          );
-        }
+        setMedia(props.options.options.image_par_defaut_ressources.url);
       }
     }
   }, [article, domaineAction, props.options]);
@@ -381,12 +390,13 @@ const Article = (props) => {
 
   const addOneLike = () => {
     if (article && props.user) {
-      addLike(
+      addLikeView(
         article.type,
         article.id,
         parseInt(article.acf.datas.likes + 1),
+        article.acf.datas.vues,
         props.user.token
-      ).then((res) => console.log("retour like", res));
+      );
     }
   };
 
@@ -541,12 +551,11 @@ const Article = (props) => {
                 article.acf &&
                 article.acf.ressources_secondaires.length > 0 &&
                 article.acf.ressources_secondaires.map((item, index) => {
-                  if (item.post_status === "publish")
-                    if (isMobile) {
-                      return <ListResultComponent key={index} info={item} />;
-                    } else {
-                      return <GridResultComponent key={index} info={item} />;
-                    }
+                  if (isMobile) {
+                    return <ListResultComponent key={index} info={item} />;
+                  } else {
+                    return <GridResultComponent key={index} info={item} />;
+                  }
                 })}
             </AvailableRessourceContainer>
           </BottomContainer>

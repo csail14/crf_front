@@ -62,7 +62,7 @@ function App(props) {
     history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
   };
   getFaviconEl();
-  console.log(getFaviconEl());
+
   return (
     <div className="App">
       <MainContainer isMobile={isMobile}>
