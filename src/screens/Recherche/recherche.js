@@ -11,6 +11,7 @@ import ListResultComponent from "../../components/Resultats/listResultComponent"
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 import { useHistory } from "react-router-dom";
 import header from "../../assets/header.jpeg";
+
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
