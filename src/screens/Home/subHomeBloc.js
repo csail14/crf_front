@@ -137,13 +137,13 @@ const SubHomeBloc = (props) => {
                   onClick={() => {
                     !props.isSearchOpen
                       ? history.push({
-                          pathname: "/" + item.link,
+                          pathname: "/" + item.post_type+"/"+item.post_name,
                           state: { id: item.id },
                         })
                       : console.log();
                   }}
                 >
-                  {item.title && item.title.rendered}
+                  {item.post_title}
                   <MdArrowForwardIos style={{ color: colors.rouge }} />
                 </LinkContainer>
               );

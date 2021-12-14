@@ -109,16 +109,16 @@ const SubHome = (props) => {
 
   const ressources_disponibles =
     subHomeTemplate &&
-    subHomeTemplate.acf.ressources_disponibles &&
-    subHomeTemplate.acf.ressources_disponibles.ressources.filter(
+    subHomeTemplate.acf.ressources_dispos &&
+    subHomeTemplate.acf.ressources_dispos.filter(
       (item) => item.status === "publish"
     );
 
   const dans_cette_rubrique =
     subHomeTemplate &&
     subHomeTemplate.acf &&
-    subHomeTemplate.acf.dans_cette_rubrique_2 &&
-    subHomeTemplate.acf.dans_cette_rubrique_2.ressources.filter(
+    subHomeTemplate.acf.ressources_rubrique &&
+    subHomeTemplate.acf.ressources_rubrique.filter(
       (item) => item.status === "publish"
     );
 
@@ -160,8 +160,8 @@ const SubHome = (props) => {
             <LinkTitleContainer>
               {subHomeTemplate &&
               subHomeTemplate.acf &&
-              subHomeTemplate.acf.dans_cette_rubrique_2
-                ? subHomeTemplate.acf.dans_cette_rubrique_2.titre
+              subHomeTemplate.acf.titre_rubrique
+                ? subHomeTemplate.acf.titre_rubrique
                 : "Dans cette rubrique"}
             </LinkTitleContainer>
 
@@ -177,8 +177,8 @@ const SubHome = (props) => {
           <BottomTitleContainer>
             {subHomeTemplate &&
             subHomeTemplate.acf &&
-            subHomeTemplate.acf.ressources_disponibles
-              ? subHomeTemplate.acf.ressources_disponibles.titre
+            subHomeTemplate.acf.titre_dispos
+              ? subHomeTemplate.acf.titre_dispos
               : "Les ressources disponibles"}
           </BottomTitleContainer>
           <AvailableRessourceContainer isMobile={isMobile}>
