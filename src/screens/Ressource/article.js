@@ -297,18 +297,10 @@ const Article = (props) => {
   }, [article]);
 
   const domaineActionId =
-    article &&
-    article.acf &&
-    article.acf.domaine_daction_principal &&
-    article.acf.domaine_daction_principal.length > 0 &&
-    article.acf.domaine_daction_principal[0].term_id;
+    article && article.acf && article.acf.domaine_daction_principal.term_id;
 
   const domaineImpactId =
-    article &&
-    article.acf &&
-    article.acf.domaine_dimpact_principal &&
-    article.acf.domaine_dimpact_principal.length > 0 &&
-    article.acf.domaine_dimpact_principal[0].term_id;
+    article && article.acf && article.acf.domaine_dimpact_principal.term_id;
 
   const domaineAction =
     props.taxonomie &&
@@ -321,6 +313,7 @@ const Article = (props) => {
     props.taxonomie.domainesImpacts.filter(
       (item) => item.id === domaineImpactId
     )[0];
+
 
   useEffect(() => {
     if (article) {
