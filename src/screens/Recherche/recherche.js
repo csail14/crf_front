@@ -131,6 +131,7 @@ const Recherche = (props) => {
   const [viewTrie, setViewTrie] = useState(false);
   const [updateTrie, setUpdateTrie] = useState(true);
   const [pertinenceTrie, setPertinenceTrie] = useState(false);
+  const [query, setQuery] = useState("");
   const [resultToDisplay, setResultToDisplay] = useState(
     props.ressources.results
   );
@@ -151,10 +152,19 @@ const Recherche = (props) => {
 
   const addQueryUrl = () => {
     let string = "?s=" + props.filters.keywords;
-    if (string !== window.location.search && props.filters.keywords !== "") {
+    console.log(string);
+    console.log(window.location.search);
+    console.log(query);
+    if (
+      string !== window.location.search &&
+      query !== window.location.search &&
+      props.filters.keywords !== ""
+    ) {
+      setQuery(window.location.search);
       history.push({
         search: "?s=" + props.filters.keywords,
       });
+    } else {
     }
   };
 
@@ -329,7 +339,7 @@ const Recherche = (props) => {
               return isViewGrid ? (
                 <GridResultComponent key={index} info={item} />
               ) : (
-                <ListResultComponent key={index} info={info} />
+                <ListResultComponent key={index} info={item} />
               );
             }
           })}

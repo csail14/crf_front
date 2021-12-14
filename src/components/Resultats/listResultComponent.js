@@ -221,85 +221,42 @@ const CategoryContainer = styled.div`
 `;
 
 const GridResultComponent = (props) => {
-  const [details, setDetails] = useState(null);
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-  const [nbComments, setNbComments] = useState(0);
+
   let history = useHistory();
-  const componentMounted = useRef(true);
-  useEffect(() => {
-    if (componentMounted.current) {
-      if (props.info) {
-        getRessourceById(props.info.ID, props.info.post_type)
-          .then((res) => setDetails(res))
-          .catch((error) => console.log(error));
-        getCommentaireByPost(props.info.ID)
-          .then((res) => setNbComments(res.length))
-          .catch((error) => console.log(error));
-      }
-    }
-    return () => {
-      // This code runs when component is unmounted
-      componentMounted.current = false; // (4) set it to false when we leave the page
-    };
-  }, [props.info]);
 
   const domaineAction =
-    details && details.acf && details.acf.domaine_daction_principal
+    props.info && props.info.domaine_action
       ? props.taxonomie.domainesActions.filter(
-          (item) => item.id === details.acf.domaine_daction_principal.term_id
+          (item) => item.id === props.info.domaine_action.term_id
         )[0]
       : null;
   const domaineImpact =
-    details && details.acf && details.acf.domaine_dimpact_principal
+    props.info && props.info.domaine_impact
       ? props.taxonomie
         ? props.taxonomie.domainesImpacts.filter(
-            (item) => item.id === details.acf.domaine_dimpact_principal.term_id
+            (item) => item.id === props.info.domaine_impact.term_id
           )[0]
         : null
       : null;
 
-  let tags = details && details.post_tag;
-
-  if (tags && props.taxonomie && props.taxonomie.tags.length) {
-    tags = tags.map((item) => {
-      return props.taxonomie.tags.filter((el) => el.id === item)[0];
-    });
-  }
-  const type = details && details.type;
+  const type = props.info && props.info.type;
   const icon =
     type === "articles"
       ? "bi bi-folder"
       : type === "indicateurs"
       ? "bi bi-file-earmark-bar-graph"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Lien"
+      : props.info && props.info.format === "Lien"
       ? "bi bi-link-45deg"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Web"
+      : props.info && props.info.format === "Web"
       ? "bi bi-file-code"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Texte"
+      : props.info && props.info.format === "Texte"
       ? "bi bi-file-earmark-font"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Tableau"
+      : props.info && props.info.format === "Tableau"
       ? "bi bi-file-earmark-excel"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Image"
+      : props.info && props.info.format === "Image"
       ? "bi bi-file-earmark-image"
-      : details &&
-        details.acf &&
-        details.acf.document &&
-        details.acf.document.format === "Vidéo"
+      : props.info && props.info.format === "Vidéo"
       ? "bi bi-file-earmark-play"
       : "";
 
@@ -321,16 +278,9 @@ const GridResultComponent = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-
+  console.log(props.info);
   return (
-    <MainContainer
-      onClick={() => {
-        history.push({
-          pathname: "/" + details.type + "/" + details.slug,
-          state: { id: details.id },
-        });
-      }}
-    >
+    <MainContainer>
       <FirstPartContainer isMobile={isMobile}>
         <IconContainer type={type}>
           <i className={icon}></i>
@@ -355,41 +305,40 @@ const GridResultComponent = (props) => {
               </CategoryContainer>{" "}
             </>
           )}
-          {details && details.title && (
+          {props.info && props.info.title && (
             <TitleContainer
+              onClick={() => {
+                history.push({
+                  pathname: props.info.link ? "/" + props.info.link : "",
+                  state: { id: props.info.link.id },
+                });
+              }}
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(details.title.rendered),
+                __html: DOMPurify.sanitize(props.info.title.rendered),
               }}
             ></TitleContainer>
           )}
-          {details && details.acf && !isMobile && (
+          {props.info && props.info.excerpt && !isMobile && (
             <DescriptionContainer
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
-                  details.acf.extrait.length > 150
-                    ? details.acf.extrait.substr(0, 150)
-                    : details.acf.extrait
+                  props.info.excerpt.length > 150
+                    ? props.info.excerpt.substr(0, 150)
+                    : props.info.excerpt
                 ),
               }}
             ></DescriptionContainer>
           )}{" "}
-          {details &&
-            details.acf &&
-            details.acf.document &&
-            (details.acf.document.format === "Texte" ||
-              details.acf.document.format === "Tableau") && (
-              <UploadContainer
-                href={details.acf.document.fichier_joint}
-                target="_blank"
-              >
+          {props.info &&
+            props.info.download &&
+            (props.info.format === "Texte" ||
+              props.info.format === "Tableau") && (
+              <UploadContainer href={props.info.download.url} target="_blank">
                 <BsDownload style={{ marginRight: "8px" }} />
                 TÉLÉCHARGER
-                {details.acf.document.fichier_joint.filesize && (
+                {props.info.download.filesize && (
                   <div style={{ color: "grey", marginLeft: "5px" }}>
-                    {"(" +
-                      (
-                        details.acf.document.fichier_joint.filesize / 10000
-                      ).toFixed(1)}{" "}
+                    {"(" + (props.info.download.filesize / 10000).toFixed(1)}{" "}
                     Mo)
                   </div>
                 )}
@@ -402,7 +351,8 @@ const GridResultComponent = (props) => {
       ) : (
         <>
           <LastUpdateContainer>
-            {details && moment(details.modified).format("DD/MM/YYYY")}
+            {props.info &&
+              moment(props.info.date_modified).format("DD/MM/YYYY")}
           </LastUpdateContainer>
 
           {domaineAction && (
@@ -415,10 +365,10 @@ const GridResultComponent = (props) => {
             <Domaine onClick={handleClickImpact}>{domaineImpact.name}</Domaine>
           )}
 
-          {tags && tags.length > 0 && (
+          {props.info && props.info.tags && props.info.tags.length > 0 && (
             <TagContainer>
-              {tags.map((item, index) => {
-                let comma = index < tags.length - 1 ? ", " : "";
+              {props.info.tags.map((item, index) => {
+                let comma = index < props.info.tags.length - 1 ? ", " : "";
                 return (
                   <div key={index}>
                     {" "}
@@ -440,9 +390,9 @@ const GridResultComponent = (props) => {
           <PostInfoContainer>
             <Comment>
               <BiComment size={18} style={{ marginRight: "7px" }} />
-              {nbComments}
+              {props.info && props.info.nb_com}
             </Comment>
-            {details && details.acf && details.acf.datas && (
+            {props.info && props.info.datas && (
               <div style={{ display: "flex" }}>
                 <OtherTypePicto>
                   <AiOutlineLike
@@ -453,7 +403,7 @@ const GridResultComponent = (props) => {
                       marginLeft: "7px",
                     }}
                   />
-                  {details.acf.datas.likes}
+                  {props.info.datas.likes}
                 </OtherTypePicto>
                 <OtherTypePicto>
                   <AiOutlineEye
@@ -464,7 +414,7 @@ const GridResultComponent = (props) => {
                       marginLeft: "10px",
                     }}
                   />
-                  {details.acf.datas.vues}
+                  {props.info.datas.vues}
                 </OtherTypePicto>
               </div>
             )}

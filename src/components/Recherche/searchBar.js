@@ -230,7 +230,6 @@ const SearchBar = (props) => {
     let mounted = true;
     if (mounted) {
       document.addEventListener("scroll", handleScroll);
-
       window.addEventListener("keyup", handleSearch);
       let query = computeQuery(
         keywords,
