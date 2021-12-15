@@ -379,6 +379,9 @@ const SearchBar = (props) => {
   };
 
   const sendSearchRequest = () => {
+    if (props.setTrie) {
+      props.setTrie(null);
+    }
     setIsSelectedFitler();
     let query = computeQuery(
       props.filters.keywords,

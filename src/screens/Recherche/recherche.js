@@ -11,6 +11,7 @@ import ListResultComponent from "../../components/Resultats/listResultComponent"
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 import { useHistory } from "react-router-dom";
 import header from "../../assets/header.jpeg";
+
 const MainContainer = styled.div`
   min-height: 100vh;
 `;
@@ -128,13 +129,13 @@ const NoRequestContainer = styled.div`
 const Recherche = (props) => {
   const [isFilterSeledted, setIsFilterSelected] = useState(false);
   const [isViewGrid, setIsViewGrid] = useState(true);
-  const [viewTrie, setViewTrie] = useState(false);
-  const [updateTrie, setUpdateTrie] = useState(true);
-  const [pertinenceTrie, setPertinenceTrie] = useState(false);
+
   const [query, setQuery] = useState("");
   const [resultToDisplay, setResultToDisplay] = useState(
     props.ressources.results
   );
+  const [trie, setTrie] = useState(null);
+  const [trieDirection, setTrieDirection] = useState(false);
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   useEffect(() => {
@@ -142,8 +143,17 @@ const Recherche = (props) => {
   }, [props.ressources.results]);
 
   useEffect(() => {
-    addQueryUrl();
+    if (window.location.search === "") {
+      addQueryUrl();
+    }
   }, []);
+
+  useEffect(() => {
+    if (trie !== null) {
+      trieResult(resultToDisplay);
+      trieResult(resultToDisplay);
+    }
+  }, [trie, trieDirection]);
 
   const slug = props.slug || "recherche";
   const template = props.pages.templates.length
@@ -152,14 +162,7 @@ const Recherche = (props) => {
 
   const addQueryUrl = () => {
     let string = "?s=" + props.filters.keywords;
-    console.log(string);
-    console.log(window.location.search);
-    console.log(query);
-    if (
-      string !== window.location.search &&
-      query !== window.location.search &&
-      props.filters.keywords !== ""
-    ) {
+    if (string !== window.location.search && props.filters.keywords !== "") {
       setQuery(window.location.search);
       history.push({
         search: "?s=" + props.filters.keywords,
@@ -176,56 +179,55 @@ const Recherche = (props) => {
     setIsSearchOpen(isOpen);
   };
 
-  const toggleViewTrie = () => {
-    setViewTrie(!viewTrie);
-    trieViewResult(resultToDisplay);
+  const activeTrie = (trie) => {
+    setTrie(trie);
+    setTrieDirection(!trieDirection);
   };
 
-  const toggleUpdateTrie = () => {
-    setUpdateTrie(!updateTrie);
-    trieDateResult(resultToDisplay);
+  const trieResult = (resultArray) => {
+    switch (trie) {
+      case "vues":
+        if (trieDirection) {
+          resultArray.sort(function (a, b) {
+            return a.datas.vues - b.datas.vues;
+          });
+        } else {
+          resultArray.sort(function (a, b) {
+            return b.datas.vues - a.datas.vues;
+          });
+        }
+
+        break;
+      case "date":
+        if (trieDirection) {
+          resultArray.sort((a, b) =>
+            new Date(a.date_modified) - new Date(b.date_modified) > 0 ? 1 : -1
+          );
+        } else {
+          resultArray.sort((a, b) =>
+            new Date(a.date_modified) - new Date(b.date_modified) > 0 ? -1 : 1
+          );
+        }
+        break;
+      case "pertinence":
+        if (trieDirection) {
+          resultArray.sort(function (a, b) {
+            return a.relevance - b.relevance;
+          });
+        } else {
+          resultArray.sort(function (a, b) {
+            return b.relevance - a.relevance;
+          });
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setResultToDisplay(resultArray);
   };
-  const togglepertinenceTrie = () => {
-    setPertinenceTrie(!pertinenceTrie);
-    triePertinenceResult(resultToDisplay);
-  };
-  const trieViewResult = (resultArray) => {
-    let newArray = [];
-    resultArray.forEach((item) => newArray.push(item));
-    if (viewTrie) {
-      newArray.sort((a, b) => (a.datas.vues - b.datas.vues > 0 ? 1 : -1));
-    }
-    if (!viewTrie) {
-      newArray.sort((a, b) => (b.datas.vues - a.datas.vues < 0 ? -1 : 1));
-    }
-    setResultToDisplay(newArray);
-  };
-  const triePertinenceResult = (resultArray) => {
-    let newArray = [];
-    resultArray.forEach((item) => newArray.push(item));
-    if (pertinenceTrie) {
-      newArray.sort((a, b) => (a.relevance - b.relevance > 0 ? 1 : -1));
-    }
-    if (!pertinenceTrie) {
-      newArray.sort((a, b) => (b.relevance - a.relevance > 0 ? -1 : 1));
-    }
-    setResultToDisplay(newArray);
-  };
-  const trieDateResult = (resultArray) => {
-    let newArray = [];
-    resultArray.forEach((item) => newArray.push(item));
-    if (updateTrie) {
-      newArray.sort((a, b) =>
-        new Date(a.date_modified) - new Date(b.date_modified) > 0 ? 1 : -1
-      );
-    }
-    if (!updateTrie) {
-      newArray.sort((a, b) =>
-        new Date(a.date_modified) - new Date(b.date_modified) > 0 ? -1 : 1
-      );
-    }
-    setResultToDisplay(newArray);
-  };
+
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -259,6 +261,7 @@ const Recherche = (props) => {
           setIsFilterSelected={setIsFilterSelected}
           setIsSearchOpen={toggleIsSearchOpen}
           addQueryUrl={addQueryUrl}
+          setTrie={setTrie}
         />
       </HeaderContainer>
       <MiddleContainer>
@@ -300,25 +303,28 @@ const Recherche = (props) => {
         </ButtonViewContainer>
       </MiddleContainer>
       <TriesContainer isMobile={isMobile}>
-        <Tries onClick={toggleViewTrie} isTrue={viewTrie}>
+        <Tries onClick={() => activeTrie("vues")} isTrue={trie === "vues"}>
           nombre de vues{" "}
-          {viewTrie ? (
+          {trieDirection && trie === "vues" ? (
             <i className="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
           ) : (
             <i className="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
           )}
         </Tries>
-        <Tries onClick={toggleUpdateTrie} isTrue={updateTrie}>
+        <Tries onClick={() => activeTrie("date")} isTrue={trie === "date"}>
           dernière mise à jour{" "}
-          {updateTrie ? (
+          {trieDirection && trie === "date" ? (
             <i className="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
           ) : (
             <i className="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>
           )}
         </Tries>
-        <Tries onClick={togglepertinenceTrie} isTrue={pertinenceTrie}>
+        <Tries
+          onClick={() => activeTrie("pertinence")}
+          isTrue={trie === "pertinence"}
+        >
           pertinence{" "}
-          {pertinenceTrie ? (
+          {trieDirection && trie === "pertinence" ? (
             <i className="bi bi-arrow-up" style={{ marginLeft: "5px" }}></i>
           ) : (
             <i className="bi bi-arrow-down" style={{ marginLeft: "5px" }}></i>

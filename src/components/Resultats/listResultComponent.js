@@ -278,7 +278,7 @@ const GridResultComponent = (props) => {
     props.loadKeywordsFilter(item);
     history.push("/recherche");
   };
-  console.log(props.info);
+
   return (
     <MainContainer>
       <FirstPartContainer isMobile={isMobile}>
