@@ -214,9 +214,13 @@ const Recherche = (props) => {
         break;
       case "pertinence":
         if (trieDirection) {
-          resultArray.sort((a, b) => (a.relevance - b.relevance > 0 ? 1 : -1));
+          resultArray.sort(function (a, b) {
+            return a.relevance - b.relevance;
+          });
         } else {
-          resultArray.sort((a, b) => (b.relevance - a.relevance > 0 ? -1 : 1));
+          resultArray.sort(function (a, b) {
+            return b.relevance - a.relevance;
+          });
         }
         break;
 
