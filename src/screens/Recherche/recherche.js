@@ -143,7 +143,9 @@ const Recherche = (props) => {
   }, [props.ressources.results]);
 
   useEffect(() => {
-    addQueryUrl();
+    if (window.location.search === "") {
+      addQueryUrl();
+    }
   }, []);
 
   useEffect(() => {
@@ -160,12 +162,7 @@ const Recherche = (props) => {
 
   const addQueryUrl = () => {
     let string = "?s=" + props.filters.keywords;
-
-    if (
-      string !== window.location.search &&
-      query !== window.location.search &&
-      props.filters.keywords !== ""
-    ) {
+    if (string !== window.location.search && props.filters.keywords !== "") {
       setQuery(window.location.search);
       history.push({
         search: "?s=" + props.filters.keywords,
