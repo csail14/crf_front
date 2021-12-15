@@ -76,6 +76,7 @@ const RightSideLinkContainer = (props) => {
   let history = useHistory();
 
   const url = "/" + props.info.link;
+  console.log(props.info.link);
   return (
     <LinkContainer
       isMobile={isMobile}

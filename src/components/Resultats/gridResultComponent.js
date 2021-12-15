@@ -212,27 +212,25 @@ const GridResultComponent = (props) => {
       : null;
 
   useEffect(() => {
-    if (componentMounted.current) {
-      if (props.info && props.info.image) {
-        setMedia(props.info.image);
-      } else if (domaineAction && domaineAction.image_par_defaut) {
-        if (domaineAction.image_par_defaut.sizes.grille) {
-          setMedia(domaineAction.image_par_defaut.sizes.grille);
-        } else {
-          setMedia(domaineAction.image_par_defaut.sizes.full);
-        }
-      } else if (
-        props.options &&
-        props.options.options &&
-        props.options.options.image_par_defaut_ressources
-      ) {
-        setMedia(props.options.options.image_par_defaut_ressources.url);
+    if (props.info && props.info.image) {
+      setMedia(props.info.image);
+    } else if (domaineAction && domaineAction.image_par_defaut) {
+      if (domaineAction.image_par_defaut.sizes.grille) {
+        setMedia(domaineAction.image_par_defaut.sizes.grille);
+      } else {
+        setMedia(domaineAction.image_par_defaut.sizes.full);
       }
-      return () => {
-        // This code runs when component is unmounted
-        componentMounted.current = false; // (4) set it to false when we leave the page
-      };
+    } else if (
+      props.options &&
+      props.options.options &&
+      props.options.options.image_par_defaut_ressources
+    ) {
+      setMedia(props.options.options.image_par_defaut_ressources.url);
     }
+    return () => {
+      // This code runs when component is unmounted
+      componentMounted.current = false; // (4) set it to false when we leave the page
+    };
   }, [props.info, domaineAction, props.options]);
 
   const type = props.info && props.info.type;
