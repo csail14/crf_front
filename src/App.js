@@ -75,7 +75,7 @@ function App(props) {
               oktaAuth={oktaAuth}
               restoreOriginalUri={restoreOriginalUri}
             >
-              {/* <SecureRoute exact path="/" component={HOC(Home)} />
+              <SecureRoute exact path="/" component={HOC(Home)} />
               <SecureRoute exact path="/home" component={HOC(Home)} />
               <SecureRoute
                 exact
@@ -97,8 +97,8 @@ function App(props) {
                 path="/documents/:id"
                 component={HOC(Document)}
               />
-              <SecureRoute exact path="/:id" component={HOC(OtherPage)} /> */}
-              <Route exact path="/" component={HOC(Home)} />
+              <SecureRoute exact path="/:id" component={HOC(OtherPage)} />
+              {/* <Route exact path="/" component={HOC(Home)} />
               <Route exact path="/home" component={HOC(Home)} />
               <Route
                 exact
@@ -112,7 +112,7 @@ function App(props) {
               />
               <Route exact path="/articles/:id" component={HOC(Article)} />
               <Route exact path="/documents/:id" component={HOC(Document)} />
-              <Route exact path="/:id" component={HOC(OtherPage)} />
+              <Route exact path="/:id" component={HOC(OtherPage)} /> */}
             </Security>
           </Switch>
           <Footer />
