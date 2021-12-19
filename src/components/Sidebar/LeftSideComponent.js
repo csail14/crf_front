@@ -64,8 +64,9 @@ const LeftSideComponent = (props) => {
 
   useEffect(() => {
     console.log("oktaAuth", oktaAuth);
-    console.log("isAuthenticated", authState.isAuthenticated);
+
     if (authState && authState.isAuthenticated) {
+      console.log("isAuthenticated", authState.isAuthenticated);
       oktaAuth.getUserInfo().then((info) => {
         setUserInfo(info);
         console.log("promise info", info);

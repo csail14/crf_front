@@ -94,7 +94,7 @@ function App(props) {
                 path="/documents/:id"
                 component={HOC(Document)}
               />
-              <Route path="/login/callback" component={LoginCallback} />
+              {/* <Route path="/login/callback" component={LoginCallback} /> */}
               <SecureRoute exact path="/:id" component={HOC(OtherPage)} />
               {/* <Route exact path="/" component={HOC(Home)} />
               <Route exact path="/home" component={HOC(Home)} />
