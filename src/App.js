@@ -62,12 +62,14 @@ function App(props) {
   }, [location]);
 
   useEffect(() => {
+    console.log("oktaAuth", oktaAuth);
     if (oktaAuth) {
-      oktaAuth.tokenManager.get((res) => {
-        console.log("token", res);
-        oktaAuth.getUser(res).then((info) => {
-          setUserInfo(info);
-        });
+      console.log("useEffet okta");
+      const token = oktaAuth.tokenManager;
+      console.log("okta toen", oktaAuth.tokenManager);
+      console.log("token", token);
+      oktaAuth.getUser(token).then((info) => {
+        setUserInfo(info);
       });
     }
   }, [oktaAuth]);
