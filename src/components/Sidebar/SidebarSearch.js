@@ -22,6 +22,7 @@ const SidebarSearch = (props) => {
             type="text"
             placeholder={"Rechercher"}
             onChange={handleChange}
+            value={props.keywords}
           />
         </div>
         <Link

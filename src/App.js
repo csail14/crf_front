@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./screens/Home/home";
 import Footer from "./components/footer";
@@ -14,6 +14,7 @@ import { useLocation } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { config } from "./config";
 import { SecureRoute, Security, LoginCallback } from "@okta/okta-react";
+import { useOktaAuth } from "@okta/okta-react";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import { useHistory } from "react-router-dom";
 
@@ -24,6 +25,8 @@ const MainContainer = styled.div`
 const BodyContainer = styled.div`
   width: ${(props) => (props.isMobile ? "calc(100%)" : "calc(100% - 266px)")};
 `;
+
+const logout = async () => oktaAuth.signOut("/");
 
 const oktaAuth = new OktaAuth({
   issuer: "https://rec-connect.croix-rouge.fr/oauth2/default",
@@ -53,6 +56,19 @@ function App(props) {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const location = useLocation();
   let history = useHistory();
+  const { authState, oktaAuth } = useOktaAuth();
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    if (!authState.isAuthenticated) {
+      // When user isn't authenticated, forget any user info
+      setUserInfo(null);
+    } else {
+      oktaAuth.getUserInfo().then((info) => {
+        setUserInfo(info);
+      });
+    }
+  }, [authState, oktaAuth]); // Update if authState changes
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -62,18 +78,19 @@ function App(props) {
     history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
   };
   getFaviconEl();
+  console.log("user info", userInfo);
 
   return (
     <div className="App">
       <MainContainer isMobile={isMobile}>
-        <LeftSideComponent className="sidebar" />
+        <LeftSideComponent className="sidebar" logout={logout} />
         <BodyContainer isMobile={isMobile}>
           <Switch>
             <Security
               oktaAuth={oktaAuth}
               restoreOriginalUri={restoreOriginalUri}
             >
-              <SecureRoute exact path="/" component={HOC(Home)} />
+              {/* <SecureRoute exact path="/" component={HOC(Home)} />
               <SecureRoute exact path="/home" component={HOC(Home)} />
               <SecureRoute
                 exact
@@ -87,7 +104,22 @@ function App(props) {
               />
               <SecureRoute exact path="/articles/:id" component={HOC(Article)} />
               <SecureRoute exact path="/documents/:id" component={HOC(Document)} />
-              <SecureRoute exact path="/:id" component={HOC(OtherPage)} />
+              <SecureRoute exact path="/:id" component={HOC(OtherPage)} /> */}
+              <Route exact path="/" component={HOC(Home)} />
+              <Route exact path="/home" component={HOC(Home)} />
+              <Route
+                exact
+                path="/indicateurs/:id"
+                component={HOC(Indicateur)}
+              />
+              <Route
+                exact
+                path="/domaine-impact/:id"
+                component={HOC(Indicateur)}
+              />
+              <Route exact path="/articles/:id" component={HOC(Article)} />
+              <Route exact path="/documents/:id" component={HOC(Document)} />
+              <Route exact path="/:id" component={HOC(OtherPage)} />
             </Security>
           </Switch>
           <Footer />
