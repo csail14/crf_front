@@ -9,6 +9,8 @@ import Dropdown from "./Dropdown";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import logoMobile from "../../assets/logo-mobile.png";
 import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
+import { useOktaAuth } from "@okta/okta-react";
+
 import { config } from "../../config";
 
 const ImageContainer = styled.div`
@@ -52,11 +54,29 @@ const LeftSideComponent = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [openID, setOpenId] = useState(null);
   const [sidebarPages, setSidebarPages] = useState(props.sidebarPages);
+  const { authState, oktaAuth } = useOktaAuth() || {
+    authState: null,
+    oktaAuth: null,
+  };
+  const [userInfo, setUserInfo] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
 
   useEffect(() => {
     setSidebarPages(props.sidebarPages);
   }, [props.sidebarPages]);
+
+  useEffect(() => {
+    if (authState) {
+      if (!authState.isAuthenticated) {
+        // When user isn't authenticated, forget any user info
+        setUserInfo(null);
+      } else {
+        oktaAuth.getUserInfo().then((info) => {
+          setUserInfo(info);
+        });
+      }
+    }
+  }, [authState, oktaAuth]); // Update if authState changes
 
   const closeMenu = () => {
     setShowMenu(false);
@@ -91,6 +111,8 @@ const LeftSideComponent = (props) => {
       return [];
     }
   };
+  console.log("authState", authState);
+  console.log("userInfo", userInfo);
   return (
     <>
       {(isMobile && showMenu) || !isMobile ? (
