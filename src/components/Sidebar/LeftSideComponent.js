@@ -182,6 +182,7 @@ const LeftSideComponent = (props) => {
               props.options.options &&
               props.options.options.contact
             }
+            logout={props.logout}
           />
         </MainContainer>
       ) : (
