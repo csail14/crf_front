@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { BsDot, BsDownload } from "react-icons/bs";
@@ -224,8 +224,34 @@ const TitleBodyContainer = styled.h3`
   text-transform: uppercase;
   margin: 20px 0 12px;
 `;
+
+function useHover() {
+  const [value, setValue] = useState(false);
+  const ref = useRef(null);
+  const handleMouseOver = () => setValue(true);
+  const handleMouseOut = () => setValue(false);
+
+  useEffect(
+    () => {
+      const node = ref.current;
+      if (node) {
+        node.addEventListener("mouseover", handleMouseOver);
+        node.addEventListener("mouseout", handleMouseOut);
+        return () => {
+          node.removeEventListener("mouseover", handleMouseOver);
+          node.removeEventListener("mouseout", handleMouseOut);
+        };
+      }
+    },
+    [ref.current] // Recall only if ref changes
+  );
+  return [ref, value];
+}
+
 const Indicateur = (props) => {
   const [indicateur, setIndicateur] = useState(null);
+  const [isLiked, setIsLiked] = useState(false);
+  const [hoverRef, isHovered] = useHover();
   let history = useHistory();
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
@@ -307,10 +333,10 @@ const Indicateur = (props) => {
       addLikeView(
         indicateur.type,
         indicateur.id,
-        parseInt(indicateur.acf.datas.likes + 1),
+        parseInt(indicateur.acf.datas.likes) + 1,
         indicateur.acf.datas.vues,
         props.user.token
-      );
+      ).then(() => setIsLiked(true));
     }
   };
   return (
@@ -465,14 +491,24 @@ const Indicateur = (props) => {
             )}
           <AddLikeContainer>
             Cette ressource vous a inspiré ?{" "}
-            <AiOutlineLike
-              onClick={addOneLike}
-              id="like"
-              size={18}
-              color={colors.gris}
-              style={{ marginRight: "7px", marginLeft: "7px" }}
-              cursor={"pointer"}
-            />
+            <div
+              ref={hoverRef}
+              style={{
+                backgroundColor: isLiked ? "#fdd2d2" : "",
+                padding: "10px 5px",
+                borderRadius: "50%",
+                marginLeft: "5px",
+              }}
+            >
+              <AiOutlineLike
+                onClick={addOneLike}
+                id="like"
+                size={18}
+                color={isHovered || isLiked ? colors.rouge : colors.gris}
+                style={{ marginRight: "7px", marginLeft: "7px" }}
+                cursor={"pointer"}
+              />
+            </div>
           </AddLikeContainer>
           <div id="comments"></div>
           <Comments postID={indicateurId} showCommment={showCommment} />
