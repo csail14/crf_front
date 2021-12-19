@@ -154,6 +154,7 @@ const LeftSideComponent = (props) => {
             <SidebarSearch
               loadKeywordsFilter={props.loadKeywordsFilter}
               setShowMenu={setShowMenu}
+              keywords={props.filters.keywords}
             />
             <nav className={"dropdown_container"}>
               {getTitle().map((item) => {
