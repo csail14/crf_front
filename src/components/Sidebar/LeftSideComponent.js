@@ -64,14 +64,11 @@ const LeftSideComponent = (props) => {
 
   useEffect(() => {
     console.log("oktaAuth", oktaAuth);
-
-    if (authState && authState.isAuthenticated) {
-      console.log("isAuthenticated", authState.isAuthenticated);
-      oktaAuth.getUserInfo().then((info) => {
-        setUserInfo(info);
-        console.log("promise info", info);
-      });
-    }
+    console.log("authState", authState);
+    oktaAuth.token.getUserInfo().then((info) => {
+      setUserInfo(info);
+      console.log("promise info", info);
+    });
   }, [oktaAuth]);
 
   const closeMenu = () => {
