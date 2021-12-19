@@ -53,12 +53,23 @@ function getFaviconEl() {
 
 function App(props) {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+  const [userInfo, setUserInfo] = useState(null);
   const location = useLocation();
   let history = useHistory();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  useEffect(() => {
+    if (oktaAuth) {
+      oktaAuth.getUserInfo().then((info) => {
+        setUserInfo(info);
+      });
+    }
+  }, [oktaAuth]);
+
+  console.log("userInfo", userInfo);
 
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
     history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
