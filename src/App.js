@@ -72,6 +72,7 @@ function App(props) {
           <LeftSideComponent className="sidebar" logout={logout} />
           <BodyContainer isMobile={isMobile}>
             <Switch>
+              {/* 
               <SecureRoute exact path="/" component={HOC(Home)} />
               <SecureRoute exact path="/home" component={HOC(Home)} />
               <SecureRoute
@@ -94,9 +95,10 @@ function App(props) {
                 path="/documents/:id"
                 component={HOC(Document)}
               />
-              {/* <Route path="/login/callback" component={LoginCallback} /> */}
               <SecureRoute exact path="/:id" component={HOC(OtherPage)} />
-              {/* <Route exact path="/" component={HOC(Home)} />
+               <Route path="/login/callback" component={LoginCallback} /> 
+               */}
+              <Route exact path="/" component={HOC(Home)} />
               <Route exact path="/home" component={HOC(Home)} />
               <Route
                 exact
@@ -110,7 +112,7 @@ function App(props) {
               />
               <Route exact path="/articles/:id" component={HOC(Article)} />
               <Route exact path="/documents/:id" component={HOC(Document)} />
-              <Route exact path="/:id" component={HOC(OtherPage)} /> */}
+              <Route exact path="/:id" component={HOC(OtherPage)} /> 
             </Switch>
             <Footer />
           </BodyContainer>
