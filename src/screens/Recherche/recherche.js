@@ -146,11 +146,19 @@ const Recherche = (props) => {
     if (window.location.search === "") {
       addQueryUrl();
     }
-    checkTrie();
   }, []);
 
   useEffect(() => {
-    checkTrie();
+    if (
+      trie === "date" &&
+      trieDirection &&
+      resultToDisplay.length > 1 &&
+      new Date(resultToDisplay[1].date_modified) -
+        new Date(resultToDisplay[0].date_modified) >
+        0
+    ) {
+      checkTrie();
+    }
   }, [resultToDisplay]);
 
   useEffect(() => {

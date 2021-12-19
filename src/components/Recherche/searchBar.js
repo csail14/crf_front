@@ -380,7 +380,7 @@ const SearchBar = (props) => {
 
   const sendSearchRequest = () => {
     if (props.setTrie) {
-      props.setTrie(null);
+      props.setTrie("date");
     }
     setIsSelectedFitler();
     let query = computeQuery(
