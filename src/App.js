@@ -63,7 +63,7 @@ function App(props) {
 
   useEffect(() => {
     if (oktaAuth) {
-      oktaAuth.getUserInfo().then((info) => {
+      oktaAuth.getUser().then((info) => {
         setUserInfo(info);
       });
     }
