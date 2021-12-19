@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./screens/Home/home";
 import Footer from "./components/footer";
@@ -53,28 +53,12 @@ function getFaviconEl() {
 
 function App(props) {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-  const [userInfo, setUserInfo] = useState(null);
   const location = useLocation();
   let history = useHistory();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    console.log("oktaAuth", oktaAuth);
-    if (oktaAuth) {
-      console.log("useEffet okta");
-      const tokenManager = oktaAuth.token;
-      console.log("tokenManager", tokenManager);
-      oktaAuth.token.getUserInfo().then((info) => {
-        setUserInfo(info);
-      });
-    }
-  }, [oktaAuth]);
-
-  console.log("userInfo", userInfo);
 
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
     history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
@@ -84,13 +68,10 @@ function App(props) {
   return (
     <div className="App">
       <MainContainer isMobile={isMobile}>
-        <LeftSideComponent className="sidebar" logout={logout} />
-        <BodyContainer isMobile={isMobile}>
-          <Switch>
-            <Security
-              oktaAuth={oktaAuth}
-              restoreOriginalUri={restoreOriginalUri}
-            >
+        <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+          <LeftSideComponent className="sidebar" logout={logout} />
+          <BodyContainer isMobile={isMobile}>
+            <Switch>
               <SecureRoute exact path="/" component={HOC(Home)} />
               <SecureRoute exact path="/home" component={HOC(Home)} />
               <SecureRoute
@@ -113,6 +94,7 @@ function App(props) {
                 path="/documents/:id"
                 component={HOC(Document)}
               />
+              <Route path="/login/callback" component={LoginCallback} />
               <SecureRoute exact path="/:id" component={HOC(OtherPage)} />
               {/* <Route exact path="/" component={HOC(Home)} />
               <Route exact path="/home" component={HOC(Home)} />
@@ -129,10 +111,10 @@ function App(props) {
               <Route exact path="/articles/:id" component={HOC(Article)} />
               <Route exact path="/documents/:id" component={HOC(Document)} />
               <Route exact path="/:id" component={HOC(OtherPage)} /> */}
-            </Security>
-          </Switch>
-          <Footer />
-        </BodyContainer>
+            </Switch>
+            <Footer />
+          </BodyContainer>
+        </Security>
       </MainContainer>
     </div>
   );
