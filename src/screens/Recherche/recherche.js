@@ -134,8 +134,8 @@ const Recherche = (props) => {
   const [resultToDisplay, setResultToDisplay] = useState(
     props.ressources.results
   );
-  const [trie, setTrie] = useState(null);
-  const [trieDirection, setTrieDirection] = useState(false);
+  const [trie, setTrie] = useState("date");
+  const [trieDirection, setTrieDirection] = useState(true);
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   useEffect(() => {
@@ -147,6 +147,14 @@ const Recherche = (props) => {
       addQueryUrl();
     }
   }, []);
+
+  useEffect(() => {
+    if (resultToDisplay.length > 0) {
+      resultToDisplay.sort((a, b) =>
+        new Date(a.date_modified) - new Date(b.date_modified) > 0 ? 1 : -1
+      );
+    }
+  }, [resultToDisplay]);
 
   useEffect(() => {
     if (trie !== null) {
