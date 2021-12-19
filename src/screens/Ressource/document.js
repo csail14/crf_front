@@ -404,7 +404,7 @@ const Document = (props) => {
     document.acf.ressources_complementaires.filter(
       (item) => item.status === "publish"
     );
-
+  console.log(document);
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
@@ -556,7 +556,16 @@ const Document = (props) => {
                   <BsDownload
                     style={{ marginRight: "14px", fontSize: "1.6rem" }}
                   />
-                  Télécharger le document
+                  Télécharger le document{" "}
+                  {document.acf.document.fichier_joint.filesize && (
+                    <div style={{ marginLeft: "5px" }}>
+                      {"(" +
+                        (
+                          document.acf.document.fichier_joint.filesize / 10000
+                        ).toFixed(1)}{" "}
+                      Mo)
+                    </div>
+                  )}
                 </UploadButton>
               </a>
             ) : document.acf.document.fichier_joint ? (
