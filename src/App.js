@@ -66,13 +66,9 @@ function App(props) {
     console.log("oktaAuth", oktaAuth);
     if (oktaAuth) {
       console.log("useEffet okta");
-      const tokenManager = oktaAuth.tokenManager;
+      const tokenManager = oktaAuth.token;
       console.log("tokenManager", tokenManager);
-      const accessToken = await tokenManager.get("accessToken");
-      console.log("token", accessToken);
-      const idToken = await tokenManager.get("idToken");
-      console.log("idToken", idToken);
-      oktaAuth.getUser(accessToken).then((info) => {
+      oktaAuth.token.getUserInfo().then((info) => {
         setUserInfo(info);
       });
     }
