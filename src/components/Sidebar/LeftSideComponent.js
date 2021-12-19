@@ -92,8 +92,7 @@ const LeftSideComponent = (props) => {
       return [];
     }
   };
-  console.log("authState", authState);
-  console.log("userInfo", userInfo);
+
   return (
     <>
       {(isMobile && showMenu) || !isMobile ? (
