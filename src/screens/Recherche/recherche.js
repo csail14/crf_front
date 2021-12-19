@@ -129,7 +129,7 @@ const NoRequestContainer = styled.div`
 const Recherche = (props) => {
   const [isFilterSeledted, setIsFilterSelected] = useState(false);
   const [isViewGrid, setIsViewGrid] = useState(true);
-
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [resultToDisplay, setResultToDisplay] = useState(
     props.ressources.results
@@ -146,19 +146,15 @@ const Recherche = (props) => {
     if (window.location.search === "") {
       addQueryUrl();
     }
+    checkTrie();
   }, []);
 
   useEffect(() => {
-    if (resultToDisplay.length > 0) {
-      resultToDisplay.sort((a, b) =>
-        new Date(a.date_modified) - new Date(b.date_modified) > 0 ? 1 : -1
-      );
-    }
+    checkTrie();
   }, [resultToDisplay]);
 
   useEffect(() => {
     if (trie !== null) {
-      trieResult(resultToDisplay);
       trieResult(resultToDisplay);
     }
   }, [trie, trieDirection]);
@@ -179,9 +175,23 @@ const Recherche = (props) => {
     }
   };
 
-  let history = useHistory();
+  const checkTrie = () => {
+    if (
+      trie === "date" &&
+      trieDirection &&
+      resultToDisplay.length > 1 &&
+      new Date(resultToDisplay[0].date_modified) -
+        new Date(resultToDisplay[1].date_modified)
+    ) {
+      const newArray = [...resultToDisplay];
+      newArray.sort((a, b) =>
+        new Date(b.date_modified) - new Date(a.date_modified) > 0 ? 1 : -1
+      );
+      setResultToDisplay(newArray);
+    }
+  };
 
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  let history = useHistory();
 
   const toggleIsSearchOpen = (isOpen) => {
     setIsSearchOpen(isOpen);
@@ -192,15 +202,15 @@ const Recherche = (props) => {
     setTrieDirection(!trieDirection);
   };
 
-  const trieResult = (resultArray) => {
+  const trieResult = () => {
     switch (trie) {
       case "vues":
         if (trieDirection) {
-          resultArray.sort(function (a, b) {
+          resultToDisplay.sort(function (a, b) {
             return a.datas.vues - b.datas.vues;
           });
         } else {
-          resultArray.sort(function (a, b) {
+          resultToDisplay.sort(function (a, b) {
             return b.datas.vues - a.datas.vues;
           });
         }
@@ -208,22 +218,22 @@ const Recherche = (props) => {
         break;
       case "date":
         if (trieDirection) {
-          resultArray.sort((a, b) =>
+          resultToDisplay.sort((a, b) =>
             new Date(a.date_modified) - new Date(b.date_modified) > 0 ? 1 : -1
           );
         } else {
-          resultArray.sort((a, b) =>
+          resultToDisplay.sort((a, b) =>
             new Date(a.date_modified) - new Date(b.date_modified) > 0 ? -1 : 1
           );
         }
         break;
       case "pertinence":
         if (trieDirection) {
-          resultArray.sort(function (a, b) {
+          resultToDisplay.sort(function (a, b) {
             return a.relevance - b.relevance;
           });
         } else {
-          resultArray.sort(function (a, b) {
+          resultToDisplay.sort(function (a, b) {
             return b.relevance - a.relevance;
           });
         }
@@ -233,9 +243,8 @@ const Recherche = (props) => {
         break;
     }
 
-    setResultToDisplay(resultArray);
+    setResultToDisplay(resultToDisplay);
   };
-
   return (
     <MainContainer>
       <HeaderContainer isMobile={isMobile}>
