@@ -61,14 +61,18 @@ function App(props) {
     window.scrollTo(0, 0);
   }, [location]);
 
-  useEffect(() => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
     console.log("oktaAuth", oktaAuth);
     if (oktaAuth) {
       console.log("useEffet okta");
-      const token = oktaAuth.tokenManager;
-      console.log("okta toen", oktaAuth.tokenManager);
-      console.log("token", token);
-      oktaAuth.getUser(token).then((info) => {
+      const tokenManager = oktaAuth.tokenManager;
+      console.log("tokenManager", tokenManager);
+      const accessToken = await tokenManager.get("accessToken");
+      console.log("token", accessToken);
+      const idToken = await tokenManager.get("idToken");
+      console.log("idToken", idToken);
+      oktaAuth.getUser(accessToken).then((info) => {
         setUserInfo(info);
       });
     }
