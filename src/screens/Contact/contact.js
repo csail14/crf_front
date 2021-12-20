@@ -151,7 +151,6 @@ const Contact = (props) => {
           firstName === "" ||
           lastName === "" ||
           email === "" ||
-          phone === "" ||
           message === "" ||
           subject === ""
         ) {
@@ -295,7 +294,7 @@ const Contact = (props) => {
               <FormRow>
                 <FormInput>
                   <label htmlFor="phone" className={"contactLabel"}>
-                    Téléphone <strong style={{ color: colors.rouge }}>*</strong>
+                    Téléphone
                   </label>
                   <input
                     name={"tel"}
