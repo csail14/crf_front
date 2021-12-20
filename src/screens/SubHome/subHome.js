@@ -32,7 +32,7 @@ const HeaderTitleContainer = styled.h1`
 `;
 
 const HeaderSubTitleContainer = styled.h2`
-  font-size: 4.5rem;
+  font-size: 3rem;
   color: ${colors.marine};
   line-height: 42px;
   letter-spacing: 0.01em;

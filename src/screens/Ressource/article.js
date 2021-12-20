@@ -213,14 +213,13 @@ const ContentContainer = styled.div`
     margin-top: 0;
   }
   h2 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     line-height: 45px;
     color: #003956;
-    text-transform: uppercase;
     margin: 20px 0 12px;
   }
   h3 {
-    text-transform: uppercase;
+    color: #003956;
     font-size: 1.8rem;
     margin: 20px 0 12px;
   }
