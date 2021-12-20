@@ -139,7 +139,11 @@ const Recherche = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
 
   useEffect(() => {
-    setResultToDisplay(props.ressources.results);
+    const newArray = [...props.ressources.results];
+    newArray.sort((a, b) =>
+      new Date(b.date_modified) - new Date(a.date_modified) > 0 ? 1 : -1
+    );
+    setResultToDisplay(newArray);
   }, [props.ressources.results]);
 
   useEffect(() => {

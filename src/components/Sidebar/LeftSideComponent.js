@@ -52,7 +52,6 @@ const BackIntranet = styled.a`
 const LeftSideComponent = (props) => {
   const { oktaAuth, authState } = useOktaAuth();
   const logout = async () => oktaAuth.signOut("/");
-  const [userInfo, setUserInfo] = useState(null);
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [openID, setOpenId] = useState(null);
   const [sidebarPages, setSidebarPages] = useState(props.sidebarPages);
@@ -61,15 +60,6 @@ const LeftSideComponent = (props) => {
   useEffect(() => {
     setSidebarPages(props.sidebarPages);
   }, [props.sidebarPages]);
-
-  useEffect(() => {
-    console.log("oktaAuth", oktaAuth);
-    console.log("authState", authState);
-    oktaAuth.token.getUserInfo().then((info) => {
-      setUserInfo(info);
-      console.log("promise info", info);
-    });
-  }, [oktaAuth]);
 
   const closeMenu = () => {
     setShowMenu(false);
@@ -104,7 +94,6 @@ const LeftSideComponent = (props) => {
       return [];
     }
   };
-  console.log(userInfo);
   return (
     <>
       {(isMobile && showMenu) || !isMobile ? (
