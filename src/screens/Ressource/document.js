@@ -392,6 +392,7 @@ const Document = (props) => {
 
   const showCommment =
     document && document.comment_status === "open" ? true : false;
+
   const handleClickAction = () => {
     let array = [];
     array.push(domaineAction);

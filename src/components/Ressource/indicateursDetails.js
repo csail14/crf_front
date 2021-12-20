@@ -285,11 +285,28 @@ const Indicateur = (props) => {
 
   const indicateurId = indicateur && indicateur.id;
   const slug = props.slug;
+
+  const domaineActionId =
+    indicateur &&
+    indicateur.acf &&
+    indicateur.acf.domaine_daction_principal.term_id;
+
   const domaineAction =
-    indicateur && indicateur.acf && indicateur.acf.domaine_daction_principal;
+    props.taxonomie &&
+    props.taxonomie.domainesActions.filter(
+      (item) => item.id === domaineActionId
+    )[0];
+
+  const domaineImpactId =
+    indicateur &&
+    indicateur.acf &&
+    indicateur.acf.domaine_dimpact_principal.term_id;
 
   const domaineImpact =
-    indicateur && indicateur.acf && indicateur.acf.domaine_dimpact_principal;
+    props.taxonomie &&
+    props.taxonomie.domainesImpacts.filter(
+      (item) => item.id === domaineImpactId
+    )[0];
 
   const listIndicateurTemplate = props.pages.templates.length
     ? props.pages.templates.filter(
