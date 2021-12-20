@@ -282,7 +282,15 @@ const GridResultComponent = (props) => {
   return (
     <MainContainer>
       <FirstPartContainer isMobile={isMobile}>
-        <IconContainer type={type}>
+        <IconContainer
+          onClick={() => {
+            history.push({
+              pathname: props.info.link ? "/" + props.info.link : "",
+              state: { id: props.info.link.id },
+            });
+          }}
+          type={type}
+        >
           <i className={icon}></i>
         </IconContainer>
 

@@ -500,7 +500,9 @@ const Article = (props) => {
                       marginRight: "7px",
                     }}
                   />
-                  {article.acf.datas.likes}
+                  {isLiked
+                    ? parseInt(article.acf.datas.likes) + 1
+                    : article.acf.datas.likes}
                 </Comment>
                 <Comment>
                   <AiOutlineEye
