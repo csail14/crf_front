@@ -304,11 +304,6 @@ const Contact = (props) => {
                     id="tel"
                     onChange={handleChange}
                   />
-                  {formSubmitted && !phone && (
-                    <div className="formError">
-                      Veuillez entrer votre numéro de téléphone
-                    </div>
-                  )}
                 </FormInput>
                 <FormInput>
                   <label htmlFor="email" className={"contactLabel"}>
