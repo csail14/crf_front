@@ -498,7 +498,9 @@ const Document = (props) => {
                     size={18}
                     style={{ color: colors.gris, marginRight: "7px" }}
                   />
-                  {document.acf.datas.likes}
+                  {isLiked
+                    ? parseInt(document.acf.datas.likes) + 1
+                    : document.acf.datas.likes}
                 </Comment>
                 <Comment>
                   <AiOutlineEye

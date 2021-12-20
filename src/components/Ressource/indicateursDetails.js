@@ -437,7 +437,9 @@ const Indicateur = (props) => {
                 size={18}
                 style={{ color: colors.gris, marginRight: "7px" }}
               />
-              {indicateur.acf.datas.likes}
+              {isLiked
+                ? parseInt(indicateur.acf.datas.likes) + 1
+                : indicateur.acf.datas.likes}
             </Comment>
             <Comment>
               <AiOutlineEye
