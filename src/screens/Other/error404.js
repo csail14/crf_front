@@ -11,7 +11,6 @@ import ListDomaines from "../ListDomaine/listDomaines";
 import ImpactTrack from "../ImpactTrack/impactTrack";
 import Contact from "../Contact/contact";
 import header from "../../assets/header.jpeg";
-import Error404 from "./error404";
 
 const MainContainer = styled.div`
   min-height: 92vh;
@@ -108,67 +107,18 @@ const Textcontainer = styled.div`
 
 const OtherPage = (props) => {
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
-  const slug = props.match && props.match.params && props.match.params.id;
-  const template = props.pages.templates.length
-    ? props.pages.templates.filter(
-        (template) => template.slug === props.match.params.id
-      )[0]
-    : null;
 
-  const previousPage =
-    props.location && props.location.state && props.location.state.from;
   return (
-    <>
-      {template && template.template === "tpl-sous_home.php" ? (
-        <SubHome id={props.match.params.id} />
-      ) : template && template.template === "tpl-recherche.php" ? (
-        <Recherche slug={slug} />
-      ) : template && template.template === "tpl-liste-indicateurs.php" ? (
-        <ListDomaines slug={slug} />
-      ) : template && template.template === "tpl-it.php" ? (
-        <ImpactTrack slug={slug} />
-      ) : template && template.template === "tpl-contact.php" ? (
-        <Contact slug={slug} previousPage={previousPage} />
-      ) : slug === "home" ? (
-        <></>
-      ) : template ? (
-        <MainContainer>
-          <HeaderContainer isMobile={isMobile}>
-            {template && template.title && (
-              <HeaderTitleContainer
-                style={{ fontWeight: "700" }}
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(template.title.rendered),
-                }}
-              />
-            )}
+    <MainContainer>
+      <HeaderContainer isMobile={isMobile}>
+        <h1 id="error-404">Cette page n'existe pas</h1>{" "}
+      </HeaderContainer>
 
-            <HeaderSubTitleContainer>
-              {template ? template.acf.sous_titre : null}
-            </HeaderSubTitleContainer>
-            {template && (
-              <SubtitleContainer
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(template.acf.intro),
-                }}
-              ></SubtitleContainer>
-            )}
-          </HeaderContainer>
-          <BodyContainer className="bodyContent" isMobile={isMobile}>
-            {template && (
-              <Textcontainer
-                isMobile={isMobile}
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(template.content.rendered),
-                }}
-              ></Textcontainer>
-            )}
-          </BodyContainer>
-        </MainContainer>
-      ) : (
-        <Error404 />
-      )}
-    </>
+      <BodyContainer
+        className="bodyContent"
+        isMobile={isMobile}
+      ></BodyContainer>
+    </MainContainer>
   );
 };
 
