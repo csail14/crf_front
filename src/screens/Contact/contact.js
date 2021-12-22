@@ -173,6 +173,11 @@ const Contact = (props) => {
   const [emailError, setEmailError] = useState(false);
 
   const recaptchaRef = useRef(null);
+  const idToPreSelected =
+    window.location.search &&
+    window.location.search.replace("?object=", "") &&
+    !isNaN(window.location.search.replace("?object=", "")) &&
+    parseInt(window.location.search.replace("?object=", ""));
 
   const handleChange = (e) => {
     if (e.target.name === "firstName") {
@@ -390,6 +395,11 @@ const Contact = (props) => {
                     <select
                       className={"formSelect"}
                       onChange={handleChange}
+                      value={
+                        idToPreSelected && idToPreSelected !== ""
+                          ? idToPreSelected - 1
+                          : null
+                      }
                       name={"subject"}
                     >
                       <option>Choisir le sujet de votre message</option>
@@ -399,7 +409,11 @@ const Contact = (props) => {
                         contactTemplate.acf.sujets_contact.length > 0 &&
                         contactTemplate.acf.sujets_contact.map(
                           (item, index) => {
-                            return <option key={index}>{item.sujet}</option>;
+                            return (
+                              <option key={index} value={index}>
+                                {item.sujet}
+                              </option>
+                            );
                           }
                         )}
                     </select>
