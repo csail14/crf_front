@@ -209,7 +209,7 @@ const TagContainer = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 0")};
+  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 0 15px 6.5%")};
   border-bottom: 0.5px solid #dce2ef;
   width: fit-content;
 `;
