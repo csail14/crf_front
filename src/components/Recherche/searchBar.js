@@ -211,7 +211,7 @@ const FilterOptions = styled.div`
   padding: 15px 20px;
   flex-wrap: no-wrap;
 `;
-const categorieAll = { id: 0, name: "Toutes les catégories", group: "Catégorie" };
+const categorieAll = { id: 0, name: "Toutes les catégories", taxonomy: "categorie" };
 
 const SearchBar = (props) => {
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
@@ -631,7 +631,7 @@ const SearchBar = (props) => {
                         onClick={() => handleChangeDate(item)}
                         className="search_options"
                         key={index}
-                        data-name={item.group}
+                        data-name={item.taxonomy}
                       >
                         {item.name}{" "}
                         <i
@@ -713,7 +713,7 @@ const SearchBar = (props) => {
                           onClick={() => handleChangeDate(item)}
                           className="search_options"
                           key={index}
-                          data-name={item.group}
+                          data-name={item.taxonomy}
                         >
                           {item.name}{" "}
                           <i
