@@ -14,11 +14,11 @@ import { config } from "../../config";
 
 const ImageContainer = styled.span`
   margin: 10px 0 5px;
-  padding:5px 14% 0;
+  padding: 5px 14% 0;
   cursor: pointer;
   transition: all 0.3s;
   background: white;
-  display:block;
+  display: block;
   &:hover {
     transform: scale(0.99);
   }
@@ -48,10 +48,10 @@ const BackIntranet = styled.a`
   color: #828282;
   padding: 21px 5% 0;
   cursor: pointer;
-  i{
-      margin-right:8px;
-    }
-  @media screen and (max-width:900px){
+  i {
+    margin-right: 8px;
+  }
+  @media screen and (max-width: 900px) {
     font-size: 0.8rem;
     padding: 18px 6% 0;
   }
@@ -118,33 +118,25 @@ const LeftSideComponent = (props) => {
                   href={props.options.options.retour_intranet.url}
                   target={props.options.options.retour_intranet.target}
                 >
-                  <i
-                    className="bi bi-chevron-left"
-                  />{" "}
+                  <i className="bi bi-chevron-left" />{" "}
                   {props.options.options.retour_intranet.title}
                 </BackIntranet>
               )}
-            
+
             <div className={"sidebar_title"}>
-              
               <Link to="/home" onClick={closeMenu}>
-                {isMobile && (
-                <img
-                  src={logoMobile}
-                  alt="logo-mobile"
-                />
-              )}
+                {isMobile && <img src={logoMobile} alt="logo-mobile" />}
                 {!isMobile &&
-                props.options &&
-                props.options.options &&
-                props.options.options.logo && (
-                  <ImageContainer>
+                  props.options &&
+                  props.options.options &&
+                  props.options.options.logo && (
+                    <ImageContainer>
                       <img
                         src={props.options.options.logo.url}
                         alt="logoBandeauCroixRouge"
                       />
-                  </ImageContainer>
-                )}
+                    </ImageContainer>
+                  )}
                 <h1>
                   {" "}
                   {props.options &&
@@ -177,6 +169,7 @@ const LeftSideComponent = (props) => {
                     type={item.type_label}
                     post_name={item.post_name}
                     closeMenu={closeMenu}
+                    setShowMenu={setShowMenu}
                     openCloseDropDown={openCloseDropDown}
                     slug={item.slug}
                   />
@@ -207,21 +200,12 @@ const LeftSideComponent = (props) => {
                 target={props.options.options.retour_intranet.target}
                 isMobile={isMobile}
               >
-                <i
-                  className="bi bi-chevron-left"
-                />{" "}
-                Retour à l'intranet
+                <i className="bi bi-chevron-left" /> Retour à l'intranet
               </BackIntranet>
             )}
           <div className={"sidebar_title"}>
             <Link to="/home">
-            {isMobile && (
-                <img
-                  src={logoMobile}
-                  alt="logo-mobile"
-                />
-            )}
-              {" "}
+              {isMobile && <img src={logoMobile} alt="logo-mobile" />}{" "}
               <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>{" "}
             </Link>
             <i

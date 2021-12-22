@@ -41,6 +41,7 @@ const Dropdown = (props) => {
         pathname: url,
         state: { id: obj.object_id },
       });
+      props.setShowMenu(false);
     };
     return (
       <div key={obj.ID}>
