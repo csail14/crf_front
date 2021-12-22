@@ -13,6 +13,7 @@ const SidebarSearch = (props) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          props.setShowMenu(false);
           history.push("/recherche/");
         }}
         className={"sidebar_search"}
