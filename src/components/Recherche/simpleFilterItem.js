@@ -17,18 +17,24 @@ const FilterContainer = styled.div`
   border-right: ${(props) =>
     props.isMobile || props.isType ? "" : "1px solid #E2E3E5"};
   position: relative;
+  @media screen and (max-width:900px){
+    padding:5px 5%;
+  }
 `;
 
 const FilterTitle = styled.div`
   font-weight: 700;
-  font-size: ${(props) => (props.isTop ? "1rem" : "1.2rem")};
+  font-size:1.2rem;
   color: ${colors.gris};
   text-transform: uppercase;
+  @media screen and (max-width:900px){
+    font-size:1rem;
+  }
 `;
 
 const FilterContent = styled.div`
   font-weight: 500;
-  font-size: ${(props) => (props.isTop ? "1.2rem" : "1.6rem")};
+  font-size: 1.6rem;
   color: ${colors.marine};
   align-items: center;
   display: flex;
@@ -39,6 +45,9 @@ const FilterContent = styled.div`
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
+  }
+  @media screen and (max-width:900px){
+    font-size:1.4rem;
   }
 `;
 

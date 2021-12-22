@@ -39,6 +39,9 @@ const MainContainer = styled.article`
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.98);
   }
+  @media screen and (max-width:900px){
+    flex-basis:48%;
+  }
 `;
 
 const IconContainer = styled.div`

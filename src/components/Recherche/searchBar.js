@@ -54,6 +54,9 @@ const FilterTitle = styled.div`
   font-size: ${(props) => (props.isTop ? "1.2rem" : "1.2rem")};
   color: ${colors.gris};
   text-transform: uppercase;
+  @media screen and (max-width:900px){
+    font-size:1rem;
+  }
 `;
 const FilterContent = styled.div`
   font-weight: 500;
@@ -68,6 +71,9 @@ const FilterContent = styled.div`
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
+  }
+  @media screen and (max-width:900px){
+    font-size:1.4rem;
   }
 `;
 const MainContainer = styled.div`
@@ -106,6 +112,13 @@ const MainContainer = styled.div`
     border: 10px solid #f7f9fa;
     border-width: 10px 4%;
   }
+  @media screen and (max-width:900px){
+      padding:0;
+    & > div:first-of-type {
+      width:100%;
+      padding:7px 10px;
+    }
+  }
 `;
 
 const SearchButtonContainer = styled.div`
@@ -126,6 +139,7 @@ const SearchButtonContainer = styled.div`
   &:hover {
     box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.98);
+    font-size:1rem;
   }
 `;
 const AdvancedSearchBar = styled.div`
@@ -135,6 +149,9 @@ const AdvancedSearchBar = styled.div`
   margin: 10px auto 0px auto;
   background-color: white;
   width: fit-content;
+  @media screen and (max-width:900px){
+    padding:0;
+  }
 `;
 const AdvancedSearchBarContainer = styled.div`
   display: flex;
@@ -171,6 +188,9 @@ const FilterOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: max-content;
+  @media screen and (max-width:900px){
+    padding:1.4rem;
+  }
 `;
 const FilterOptions = styled.div`
   background-color: ${(props) => (props.isSelected ? colors.marine : "white")};

@@ -21,6 +21,9 @@ const DomainesMainTitle = styled.h2`
   padding: 40px 11% 20px;
   text-transform: uppercase;
   color: ${colors.marine};
+  @media screen and (max-width:900px){
+    padding: 20px 5%;
+  }
 `;
 const DomaineListDeroulante = (props) => {
   const [openID, setOpenId] = useState(null);
