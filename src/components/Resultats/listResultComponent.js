@@ -53,6 +53,9 @@ const IconContainer = styled.div`
       ? colors.blueBackground
       : colors.redBackground};
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
+  @media screen and (max-width:900px){
+    padding: 13px 10px;
+  }
 `;
 const DetailsContainer = styled.div`
   display: flex;
@@ -92,6 +95,9 @@ const Category = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
+  @media screen and (max-width:900px){
+    font-size: 1rem;
+  }
 `;
 const Domaine = styled.div`
   display: flex;
@@ -110,6 +116,9 @@ const Domaine = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
+  @media screen and (max-width:900px){
+    font-size: 1rem;
+  }
 `;
 
 const TitleContainer = styled.h2`
@@ -124,6 +133,9 @@ const TitleContainer = styled.h2`
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
+  }
+  @media screen and (max-width:900px){
+    font-size: 1.4rem;
   }
 `;
 
@@ -157,6 +169,9 @@ const TagContainer = styled.div`
   }
   span {
     text-decoration: underline;
+  }
+  @media screen and (max-width:900px){
+    font-size: 1.2rem;
   }
 `;
 
@@ -204,6 +219,9 @@ const UploadContainer = styled.a`
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
+  }
+  @media screen and (max-width:900px){
+    font-size: 1.2rem;
   }
 `;
 

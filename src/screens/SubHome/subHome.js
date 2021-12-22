@@ -14,11 +14,15 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
+  padding: ${(props) => (props.isMobile ? "55px 6%" : "121px 9% 58px")};
   min-height: 378px;
   background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
+  @media screen and (max-width:900px){
+    min-height:auto;
+
+  }
 `;
 
 const HeaderTitleContainer = styled.h1`
@@ -29,6 +33,10 @@ const HeaderTitleContainer = styled.h1`
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
+  @media screen and (max-width:900px){
+    font-size: 2.4rem;
+    line-height:1.4;
+  }
 `;
 
 const HeaderSubTitleContainer = styled.h2`
@@ -39,6 +47,11 @@ const HeaderSubTitleContainer = styled.h2`
   text-transform: uppercase;
   margin: 0 0 34px;
   font-weight: 300;
+  @media screen and (max-width:900px){
+    font-size: 2rem;
+    line-height:1.3;
+    margin-bottom:20px;
+  }
 `;
 
 const SubtitleContainer = styled.div`
@@ -51,7 +64,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: ${(props) => (props.isMobile ? "column" : "")};
   justify-content: space-between;
-  padding: ${(props) => (props.isMobile ? "40px 5%" : "41px 0 60px")};
+  padding: ${(props) => (props.isMobile ? "20px 0" : "41px 0 60px")};
   max-width: 1350px;
   width: 90%;
   margin: 0 auto;

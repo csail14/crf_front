@@ -75,7 +75,7 @@ a{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 7px 14%;
+  padding: 5px 0;
   font-weight: bold;
   transition:all 0.3s;
 }
@@ -145,6 +145,7 @@ a{
   font-size: 1.9rem;
   line-height: 130%;
   margin: 0;
+  padding:0 14%;
   /* or 25px */
 
   text-transform: uppercase;
@@ -512,9 +513,63 @@ a{
 }
 
 /*lien cookies*/
-#ot-sdk-btn.ot-sdk-show-settings {
+body #ot-sdk-btn.ot-sdk-show-settings {
   color: inherit !important;
   background-color: inherit !important;
   padding:0 !important;
   font-size: inherit !important;
+}
+
+
+@media screen and (max-width:900px){
+  body{
+    font-size:1.4rem;
+    line-height:1.57;
+  }
+  .sidebar_title{
+    padding: 8px 6%;
+  }
+  .sidebar_title h1{
+    font-size:1.4rem;
+    line-height:120%;
+    max-width: 200px;
+    padding:0;
+  }
+  .sidebar_title i{
+    font-size:2rem;
+  }
+  .sidebar_title a{
+    display:flex;
+    align-items: center;
+  }
+  .sidebar_title a img{
+    margin-right:13px;
+    margin-right: 13px;
+    width: 25px;
+    height: 25px;
+  }
+  .dropdown_container, .dropdown_title, .dropdown_link_div{
+    font-size:1.3rem;
+  }
+  .dropdown_div{
+    padding:0 5%;
+  }
+  .dropdown_link_div{
+    padding: 0 5% 0 10%;
+    
+  }
+  .dropdown_link_div p{
+    margin: 10px 0;
+  }
+  .acc_contact_container{
+    padding:20px 5%;
+  }
+  .contact_container{
+    padding:10px 0;
+    font-size:1.4rem;
+  }
+  .textArea{
+    padding:20px;
+    font-size:1.4rem;
+  }
 }

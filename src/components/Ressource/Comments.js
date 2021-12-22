@@ -26,6 +26,9 @@ const TitleContainer = styled.div`
   color: black;
   text-transform: uppercase;
   margin-bottom: 20px;
+  @media screen and (max-width:900px){
+    font-size: 1.5rem;
+  }
 `;
 
 const CommentContainer = styled.div`

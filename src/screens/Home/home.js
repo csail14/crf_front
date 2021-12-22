@@ -14,7 +14,7 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
+  padding: ${(props) => (props.isMobile ? "55px 6%" : "121px 9% 58px")};
   min-height: 378px;
   background-image: url(${header});
   background-size: cover;
@@ -22,26 +22,39 @@ const HeaderContainer = styled.header`
   & + #el {
     width: 90%;
   }
+  @media screen and (max-width:900px){
+    min-height:auto;
+
+  }
 `;
 
 const HeaderTitleContainer = styled.h1`
-  font-size: ${(props) => (props.isMobile ? "2.4rem" : "4.5rem")};
+  font-size: 4.5rem;
   color: ${colors.marine};
   line-height: 50px;
   letter-spacing: 0.07rem;
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
+  @media screen and (max-width:900px){
+    font-size: 2.4rem;
+    line-height:1.4;
+  }
 `;
 
 const HeaderSubTitleContainer = styled.h2`
-font-size: ${(props) => (props.isMobile ? "2rem" : "2rem")};
+  font-size: 3rem;
   color: ${colors.marine};
   line-height: 42px;
   letter-spacing: 0.01em;
   text-transform: uppercase;
   margin: 0 0 34px;
   font-weight: 300;
+  @media screen and (max-width:900px){
+    font-size: 2rem;
+    line-height:1.3;
+    margin-bottom:20px;
+  }
 `;
 
 const SubtitleContainer = styled.div`
@@ -57,7 +70,10 @@ const BodyContainer = styled.main`
   justify-content: space-between;
   padding: 73px 0 96px 0;
   margin: auto;
-  flex-wrap: ${(props) => (props.isMobile ? "wrap" : "")};
+  @media screen and (max-width:900px){
+   flex-direction:column;
+   padding-bottom:30px;
+  }
 `;
 const breakPoint = "900px";
 const Home = (props) => {

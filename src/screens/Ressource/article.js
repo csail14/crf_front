@@ -51,6 +51,9 @@ const LastUpdateContainer = styled.div`
   line-height: 16px;
   text-transform: uppercase;
   margin-top: 4px;
+  @media screen and (max-width:900px){
+    font-size: 1.2rem;
+  }
 `;
 
 const RightSideContainer = styled.div`
@@ -80,6 +83,10 @@ const HeaderRightSideTopContainer = styled.div`
       rgba(227, 6, 19, 0.219) 46.47%,
       rgba(255, 255, 255, 0.108) 100%
     );
+    @media screen and (max-width:900px){
+      min-height:auto;
+  
+    }
 `;
 
 const Comment = styled.div`
@@ -98,6 +105,9 @@ const HeaderRightSideBottomContainer = styled.div`
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
   padding: 89px 4% 50px;
+  @media screen and (max-width:900px){
+    padding: 30px 5%;
+  }
 `;
 const BottomTitleContainer = styled.h4`
   padding: 0;
@@ -107,6 +117,9 @@ const BottomTitleContainer = styled.h4`
   font-weight: 600;
   margin: 0;
   text-align: center;
+  @media screen and (max-width:900px){
+    font-size: 1.2rem;
+  }
 `;
 
 const AvailableRessourceContainer = styled.div`
@@ -114,6 +127,9 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 47px auto 0;
+  @media screen and (max-width:900px){
+    margin: 30px 0 0;
+  }
 `;
 const CategoryContainer = styled.div`
   display: flex;
@@ -122,6 +138,10 @@ const CategoryContainer = styled.div`
   text-transform: uppercase;
   margin-bottom: 32px;
   letter-spacing: 0.05rem;
+  @media screen and (max-width:900px){
+    margin-bottom: 12px;
+      font-size: 1.2rem;
+  }
 `;
 const Category = styled.div`
   color: ${colors.rouge};
@@ -132,6 +152,9 @@ const Category = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
+  @media screen and (max-width:900px){
+    font-size:1.2rem;
+  }
 `;
 const Domaine = styled.div`
   margin-left: 2px;
@@ -141,6 +164,9 @@ const Domaine = styled.div`
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
+  }
+  @media screen and (max-width:900px){
+    font-size:1.2rem;
   }
 `;
 
@@ -153,6 +179,11 @@ const TitleContainer = styled.h1`
   margin: 0;
   letter-spacing: 0.05rem;
   margin-bottom: 32px;
+  @media screen and (max-width:900px){
+    font-size: 2.4rem;
+    line-height:1.4;
+    margin-bottom: 22px;
+  }
 `;
 const TagContainer = styled.div`
   font-size: 1.4rem;
@@ -168,25 +199,31 @@ const TagContainer = styled.div`
     opacity: 0.8;
     transform: scale(0.99);
   }
+  @media screen and (max-width:900px){
+    min-height:1.2rem;
+
+  }
 `;
+
+
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 6.3%")};
+  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 0")};
   border-bottom: 0.5px solid #dce2ef;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.time`
   padding: ${(props) =>
-    props.isMobile ? "10px 20px 0 20px" : "14px 0px 0 6.3%"};
+  props.isMobile ? "10px 20px 0 20px" : "14px 0px 0 6.3%"};
 `;
 
 const BodyContainer = styled.main`
   display: flex;
   justify-content: space-between;
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
-  padding: ${(props) => (props.isMobile ? "30px 20px" : "100px 0px")};
+  padding: ${(props) => (props.isMobile ? "30px 0px" : "100px 0px")};
   width: 90%;
   margin: auto;
   max-width: 1350px;
@@ -205,6 +242,9 @@ const RightSideBodyContainer = styled.aside`
   align-items: ${(props) => (props.isMobile ? "center" : "")};
   flex-basis: 35%;
   max-width: 363px;
+  @media screen and (max-width:900px){
+    margin-top:30px;
+  }
 `;
 
 const ContentContainer = styled.div`
@@ -239,6 +279,14 @@ const ContentContainer = styled.div`
   p {
     margin: 12px 0;
   }
+  @media screen and (max-width:900px){
+    h2 {
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 1.7rem;
+    }
+  }
 `;
 
 const TitleRessourceContainer = styled.div`
@@ -248,6 +296,9 @@ const TitleRessourceContainer = styled.div`
   letter-spacing: 0em;
   margin-bottom: 20px;
   text-transform: uppercase;
+  @media screen and (max-width:900px){
+    font-size: 1.5rem;
+  }
 `;
 const AddLikeContainer = styled.div`
   display: flex;
@@ -258,6 +309,10 @@ const AddLikeContainer = styled.div`
   align-items: center;
   border-top: 0.5px solid #e6e6e6;
   border-bottom: 0.5px solid #e6e6e6;
+  @media screen and (max-width:900px){
+    margin: 40px auto 52px;
+    padding: 27px 0;
+  }
 `;
 
 function useHover() {

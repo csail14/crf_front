@@ -38,10 +38,11 @@ const MainContainer = styled.main`
       rgba(255, 255, 255, 0.108) 100%
     );
 
-  background-size: ${(props) => (props.isMobile ? "100% 480px" : "100% 378px")};
+  background-size: ${(props) => (props.isMobile ? "100% 320px" : "100% 378px")};
   background-repeat: no-repeat;
   position: relative;
   min-height: 95vh;
+  
 `;
 
 const LeftSideComponent = styled.aside`

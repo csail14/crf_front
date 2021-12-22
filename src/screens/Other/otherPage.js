@@ -17,7 +17,7 @@ const MainContainer = styled.div`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "121px 12% 58px")};
+  padding: ${(props) => (props.isMobile ? "55px 6%" : "121px 12% 58px")};
   background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
@@ -31,6 +31,11 @@ const HeaderTitleContainer = styled.h1`
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
+  @media screen and (max-width:900px){
+    font-size: 2.4rem;
+    line-height:1.4;
+    margin-bottom: 22px;
+  }
 `;
 
 const HeaderSubTitleContainer = styled.h2`
@@ -41,6 +46,11 @@ const HeaderSubTitleContainer = styled.h2`
   text-transform: uppercase;
   margin: 0 0 34px;
   font-weight: 300;
+  @media screen and (max-width:900px){
+    font-size: 2rem;
+    line-height:1.3;
+    margin-bottom:20px;
+  }
 `;
 
 const SubtitleContainer = styled.div`

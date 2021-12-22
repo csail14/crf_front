@@ -11,6 +11,13 @@ const MainContainer = styled.footer`
   justify-content: space-between;
   font-size: 1.2rem;
   line-height: 19px;
+  @media screen and (max-width:900px){
+    flex-direction:column;
+    padding:20px 5%;
+    a{
+      display:block;
+    }
+   }
 `;
 
 const FooterLinkContainer = styled.nav``;

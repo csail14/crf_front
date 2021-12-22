@@ -49,6 +49,9 @@ const LastUpdateContainer = styled.div`
   line-height: 16px;
   text-transform: uppercase;
   margin-top: 4px;
+  @media screen and (max-width:900px){
+    font-size: 1.2rem;
+  }
 `;
 
 const RightSideContainer = styled.div`
@@ -56,6 +59,7 @@ const RightSideContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: 58%;
+  
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
@@ -78,6 +82,10 @@ const HeaderRightSideTopContainer = styled.div`
       rgba(227, 6, 19, 0.219) 46.47%,
       rgba(255, 255, 255, 0.108) 100%
     );
+    @media screen and (max-width:900px){
+      min-height:auto;
+  
+    }
 `;
 
 const Comment = styled.div`
@@ -100,6 +108,10 @@ const CategoryContainer = styled.div`
   text-transform: uppercase;
   margin-bottom: 32px;
   letter-spacing: 0.05rem;
+  @media screen and (max-width:900px){
+    margin-bottom: 12px;
+      font-size: 1.2rem;
+  }
 `;
 const Category = styled.div`
   color: ${colors.rouge};
@@ -110,6 +122,9 @@ const Category = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
+  @media screen and (max-width:900px){
+    font-size:1.2rem;
+  }
 `;
 const Domaine = styled.div`
   margin-left: 2px;
@@ -119,6 +134,9 @@ const Domaine = styled.div`
   &:hover {
     opacity: 0.8;
     transform: scale(0.98);
+  }
+  @media screen and (max-width:900px){
+    font-size:1.2rem;
   }
 `;
 
@@ -131,6 +149,13 @@ const TitleContainer = styled.h1`
   margin: 0;
   letter-spacing: 0.05rem;
   margin-bottom: 32px;
+  @media screen and (max-width:900px){
+    font-size: 2.4rem;
+    line-height:1.4;
+  }
+  @media screen and (max-width:900px){
+    margin-bottom: 22px;
+  }
 `;
 const TagContainer = styled.div`
   font-size: 1.4rem;
@@ -145,6 +170,10 @@ const TagContainer = styled.div`
   &:hover {
     opacity: 0.8;
     transform: scale(0.99);
+  }
+  @media screen and (max-width:900px){
+    min-height:1.2rem;
+
   }
 `;
 
@@ -164,7 +193,7 @@ const BodyContainer = styled.main`
   display: flex;
   justify-content: space-between;
   flex-direction: ${(props) => (props.isMobile ? "column" : "row")};
-  padding: ${(props) => (props.isMobile ? "30px 20px" : "100px 0px")};
+  padding: ${(props) => (props.isMobile ? "30px 0px" : "100px 0px")};
   width: 90%;
   margin: auto;
   max-width: 1350px;
@@ -172,7 +201,6 @@ const BodyContainer = styled.main`
 
 const LeftSideBodyComponent = styled.section`
   max-width: 660px;
-  width: 90%;
   margin: auto;
 `;
 
@@ -209,6 +237,15 @@ const ContentContainer = styled.div`
   p {
     margin: 12px 0;
   }
+  @media screen and (max-width:900px){
+    margin-bottom:20px;
+    h2 {
+      font-size: 2rem;
+    }
+    h3 {
+      font-size: 1.7rem;
+    }
+  }
 `;
 
 const BottomContainer = styled.div`
@@ -223,9 +260,12 @@ const BottomTitleContainer = styled.h4`
   font-weight: 600;
   margin: 0;
   text-align: center;
+  @media screen and (max-width:900px){
+    font-size: 1.2rem;
+  }
 `;
 
-const UploadButton = styled.div`
+const UploadButton = styled.a`
   display: flex;
   margin: auto;
   text-transform: uppercase;
@@ -241,6 +281,10 @@ const UploadButton = styled.div`
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.99);
   }
+  @media screen and (max-width:900px){
+    font-size:1.2rem;
+    padding: 17px 16px;
+  }
 `;
 
 const VideoContainer = styled.div`
@@ -252,6 +296,9 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 47px auto 0;
+  @media screen and (max-width:900px){
+    margin: 30px 0 0;
+  }
 `;
 
 const AddLikeContainer = styled.div`
@@ -263,6 +310,10 @@ const AddLikeContainer = styled.div`
   align-items: center;
   border-top: 0.5px solid #e6e6e6;
   border-bottom: 0.5px solid #e6e6e6;
+  @media screen and (max-width:900px){
+    margin: 40px auto 52px;
+    padding: 27px 0;
+  }
 `;
 
 function useHover() {
@@ -565,47 +616,42 @@ const Document = (props) => {
               />
             ) : document.acf.document.format === "Lien" &&
               document.acf.document.lien ? (
-              <a
+                <UploadButton
                 id="download-document"
                 href={document.acf.document.lien.url}
                 target={document.acf.document.lien.target}
-              >
-                <UploadButton>{document.acf.document.lien.title}</UploadButton>
-              </a>
+                >
+                  {document.acf.document.lien.title}
+                </UploadButton>
             ) : document.acf.document.fichier_joint &&
               document.acf.document.fichier_joint.url ? (
-              <a
-                id="download-document"
-                href={document.acf.document.fichier_joint.url}
-                target={document.acf.document.fichier_joint.target}
-              >
-                <UploadButton>
+
+                <UploadButton
+                  id="download-document"
+                  href={document.acf.document.fichier_joint.url}
+                  target={document.acf.document.fichier_joint.target}>
                   <BsDownload
                     style={{ marginRight: "14px", fontSize: "1.6rem" }}
                   />
                   Télécharger le document{" "}
                   {document.acf.document.fichier_joint.filesize && (
-                    <div style={{ marginLeft: "5px" }}>
+                    <span style={{ marginLeft: "5px" }}>
                       {"(" +
                         (
                           document.acf.document.fichier_joint.filesize / 10000
                         ).toFixed(1)}{" "}
                       Mo)
-                    </div>
+                    </span>
                   )}
                 </UploadButton>
-              </a>
             ) : document.acf.document.fichier_joint ? (
-              <a
+                <UploadButton
                 id="download-document"
                 href={document.acf.document.fichier_joint}
-                target={document.acf.document.fichier_joint.target}
-              >
-                <UploadButton>
+                target={document.acf.document.fichier_joint.target}>
                   <BsDownload style={{ marginRight: "8px" }} />
                   Télécharger le document
                 </UploadButton>
-              </a>
             ) : null)}
 
           <AddLikeContainer>

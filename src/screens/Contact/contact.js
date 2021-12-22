@@ -11,6 +11,10 @@ const FormInput = styled.div`
   display: flex;
   flex-direction: column;
   width: 48%;
+  @media screen and (max-width:900px){
+    width:100%;
+    margin-bottom:20px;
+  }
 `;
 
 const ContactForm = styled.div`
@@ -25,6 +29,11 @@ const FormRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media screen and (max-width:900px){
+    flex-direction:column;
+    max-width:none;
+    width:100%;
+  }
 `;
 const FormInputFullWidth = styled.div`
   width: 100%;
@@ -35,6 +44,18 @@ const FormGroup = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width:900px){
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom:20px;
+    .smallForm{
+      text-align:left;
+      margin-bottom:20px;
+      margin-right:0;
+      width:auto;
+      max-width:none;
+    }
+  }
 `;
 const FormRowFullWidth = styled.div`
   .mandatoryFields {
@@ -65,11 +86,15 @@ const SubmitButton = styled.button`
 `;
 
 const HeaderContainer = styled.header`
-  padding: ${(props) => (props.isMobile ? "30px" : "121px 9% 58px")};
+  padding: 121px 9% 58px;
   background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
   margin-bottom: 78px;
+  @media screen and (max-width:900px){
+    padding:55px 6%;
+    margin-bottom:40px;
+  }
 `;
 const HeaderTitleContainer = styled.h2`
   font-size: 4.5rem;
@@ -79,6 +104,10 @@ const HeaderTitleContainer = styled.h2`
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
+  @media screen and (max-width:900px){
+    font-size: 2.4rem;
+    line-height:1.4;
+  }
 `;
 const HeaderSubTitleContainer = styled.h3`
   font-size: 4.5rem;
@@ -88,6 +117,11 @@ const HeaderSubTitleContainer = styled.h3`
   text-transform: uppercase;
   font-weight: 300;
   margin: 0 0 34px;
+  @media screen and (max-width:900px){
+    font-size: 2rem;
+    line-height:1.3;
+    margin-bottom:20px;
+  }
 `;
 const TermsAndConditions = styled.div`
   line-height: 1.5;

@@ -12,12 +12,13 @@ import { loadKeywordsFilter } from "./../../actions/filter/filterActions";
 import { useOktaAuth } from "@okta/okta-react";
 import { config } from "../../config";
 
-const ImageContainer = styled.div`
-  margin: 10px 0 0;
-  padding: 23px 14% 0;
+const ImageContainer = styled.span`
+  margin: 10px 0 5px;
+  padding:5px 14% 0;
   cursor: pointer;
   transition: all 0.3s;
   background: white;
+  display:block;
   &:hover {
     transform: scale(0.99);
   }
@@ -47,6 +48,13 @@ const BackIntranet = styled.a`
   color: #828282;
   padding: 21px 5% 0;
   cursor: pointer;
+  i{
+      margin-right:8px;
+    }
+  @media screen and (max-width:900px){
+    font-size: 0.8rem;
+    padding: 18px 6% 0;
+  }
 `;
 
 const LeftSideComponent = (props) => {
@@ -112,34 +120,31 @@ const LeftSideComponent = (props) => {
                 >
                   <i
                     className="bi bi-chevron-left"
-                    style={{ marginRight: "13px" }}
                   />{" "}
                   {props.options.options.retour_intranet.title}
                 </BackIntranet>
               )}
-            {!isMobile &&
-              props.options &&
-              props.options.options &&
-              props.options.options.logo && (
-                <ImageContainer>
-                  <Link to="/home">
-                    <img
-                      style={{ maxWidth: "188px" }}
-                      src={props.options.options.logo.url}
-                      alt="logoBandeauCroixRouge"
-                    />
-                  </Link>
-                </ImageContainer>
-              )}
+            
             <div className={"sidebar_title"}>
-              {isMobile && (
+              
+              <Link to="/home" onClick={closeMenu}>
+                {isMobile && (
                 <img
                   src={logoMobile}
-                  style={{ marginRight: "20px" }}
                   alt="logo-mobile"
                 />
               )}
-              <Link to="/home" onClick={closeMenu}>
+                {!isMobile &&
+                props.options &&
+                props.options.options &&
+                props.options.options.logo && (
+                  <ImageContainer>
+                      <img
+                        src={props.options.options.logo.url}
+                        alt="logoBandeauCroixRouge"
+                      />
+                  </ImageContainer>
+                )}
                 <h1>
                   {" "}
                   {props.options &&
@@ -204,28 +209,23 @@ const LeftSideComponent = (props) => {
               >
                 <i
                   className="bi bi-chevron-left"
-                  style={{ marginRight: "8px" }}
                 />{" "}
                 Retour à l'intranet
               </BackIntranet>
             )}
           <div className={"sidebar_title"}>
+            <Link to="/home">
             {isMobile && (
-              <Link to="/home">
                 <img
                   src={logoMobile}
-                  style={{ marginRight: "20px" }}
                   alt="logo-mobile"
                 />
-              </Link>
             )}
-            <Link to="/home">
               {" "}
               <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>{" "}
             </Link>
             <i
               className="bi bi-list"
-              style={{ fontSize: "30px" }}
               onClick={() => setShowMenu(!showMenu)}
             ></i>
           </div>
