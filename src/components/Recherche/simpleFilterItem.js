@@ -17,7 +17,7 @@ const FilterContainer = styled.div`
   border-right: ${(props) =>
     props.isMobile || props.isType ? "" : "1px solid #E2E3E5"};
   position: relative;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding:5px 5%;
   }
 `;
@@ -27,7 +27,7 @@ const FilterTitle = styled.div`
   font-size:1.2rem;
   color: ${colors.gris};
   text-transform: uppercase;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size:1rem;
   }
 `;
@@ -46,7 +46,7 @@ const FilterContent = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size:1.4rem;
   }
 `;
@@ -62,7 +62,7 @@ const FilterOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: max-content;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     top:50px;
   }
 `;

@@ -33,7 +33,7 @@ const LastUpdateContainer = styled.div`
   line-height: 16px;
   text-transform: uppercase;
   margin-bottom: 4px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 1.2rem;
   }
 `;
@@ -44,11 +44,16 @@ const RightSideContainer = styled.section`
   flex-basis: 60%;
   margin-bottom: 50px;
   max-width: 660px;
+  @media screen and (max-width:1024px){
+    width:90%;
+    margin:0 auto;
+
+  }
 `;
 const HeaderRightSideTopContainer = styled.header`
   min-height: 378px;
   padding: ${(props) => (props.isMobile ? "20px 20px" : "63px 0px 30px")};
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     min-height:auto;
 
   }
@@ -66,7 +71,7 @@ const HeaderRightSideBottomContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding:0 20px;
 
   }
@@ -78,7 +83,7 @@ const CategoryContainer = styled.div`
   text-transform: uppercase;
   margin-bottom: 14px;
   letter-spacing: 0.05rem;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin-bottom: 12px;
       font-size: 1.2rem;
   }
@@ -92,7 +97,7 @@ const Category = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size:1.2rem;
   }
 `;
@@ -105,7 +110,7 @@ const Domaine = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size:1.2rem;
   }
 `;
@@ -119,7 +124,7 @@ const TitleContainer = styled.h1`
   margin: 0;
   letter-spacing: 0.05rem;
   margin-bottom: 32px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 2.4rem;
     line-height:1.4;
     margin-bottom: 22px;
@@ -139,7 +144,7 @@ const TagContainer = styled.div`
     opacity: 0.8;
     transform: scale(0.99);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     min-height:1.2rem;
 
   }
@@ -158,7 +163,7 @@ const UpdateContainer = styled.time`
 
 const BodyContainer = styled.section`
   margin-top: 33px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding:0 20px;
 
   }
@@ -198,7 +203,7 @@ const ContentContainer = styled.div`
   p {
     margin: 12px 0;
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     h2 {
       font-size: 2rem;
     }
@@ -225,7 +230,7 @@ const UploadButton = styled.div`
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.99);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding: 17px 14px;
     svg{
       min-width: 25px;
@@ -242,7 +247,7 @@ const AddLikeContainer = styled.div`
   align-items: center;
   border-top: 0.5px solid #e6e6e6;
   border-bottom: 0.5px solid #e6e6e6;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin: 40px auto 52px;
     padding: 27px 0;
   }
@@ -267,7 +272,7 @@ const ArianeContainer = styled.div`
   a {
     margin-left: 0;
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     display:none;
   }
 `;

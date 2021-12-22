@@ -11,7 +11,7 @@ const FormInput = styled.div`
   display: flex;
   flex-direction: column;
   width: 48%;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     width:100%;
     margin-bottom:20px;
   }
@@ -29,7 +29,7 @@ const FormRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     flex-direction:column;
     max-width:none;
     width:100%;
@@ -44,7 +44,7 @@ const FormGroup = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     flex-direction: column;
     align-items: flex-start;
     margin-bottom:20px;
@@ -91,7 +91,7 @@ const HeaderContainer = styled.header`
   background-size: cover;
   background-position: bottom right;
   margin-bottom: 78px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding:55px 6%;
     margin-bottom:40px;
   }
@@ -104,7 +104,7 @@ const HeaderTitleContainer = styled.h2`
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 2.4rem;
     line-height:1.4;
   }
@@ -117,7 +117,7 @@ const HeaderSubTitleContainer = styled.h3`
   text-transform: uppercase;
   font-weight: 300;
   margin: 0 0 34px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 2rem;
     line-height:1.3;
     margin-bottom:20px;

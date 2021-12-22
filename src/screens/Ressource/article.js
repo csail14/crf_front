@@ -51,7 +51,7 @@ const LastUpdateContainer = styled.div`
   line-height: 16px;
   text-transform: uppercase;
   margin-top: 4px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 1.2rem;
   }
 `;
@@ -83,7 +83,7 @@ const HeaderRightSideTopContainer = styled.div`
       rgba(227, 6, 19, 0.219) 46.47%,
       rgba(255, 255, 255, 0.108) 100%
     );
-    @media screen and (max-width:900px){
+    @media screen and (max-width:1024px){
       min-height:auto;
   
     }
@@ -105,7 +105,7 @@ const HeaderRightSideBottomContainer = styled.div`
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
   padding: 89px 4% 50px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding: 30px 5%;
   }
 `;
@@ -117,7 +117,7 @@ const BottomTitleContainer = styled.h4`
   font-weight: 600;
   margin: 0;
   text-align: center;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 1.2rem;
   }
 `;
@@ -127,7 +127,7 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 47px auto 0;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin: 30px 0 0;
   }
 `;
@@ -138,7 +138,7 @@ const CategoryContainer = styled.div`
   text-transform: uppercase;
   margin-bottom: 32px;
   letter-spacing: 0.05rem;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin-bottom: 12px;
       font-size: 1.2rem;
   }
@@ -152,7 +152,7 @@ const Category = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size:1.2rem;
   }
 `;
@@ -165,7 +165,7 @@ const Domaine = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size:1.2rem;
   }
 `;
@@ -179,7 +179,7 @@ const TitleContainer = styled.h1`
   margin: 0;
   letter-spacing: 0.05rem;
   margin-bottom: 32px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 2.4rem;
     line-height:1.4;
     margin-bottom: 22px;
@@ -199,7 +199,7 @@ const TagContainer = styled.div`
     opacity: 0.8;
     transform: scale(0.99);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     min-height:1.2rem;
 
   }
@@ -235,6 +235,10 @@ const LeftSideBodyComponent = styled.section`
   &:only-child {
     margin: 0 auto;
   }
+  @media screen and (max-width:1024px){
+    margin:0 auto;
+    width:90%;
+  }
 `;
 const RightSideBodyContainer = styled.aside`
   display: ${(props) => (props.isMobile ? "flex" : "")};
@@ -242,7 +246,7 @@ const RightSideBodyContainer = styled.aside`
   align-items: ${(props) => (props.isMobile ? "center" : "")};
   flex-basis: 35%;
   max-width: 363px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin-top:30px;
   }
 `;
@@ -279,7 +283,7 @@ const ContentContainer = styled.div`
   p {
     margin: 12px 0;
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     h2 {
       font-size: 2rem;
     }
@@ -296,7 +300,7 @@ const TitleRessourceContainer = styled.div`
   letter-spacing: 0em;
   margin-bottom: 20px;
   text-transform: uppercase;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 1.5rem;
   }
 `;
@@ -309,7 +313,7 @@ const AddLikeContainer = styled.div`
   align-items: center;
   border-top: 0.5px solid #e6e6e6;
   border-bottom: 0.5px solid #e6e6e6;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin: 40px auto 52px;
     padding: 27px 0;
   }

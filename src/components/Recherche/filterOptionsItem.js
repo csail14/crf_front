@@ -15,7 +15,7 @@ const FilterOptions = styled.div`
   padding: 15px 20px;
   flex-wrap: no-wrap;
   position: relative;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin: 10px 20px 10px 0;
   }
 `;
