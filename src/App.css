@@ -1,0 +1,588 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  font-size: 61.5%;
+}
+body {
+  font-size: 1.6rem;
+}
+.App {
+  font-family: "Raleway", arial;
+  color: #373737;
+}
+img,
+iframe,
+video {
+  max-width: 100%;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.text-center {
+  text-align: center;
+}
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*Sidebar*/
+.main_container {
+  min-width: 266px;
+}
+
+.main_container::-webkit-scrollbar {
+  display: none;
+}
+
+.main_container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/*title*/
+.sidebar_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+.sidebar_title:hover {
+  opacity: 0.8;
+  transform: scale(0.99);
+}
+
+.recherche_input {
+  border: none;
+  min-width: 300px;
+  height: 30px;
+  outline: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  font-family: "Raleway", arial;
+  width: 100%;
+  transition: opacity 150ms linear, transform 150ms linear;
+}
+.recherche_input:hover {
+  opacity: 0.8;
+}
+.recherche_input::placeholder {
+  font-family: "Raleway", arial;
+}
+.recherche_input_mobile {
+  border: none;
+  min-width: 250px;
+  height: 30px;
+  outline: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+.recherche_input_small {
+  border: none;
+  height: 30px;
+  outline: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: opacity 150ms linear, transform 150ms linear;
+}
+.recherche_input_small:hover {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
+
+.recherche_domaine_input {
+  border: none;
+  min-width: 300px;
+  height: 30px;
+  outline: none;
+  font-size: 1.6rem;
+  background-color: #f7f9fa;
+}
+
+.search_options:hover {
+  color: white;
+  background-color: #003956;
+  cursor: pointer;
+}
+
+.sidebar_title h1 {
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.9rem;
+  line-height: 130%;
+  margin: 0;
+  padding: 0 14%;
+  /* or 25px */
+
+  text-transform: uppercase;
+
+  color: #000000;
+}
+
+/*Searchbar*/
+.form_container {
+  padding-right: 6%;
+  margin: 24px 0 6px;
+}
+
+.sidebar_input input::placeholder {
+  width: 76px;
+  height: 18px;
+
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 130%;
+  /* or 18px */
+  /* CRF */
+  color: #e30613;
+}
+
+.sidebar_search {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+
+  /* FFFFFF Bg 1 */
+
+  background: #ffffff;
+  /* shadow mini */
+
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.05);
+  border: none;
+}
+
+.sidebar_input {
+  width: 75%;
+  height: 100%;
+}
+
+.sidebar_icon {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #e30613;
+  font-size: 1.8rem;
+}
+
+.sidebar_search input {
+  height: 100%;
+  border: none;
+  font-size: 1.4rem;
+  color: #e30613;
+  font-weight: 500;
+  background-color: transparent;
+  width: 100%;
+  padding: 0 0 0 19%;
+}
+
+.sidebar_search input:focus {
+  border: none;
+  outline: none;
+}
+
+/*Dropdown*/
+.dropdown_container {
+  font-size: 1.4rem;
+}
+.dropdown_div {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0 14%;
+}
+.dropdown_div .arrow_icon {
+  padding: 0 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cliquable_link {
+  transition: opacity 150ms linear, transform 150ms linear;
+}
+.cliquable_link:hover {
+  opacity: 0.8;
+}
+.footer .cliquable_link {
+  margin-right: 25px;
+}
+.dropdown_text {
+  font-family: Raleway, serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 130%;
+  /* or 18px */
+
+  text-transform: uppercase;
+
+  /* mutted text */
+
+  color: #6c757d;
+  transition: opacity 150ms linear, transform 150ms linear;
+  text-decoration: none;
+}
+
+.dropdown_text:hover {
+  opacity: 0.8;
+
+  transform: scale(0.98);
+}
+
+.dropdown_link_div {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0 15px 0 38px;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 130%;
+  cursor: pointer;
+  /* or 18px */
+  transition: all 0.3s;
+  text-transform: uppercase;
+
+  /* mutted text */
+
+  color: #6c757d;
+}
+
+.dropdown_link_div_selected {
+  background: #e30613;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.dropdown_link_div p {
+  margin: 15px 0;
+}
+.dropdown_link_div:hover {
+  background: #e30613;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.dropdown_title {
+  font-family: Raleway, serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  margin: 14px 0;
+  /* or 18px */
+
+  text-transform: uppercase;
+
+  color: #000000;
+}
+
+.arrow_icon {
+  padding: 0 5%;
+}
+
+/*contact+acc*/
+.acc_contact_container {
+  padding: 50px 14%;
+  background: white;
+}
+
+.contact_container {
+  color: #e30613;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 130%;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  display: block;
+  padding: 20px 0;
+  transition: opacity 150ms linear, transform 150ms linear;
+}
+
+.contact_container:hover {
+  opacity: 0.8;
+
+  transform: scale(0.99);
+}
+
+.account_container {
+  font-family: Raleway, serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 130%;
+  border-top: 1px solid #e9ecef;
+  padding: 10px 0 0;
+}
+
+.account_container p {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.account_container a {
+  margin-left: 28px;
+  display: flex;
+  font-family: Raleway, serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.3rem;
+  line-height: 130%;
+  color: #8a92a6;
+  text-decoration: underline;
+  margin-top: 5px;
+  transition: opacity 150ms linear, transform 150ms linear;
+}
+
+.account_container a:hover {
+  opacity: 0.8;
+
+  transform: scale(0.98);
+}
+.acc_contact_icon {
+  margin-right: 14px;
+}
+
+.contactLabel {
+  margin-bottom: 18px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 16px;
+  text-transform: uppercase;
+
+  /* CRF gris */
+
+  color: #667385;
+}
+
+.smallForm {
+  width: 20%;
+  max-width: 154px;
+  text-align: right;
+  margin-right: 8%;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 16px;
+  text-align: right;
+  text-transform: uppercase;
+
+  /* CRF gris */
+
+  color: #667385;
+
+  opacity: 0.5;
+}
+
+.formSelect {
+  width: 100%;
+  background: #f7f9fa;
+  border: 1px solid #eaeaea;
+  box-sizing: border-box;
+  padding: 14px 20px;
+  font-family: Raleway;
+  font-size: 1.6rem;
+}
+
+.formMessage {
+  width: 100%;
+  padding: 1rem;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.6rem;
+  line-height: 19px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+  min-height: 200px;
+  /* CRF Marine */
+
+  color: #003956;
+}
+
+.formMessageLabel {
+  margin-bottom: 0.3rem;
+}
+.form-control,
+.formMessage {
+  background: #f7f9fa;
+  border: 1px solid #eaeaea;
+  box-sizing: border-box;
+  padding: 14px 20px;
+  font-family: Raleway;
+  color: #003956;
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+.formMessage {
+  height: 280px;
+}
+.form-control:focus,
+.formMessage:focus,
+.textArea:focus,
+select:focus {
+  background: white;
+  box-shadow: 0px 10px 13px rgba(17, 38, 146, 0.05);
+}
+.form-control:focus-visible,
+.formMessage:focus-visible,
+.textArea:focus-visible,
+select:focus-visible {
+  outline: 0;
+}
+.form-control::placeholder,
+.formMessage::placeholder,
+.textArea::placeholder {
+  font-weight: 400;
+}
+.formMessage {
+  background: #f7f9fa;
+  border: 1px solid #eaeaea;
+  box-sizing: border-box;
+  resize: none;
+}
+.textArea {
+  padding: 37px;
+  height: 195px;
+  width: 100%;
+  background-color: #f7f9fa;
+  border: 1px solid #eaeaea;
+  font-family: "Raleway";
+  resize: none;
+  font-size: 1.6rem;
+}
+.formError {
+  color: #e30613;
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.4rem;
+  line-height: 16px;
+  margin-top: 0.3rem;
+  margin-left: 3px;
+}
+.formSuccess {
+  margin-top: 20px;
+  color: #1aa053;
+  font-weight: bold;
+  font-size: 1.6rem;
+}
+
+.mandatoryFields {
+  text-transform: uppercase;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/*lien cookies*/
+body #ot-sdk-btn.ot-sdk-show-settings {
+  color: inherit !important;
+  background-color: inherit !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+}
+
+
+@media screen and (max-width:1024px){
+  body{
+    font-size:1.4rem;
+    line-height:1.57;
+  }
+  .sidebar_title {
+    padding: 8px 6%;
+  }
+  .sidebar_title h1 {
+    font-size: 1.4rem;
+    line-height: 120%;
+    max-width: 200px;
+    padding: 0;
+  }
+  .sidebar_title i {
+    font-size: 2rem;
+  }
+  .sidebar_title a {
+    display: flex;
+    align-items: center;
+  }
+  .sidebar_title a img {
+    margin-right: 13px;
+    margin-right: 13px;
+    width: 25px;
+    height: 25px;
+  }
+  .dropdown_container,
+  .dropdown_title,
+  .dropdown_link_div {
+    font-size: 1.3rem;
+  }
+  .dropdown_div {
+    padding: 0 5%;
+  }
+  .dropdown_link_div {
+    padding: 0 5% 0 10%;
+  }
+  .dropdown_link_div p {
+    margin: 10px 0;
+  }
+  .acc_contact_container {
+    padding: 20px 5%;
+  }
+  .contact_container {
+    padding: 10px 0;
+    font-size: 1.4rem;
+  }
+  .textArea {
+    padding: 20px;
+    font-size: 1.4rem;
+  }
+  .recherche_input_mobile {
+    width: 100%;
+  }
+  .recherche_domaine_input {
+    min-width: 277px;
+  }
+}

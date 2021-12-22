@@ -1,91 +1,103 @@
-# PMIS Front - Croix-Rouge française
+# Application PMIS - Front end
 
+## Objet
 
+Le PMIS - Portail de Mesure d'Impact Social de la Croix-Rouge française regroupe les ressources et outils des travaux menés par la CRf autour de l'impact social.
+Ce répo porte uniquement sur le front office de l'application. Il est lié au repo du back : https://gitlab.com/la-guilde-du-pixel/pmis-croix-rouge-francaise/
 
-## Getting started
+## Documentations fonctionnelles
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- Spécifications fonctionnelles : https://docs.google.com/document/d/1CgAM0bjKBW0oKZIO-YGnR5W70OoVpVxG-8HTvcfvasc/edit?usp=sharing
+- Wireframes front : https://www.figma.com/file/6sKkRKK1uGvlzyQwIO1pYP/CRF?node-id=2429%3A253
+- Prototype front : https://www.figma.com/proto/6sKkRKK1uGvlzyQwIO1pYP/CRF?node-id=2429%3A253
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Langages et outils
 
-## Add your files
+React
 
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+# Serveur
+
+Pad e pré-requis particulier, seule la technologie Javascript est utilisée. Le vhost doit pointer vers le dossier build dans le dossier du projet.
+
+## Vhost
+
+Exemple vhost (git init dans le dossier react)
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/la-guilde-du-pixel/pmis-front-croix-rouge-francaise.git
-git branch -M main
-git push -uf origin main
+<VirtualHost *:80>
+        ServerName recette-impact-social.croix-rouge.fr
+        ServerAdmin ******
+        DocumentRoot "******/react/build"
+        <Directory "*****/react/build">
+                Allowoverride All
+        </Directory>
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+        RewriteEngine on
+        RewriteCond %{SERVER_NAME} =recette-impact-social.croix-rouge.fr
+        RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
 ```
 
-## Integrate with your tools
+# Installer l'application en dev
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/project/integrations/)
+## Pré-requis
 
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://docs.gitlab.com/ee/user/clusters/agent/)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://gitlab.com/-/experiment/new_project_readme_content:0be20c4496e562934acda73d7a3d6483?https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+- Back office installé et fonctionnel
+- Serveur LAMP classique (Javascript utilisé uniquement)
+- npm installé sur serveur
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+Initialiser et cloner le projet dans le dossier concerné
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+1. git init
+2. git remote add origin https://gitlab.com/la-guilde-du-pixel/pmis-front-croix-rouge-francaise.git
+3. git pull
+4. git checkout dev
+5. Ajouter .env à la racine
+5. commande "npm install"
+6. commande "npm run build"
+7. Faire pointer le vhost sur le dossier build
+8. ajouter le .htaccess dans le dossier build
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+- Contenu .env
+Le user est un utilisateur Wordpress abonné pour l'authentification POST
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+```
+REACT_APP_ENV_API_LINK=https://pmis-wp.laguildedupixel.fr/wp-json
+REACT_APP_WP_LINK=https://pmis-wp.laguildedupixel.fr
+REACT_APP_USER= post
+REACT_APP_USER_PASSWORD=f^ZEYfVJcjVeQ(3Pja
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+- Contenu du .htaccess
+```
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . /index.html [L]
+</IfModule>
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+```
 
-## License
-For open source projects, say how it is licensed.
+Ouvrir l'url de recette : rec-impact-social.croix-rouge.fr
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Mettre à jour l'application 
+1. git pull
+2. commande "npm run build"
 
+# (Développement) Installer React et build l'application
+
+1. cloner le repo
+2. `npm install`
+3. `npm start` pour lancer l'application en local
+
+Pour build l'application : 
+- `npm run build`
+  
