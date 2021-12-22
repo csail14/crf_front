@@ -65,7 +65,7 @@ const SimpleFilterItem = (props) => {
       isSelected={props.isSelected}
       onClick={() => props.manageSelectedFilter(props.item)}
       className="search_options"
-      data-name={props.item.name}
+      data-name={props.item.taxonomy}
     >
       {props.item.name}
       <i style={{ marginLeft: "10px" }} className={props.item.icon}></i>

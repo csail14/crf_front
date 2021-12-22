@@ -131,7 +131,7 @@ const SimpleFilterItem = (props) => {
                 onClick={() => manageSelectedFilter(item)}
                 className="search_options"
                 key={index}
-                data-name={item.name}
+                data-name={item.group}
               >
                 {item.name}{" "}
                 <i style={{ marginLeft: "10px" }} className={item.icon}></i>
