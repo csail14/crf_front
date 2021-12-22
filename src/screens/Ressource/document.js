@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { BsDot, BsDownload } from "react-icons/bs";
 import { colors } from "../../colors";
+import { Redirect } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsTags } from "react-icons/bs";
@@ -49,7 +50,7 @@ const LastUpdateContainer = styled.div`
   line-height: 16px;
   text-transform: uppercase;
   margin-top: 4px;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 1.2rem;
   }
 `;
@@ -59,7 +60,6 @@ const RightSideContainer = styled.div`
   display: flex;
   flex-direction: column;
   flex-basis: 58%;
-  
 `;
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
@@ -82,10 +82,9 @@ const HeaderRightSideTopContainer = styled.div`
       rgba(227, 6, 19, 0.219) 46.47%,
       rgba(255, 255, 255, 0.108) 100%
     );
-    @media screen and (max-width:1024px){
-      min-height:auto;
-  
-    }
+  @media screen and (max-width: 1024px) {
+    min-height: auto;
+  }
 `;
 
 const Comment = styled.div`
@@ -108,9 +107,9 @@ const CategoryContainer = styled.div`
   text-transform: uppercase;
   margin-bottom: 32px;
   letter-spacing: 0.05rem;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     margin-bottom: 12px;
-      font-size: 1.2rem;
+    font-size: 1.2rem;
   }
 `;
 const Category = styled.div`
@@ -122,8 +121,8 @@ const Category = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:1024px){
-    font-size:1.2rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1.2rem;
   }
 `;
 const Domaine = styled.div`
@@ -135,8 +134,8 @@ const Domaine = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:1024px){
-    font-size:1.2rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1.2rem;
   }
 `;
 
@@ -149,11 +148,11 @@ const TitleContainer = styled.h1`
   margin: 0;
   letter-spacing: 0.05rem;
   margin-bottom: 32px;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2.4rem;
-    line-height:1.4;
+    line-height: 1.4;
   }
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     margin-bottom: 22px;
   }
 `;
@@ -171,9 +170,8 @@ const TagContainer = styled.div`
     opacity: 0.8;
     transform: scale(0.99);
   }
-  @media screen and (max-width:1024px){
-    min-height:1.2rem;
-
+  @media screen and (max-width: 1024px) {
+    min-height: 1.2rem;
   }
 `;
 
@@ -185,8 +183,7 @@ const LikeContainer = styled.div`
 `;
 
 const UpdateContainer = styled.time`
-  padding: ${(props) =>
-    props.isMobile ? "10px 5% 0" : "14px 0px 0 6.3%"};
+  padding: ${(props) => (props.isMobile ? "10px 5% 0" : "14px 0px 0 6.3%")};
 `;
 
 const BodyContainer = styled.main`
@@ -201,7 +198,7 @@ const BodyContainer = styled.main`
 
 const LeftSideBodyComponent = styled.section`
   max-width: 660px;
-  width:100%;
+  width: 100%;
   margin: auto;
 `;
 
@@ -238,8 +235,8 @@ const ContentContainer = styled.div`
   p {
     margin: 12px 0;
   }
-  @media screen and (max-width:1024px){
-    margin-bottom:20px;
+  @media screen and (max-width: 1024px) {
+    margin-bottom: 20px;
     h2 {
       font-size: 2rem;
     }
@@ -261,7 +258,7 @@ const BottomTitleContainer = styled.h4`
   font-weight: 600;
   margin: 0;
   text-align: center;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 1.2rem;
   }
 `;
@@ -282,8 +279,8 @@ const UploadButton = styled.a`
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.99);
   }
-  @media screen and (max-width:1024px){
-    font-size:1.2rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1.2rem;
     padding: 17px 16px;
   }
 `;
@@ -297,7 +294,7 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 47px auto 0;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     margin: 30px 0 0;
   }
 `;
@@ -311,7 +308,7 @@ const AddLikeContainer = styled.div`
   align-items: center;
   border-top: 0.5px solid #e6e6e6;
   border-bottom: 0.5px solid #e6e6e6;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     margin: 40px auto 52px;
     padding: 27px 0;
   }
@@ -345,6 +342,7 @@ const Document = (props) => {
   const [media, setMedia] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
   const [hoverRef, isHovered] = useHover();
+  const [notFound, setNotFound] = useState(false);
   let history = useHistory();
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   useEffect(() => {
@@ -354,6 +352,8 @@ const Document = (props) => {
         .then((res) => {
           if (res.length) {
             setDocument(res[0]);
+          } else if (slug) {
+            setNotFound(true);
           }
         })
         .catch((error) => console.log(error));
@@ -484,6 +484,7 @@ const Document = (props) => {
 
   return (
     <MainContainer>
+      {notFound && <Redirect to="/404Error" />}
       <HeaderContainer isMobile={isMobile}>
         {media && (
           <figure>
@@ -617,42 +618,43 @@ const Document = (props) => {
               />
             ) : document.acf.document.format === "Lien" &&
               document.acf.document.lien ? (
-                <UploadButton
+              <UploadButton
                 id="download-document"
                 href={document.acf.document.lien.url}
                 target={document.acf.document.lien.target}
-                >
-                  {document.acf.document.lien.title}
-                </UploadButton>
+              >
+                {document.acf.document.lien.title}
+              </UploadButton>
             ) : document.acf.document.fichier_joint &&
               document.acf.document.fichier_joint.url ? (
-
-                <UploadButton
-                  id="download-document"
-                  href={document.acf.document.fichier_joint.url}
-                  target={document.acf.document.fichier_joint.target}>
-                  <BsDownload
-                    style={{ marginRight: "14px", fontSize: "1.6rem" }}
-                  />
-                  Télécharger le document{" "}
-                  {document.acf.document.fichier_joint.filesize && (
-                    <span style={{ marginLeft: "5px" }}>
-                      {"(" +
-                        (
-                          document.acf.document.fichier_joint.filesize / 10000
-                        ).toFixed(1)}{" "}
-                      Mo)
-                    </span>
-                  )}
-                </UploadButton>
+              <UploadButton
+                id="download-document"
+                href={document.acf.document.fichier_joint.url}
+                target={document.acf.document.fichier_joint.target}
+              >
+                <BsDownload
+                  style={{ marginRight: "14px", fontSize: "1.6rem" }}
+                />
+                Télécharger le document{" "}
+                {document.acf.document.fichier_joint.filesize && (
+                  <span style={{ marginLeft: "5px" }}>
+                    {"(" +
+                      (
+                        document.acf.document.fichier_joint.filesize / 10000
+                      ).toFixed(1)}{" "}
+                    Mo)
+                  </span>
+                )}
+              </UploadButton>
             ) : document.acf.document.fichier_joint ? (
-                <UploadButton
+              <UploadButton
                 id="download-document"
                 href={document.acf.document.fichier_joint}
-                target={document.acf.document.fichier_joint.target}>
-                  <BsDownload style={{ marginRight: "8px" }} />
-                  Télécharger le document
-                </UploadButton>
+                target={document.acf.document.fichier_joint.target}
+              >
+                <BsDownload style={{ marginRight: "8px" }} />
+                Télécharger le document
+              </UploadButton>
             ) : null)}
 
           <AddLikeContainer>

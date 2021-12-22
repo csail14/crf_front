@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { Redirect } from "react-router-dom";
 import { colors } from "../../colors";
 import {
   getRessourceById,
@@ -23,15 +24,15 @@ const RightSideContainer = styled.section`
   flex-basis: 60%;
   margin-bottom: 50px;
   max-width: 660px;
-  @media screen and (max-width:1024px){
-    margin-bottom:0;
+  @media screen and (max-width: 1024px) {
+    margin-bottom: 0;
   }
 `;
 const HeaderRightSideTopContainer = styled.header`
   min-height: 378px;
   padding: ${(props) => (props.isMobile ? "30px 20px" : "63px 0px 30px")};
-  @media screen and (max-width:1024px){
-    min-height:auto;
+  @media screen and (max-width: 1024px) {
+    min-height: auto;
   }
 `;
 
@@ -44,18 +45,18 @@ const TitleContainer = styled.h1`
   margin: 0;
   letter-spacing: 0.05rem;
   margin-bottom: 32px;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2.4rem;
-    line-height:1.4;
+    line-height: 1.4;
     margin-bottom: 0px;
   }
 `;
 
 const BodyContainer = styled.section`
   margin-top: 33px;
-  @media screen and (max-width:1024px){
-    padding:20px;
-    margin:0;
+  @media screen and (max-width: 1024px) {
+    padding: 20px;
+    margin: 0;
   }
 `;
 
@@ -115,14 +116,15 @@ const ArianeContainer = styled.div`
   a {
     margin-left: 0;
   }
-  @media screen and (max-width:1024px){
-    display:none;
+  @media screen and (max-width: 1024px) {
+    display: none;
   }
 `;
 
 const Indicateur = (props) => {
   const [domaine, setDomaine] = useState(null);
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+  const [notFound, setNotFound] = useState(false);
   useEffect(() => {
     props.resetAllFilter();
     if (props.slug) {
@@ -130,6 +132,8 @@ const Indicateur = (props) => {
         .then((res) => {
           if (res.length) {
             setDomaine(res[0]);
+          } else if (props.slug) {
+            setNotFound(true);
           }
         })
         .catch((error) => console.log(error));
@@ -140,7 +144,7 @@ const Indicateur = (props) => {
     }
   }, []);
 
-  const domaineId = props.id[0];
+  const domaineId = props.id && props.id[0];
   const listIndicateurTemplate = props.pages.templates.length
     ? props.pages.templates.filter(
         (template) => template.slug === "liste-des-indicateurs"
@@ -148,6 +152,7 @@ const Indicateur = (props) => {
     : null;
   return (
     <RightSideContainer>
+      {notFound && <Redirect to="/404Error" />}
       <HeaderRightSideTopContainer isMobile={isMobile}>
         <ArianeContainer>
           <Link to={"/liste-des-indicateurs"} className="cliquable_link">
