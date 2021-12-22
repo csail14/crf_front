@@ -7,6 +7,11 @@ import { colors } from "../../colors";
 import { sendMail } from "../../utils/api/API";
 import ReCAPTCHA from "react-google-recaptcha";
 import header from "../../assets/header.jpeg";
+
+const MainContainer = styled.div`
+  min-height: 96vh;
+`;
+
 const FormInput = styled.div`
   display: flex;
   flex-direction: column;
@@ -47,13 +52,13 @@ const FormGroup = styled.div`
   @media screen and (max-width:1024px){
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom:20px;
-    .smallForm{
-      text-align:left;
-      margin-bottom:20px;
-      margin-right:0;
-      width:auto;
-      max-width:none;
+    margin-bottom: 20px;
+    .smallForm {
+      text-align: left;
+      margin-bottom: 20px;
+      margin-right: 0;
+      width: auto;
+      max-width: none;
     }
   }
 `;
@@ -106,7 +111,7 @@ const HeaderTitleContainer = styled.h2`
   font-weight: 700;
   @media screen and (max-width:1024px){
     font-size: 2.4rem;
-    line-height:1.4;
+    line-height: 1.4;
   }
 `;
 const HeaderSubTitleContainer = styled.h3`
@@ -119,8 +124,8 @@ const HeaderSubTitleContainer = styled.h3`
   margin: 0 0 34px;
   @media screen and (max-width:1024px){
     font-size: 2rem;
-    line-height:1.3;
-    margin-bottom:20px;
+    line-height: 1.3;
+    margin-bottom: 20px;
   }
 `;
 const TermsAndConditions = styled.div`
@@ -144,6 +149,15 @@ const SubtitleContainer = styled.div`
   color: ${colors.gris};
   max-width: 800px;
   line-height: 1.8;
+`;
+
+const FormSuccess = styled.div`
+  margin: 20px;
+  color: #1aa053;
+  font-weight: bold;
+  font-size: 1.6rem;
+  display: flex;
+  justify-content: center;
 `;
 
 const Contact = (props) => {
@@ -251,7 +265,7 @@ const Contact = (props) => {
       : null;
 
   return (
-    <div>
+    <MainContainer>
       <HeaderContainer>
         {contactTemplate && contactTemplate.title ? (
           <HeaderTitleContainer
@@ -282,188 +296,194 @@ const Contact = (props) => {
       </HeaderContainer>
 
       <div className="contact-container">
-        <ContactForm>
-          <form onSubmit={handleSubmit}>
-            <FormGroup>
-              <small className={"smallForm"}>Je suis</small>
-              <FormRow>
-                <FormInput>
-                  <label htmlFor="name" className={"contactLabel"}>
-                    Prenom <strong style={{ color: colors.rouge }}>*</strong>
-                  </label>
-                  <input
-                    name={"firstName"}
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    value={firstName}
-                    onChange={handleChange}
-                  />
-                  {formSubmitted && !firstName && (
-                    <div className="formError">
-                      Veuillez entrer votre prénom
-                    </div>
-                  )}
-                </FormInput>
-                <FormInput>
-                  <label htmlFor="name" className={"contactLabel"}>
-                    Nom <strong style={{ color: colors.rouge }}>*</strong>
-                  </label>
-                  <input
-                    name={"lastName"}
-                    type="text"
-                    className="form-control"
-                    id="name"
-                    value={lastName}
-                    onChange={handleChange}
-                  />
-                  {formSubmitted && !lastName && (
-                    <div className="formError">Veuillez entrer votre nom</div>
-                  )}
-                </FormInput>
-              </FormRow>
-            </FormGroup>
-            <FormGroup>
-              <small className={"smallForm"}>Pour me joindre</small>
-              <FormRow>
-                <FormInput>
-                  <label htmlFor="phone" className={"contactLabel"}>
-                    Téléphone
-                  </label>
-                  <input
-                    name={"tel"}
-                    type="tel"
-                    value={phone}
-                    className="form-control"
-                    id="tel"
-                    onChange={handleChange}
-                  />
-                </FormInput>
-                <FormInput>
-                  <label htmlFor="email" className={"contactLabel"}>
-                    Adresse Email{" "}
-                    <strong style={{ color: colors.rouge }}>*</strong>
-                  </label>
-                  <input
-                    name={"email"}
-                    type="email"
-                    value={email}
-                    className="form-control"
-                    id="email"
-                    onChange={handleChange}
-                  />
-                  {formSubmitted && !email && (
-                    <div className="formError">
-                      Veuillez entrer votre adresse mail
-                    </div>
-                  )}
-                  {formSubmitted && emailError && (
-                    <div className="formError">
-                      Veuillez entrer une adresse mail valide
-                    </div>
-                  )}
-                </FormInput>
-              </FormRow>
-            </FormGroup>
-            <FormGroup>
-              <small className={"smallForm"}>Je vous contacte parce que</small>
-              <FormRow>
-                <FormInputFullWidth>
-                  <select
-                    className={"formSelect"}
-                    onChange={handleChange}
-                    name={"subject"}
-                  >
-                    <option>Choisir le sujet de votre message</option>
-                    {contactTemplate &&
-                      contactTemplate.acf &&
-                      contactTemplate.acf.sujets_contact &&
-                      contactTemplate.acf.sujets_contact.length > 0 &&
-                      contactTemplate.acf.sujets_contact.map((item, index) => {
-                        return <option key={index}>{item.sujet}</option>;
-                      })}
-                  </select>
-                  {formSubmitted && !subject && (
-                    <div className="formError">Veuillez choisir un sujet</div>
-                  )}
-                </FormInputFullWidth>
-              </FormRow>
-            </FormGroup>
-            <FormGroup>
-              <small className={"smallForm"}>Votre message</small>
-              <FormRow>
-                <FormInputFullWidth>
-                  <div className={"formMessageLabel"}></div>
-                  <textarea
-                    name={"message"}
-                    className="formMessage"
-                    id="message"
-                    value={message}
-                    rows="3"
-                    placeholder="Saisissez ici votre message"
-                    onChange={handleChange}
-                  />
-                  {formSubmitted && !message && (
-                    <div className="formError">
-                      Veuillez entrer votre message
-                    </div>
-                  )}
-                </FormInputFullWidth>
-              </FormRow>
-            </FormGroup>
-
-            <FormGroup>
-              <small className={"smallForm"}></small>
-              <FormRow>
-                <FormRowFullWidth>
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.REACT_APP_GOOGLE_CAPTCHA_SITEKEY}
-                    size="invisible"
-                  />
-                  <p className="mandatoryFields">
-                    * informations indispensables
-                  </p>
-                  <div className="text-center">
-                    {formSuccess && (
-                      <div className="formSuccess">
-                        <i
-                          class="bi bi-check-lg"
-                          style={{ marginRight: 8 }}
-                        ></i>
-                        Votre message a bien été envoyé, merci !
+        {!formSuccess && (
+          <ContactForm>
+            <form onSubmit={handleSubmit}>
+              <FormGroup>
+                <small className={"smallForm"}>Je suis</small>
+                <FormRow>
+                  <FormInput>
+                    <label htmlFor="name" className={"contactLabel"}>
+                      Prenom <strong style={{ color: colors.rouge }}>*</strong>
+                    </label>
+                    <input
+                      name={"firstName"}
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      value={firstName}
+                      onChange={handleChange}
+                    />
+                    {formSubmitted && !firstName && (
+                      <div className="formError">
+                        Veuillez entrer votre prénom
                       </div>
                     )}
-                    {formError && (
-                      <div className="formError">Une erreur s'est produite</div>
+                  </FormInput>
+                  <FormInput>
+                    <label htmlFor="name" className={"contactLabel"}>
+                      Nom <strong style={{ color: colors.rouge }}>*</strong>
+                    </label>
+                    <input
+                      name={"lastName"}
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      value={lastName}
+                      onChange={handleChange}
+                    />
+                    {formSubmitted && !lastName && (
+                      <div className="formError">Veuillez entrer votre nom</div>
                     )}
-                  </div>
+                  </FormInput>
+                </FormRow>
+              </FormGroup>
+              <FormGroup>
+                <small className={"smallForm"}>Pour me joindre</small>
+                <FormRow>
+                  <FormInput>
+                    <label htmlFor="phone" className={"contactLabel"}>
+                      Téléphone
+                    </label>
+                    <input
+                      name={"tel"}
+                      type="tel"
+                      value={phone}
+                      className="form-control"
+                      id="tel"
+                      onChange={handleChange}
+                    />
+                  </FormInput>
+                  <FormInput>
+                    <label htmlFor="email" className={"contactLabel"}>
+                      Adresse Email{" "}
+                      <strong style={{ color: colors.rouge }}>*</strong>
+                    </label>
+                    <input
+                      name={"email"}
+                      type="email"
+                      value={email}
+                      className="form-control"
+                      id="email"
+                      onChange={handleChange}
+                    />
+                    {formSubmitted && !email && (
+                      <div className="formError">
+                        Veuillez entrer votre adresse mail
+                      </div>
+                    )}
+                    {formSubmitted && emailError && (
+                      <div className="formError">
+                        Veuillez entrer une adresse mail valide
+                      </div>
+                    )}
+                  </FormInput>
+                </FormRow>
+              </FormGroup>
+              <FormGroup>
+                <small className={"smallForm"}>
+                  Je vous contacte parce que
+                </small>
+                <FormRow>
+                  <FormInputFullWidth>
+                    <select
+                      className={"formSelect"}
+                      onChange={handleChange}
+                      name={"subject"}
+                    >
+                      <option>Choisir le sujet de votre message</option>
+                      {contactTemplate &&
+                        contactTemplate.acf &&
+                        contactTemplate.acf.sujets_contact &&
+                        contactTemplate.acf.sujets_contact.length > 0 &&
+                        contactTemplate.acf.sujets_contact.map(
+                          (item, index) => {
+                            return <option key={index}>{item.sujet}</option>;
+                          }
+                        )}
+                    </select>
+                    {formSubmitted && !subject && (
+                      <div className="formError">Veuillez choisir un sujet</div>
+                    )}
+                  </FormInputFullWidth>
+                </FormRow>
+              </FormGroup>
+              <FormGroup>
+                <small className={"smallForm"}>Votre message</small>
+                <FormRow>
+                  <FormInputFullWidth>
+                    <div className={"formMessageLabel"}></div>
+                    <textarea
+                      name={"message"}
+                      className="formMessage"
+                      id="message"
+                      value={message}
+                      rows="3"
+                      placeholder="Saisissez ici votre message"
+                      onChange={handleChange}
+                    />
+                    {formSubmitted && !message && (
+                      <div className="formError">
+                        Veuillez entrer votre message
+                      </div>
+                    )}
+                  </FormInputFullWidth>
+                </FormRow>
+              </FormGroup>
 
-                  <p className="text-center">
-                    <SubmitButton>Envoyer</SubmitButton>
-                  </p>
-                  <TermsAndConditions
-                    dangerouslySetInnerHTML={{
-                      __html: DOMPurify.sanitize(
-                        contactTemplate &&
-                          contactTemplate.acf &&
-                          contactTemplate.acf.mentions_legales
-                      ),
-                    }}
-                  />
-                </FormRowFullWidth>
-              </FormRow>
-            </FormGroup>
-            <FormGroup>
-              <small className={"smallForm"}></small>
-              <FormRow>
-                <FormRowFullWidth></FormRowFullWidth>
-              </FormRow>
-            </FormGroup>
-          </form>
-        </ContactForm>
+              <FormGroup>
+                <small className={"smallForm"}></small>
+                <FormRow>
+                  <FormRowFullWidth>
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.REACT_APP_GOOGLE_CAPTCHA_SITEKEY}
+                      size="invisible"
+                    />
+                    <p className="mandatoryFields">
+                      * informations indispensables
+                    </p>
+                    <div className="text-center">
+                      {formError && (
+                        <div className="formError">
+                          Une erreur s'est produite
+                        </div>
+                      )}
+                    </div>
+
+                    <p className="text-center">
+                      <SubmitButton>Envoyer</SubmitButton>
+                    </p>
+
+                    <TermsAndConditions
+                      dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(
+                          contactTemplate &&
+                            contactTemplate.acf &&
+                            contactTemplate.acf.mentions_legales
+                        ),
+                      }}
+                    />
+                  </FormRowFullWidth>
+                </FormRow>
+              </FormGroup>
+              <FormGroup>
+                <small className={"smallForm"}></small>
+                <FormRow>
+                  <FormRowFullWidth></FormRowFullWidth>
+                </FormRow>
+              </FormGroup>
+            </form>
+          </ContactForm>
+        )}
+        {formSuccess && (
+          <FormSuccess>
+            <i class="bi bi-check-lg" style={{ marginRight: 8 }}></i>
+            Votre message a bien été envoyé, merci !
+          </FormSuccess>
+        )}
       </div>
-    </div>
+    </MainContainer>
   );
 };
 

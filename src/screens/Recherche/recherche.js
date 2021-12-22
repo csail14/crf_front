@@ -178,6 +178,7 @@ const Recherche = (props) => {
   }, [resultToDisplay]);
 
   useEffect(() => {
+    console.log("useEffect trie", trie, trieDirection);
     if (trie !== null) {
       trieResult(resultToDisplay);
     }
@@ -227,37 +228,38 @@ const Recherche = (props) => {
   };
 
   const trieResult = () => {
+    const newArray = [...resultToDisplay];
     switch (trie) {
       case "vues":
         if (trieDirection) {
-          resultToDisplay.sort(function (a, b) {
-            return a.datas.vues - b.datas.vues;
+          newArray.sort(function (a, b) {
+            return b.datas.vues - a.datas.vues;
           });
         } else {
-          resultToDisplay.sort(function (a, b) {
-            return b.datas.vues - a.datas.vues;
+          newArray.sort(function (a, b) {
+            return a.datas.vues - b.datas.vues;
           });
         }
 
         break;
       case "date":
         if (trieDirection) {
-          resultToDisplay.sort((a, b) =>
+          newArray.sort((a, b) =>
             new Date(a.date_modified) - new Date(b.date_modified) > 0 ? 1 : -1
           );
         } else {
-          resultToDisplay.sort((a, b) =>
-            new Date(a.date_modified) - new Date(b.date_modified) > 0 ? -1 : 1
+          newArray.sort((a, b) =>
+            new Date(b.date_modified) - new Date(a.date_modified) > 0 ? -1 : 1
           );
         }
         break;
       case "pertinence":
         if (trieDirection) {
-          resultToDisplay.sort(function (a, b) {
+          newArray.sort(function (a, b) {
             return a.relevance - b.relevance;
           });
         } else {
-          resultToDisplay.sort(function (a, b) {
+          newArray.sort(function (a, b) {
             return b.relevance - a.relevance;
           });
         }
@@ -266,8 +268,8 @@ const Recherche = (props) => {
       default:
         break;
     }
-
-    setResultToDisplay(resultToDisplay);
+    console.log(newArray);
+    setResultToDisplay(newArray);
   };
   return (
     <MainContainer>
