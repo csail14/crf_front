@@ -5,12 +5,15 @@ import styled from "styled-components";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
 import { config } from "../../config";
+import { getResult } from "../../utils/api/RechercheApi";
+import { computeQuery } from "../../utils/function/function";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
 import ListResultComponent from "../../components/Resultats/listResultComponent";
 import { loadResultInfo } from "../../actions/ressources/ressourcesActions";
 import { useHistory } from "react-router-dom";
 import header from "../../assets/header.jpeg";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const MainContainer = styled.div`
   min-height: 100vh;
@@ -33,7 +36,7 @@ const HeaderTitleContainer = styled.h1`
   font-weight: 700;
   @media screen and (max-width:1024px){
     font-size: 2.4rem;
-    line-height:1.4;
+    line-height: 1.4;
   }
 `;
 const HeaderSubTitleContainer = styled.h2`
@@ -46,8 +49,8 @@ const HeaderSubTitleContainer = styled.h2`
   font-weight: 300;
   @media screen and (max-width:1024px){
     font-size: 2rem;
-    line-height:1.3;
-    margin-bottom:20px;
+    line-height: 1.3;
+    margin-bottom: 20px;
   }
 `;
 
@@ -141,6 +144,7 @@ const NoRequestContainer = styled.div`
 const Recherche = (props) => {
   const [isFilterSeledted, setIsFilterSelected] = useState(false);
   const [isViewGrid, setIsViewGrid] = useState(true);
+  const [page, setPage] = useState(1);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [resultToDisplay, setResultToDisplay] = useState(
@@ -149,6 +153,7 @@ const Recherche = (props) => {
   const [trie, setTrie] = useState("date");
   const [trieDirection, setTrieDirection] = useState(true);
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
+  const [isMoreResult, setIsMoreResult] = useState(true);
 
   useEffect(() => {
     const newArray = [...props.ressources.results];
@@ -178,7 +183,6 @@ const Recherche = (props) => {
   }, [resultToDisplay]);
 
   useEffect(() => {
-    console.log("useEffect trie", trie, trieDirection);
     if (trie !== null) {
       trieResult(resultToDisplay);
     }
@@ -227,6 +231,27 @@ const Recherche = (props) => {
     setTrieDirection(!trieDirection);
   };
 
+  const fetchMoreData = () => {
+    let query = computeQuery(
+      props.filters.keywords,
+      props.filters.types,
+      props.filters.date,
+      props.filters.categories,
+      props.filters.impacts,
+      props.filters.actions,
+      props.filters.formats
+    );
+    let array = [...resultToDisplay];
+    getResult(query, page + 1).then((res) => {
+      array.concat(res);
+      if (res.length == 0) {
+        setIsMoreResult(false);
+      }
+      props.loadResultInfo(array.concat(res));
+      setPage(page + 1);
+    });
+  };
+
   const trieResult = () => {
     const newArray = [...resultToDisplay];
     switch (trie) {
@@ -268,7 +293,6 @@ const Recherche = (props) => {
       default:
         break;
     }
-    console.log(newArray);
     setResultToDisplay(newArray);
   };
   return (
@@ -374,7 +398,23 @@ const Recherche = (props) => {
           )}
         </Tries>
       </TriesContainer>
-      <BodyContainer isViewGrid={isViewGrid}>
+
+      <InfiniteScroll
+        dataLength={resultToDisplay.length}
+        next={fetchMoreData}
+        hasMore={isMoreResult}
+        loader={<h4>Loading...</h4>}
+        className="recherche-display"
+        style={{
+          padding: "0 4%",
+          display: "flex",
+          flexDirection: isViewGrid && !isMobile ? "row" : "column",
+          flexWrap: "wrap",
+          // @media screen and (max-width: 900px) {
+          //   flex-direction: column;
+          // }
+        }}
+      >
         {resultToDisplay &&
           resultToDisplay.length > 0 &&
           resultToDisplay.map((item, index) => {
@@ -383,8 +423,6 @@ const Recherche = (props) => {
               item.type === "documents" ||
               item.type === "articles"
             ) {
-              let info = { ID: item.id, post_type: item.type };
-
               return isViewGrid ? (
                 <GridResultComponent key={index} info={item} />
               ) : (
@@ -392,7 +430,7 @@ const Recherche = (props) => {
               );
             }
           })}
-      </BodyContainer>
+      </InfiniteScroll>
     </MainContainer>
   );
 };

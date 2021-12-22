@@ -191,6 +191,7 @@ const Contact = (props) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    recaptchaRef.current.reset();
     recaptchaRef.current.executeAsync().then((token) => {
       if (token) {
         setFormSubmitted(true);
@@ -298,7 +299,7 @@ const Contact = (props) => {
       <div className="contact-container">
         {!formSuccess && (
           <ContactForm>
-            <form onSubmit={handleSubmit}>
+            <form>
               <FormGroup>
                 <small className={"smallForm"}>Je suis</small>
                 <FormRow>
@@ -452,7 +453,9 @@ const Contact = (props) => {
                     </div>
 
                     <p className="text-center">
-                      <SubmitButton>Envoyer</SubmitButton>
+                      <SubmitButton onClick={handleSubmit}>
+                        Envoyer
+                      </SubmitButton>
                     </p>
 
                     <TermsAndConditions

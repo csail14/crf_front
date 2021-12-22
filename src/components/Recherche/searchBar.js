@@ -118,8 +118,8 @@ const MainContainer = styled.div`
   @media screen and (max-width:1024px){
       padding:0;
     & > div:first-of-type {
-      width:100%;
-      padding:7px 10px;
+      width: 100%;
+      padding: 7px 10px;
     }
   }
 `;
@@ -261,7 +261,7 @@ const SearchBar = (props) => {
         selectedActions,
         selectedFormat
       );
-      getResult(query).then((res) => props.loadResultInfo(res));
+      getResult(query, 0).then((res) => props.loadResultInfo(res));
     }
     setIsSelectedFitler();
     return () => {
@@ -413,7 +413,7 @@ const SearchBar = (props) => {
       props.filters.actions,
       props.filters.formats
     );
-    getResult(query).then((res) => props.loadResultInfo(res));
+    getResult(query, 0).then((res) => props.loadResultInfo(res));
     if (props.addQueryUrl) {
       props.addQueryUrl();
     }
