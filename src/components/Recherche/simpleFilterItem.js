@@ -62,6 +62,9 @@ const FilterOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: max-content;
+  @media screen and (max-width:900px){
+    top:50px;
+  }
 `;
 const FilterOptions = styled.div`
   background-color: ${(props) => (props.isSelected ? colors.marine : "white")};
