@@ -23,7 +23,7 @@ const DomaineContainer = styled.div`
   justify-content: space-between;
   cursor: pointer;
   background-color: ${(props) => (props.isOpen ? colors.grisBackground : "")};
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding: 15px 5%;
   }
 `;
@@ -40,7 +40,7 @@ const RessourcesLieesContainer = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding: 15px 10%;
   }
 `;

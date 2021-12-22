@@ -15,7 +15,7 @@ const FilterContainer = styled.div`
   padding: ${(props) => (props.isTop ? "5px 10px" : "0 9%")};
   line-height: 20px;
   border-right: ${(props) => (props.isMobile ? "" : "1px solid #E2E3E5")};
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding:5px 5%;
     position:relative;
   }
@@ -26,7 +26,7 @@ const FilterTitle = styled.div`
   font-size:1.2rem;
   color: ${colors.gris};
   text-transform: uppercase;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size:1rem;
   }
 `;
@@ -45,7 +45,7 @@ const FilterContent = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size:1.4rem;
   }
 `;
@@ -59,7 +59,7 @@ const KeyWordsContainer = styled.div`
   font-weight: 500;
   background-color: ${colors.grisBackground};
   width: fit-content;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
    margin-bottom:20px;
   }
 `;
@@ -77,7 +77,7 @@ const FilterOptionsContainer = styled.div`
   left: 0px;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   z-index: 1;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding: 30px 20px;
     top:50px;
   }

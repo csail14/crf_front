@@ -526,10 +526,11 @@ body #ot-sdk-btn.ot-sdk-show-settings {
   font-size: inherit !important;
 }
 
-@media screen and (max-width: 900px) {
-  body {
-    font-size: 1.4rem;
-    line-height: 1.57;
+
+@media screen and (max-width:1024px){
+  body{
+    font-size:1.4rem;
+    line-height:1.57;
   }
   .sidebar_title {
     padding: 8px 6%;

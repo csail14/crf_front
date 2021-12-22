@@ -23,14 +23,14 @@ const RightSideContainer = styled.section`
   flex-basis: 60%;
   margin-bottom: 50px;
   max-width: 660px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin-bottom:0;
   }
 `;
 const HeaderRightSideTopContainer = styled.header`
   min-height: 378px;
   padding: ${(props) => (props.isMobile ? "30px 20px" : "63px 0px 30px")};
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     min-height:auto;
   }
 `;
@@ -44,7 +44,7 @@ const TitleContainer = styled.h1`
   margin: 0;
   letter-spacing: 0.05rem;
   margin-bottom: 32px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 2.4rem;
     line-height:1.4;
     margin-bottom: 0px;
@@ -53,7 +53,7 @@ const TitleContainer = styled.h1`
 
 const BodyContainer = styled.section`
   margin-top: 33px;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     padding:20px;
     margin:0;
   }
@@ -115,7 +115,7 @@ const ArianeContainer = styled.div`
   a {
     margin-left: 0;
   }
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     display:none;
   }
 `;

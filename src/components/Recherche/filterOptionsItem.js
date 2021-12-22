@@ -15,7 +15,7 @@ const FilterOptions = styled.div`
   padding: 15px 20px;
   flex-wrap: no-wrap;
   position: relative;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     margin: 10px 20px 10px 0;
   }
 `;
@@ -65,6 +65,7 @@ const SimpleFilterItem = (props) => {
       isSelected={props.isSelected}
       onClick={() => props.manageSelectedFilter(props.item)}
       className="search_options"
+      data-name={props.item.name}
     >
       {props.item.name}
       <i style={{ marginLeft: "10px" }} className={props.item.icon}></i>

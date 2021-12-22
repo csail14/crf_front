@@ -48,14 +48,17 @@ const FilterContainer = styled.div`
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   background-color: ${(props) => (props.isMobile ? "white" : "")};
   position: relative;
+  @media screen and (max-width:1024px){
+  padding: 5px 5%;
+  }
 `;
 const FilterTitle = styled.div`
   font-weight: 700;
   font-size: ${(props) => (props.isTop ? "1.2rem" : "1.2rem")};
   color: ${colors.gris};
   text-transform: uppercase;
-  @media screen and (max-width: 900px) {
-    font-size: 1rem;
+  @media screen and (max-width:1024px){
+    font-size:1rem;
   }
 `;
 const FilterContent = styled.div`
@@ -72,8 +75,8 @@ const FilterContent = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width: 900px) {
-    font-size: 1.4rem;
+  @media screen and (max-width:1024px){
+    font-size:1.4rem;
   }
 `;
 const MainContainer = styled.div`
@@ -112,8 +115,8 @@ const MainContainer = styled.div`
     border: 10px solid #f7f9fa;
     border-width: 10px 4%;
   }
-  @media screen and (max-width: 900px) {
-    padding: 0;
+  @media screen and (max-width:1024px){
+      padding:0;
     & > div:first-of-type {
       width: 100%;
       padding: 7px 10px;
@@ -134,12 +137,10 @@ const SearchButtonContainer = styled.div`
   width: ${(props) => (props.isMobile ? "-webkit-fill-available" : "")};
   font-size: ${(props) => (props.isTop ? "1.2rem" : "")};
   text-align: center;
-  transition: box-shadow 150ms linear, background-color 150ms linear,
-    transform 150ms linear;
+  transition: all 0.3s;
   &:hover {
     box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.3);
-    transform: scale(0.98);
-    font-size: 1rem;
+   transform:scale(0.98);
   }
 `;
 const AdvancedSearchBar = styled.div`
@@ -149,8 +150,8 @@ const AdvancedSearchBar = styled.div`
   margin: 10px auto 0px auto;
   background-color: white;
   width: fit-content;
-  @media screen and (max-width: 900px) {
-    padding: 0;
+  @media screen and (max-width:1024px){
+    padding:0;
   }
 `;
 const AdvancedSearchBarContainer = styled.div`
@@ -188,8 +189,8 @@ const FilterOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: max-content;
-  @media screen and (max-width: 900px) {
-    padding: 1.4rem;
+  @media screen and (max-width:1024px){
+    padding:1.4rem;
   }
 `;
 const FilterOptions = styled.div`

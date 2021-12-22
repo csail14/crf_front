@@ -51,7 +51,7 @@ const BackIntranet = styled.a`
   i {
     margin-right: 8px;
   }
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1024px) {
     font-size: 0.8rem;
     padding: 18px 6% 0;
   }

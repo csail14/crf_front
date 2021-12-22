@@ -19,9 +19,8 @@ const HeaderContainer = styled.header`
   background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     min-height:auto;
-
   }
 `;
 
@@ -33,7 +32,7 @@ const HeaderTitleContainer = styled.h1`
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 2.4rem;
     line-height:1.4;
   }
@@ -47,7 +46,7 @@ const HeaderSubTitleContainer = styled.h2`
   text-transform: uppercase;
   margin: 0 0 34px;
   font-weight: 300;
-  @media screen and (max-width:900px){
+  @media screen and (max-width:1024px){
     font-size: 2rem;
     line-height:1.3;
     margin-bottom:20px;
