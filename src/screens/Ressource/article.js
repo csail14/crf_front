@@ -65,7 +65,7 @@ const RightSideContainer = styled.div`
 const HeaderRightSideTopContainer = styled.div`
   width: -webkit-fill-available;
   min-height: 378px;
-  padding: ${(props) => (props.isMobile ? "20px" : "103px 9% 63px 6.3%")};
+  padding: ${(props) => (props.isMobile ? "20px 5%" : "103px 9% 63px 6.3%")};
   background: linear-gradient(
       0deg,
       rgba(255, 255, 255, 0.5),
@@ -209,14 +209,14 @@ const TagContainer = styled.div`
 
 const LikeContainer = styled.div`
   display: flex;
-  padding: ${(props) => (props.isMobile ? "15px 20px" : "15px 0 15px 6.5%")};
+  padding: ${(props) => (props.isMobile ? "15px 5%" : "15px 0 15px 6.5%")};
   border-bottom: 0.5px solid #dce2ef;
   width: fit-content;
 `;
 
 const UpdateContainer = styled.time`
   padding: ${(props) =>
-  props.isMobile ? "10px 20px 0 20px" : "14px 0px 0 6.3%"};
+  props.isMobile ? "10px 5% 0" : "14px 0px 0 6.3%"};
 `;
 
 const BodyContainer = styled.main`

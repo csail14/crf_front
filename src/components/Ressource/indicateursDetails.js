@@ -52,7 +52,7 @@ const RightSideContainer = styled.section`
 `;
 const HeaderRightSideTopContainer = styled.header`
   min-height: 378px;
-  padding: ${(props) => (props.isMobile ? "20px 20px" : "63px 0px 30px")};
+  padding: ${(props) => (props.isMobile ? "20px 0px" : "63px 0px 30px")};
   @media screen and (max-width:1024px){
     min-height:auto;
 
@@ -72,7 +72,7 @@ const HeaderRightSideBottomContainer = styled.div`
   flex-direction: column;
   padding: 0px;
   @media screen and (max-width:1024px){
-    padding:0 20px;
+    padding:0px;
 
   }
 `;
@@ -158,13 +158,13 @@ const LikeContainer = styled.div`
 `;
 
 const UpdateContainer = styled.time`
-  padding: ${(props) => (props.isMobile ? "10px 20px 0 20px" : "14px 0px 0 0")};
+  padding: ${(props) => (props.isMobile ? "10px px" : "14px 0px 0 0")};
 `;
 
 const BodyContainer = styled.section`
   margin-top: 33px;
   @media screen and (max-width:1024px){
-    padding:0 20px;
+    padding:0px;
 
   }
 `;
