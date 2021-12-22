@@ -25,7 +25,7 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderTitleContainer = styled.h1`
-  font-size: 4.5rem;
+  font-size: ${(props) => (props.isMobile ? "2.4rem" : "4.5rem")};
   color: ${colors.marine};
   line-height: 50px;
   letter-spacing: 0.07rem;
@@ -35,7 +35,7 @@ const HeaderTitleContainer = styled.h1`
 `;
 
 const HeaderSubTitleContainer = styled.h2`
-  font-size: 4.5rem;
+font-size: ${(props) => (props.isMobile ? "2rem" : "2rem")};
   color: ${colors.marine};
   line-height: 42px;
   letter-spacing: 0.01em;
