@@ -74,6 +74,9 @@ const BodyContainer = styled.main`
    flex-direction:column;
    padding-bottom:30px;
   }
+  @media screen and (max-width:1280px){
+    flex-wrap:wrap;
+  }
 `;
 const breakPoint = "1024px";
 const Home = (props) => {

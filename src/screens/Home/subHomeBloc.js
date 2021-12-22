@@ -14,6 +14,13 @@ const MainContainer = styled.div`
   a:last-of-type {
     margin-top: auto;
   }
+  @media screen and (max-width:1280px){
+    flex-basis: 48%;
+    margin-bottom:50px;
+    &:nth-of-type(3){
+      margin:auto;
+    }
+  }
 `;
 
 const HeaderContainer = styled.article`

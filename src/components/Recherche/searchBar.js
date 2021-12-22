@@ -63,7 +63,7 @@ const FilterTitle = styled.div`
 `;
 const FilterContent = styled.div`
   font-weight: 500;
-  font-size: ${(props) => (props.isTop ? "1.2rem" : "1.6rem")};
+  font-size: ${(props) => (props.isTop ? "1.6rem" : "1.6rem")};
   color: ${colors.marine};
   align-items: center;
   display: flex;
@@ -114,6 +114,16 @@ const MainContainer = styled.div`
     max-width: 100%;
     border: 10px solid #f7f9fa;
     border-width: 10px 4%;
+  }
+  @media screen and (max-width:1280px){
+    & > div:first-of-type {
+      flex: 100%;
+      padding:7px 0;
+    }
+    & > div {
+      flex: 33%;
+      margin-bottom:10px;
+    }
   }
   @media screen and (max-width:1024px){
       padding:0;

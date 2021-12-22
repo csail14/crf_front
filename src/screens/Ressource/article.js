@@ -227,6 +227,9 @@ const BodyContainer = styled.main`
   width: 90%;
   margin: auto;
   max-width: 1350px;
+  @media screen and (max-width:1280px){
+    flex-direction:column;
+  }
 `;
 
 const LeftSideBodyComponent = styled.section`
@@ -246,8 +249,11 @@ const RightSideBodyContainer = styled.aside`
   align-items: ${(props) => (props.isMobile ? "center" : "")};
   flex-basis: 35%;
   max-width: 363px;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width:1280px){
     margin-top:30px;
+    max-width:none;
+    flex-wrap:wrap;
+    display:flex;
   }
 `;
 
@@ -300,6 +306,7 @@ const TitleRessourceContainer = styled.div`
   letter-spacing: 0em;
   margin-bottom: 20px;
   text-transform: uppercase;
+  flex-basis:100%;
   @media screen and (max-width:1024px){
     font-size: 1.5rem;
   }
