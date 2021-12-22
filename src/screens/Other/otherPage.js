@@ -113,7 +113,7 @@ const OtherPage = (props) => {
     ? props.pages.templates.filter(
         (template) => template.slug === props.match.params.id
       )[0]
-    : null;
+    : "null";
 
   const previousPage =
     props.location && props.location.state && props.location.state.from;
@@ -144,9 +144,9 @@ const OtherPage = (props) => {
             )}
 
             <HeaderSubTitleContainer>
-              {template ? template.acf.sous_titre : null}
+              {template && template.acf ? template.acf.sous_titre : null}
             </HeaderSubTitleContainer>
-            {template && (
+            {template && template.acf && (
               <SubtitleContainer
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(template.acf.intro),
@@ -155,7 +155,7 @@ const OtherPage = (props) => {
             )}
           </HeaderContainer>
           <BodyContainer className="bodyContent" isMobile={isMobile}>
-            {template && (
+            {template && template.content && (
               <Textcontainer
                 isMobile={isMobile}
                 dangerouslySetInnerHTML={{
