@@ -624,6 +624,7 @@ const Article = (props) => {
                 color={isHovered || isLiked ? colors.rouge : colors.gris}
                 style={{ marginRight: "7px", marginLeft: "7px" }}
                 cursor={"pointer"}
+                data-name={article.title.rendered}
               />
             </div>
           </AddLikeContainer>
