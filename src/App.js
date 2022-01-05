@@ -28,8 +28,8 @@ const BodyContainer = styled.div`
 const logout = async () => oktaAuth.signOut("/");
 
 const oktaAuth = new OktaAuth({
-  issuer: "https://rec-connect.croix-rouge.fr/oauth2/default",
-  clientId: "0oa3e1vqpgyuzhUj90x7",
+  issuer: config.okta.issuer,
+  clientId: config.okta.client_id,
   redirectUri: window.location.origin + "/login/callback",
 });
 
