@@ -617,6 +617,7 @@ const Article = (props) => {
                 marginLeft: "5px",
               }}
             >
+              {article !== null && article.title && (
               <AiOutlineLike
                 onClick={addOneLike}
                 id="like"
@@ -626,6 +627,7 @@ const Article = (props) => {
                 cursor={"pointer"}
                 data-name={article.title.rendered}
               />
+              )}
             </div>
           </AddLikeContainer>
           <Comments postID={articleId} showCommment={showCommment} />

@@ -579,6 +579,7 @@ const Indicateur = (props) => {
                 marginLeft: "5px",
               }}
             >
+              {indicateur !== null && indicateur.title && (
               <AiOutlineLike
                 onClick={addOneLike}
                 id="like"
@@ -588,6 +589,7 @@ const Indicateur = (props) => {
                 cursor={"pointer"}
                 data-name={indicateur.title.rendered}
               />
+              )}
             </div>
           </AddLikeContainer>
           <div id="comments"></div>
