@@ -71,7 +71,12 @@ const Dropdown = (props) => {
           props.openCloseDropDown(props.id);
         }}
       >
-        <span className={"dropdown_text dropdown_title"}>{props.title}</span>
+        <span
+          className={"dropdown_text dropdown_title"}
+          onClick={() => props.setShowMenu(false)}
+        >
+          {props.title}
+        </span>
         <span className={"arrow_icon"}>
           {!isOpen && <BsChevronDown />}
           {isOpen && <BsChevronUp />}

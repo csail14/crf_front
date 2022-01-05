@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import GridResultComponent from "../../components/Resultats/gridResultComponent";
+import ListResultComponent from "../../components/Resultats/listResultComponent";
 import styled from "styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import RightSideLinkContainer from "./RightSideLinkContainer";
@@ -19,8 +20,8 @@ const HeaderContainer = styled.header`
   background-image: url(${header});
   background-size: cover;
   background-position: bottom right;
-  @media screen and (max-width:1024px){
-    min-height:auto;
+  @media screen and (max-width: 1024px) {
+    min-height: auto;
   }
 `;
 
@@ -32,9 +33,9 @@ const HeaderTitleContainer = styled.h1`
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2.4rem;
-    line-height:1.4;
+    line-height: 1.4;
   }
 `;
 
@@ -46,10 +47,10 @@ const HeaderSubTitleContainer = styled.h2`
   text-transform: uppercase;
   margin: 0 0 34px;
   font-weight: 300;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2rem;
-    line-height:1.3;
-    margin-bottom:20px;
+    line-height: 1.3;
+    margin-bottom: 20px;
   }
 `;
 
@@ -196,7 +197,11 @@ const SubHome = (props) => {
           <AvailableRessourceContainer isMobile={isMobile}>
             {ressources_disponibles.map((item, index) => {
               if (item.status === "publish")
-                return <GridResultComponent key={index} info={item} />;
+                if (isMobile) {
+                  return <ListResultComponent key={index} info={item} />;
+                } else {
+                  return <GridResultComponent key={index} info={item} />;
+                }
             })}
           </AvailableRessourceContainer>
         </BottomContainer>

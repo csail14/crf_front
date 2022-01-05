@@ -48,8 +48,8 @@ const FilterContainer = styled.div`
   margin: ${(props) => (props.isMobile ? "5px auto" : "")};
   background-color: ${(props) => (props.isMobile ? "white" : "")};
   position: relative;
-  @media screen and (max-width:1024px){
-  padding: 5px 5%;
+  @media screen and (max-width: 1024px) {
+    padding: 5px 5%;
   }
 `;
 const FilterTitle = styled.div`
@@ -57,8 +57,8 @@ const FilterTitle = styled.div`
   font-size: ${(props) => (props.isTop ? "1.2rem" : "1.2rem")};
   color: ${colors.gris};
   text-transform: uppercase;
-  @media screen and (max-width:1024px){
-    font-size:1rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1rem;
   }
 `;
 const FilterContent = styled.div`
@@ -75,8 +75,8 @@ const FilterContent = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:1024px){
-    font-size:1.4rem;
+  @media screen and (max-width: 1024px) {
+    font-size: 1.4rem;
   }
 `;
 const MainContainer = styled.div`
@@ -115,18 +115,18 @@ const MainContainer = styled.div`
     border: 10px solid #f7f9fa;
     border-width: 10px 4%;
   }
-  @media screen and (max-width:1280px){
+  @media screen and (max-width: 1280px) {
     & > div:first-of-type {
       flex: 100%;
-      padding:7px 0;
+      padding: 7px 0;
     }
     & > div {
       flex: 33%;
-      margin-bottom:10px;
+      margin-bottom: 10px;
     }
   }
-  @media screen and (max-width:1024px){
-      padding:0;
+  @media screen and (max-width: 1024px) {
+    padding: 0;
     & > div:first-of-type {
       width: 100%;
       padding: 7px 10px;
@@ -150,7 +150,7 @@ const SearchButtonContainer = styled.div`
   transition: all 0.3s;
   &:hover {
     box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.3);
-   transform:scale(0.98);
+    transform: scale(0.98);
   }
 `;
 const AdvancedSearchBar = styled.div`
@@ -160,8 +160,8 @@ const AdvancedSearchBar = styled.div`
   margin: 10px auto 0px auto;
   background-color: white;
   width: fit-content;
-  @media screen and (max-width:1024px){
-    padding:0;
+  @media screen and (max-width: 1024px) {
+    padding: 0;
   }
 `;
 const AdvancedSearchBarContainer = styled.div`
@@ -199,8 +199,8 @@ const FilterOptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: max-content;
-  @media screen and (max-width:1024px){
-    padding:1.4rem;
+  @media screen and (max-width: 1024px) {
+    padding: 1.4rem;
   }
 `;
 const FilterOptions = styled.div`
@@ -211,7 +211,11 @@ const FilterOptions = styled.div`
   padding: 15px 20px;
   flex-wrap: no-wrap;
 `;
-const categorieAll = { id: 0, name: "Toutes les catégories", taxonomy: "categorie" };
+const categorieAll = {
+  id: 0,
+  name: "Toutes les catégories",
+  taxonomy: "categorie",
+};
 
 const SearchBar = (props) => {
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
@@ -501,6 +505,7 @@ const SearchBar = (props) => {
   const isArticleSelected =
     selectedType.filter((item) => item.id === 3).length > 0 ||
     selectedType.length === 0;
+  console.log(props.page);
   return (
     <MainContainer
       id="el"
@@ -524,53 +529,56 @@ const SearchBar = (props) => {
           onChange={(e) => handleChangeKeywords(e.target.value)}
         />{" "}
       </KeyWordsContainer>
-
-      <div
-        style={isMobile ? { width: "-webkit-fill-available" } : {}}
-        ref={actionsref}
-      >
-        <ComplexeFilterItem
-          isTop={isTop}
-          selectedObject={selectedActions}
-          setSelectedObject={handleChangeActions}
-          toggleOptions={toggleActionsOptions}
-          showOptions={showActionsOptions}
-          title={"Domaine d'action"}
-          data={props.taxonomie && props.taxonomie.domainesActions}
-          default="Choisir"
-        />
-      </div>
-      <div
-        style={isMobile ? { width: "-webkit-fill-available" } : {}}
-        ref={impactsref}
-      >
-        <ComplexeFilterItem
-          isTop={isTop}
-          selectedObject={selectedImpacts}
-          setSelectedObject={handleChangeImpacts}
-          toggleOptions={toggleImpactsOptions}
-          showOptions={showImpactsOptions}
-          title={"Domaine d'impact"}
-          data={props.taxonomie && props.taxonomie.domainesImpacts}
-          default="Choisir"
-        />
-      </div>
-      <div
-        style={isMobile ? { width: "-webkit-fill-available" } : {}}
-        ref={typeRef}
-      >
-        <SimpleFilterItem
-          isTop={isTop}
-          isType={true}
-          selectedObject={selectedType}
-          setSelectedObject={handleChangeTypes}
-          toggleOptions={toggleTypeOptions}
-          showOptions={showTypeOptions}
-          title={"Type de ressource"}
-          data={data.type_ressources}
-          default="Dans tout le site"
-        />
-      </div>
+      {(props.page !== "home" || !isMobile) && (
+        <>
+          <div
+            style={isMobile ? { width: "-webkit-fill-available" } : {}}
+            ref={actionsref}
+          >
+            <ComplexeFilterItem
+              isTop={isTop}
+              selectedObject={selectedActions}
+              setSelectedObject={handleChangeActions}
+              toggleOptions={toggleActionsOptions}
+              showOptions={showActionsOptions}
+              title={"Domaine d'action"}
+              data={props.taxonomie && props.taxonomie.domainesActions}
+              default="Choisir"
+            />
+          </div>
+          <div
+            style={isMobile ? { width: "-webkit-fill-available" } : {}}
+            ref={impactsref}
+          >
+            <ComplexeFilterItem
+              isTop={isTop}
+              selectedObject={selectedImpacts}
+              setSelectedObject={handleChangeImpacts}
+              toggleOptions={toggleImpactsOptions}
+              showOptions={showImpactsOptions}
+              title={"Domaine d'impact"}
+              data={props.taxonomie && props.taxonomie.domainesImpacts}
+              default="Choisir"
+            />
+          </div>
+          <div
+            style={isMobile ? { width: "-webkit-fill-available" } : {}}
+            ref={typeRef}
+          >
+            <SimpleFilterItem
+              isTop={isTop}
+              isType={true}
+              selectedObject={selectedType}
+              setSelectedObject={handleChangeTypes}
+              toggleOptions={toggleTypeOptions}
+              showOptions={showTypeOptions}
+              title={"Type de ressource"}
+              data={data.type_ressources}
+              default="Dans tout le site"
+            />
+          </div>
+        </>
+      )}
       {(isTop || (isMobile && showAdvancedSearch)) && (
         <>
           {isArticleSelected && (
@@ -606,6 +614,56 @@ const SearchBar = (props) => {
                 default="Tous les formats"
               />
             </div>
+          )}
+          {props.page === "home" && isMobile && (
+            <>
+              <div
+                style={isMobile ? { width: "-webkit-fill-available" } : {}}
+                ref={actionsref}
+              >
+                <ComplexeFilterItem
+                  isTop={isTop}
+                  selectedObject={selectedActions}
+                  setSelectedObject={handleChangeActions}
+                  toggleOptions={toggleActionsOptions}
+                  showOptions={showActionsOptions}
+                  title={"Domaine d'action"}
+                  data={props.taxonomie && props.taxonomie.domainesActions}
+                  default="Choisir"
+                />
+              </div>
+              <div
+                style={isMobile ? { width: "-webkit-fill-available" } : {}}
+                ref={impactsref}
+              >
+                <ComplexeFilterItem
+                  isTop={isTop}
+                  selectedObject={selectedImpacts}
+                  setSelectedObject={handleChangeImpacts}
+                  toggleOptions={toggleImpactsOptions}
+                  showOptions={showImpactsOptions}
+                  title={"Domaine d'impact"}
+                  data={props.taxonomie && props.taxonomie.domainesImpacts}
+                  default="Choisir"
+                />
+              </div>
+              <div
+                style={isMobile ? { width: "-webkit-fill-available" } : {}}
+                ref={typeRef}
+              >
+                <SimpleFilterItem
+                  isTop={isTop}
+                  isType={true}
+                  selectedObject={selectedType}
+                  setSelectedObject={handleChangeTypes}
+                  toggleOptions={toggleTypeOptions}
+                  showOptions={showTypeOptions}
+                  title={"Type de ressource"}
+                  data={data.type_ressources}
+                  default="Dans tout le site"
+                />
+              </div>
+            </>
           )}
           <div
             style={isMobile ? { width: "-webkit-fill-available" } : {}}
