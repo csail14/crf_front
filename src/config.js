@@ -7,4 +7,8 @@ export const config = {
     username: process.env.REACT_APP_USER,
     password: process.env.REACT_APP_USER_PASSWORD,
   },
+  okta: {
+    client_id : process.env.REACT_APP_OKTA_CLIENT_ID,
+    issuer: process.env.REACT_APP_OKTA_ISSUER 
+  }
 };
