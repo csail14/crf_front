@@ -55,36 +55,12 @@ Initialiser et cloner le projet dans le dossier concerné
 2. git remote add origin https://gitlab.com/la-guilde-du-pixel/pmis-front-croix-rouge-francaise.git
 3. git pull
 4. git checkout dev
-5. Ajouter .env à la racine
+5. Ajouter .env à la racine (modèle dans .env.example)
 5. commande "npm install"
 6. commande "npm run build"
 7. Faire pointer le vhost sur le dossier build
-8. ajouter le .htaccess dans le dossier build
 
-- Contenu .env
-Le user est un utilisateur Wordpress abonné pour l'authentification POST
-
-```
-REACT_APP_ENV_API_LINK=https://pmis-wp.laguildedupixel.fr/wp-json
-REACT_APP_WP_LINK=https://pmis-wp.laguildedupixel.fr
-REACT_APP_USER= post
-REACT_APP_USER_PASSWORD=f^ZEYfVJcjVeQ(3Pja
-
-```
-
-- Contenu du .htaccess
-```
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.html$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-RewriteRule . /index.html [L]
-</IfModule>
-
-```
+- NB. Dans le .env, le user est un utilisateur Wordpress administrateur pour l'authentification POST
 
 Ouvrir l'url de recette : rec-impact-social.croix-rouge.fr
 
