@@ -82,7 +82,7 @@ const Indicateur = (props) => {
 
   return (
     <>
-      {ressources_liees && ressources_liees.length && (
+      {ressources_liees && ressources_liees.length > 0 && (
         <BottomContainer>
           <BottomTitleContainer>Ressources liées</BottomTitleContainer>
           <AvailableRessourceContainer isMobile={isMobile}>
