@@ -46,6 +46,19 @@ Exemple vhost (git init dans le dossier react)
 - Back office installé et fonctionnel
 - Serveur LAMP classique (Javascript utilisé uniquement)
 - npm installé sur serveur
+- Compte Okta (configuration ci-dessous)
+
+### Configuration Okta 
+
+- Application OIDC - Single Page Application
+- Activer les champ : Authorization Code / Refresh Token / Implicit (avec Allow ID Token ET Allow Acces Token)
+- Use persistent token 
+- Require consent
+- Sign-in redirect URL = https://rec-impact-social.croix-rouge.fr/login/callback
+- Sign-out redirect URL = https://rec-impact-social.croix-rouge.fr/
+- Initiate login URL = https://rec-impact-social.croix-rouge.fr/
+- Login initated by : Either Okta ar App 
+- Login flow : Redirect to app to initiate login
 
 ## Installation
 
