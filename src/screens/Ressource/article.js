@@ -606,32 +606,36 @@ const Article = (props) => {
               }}
             />
           )}
-          <AddLikeContainer isMobile={isMobile}>
-            Cette ressource vous a inspiré ?{" "}
-            <div
-              ref={hoverRef}
-              style={{
-                backgroundColor: isLiked ? "#fdd2d2" : "",
-                padding: "10px 5px",
-                borderRadius: "50%",
-                marginLeft: "5px",
-              }}
-            >
-              {article !== null && article.title && (
-              <AiOutlineLike
-                onClick={addOneLike}
-                id="like"
-                size={18}
-                color={isHovered || isLiked ? colors.rouge : colors.gris}
-                style={{ marginRight: "7px", marginLeft: "7px" }}
-                cursor={"pointer"}
-                data-name={article.title.rendered}
-              />
-              )}
-            </div>
-          </AddLikeContainer>
-          <Comments postID={articleId} showCommment={showCommment} />
-          <div id="comments"></div>
+          {!isMobile && (
+            <>
+              <AddLikeContainer isMobile={isMobile}>
+                Cette ressource vous a inspiré ?{" "}
+                <div
+                  ref={hoverRef}
+                  style={{
+                    backgroundColor: isLiked ? "#fdd2d2" : "",
+                    padding: "10px 5px",
+                    borderRadius: "50%",
+                    marginLeft: "5px",
+                  }}
+                >
+                  {article !== null && article.title && (
+                    <AiOutlineLike
+                      onClick={addOneLike}
+                      id="like"
+                      size={18}
+                      color={isHovered || isLiked ? colors.rouge : colors.gris}
+                      style={{ marginRight: "7px", marginLeft: "7px" }}
+                      cursor={"pointer"}
+                      data-name={article.title.rendered}
+                    />
+                  )}
+                </div>
+              </AddLikeContainer>
+              <Comments postID={articleId} showCommment={showCommment} />
+              <div id="comments"></div>
+            </>
+          )}
         </LeftSideBodyComponent>
         {ressources_principales && ressources_principales.length > 0 && (
           <RightSideBodyContainer isMobile={isMobile}>
@@ -646,6 +650,36 @@ const Article = (props) => {
               }
             })}
           </RightSideBodyContainer>
+        )}
+        {isMobile && (
+          <>
+            <AddLikeContainer isMobile={isMobile}>
+              Cette ressource vous a inspiré ?{" "}
+              <div
+                ref={hoverRef}
+                style={{
+                  backgroundColor: isLiked ? "#fdd2d2" : "",
+                  padding: "10px 5px",
+                  borderRadius: "50%",
+                  marginLeft: "5px",
+                }}
+              >
+                {article !== null && article.title && (
+                  <AiOutlineLike
+                    onClick={addOneLike}
+                    id="like"
+                    size={18}
+                    color={isHovered || isLiked ? colors.rouge : colors.gris}
+                    style={{ marginRight: "7px", marginLeft: "7px" }}
+                    cursor={"pointer"}
+                    data-name={article.title.rendered}
+                  />
+                )}
+              </div>
+            </AddLikeContainer>
+            <Comments postID={articleId} showCommment={showCommment} />
+            <div id="comments"></div>
+          </>
         )}
       </BodyContainer>
       {ressources_secondaires && ressources_secondaires.length > 0 && (

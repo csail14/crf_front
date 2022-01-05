@@ -16,7 +16,6 @@ require("moment/locale/fr.js");
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: auto;
 `;
 
 const TitleContainer = styled.div`
@@ -26,7 +25,7 @@ const TitleContainer = styled.div`
   color: black;
   text-transform: uppercase;
   margin-bottom: 20px;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 1.5rem;
   }
 `;
