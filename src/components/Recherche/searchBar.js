@@ -581,40 +581,6 @@ const SearchBar = (props) => {
       )}
       {(isTop || (isMobile && showAdvancedSearch)) && (
         <>
-          {isArticleSelected && (
-            <div
-              style={isMobile ? { width: "-webkit-fill-available" } : {}}
-              ref={categorieRef}
-            >
-              <SimpleFilterItem
-                isTop={isTop}
-                selectedObject={selectedCategorie}
-                setSelectedObject={handleChangeCategorie}
-                toggleOptions={toggleCategorieOptions}
-                showOptions={showCategorieOptions}
-                title={"Catégorie"}
-                data={categoriesData}
-                default="Toutes les catégories"
-              />
-            </div>
-          )}
-          {isDocSelected && (
-            <div
-              style={isMobile ? { width: "-webkit-fill-available" } : {}}
-              ref={formatRef}
-            >
-              <SimpleFilterItem
-                isTop={isTop}
-                selectedObject={selectedFormat}
-                setSelectedObject={handleChangeFormats}
-                toggleOptions={toggleFormatOptions}
-                showOptions={showFormatOptions}
-                title={"Format"}
-                data={data.format_ressources}
-                default="Tous les formats"
-              />
-            </div>
-          )}
           {props.page === "home" && isMobile && (
             <>
               <div
@@ -664,6 +630,40 @@ const SearchBar = (props) => {
                 />
               </div>
             </>
+          )}
+          {isArticleSelected && (
+            <div
+              style={isMobile ? { width: "-webkit-fill-available" } : {}}
+              ref={categorieRef}
+            >
+              <SimpleFilterItem
+                isTop={isTop}
+                selectedObject={selectedCategorie}
+                setSelectedObject={handleChangeCategorie}
+                toggleOptions={toggleCategorieOptions}
+                showOptions={showCategorieOptions}
+                title={"Catégorie"}
+                data={categoriesData}
+                default="Toutes les catégories"
+              />
+            </div>
+          )}
+          {isDocSelected && (
+            <div
+              style={isMobile ? { width: "-webkit-fill-available" } : {}}
+              ref={formatRef}
+            >
+              <SimpleFilterItem
+                isTop={isTop}
+                selectedObject={selectedFormat}
+                setSelectedObject={handleChangeFormats}
+                toggleOptions={toggleFormatOptions}
+                showOptions={showFormatOptions}
+                title={"Format"}
+                data={data.format_ressources}
+                default="Tous les formats"
+              />
+            </div>
           )}
           <div
             style={isMobile ? { width: "-webkit-fill-available" } : {}}
