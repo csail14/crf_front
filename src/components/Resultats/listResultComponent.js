@@ -359,7 +359,7 @@ const GridResultComponent = (props) => {
             props.info.download &&
             (props.info.format === "Texte" ||
               props.info.format === "Tableau") && (
-              <UploadContainer href={props.info.download.url} target="_blank">
+              <UploadContainer href={props.info.download.url} target="_blank" data-name={props.info.title.rendered}>
                 <BsDownload style={{ marginRight: "8px" }} />
                 TÉLÉCHARGER
                 {props.info.download.filesize && (

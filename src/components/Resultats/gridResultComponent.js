@@ -426,13 +426,13 @@ const GridResultComponent = (props) => {
       {props.info &&
         props.info.download &&
         (props.info.format === "Texte" || props.info.format === "Tableau") && (
-          <UploadContainer href={props.info.download.url} target="_blank">
+          <UploadContainer href={props.info.download.url} target="_blank" data-name={props.info.title.rendered}>
             <BsDownload style={{ marginRight: "8px" }} />
             TÉLÉCHARGER
             {props.info.download.filesize && (
-              <div style={{ color: "grey", marginLeft: "5px" }}>
+              <span style={{ color: "grey", marginLeft: "5px", textAlign:"right", fontSize:"1.2rem" }}>
                 {"(" + (props.info.download.filesize / 10000).toFixed(1)} Mo)
-              </div>
+              </span>
             )}
           </UploadContainer>
         )}
