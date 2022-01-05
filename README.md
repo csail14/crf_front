@@ -39,13 +39,26 @@ Exemple vhost (git init dans le dossier react)
 </VirtualHost>
 ```
 
-# Installer l'application en dev
+# Installer l'application en prod
 
 ## Pré-requis
 
 - Back office installé et fonctionnel
 - Serveur LAMP classique (Javascript utilisé uniquement)
 - npm installé sur serveur
+- Compte Okta (configuration ci-dessous)
+
+### Configuration Okta 
+
+- Application OIDC - Single Page Application
+- Activer les champ : Authorization Code / Refresh Token / Implicit (avec Allow ID Token ET Allow Acces Token)
+- Use persistent token 
+- Require consent
+- Sign-in redirect URL = https://impact-social.croix-rouge.fr/login/callback
+- Sign-out redirect URL = https://impact-social.croix-rouge.fr/
+- Initiate login URL = https://impact-social.croix-rouge.fr/
+- Login initated by : Either Okta ar App 
+- Login flow : Redirect to app to initiate login
 
 ## Installation
 
@@ -54,39 +67,15 @@ Initialiser et cloner le projet dans le dossier concerné
 1. git init
 2. git remote add origin https://gitlab.com/la-guilde-du-pixel/pmis-front-croix-rouge-francaise.git
 3. git pull
-4. git checkout dev
+4. git checkout main
 5. Ajouter .env à la racine
 5. commande "npm install"
 6. commande "npm run build"
 7. Faire pointer le vhost sur le dossier build
-8. ajouter le .htaccess dans le dossier build
 
-- Contenu .env
-Le user est un utilisateur Wordpress abonné pour l'authentification POST
+- NB. Dans le .env, le user est un utilisateur Wordpress administrateur pour l'authentification POST
 
-```
-REACT_APP_ENV_API_LINK=https://pmis-wp.laguildedupixel.fr/wp-json
-REACT_APP_WP_LINK=https://pmis-wp.laguildedupixel.fr
-REACT_APP_USER= post
-REACT_APP_USER_PASSWORD=f^ZEYfVJcjVeQ(3Pja
-
-```
-
-- Contenu du .htaccess
-```
-<IfModule mod_rewrite.c>
-RewriteEngine On
-RewriteBase /
-RewriteRule ^index\.html$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-RewriteRule . /index.html [L]
-</IfModule>
-
-```
-
-Ouvrir l'url de recette : rec-impact-social.croix-rouge.fr
+Ouvrir l'url de prod : impact-social.croix-rouge.fr
 
 ## Mettre à jour l'application 
 1. git pull
