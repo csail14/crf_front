@@ -260,7 +260,10 @@ const ArianeContainer = styled.div`
   a,
   div {
     color: #99a0b1;
-    margin: 0 5px;
+    margin: 0 5px 0 0;
+  }
+  span{
+    margin-right:5px;
   }
   div:not(:last-of-type) {
     cursor: pointer;
@@ -269,7 +272,8 @@ const ArianeContainer = styled.div`
     margin-left: 0;
   }
   @media screen and (max-width: 1024px) {
-    display: none;
+    padding-bottom:20px;
+    flex-wrap:wrap;
   }
 `;
 
@@ -425,7 +429,7 @@ const Indicateur = (props) => {
               listIndicateurTemplate.title &&
               listIndicateurTemplate.title.rendered}{" "}
           </Link>
-          {" > "}
+          <span>{" > "}</span>
           <div
             className="cliquable_link"
             onClick={() => {
@@ -438,7 +442,7 @@ const Indicateur = (props) => {
             {domaineImpact && domaineImpact.name}
           </div>
 
-          {" > "}
+          <span>{" > "}</span>
           <div>
             {indicateur && indicateur.title && indicateur.title.rendered}
           </div>
