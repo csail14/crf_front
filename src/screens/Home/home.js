@@ -22,9 +22,8 @@ const HeaderContainer = styled.header`
   & + #el {
     width: 90%;
   }
-  @media screen and (max-width:1024px){
-    min-height:auto;
-
+  @media screen and (max-width: 1024px) {
+    min-height: auto;
   }
 `;
 
@@ -36,9 +35,9 @@ const HeaderTitleContainer = styled.h1`
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2.4rem;
-    line-height:1.4;
+    line-height: 1.4;
   }
 `;
 
@@ -50,10 +49,10 @@ const HeaderSubTitleContainer = styled.h2`
   text-transform: uppercase;
   margin: 0 0 34px;
   font-weight: 300;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2rem;
-    line-height:1.3;
-    margin-bottom:20px;
+    line-height: 1.3;
+    margin-bottom: 20px;
   }
 `;
 
@@ -70,12 +69,12 @@ const BodyContainer = styled.main`
   justify-content: space-between;
   padding: 73px 0 96px 0;
   margin: auto;
-  @media screen and (max-width:1024px){
-   flex-direction:column;
-   padding-bottom:30px;
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    padding-bottom: 30px;
   }
-  @media screen and (max-width:1280px){
-    flex-wrap:wrap;
+  @media screen and (max-width: 1280px) {
+    flex-wrap: wrap;
   }
 `;
 const breakPoint = "1024px";
@@ -128,12 +127,13 @@ const Home = (props) => {
           ></SubtitleContainer>
         )}
       </HeaderContainer>
-      
-        <SearchBar
-          setIsFilterSelected={setIsFilterSelected}
-          setIsSearchOpen={toggleIsSearchOpen}
-          addQueryUrl={addQueryUrl}
-        />
+
+      <SearchBar
+        page="home"
+        setIsFilterSelected={setIsFilterSelected}
+        setIsSearchOpen={toggleIsSearchOpen}
+        addQueryUrl={addQueryUrl}
+      />
       <BodyContainer isMobile={isMobile}>
         {homeTemplate
           ? homeTemplate.acf.entrees.map((item, index) => {
