@@ -228,6 +228,7 @@ const UploadButton = styled.div`
   }
   @media screen and (max-width: 1024px) {
     padding: 17px 14px;
+    margin-top:20px;
     svg {
       min-width: 25px;
     }
