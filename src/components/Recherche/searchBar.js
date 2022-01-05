@@ -529,7 +529,7 @@ const SearchBar = (props) => {
           type="text"
           value={keywords}
           className={isMobile ? "recherche_input_mobile" : "recherche_input"}
-          placeholder={"Rechercher une ressource par mots-cléfs..."}
+          placeholder={"Rechercher par mots-cléfs..."}
           onChange={(e) => handleChangeKeywords(e.target.value)}
         />{" "}
       </KeyWordsContainer>
