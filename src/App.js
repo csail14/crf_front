@@ -65,6 +65,9 @@ function App(props) {
   };
   getFaviconEl();
 
+  console.log(config.okta.secure);
+
+  console.log(typeof(config.okta.secure));
   return (
     <div className="App">
       <MainContainer isMobile={isMobile}>

@@ -10,6 +10,6 @@ export const config = {
   okta: {
     client_id : process.env.REACT_APP_OKTA_CLIENT_ID,
     issuer: process.env.REACT_APP_OKTA_ISSUER,
-    secure: process.env.REACT_APP_OKTA_ACTIVE 
+    secure: Boolean(parseInt(process.env.REACT_APP_OKTA_ACTIVE))
   }
 };
