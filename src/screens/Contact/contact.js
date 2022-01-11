@@ -241,7 +241,12 @@ const Contact = (props) => {
           ? props.previousPage
           : window.location.href,
       message: message,
-      subject: subject,
+      subject:
+        contactTemplate &&
+        contactTemplate.acf &&
+        contactTemplate.acf.sujets_contact &&
+        contactTemplate.acf.sujets_contact[subject] &&
+        contactTemplate.acf.sujets_contact[subject].sujet,
       destination:
         contactTemplate.acf && contactTemplate.acf.mail_destination_contact
           ? contactTemplate.acf.mail_destination_contact
