@@ -60,15 +60,6 @@ const SubtitleContainer = styled.div`
   max-width: 800px;
   line-height: 1.8;
 `;
-const BodyContainer = styled.div`
-  padding: 0 4%;
-  display: flex;
-  flex-direction: ${(props) => (props.isViewGrid ? "row" : "column")};
-  flex-wrap: wrap;
-  @media screen and (max-width: 1024px) {
-    flex-direction: column;
-  }
-`;
 
 const NumberResultsContainer = styled.div`
   color: ${colors.marine};
@@ -145,8 +136,8 @@ const Recherche = (props) => {
   const [isFilterSeledted, setIsFilterSelected] = useState(false);
   const [isViewGrid, setIsViewGrid] = useState(true);
   const [page, setPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [query, setQuery] = useState("");
   const [resultToDisplay, setResultToDisplay] = useState(
     props.ressources.results
   );
@@ -167,6 +158,7 @@ const Recherche = (props) => {
     if (window.location.search === "") {
       addQueryUrl();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -180,12 +172,14 @@ const Recherche = (props) => {
     ) {
       checkTrie();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resultToDisplay]);
 
   useEffect(() => {
     if (trie !== null) {
       trieResult(resultToDisplay);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trie, trieDirection]);
 
   const slug = props.slug || "recherche";
@@ -196,7 +190,6 @@ const Recherche = (props) => {
   const addQueryUrl = () => {
     let string = "?s=" + props.filters.keywords;
     if (string !== window.location.search && props.filters.keywords !== "") {
-      setQuery(window.location.search);
       history.push({
         search: "?s=" + props.filters.keywords,
       });
@@ -244,7 +237,7 @@ const Recherche = (props) => {
     let array = [...resultToDisplay];
     getResult(query, page + 1).then((res) => {
       array.concat(res);
-      if (res.length == 0) {
+      if (res.length === 0) {
         setIsMoreResult(false);
       }
       props.loadResultInfo(array.concat(res));
@@ -429,6 +422,7 @@ const Recherche = (props) => {
                 <ListResultComponent key={index} info={item} />
               );
             }
+            return undefined;
           })}
       </InfiniteScroll>
     </MainContainer>

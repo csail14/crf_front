@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { BsDownload, BsDot } from "react-icons/bs";
@@ -16,10 +16,6 @@ import {
   loadImpactsFilter,
   loadActionsFilter,
 } from "../../actions/filter/filterActions";
-import {
-  getRessourceById,
-  getCommentaireByPost,
-} from "../../utils/api/RessourcesApi";
 import useMediaQuery from "@mui/material/useMediaQuery";
 require("moment/locale/fr.js");
 
@@ -136,7 +132,7 @@ const TitleContainer = styled.h2`
   }
   @media screen and (max-width: 1024px) {
     font-size: 1.4rem;
-    text-align:left;
+    text-align: left;
   }
 `;
 
@@ -360,7 +356,11 @@ const GridResultComponent = (props) => {
             props.info.download &&
             (props.info.format === "Texte" ||
               props.info.format === "Tableau") && (
-              <UploadContainer href={props.info.download.url} target="_blank" data-name={props.info.title.rendered}>
+              <UploadContainer
+                href={props.info.download.url}
+                target="_blank"
+                data-name={props.info.title.rendered}
+              >
                 <BsDownload style={{ marginRight: "8px" }} />
                 TÉLÉCHARGER
                 {props.info.download.filesize && (

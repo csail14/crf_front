@@ -65,16 +65,13 @@ function App(props) {
   };
   getFaviconEl();
 
-  console.log(config.okta.secure);
-
-  console.log(typeof(config.okta.secure));
   return (
     <div className="App">
       <MainContainer isMobile={isMobile}>
         <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
           <LeftSideComponent className="sidebar" logout={logout} />
           <BodyContainer isMobile={isMobile}>
-            {config.okta.secure===true && (
+            {config.okta.secure === true && (
               <Switch>
                 <SecureRoute exact path="/" component={HOC(Home)} />
                 <SecureRoute exact path="/home" component={HOC(Home)} />
@@ -99,10 +96,10 @@ function App(props) {
                   component={HOC(Document)}
                 />
                 <SecureRoute exact path="/:id" component={HOC(OtherPage)} />
-                <Route path="/login/callback" component={LoginCallback} /> 
+                <Route path="/login/callback" component={LoginCallback} />
               </Switch>
             )}
-            {config.okta.secure===false && (
+            {config.okta.secure === false && (
               <Switch>
                 <Route exact path="/" component={HOC(Home)} />
                 <Route exact path="/home" component={HOC(Home)} />

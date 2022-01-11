@@ -16,9 +16,9 @@ const FormInput = styled.div`
   display: flex;
   flex-direction: column;
   width: 48%;
-  @media screen and (max-width:1024px){
-    width:100%;
-    margin-bottom:20px;
+  @media screen and (max-width: 1024px) {
+    width: 100%;
+    margin-bottom: 20px;
   }
 `;
 
@@ -34,10 +34,10 @@ const FormRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  @media screen and (max-width:1024px){
-    flex-direction:column;
-    max-width:none;
-    width:100%;
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    max-width: none;
+    width: 100%;
   }
 `;
 const FormInputFullWidth = styled.div`
@@ -49,7 +49,7 @@ const FormGroup = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 20px;
@@ -96,9 +96,9 @@ const HeaderContainer = styled.header`
   background-size: cover;
   background-position: bottom right;
   margin-bottom: 78px;
-  @media screen and (max-width:1024px){
-    padding:55px 6%;
-    margin-bottom:40px;
+  @media screen and (max-width: 1024px) {
+    padding: 55px 6%;
+    margin-bottom: 40px;
   }
 `;
 const HeaderTitleContainer = styled.h2`
@@ -109,7 +109,7 @@ const HeaderTitleContainer = styled.h2`
   text-transform: uppercase;
   margin: 0;
   font-weight: 700;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2.4rem;
     line-height: 1.4;
   }
@@ -122,7 +122,7 @@ const HeaderSubTitleContainer = styled.h3`
   text-transform: uppercase;
   font-weight: 300;
   margin: 0 0 34px;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2rem;
     line-height: 1.3;
     margin-bottom: 20px;
@@ -208,9 +208,7 @@ const Contact = (props) => {
           message === "" ||
           subject === ""
         ) {
-        } else if (
-          !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-        ) {
+        } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
           setEmailError(true);
           setFormSuccess(false);
         } else {
@@ -241,7 +239,12 @@ const Contact = (props) => {
           ? props.previousPage
           : window.location.href,
       message: message,
-      subject: subject,
+      subject:
+        contactTemplate &&
+        contactTemplate.acf &&
+        contactTemplate.acf.sujets_contact &&
+        contactTemplate.acf.sujets_contact[subject] &&
+        contactTemplate.acf.sujets_contact[subject].sujet,
       destination:
         contactTemplate.acf && contactTemplate.acf.mail_destination_contact
           ? contactTemplate.acf.mail_destination_contact
@@ -391,23 +394,23 @@ const Contact = (props) => {
                   Je vous contacte parce que
                 </small>
                 <FormRow>
-                  <FormInputFullWidth>
-                    <select
-                      className={"formSelect"}
-                      onChange={handleChange}
-                      value={
-                        idToPreSelected && idToPreSelected !== ""
-                          ? idToPreSelected - 1
-                          : null
-                      }
-                      name={"subject"}
-                    >
-                      <option>Choisir le sujet de votre message</option>
-                      {contactTemplate &&
-                        contactTemplate.acf &&
-                        contactTemplate.acf.sujets_contact &&
-                        contactTemplate.acf.sujets_contact.length > 0 &&
-                        contactTemplate.acf.sujets_contact.map(
+                  {contactTemplate &&
+                  contactTemplate.acf &&
+                  contactTemplate.acf.sujets_contact &&
+                  contactTemplate.acf.sujets_contact.length > 1 ? (
+                    <FormInputFullWidth>
+                      <select
+                        className={"formSelect"}
+                        onChange={handleChange}
+                        value={
+                          idToPreSelected && idToPreSelected !== ""
+                            ? idToPreSelected - 1
+                            : ""
+                        }
+                        name={"subject"}
+                      >
+                        <option>Choisir le sujet de votre message</option>
+                        {contactTemplate.acf.sujets_contact.map(
                           (item, index) => {
                             return (
                               <option key={index} value={index}>
@@ -416,11 +419,18 @@ const Contact = (props) => {
                             );
                           }
                         )}
-                    </select>
-                    {formSubmitted && !subject && (
-                      <div className="formError">Veuillez choisir un sujet</div>
-                    )}
-                  </FormInputFullWidth>
+                      </select>
+                      {formSubmitted && !subject && (
+                        <div className="formError">
+                          Veuillez choisir un sujet
+                        </div>
+                      )}
+                    </FormInputFullWidth>
+                  ) : contactTemplate.acf.sujets_contact.length > 0 ? (
+                    contactTemplate.acf.sujets_contact[0].sujet
+                  ) : (
+                    ""
+                  )}
                 </FormRow>
               </FormGroup>
               <FormGroup>
@@ -495,7 +505,7 @@ const Contact = (props) => {
         )}
         {formSuccess && (
           <FormSuccess>
-            <i class="bi bi-check-lg" style={{ marginRight: 8 }}></i>
+            <i className="bi bi-check-lg" style={{ marginRight: 8 }}></i>
             Votre message a bien été envoyé, merci !
           </FormSuccess>
         )}

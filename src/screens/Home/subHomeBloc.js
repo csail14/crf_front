@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { colors } from "../../colors";
 import { MdArrowForwardIos } from "react-icons/md";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -14,11 +13,11 @@ const MainContainer = styled.div`
   a:last-of-type {
     margin-top: auto;
   }
-  @media screen and (max-width:1280px){
+  @media screen and (max-width: 1280px) {
     flex-basis: 48%;
-    margin-bottom:50px;
-    &:nth-of-type(3){
-      margin:auto;
+    margin-bottom: 50px;
+    &:nth-of-type(3) {
+      margin: auto;
     }
   }
 `;
@@ -45,7 +44,7 @@ const HeaderContainer = styled.article`
       margin: auto;
     }
   }
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     padding: 30px 5% 30px;
   }
 `;
@@ -57,7 +56,7 @@ const TitleContainer = styled.h2`
   text-transform: uppercase;
   font-size: 2.6rem;
   letter-spacing: 0.3rem;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2rem;
   }
 `;
@@ -66,7 +65,7 @@ const SubTitleContainer = styled.p`
   color: ${colors.marine};
   margin: 5px 0 0;
   font-size: 1.6rem;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 1.4rem;
   }
 `;
@@ -75,7 +74,6 @@ const LinkMainContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-
 `;
 const LinkContainer = styled.h3`
   display: flex;
@@ -95,7 +93,7 @@ const LinkContainer = styled.h3`
     box-shadow: 2px 6px 15px 0px rgba(0, 0, 0, 0.2);
     transform: scale(0.98);
   }
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 1.4rem;
   }
 `;
@@ -111,8 +109,8 @@ const MoreInfoContainer = styled.div`
   justify-content: center;
   cursor: pointer;
   letter-spacing: 0.1rem;
-  @media screen and (max-width:1024px){
-    margin-bottom:40px;
+  @media screen and (max-width: 1024px) {
+    margin-bottom: 40px;
     margin-top: 25px;
   }
 `;
@@ -160,7 +158,7 @@ const SubHomeBloc = (props) => {
                   onClick={() => {
                     !props.isSearchOpen
                       ? history.push({
-                          pathname: "/" + item.post_type+"/"+item.post_name,
+                          pathname: "/" + item.post_type + "/" + item.post_name,
                           state: { id: item.id },
                         })
                       : console.log();

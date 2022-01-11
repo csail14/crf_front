@@ -23,7 +23,7 @@ const DomaineContainer = styled.div`
   justify-content: space-between;
   cursor: pointer;
   background-color: ${(props) => (props.isOpen ? colors.grisBackground : "")};
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     padding: 15px 5%;
   }
 `;
@@ -40,7 +40,7 @@ const RessourcesLieesContainer = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     padding: 15px 10%;
   }
 `;
@@ -50,6 +50,7 @@ const DomaineListDeroulanteDropDown = (props) => {
 
   useEffect(() => {
     setIsOpen(props.openID === props.info.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.openID]);
   useEffect(() => {
     if (
@@ -63,6 +64,7 @@ const DomaineListDeroulanteDropDown = (props) => {
       setIsOpen(true);
       props.setOpenId(props.info.id);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -102,6 +104,7 @@ const DomaineListDeroulanteDropDown = (props) => {
               </RessourcesLieesContainer>
             );
           }
+          return undefined;
         })}
     </>
   );
