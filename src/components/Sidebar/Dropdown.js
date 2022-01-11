@@ -12,16 +12,17 @@ const Dropdown = (props) => {
   const container = React.createRef();
   useEffect(() => {
     setIsOpen(props.openID === props.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.openID]);
 
   useEffect(() => {
     if (location.pathname !== pathName) {
       setPathName(location.pathname);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   const defineUrl = (long_url, type, slug) => {
-    const url = long_url.replace(process.env.REACT_APP_WP_LINK, "");
     if (type === "Page") {
       return "/" + slug;
     } else if (type === "Article") {
@@ -87,6 +88,7 @@ const Dropdown = (props) => {
         <div className={"dropdown"}>
           {props.subItem.map((link) => {
             if (link.post_status === "publish") return placelink(link);
+            return undefined;
           })}
         </div>
       )}

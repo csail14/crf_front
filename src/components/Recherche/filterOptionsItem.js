@@ -15,7 +15,7 @@ const FilterOptions = styled.div`
   padding: 15px 20px;
   flex-wrap: no-wrap;
   position: relative;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     margin: 5px 10px 5px 0;
   }
 `;
@@ -31,8 +31,8 @@ const ExtraitContainer = styled.div`
   top: 64px;
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   z-index: 1;
-  width:300px;
-  left:0;
+  width: 300px;
+  left: 0;
 `;
 
 function useHover() {
@@ -53,7 +53,7 @@ function useHover() {
         };
       }
     },
-    [ref.current] // Recall only if ref changes
+    [] // Recall only if ref changes
   );
   return [ref, value];
 }

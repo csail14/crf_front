@@ -208,9 +208,7 @@ const Contact = (props) => {
           message === "" ||
           subject === ""
         ) {
-        } else if (
-          !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-        ) {
+        } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
           setEmailError(true);
           setFormSuccess(false);
         } else {
@@ -407,7 +405,7 @@ const Contact = (props) => {
                         value={
                           idToPreSelected && idToPreSelected !== ""
                             ? idToPreSelected - 1
-                            : null
+                            : ""
                         }
                         name={"subject"}
                       >
@@ -507,7 +505,7 @@ const Contact = (props) => {
         )}
         {formSuccess && (
           <FormSuccess>
-            <i class="bi bi-check-lg" style={{ marginRight: 8 }}></i>
+            <i className="bi bi-check-lg" style={{ marginRight: 8 }}></i>
             Votre message a bien été envoyé, merci !
           </FormSuccess>
         )}

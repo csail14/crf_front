@@ -339,6 +339,7 @@ function useHover() {
         };
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [ref.current] // Recall only if ref changes
   );
   return [ref, value];
@@ -370,6 +371,7 @@ const Article = (props) => {
         .then((res) => setArticle(res))
         .catch((error) => console.log(error));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -382,6 +384,7 @@ const Article = (props) => {
         props.user.token
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article]);
 
   const domaineActionId =
@@ -694,6 +697,7 @@ const Article = (props) => {
                   } else {
                     return <GridResultComponent key={index} info={item} />;
                   }
+                return undefined;
               })}
           </AvailableRessourceContainer>
         </BottomContainer>

@@ -188,8 +188,8 @@ const ToggleContainer = styled.div`
     transform: scale(0.98);
   }
   @media screen and (max-width: 1024px) {
-    position:static;
-    margin:10px auto;
+    position: static;
+    margin: 10px auto;
   }
 `;
 const FilterOptionsContainer = styled.div`
@@ -238,7 +238,6 @@ const SearchBar = (props) => {
   const [showImpactsOptions, setShowImpactsOptions] = useState(false);
   const [selectedActions, setSelectedActions] = useState(props.filters.actions);
   const [showActionsOptions, setShowActionsOptions] = useState(false);
-  const [focused, setFocused] = useState(false);
   const [isTop, setIsTop] = useState(false);
   const actionsref = useRef();
   const impactsref = useRef();
@@ -263,6 +262,7 @@ const SearchBar = (props) => {
     return () => {
       window.removeEventListener("keyup", handleSearch);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.filters]);
 
   useEffect(() => {
@@ -287,10 +287,8 @@ const SearchBar = (props) => {
       window.removeEventListener("keyup", handleSearch);
       mounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
-
-  const onFocus = () => setFocused(true);
-  const onBlur = () => setFocused(false);
 
   const setIsSelectedFitler = () => {
     if (
@@ -339,6 +337,7 @@ const SearchBar = (props) => {
     return function cleanup() {
       mounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     showFormatOptions,
     showTypeOptions,
@@ -509,7 +508,7 @@ const SearchBar = (props) => {
   const isArticleSelected =
     selectedType.filter((item) => item.id === 3).length > 0 ||
     selectedType.length === 0;
-  console.log(props.page);
+
   return (
     <MainContainer
       id="el"
@@ -524,8 +523,6 @@ const SearchBar = (props) => {
           style={{ marginRight: isTop ? "5px" : "17px", fontSize: "2.4rem" }}
         />
         <input
-          onFocus={onFocus}
-          onBlur={onBlur}
           type="text"
           value={keywords}
           className={isMobile ? "recherche_input_mobile" : "recherche_input"}

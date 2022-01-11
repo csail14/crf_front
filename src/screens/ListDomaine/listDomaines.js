@@ -18,9 +18,8 @@ const HeaderContainer = styled.header`
   background-size: cover;
   background-position: bottom right;
   min-height: 378px;
-  @media screen and (max-width:1024px){
-    min-height:auto;
-
+  @media screen and (max-width: 1024px) {
+    min-height: auto;
   }
 `;
 
@@ -31,9 +30,9 @@ const HeaderTitleContainer = styled.h2`
   letter-spacing: 0.07rem;
   text-transform: uppercase;
   margin: 0;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2.4rem;
-    line-height:1.4;
+    line-height: 1.4;
   }
 `;
 
@@ -45,10 +44,10 @@ const HeaderSubTitleContainer = styled.h3`
   text-transform: uppercase;
   margin: 0 0 34px;
   font-weight: 300;
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     font-size: 2rem;
-    line-height:1.3;
-    margin-bottom:20px;
+    line-height: 1.3;
+    margin-bottom: 20px;
   }
 `;
 
@@ -65,11 +64,11 @@ const BodyContainer = styled.main`
   padding: ${(props) => (props.isMobile ? "30px" : "0 9%")};
   justify-content: flex-start;
   margin-top: -29px;
-  @media screen and (max-width:1024px){
-    flex-direction:column;
-   padding:20px;
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    padding: 20px;
     margin-top: 0px;
-   }
+  }
 `;
 
 const ListDomaines = (props) => {
@@ -113,6 +112,7 @@ const ListDomaines = (props) => {
             if (item.indicateurs.length) {
               return <ApercuDomaine info={item} key={index} />;
             }
+            return undefined;
           })}
       </BodyContainer>
     </MainContainer>

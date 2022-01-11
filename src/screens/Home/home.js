@@ -5,7 +5,6 @@ import styled from "styled-components";
 import SubHomeBloc from "./subHomeBloc";
 import { colors } from "../../colors";
 import DOMPurify from "dompurify";
-import { config } from "../../config";
 import header from "../../assets/header.jpeg";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -85,6 +84,7 @@ const Home = (props) => {
     : null;
 
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isFilterSeledted, setIsFilterSelected] = useState(false);
 
   const toggleIsSearchOpen = (isOpen) => {

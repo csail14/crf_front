@@ -6,7 +6,6 @@ import { BsFillTriangleFill } from "react-icons/bs";
 import { colors } from "../../colors";
 import { useHistory } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { getRessourceById } from "../../utils/api/RessourcesApi";
 import { config } from "../../config";
 import useMediaQuery from "@mui/material/useMediaQuery";
 require("moment/locale/fr.js");
@@ -64,6 +63,7 @@ function useHover() {
         };
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [ref.current] // Recall only if ref changes
   );
   return [ref, value];

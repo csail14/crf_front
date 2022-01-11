@@ -6,15 +6,10 @@ import { BsTags } from "react-icons/bs";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
-import { getMediaById } from "../../utils/api/API";
 import { colors } from "../../colors";
 import moment from "moment";
 import DOMPurify from "dompurify";
 import { useHistory } from "react-router-dom";
-import {
-  getRessourceById,
-  getCommentaireByPost,
-} from "../../utils/api/RessourcesApi";
 import {
   loadKeywordsFilter,
   loadImpactsFilter,
@@ -39,11 +34,11 @@ const MainContainer = styled.article`
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
     transform: scale(0.98);
   }
-  @media screen and (max-width:1280px){
-    flex-basis:32%;
+  @media screen and (max-width: 1280px) {
+    flex-basis: 32%;
   }
-  @media screen and (max-width:1024px){
-    flex-basis:48%;
+  @media screen and (max-width: 1024px) {
+    flex-basis: 48%;
   }
 `;
 
@@ -426,11 +421,22 @@ const GridResultComponent = (props) => {
       {props.info &&
         props.info.download &&
         (props.info.format === "Texte" || props.info.format === "Tableau") && (
-          <UploadContainer href={props.info.download.url} target="_blank" data-name={props.info.title.rendered}>
+          <UploadContainer
+            href={props.info.download.url}
+            target="_blank"
+            data-name={props.info.title.rendered}
+          >
             <BsDownload style={{ marginRight: "8px" }} />
             TÉLÉCHARGER
             {props.info.download.filesize && (
-              <span style={{ color: "grey", marginLeft: "5px", textAlign:"right", fontSize:"1.2rem" }}>
+              <span
+                style={{
+                  color: "grey",
+                  marginLeft: "5px",
+                  textAlign: "right",
+                  fontSize: "1.2rem",
+                }}
+              >
                 {"(" + (props.info.download.filesize / 10000).toFixed(1)} Mo)
               </span>
             )}
