@@ -62,6 +62,7 @@ const Indicateur = (props) => {
         .then((res) => setIndicateur(res))
         .catch((error) => console.log(error));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const indicateurId = indicateur && indicateur.id;

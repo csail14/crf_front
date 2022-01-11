@@ -228,7 +228,7 @@ const UploadButton = styled.div`
   }
   @media screen and (max-width: 1024px) {
     padding: 17px 14px;
-    margin-top:20px;
+    margin-top: 20px;
     svg {
       min-width: 25px;
     }
@@ -263,8 +263,8 @@ const ArianeContainer = styled.div`
     color: #99a0b1;
     margin: 0 5px 0 0;
   }
-  span{
-    margin-right:5px;
+  span {
+    margin-right: 5px;
   }
   div:not(:last-of-type) {
     cursor: pointer;
@@ -273,8 +273,8 @@ const ArianeContainer = styled.div`
     margin-left: 0;
   }
   @media screen and (max-width: 1024px) {
-    padding-bottom:20px;
-    flex-wrap:wrap;
+    padding-bottom: 20px;
+    flex-wrap: wrap;
   }
 `;
 
@@ -304,6 +304,7 @@ function useHover() {
         };
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [ref.current] // Recall only if ref changes
   );
   return [ref, value];
@@ -333,6 +334,7 @@ const Indicateur = (props) => {
         .then((res) => setIndicateur(res))
         .catch((error) => console.log(error));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -345,6 +347,7 @@ const Indicateur = (props) => {
         props.user.token
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indicateur]);
 
   const indicateurId = indicateur && indicateur.id;
@@ -585,15 +588,15 @@ const Indicateur = (props) => {
               }}
             >
               {indicateur !== null && indicateur.title && (
-              <AiOutlineLike
-                onClick={addOneLike}
-                id="like"
-                size={18}
-                color={isHovered || isLiked ? colors.rouge : colors.gris}
-                style={{ marginRight: "7px", marginLeft: "7px" }}
-                cursor={"pointer"}
-                data-name={indicateur.title.rendered}
-              />
+                <AiOutlineLike
+                  onClick={addOneLike}
+                  id="like"
+                  size={18}
+                  color={isHovered || isLiked ? colors.rouge : colors.gris}
+                  style={{ marginRight: "7px", marginLeft: "7px" }}
+                  cursor={"pointer"}
+                  data-name={indicateur.title.rendered}
+                />
               )}
             </div>
           </AddLikeContainer>

@@ -332,6 +332,7 @@ function useHover() {
         };
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [ref.current] // Recall only if ref changes
   );
   return [ref, value];
@@ -362,6 +363,7 @@ const Document = (props) => {
         .then((res) => setDocument(res))
         .catch((error) => console.log(error));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -374,6 +376,7 @@ const Document = (props) => {
         props.user.token
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [document]);
 
   const domaineActionId =
@@ -669,15 +672,15 @@ const Document = (props) => {
               }}
             >
               {document !== null && document.title && (
-              <AiOutlineLike
-                onClick={addOneLike}
-                id="like"
-                size={18}
-                color={isHovered || isLiked ? colors.rouge : colors.gris}
-                style={{ marginRight: "7px", marginLeft: "7px" }}
-                cursor={"pointer"}
-                data-name={document.title.rendered}
-              />
+                <AiOutlineLike
+                  onClick={addOneLike}
+                  id="like"
+                  size={18}
+                  color={isHovered || isLiked ? colors.rouge : colors.gris}
+                  style={{ marginRight: "7px", marginLeft: "7px" }}
+                  cursor={"pointer"}
+                  data-name={document.title.rendered}
+                />
               )}
             </div>
           </AddLikeContainer>

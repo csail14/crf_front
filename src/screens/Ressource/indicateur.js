@@ -42,10 +42,10 @@ const MainContainer = styled.main`
   background-repeat: no-repeat;
   position: relative;
   min-height: 95vh;
-  @media screen and (max-width:900px){
-    min-height:auto;
-    flex-direction:column-reverse;
-    background:none;
+  @media screen and (max-width: 900px) {
+    min-height: auto;
+    flex-direction: column-reverse;
+    background: none;
   }
 `;
 
@@ -54,7 +54,7 @@ const LeftSideComponent = styled.aside`
   position: sticky;
   margin: 119px 5.5% 0 5%;
   flex-basis: 20%;
-  @media screen and (max-width:900px){
+  @media screen and (max-width: 900px) {
     margin: 20px 20px 0 5%;
   }
 `;
@@ -76,26 +76,27 @@ const Indicateur = (props) => {
 
   useEffect(() => {
     props.resetAllFilter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <MainContainer isMobile={isMobile}>
-        {!isMobile &&(
+        {!isMobile && (
           <LeftSideComponent>
             <DomaineListDeroulante slug={slug} id={id} />
           </LeftSideComponent>
         )}
-        {isMobile && type === "domaine-impact" &&(
+        {isMobile && type === "domaine-impact" && (
           <LeftSideComponent>
             <DomaineListDeroulante slug={slug} id={id} />
           </LeftSideComponent>
         )}
-          {type === "indicateurs" ? (
-            <IndicateurDetails type={type} slug={slug} />
-          ) : type === "domaine-impact" ? (
-            <DomainesDetails slug={slug} id={id} />
-          ) : null}
+        {type === "indicateurs" ? (
+          <IndicateurDetails type={type} slug={slug} />
+        ) : type === "domaine-impact" ? (
+          <DomainesDetails slug={slug} id={id} />
+        ) : null}
       </MainContainer>
       <RessourcesSecondaires type={type} slug={slug} />
     </>

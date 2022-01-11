@@ -21,7 +21,7 @@ const DomainesMainTitle = styled.h2`
   padding: 40px 11% 20px;
   text-transform: uppercase;
   color: ${colors.marine};
-  @media screen and (max-width:1024px){
+  @media screen and (max-width: 1024px) {
     padding: 20px 5%;
   }
 `;
@@ -54,6 +54,7 @@ const DomaineListDeroulante = (props) => {
               />
             );
           }
+          return null;
         })}
     </ListDomainContainer>
   );

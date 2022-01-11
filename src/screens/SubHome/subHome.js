@@ -187,6 +187,7 @@ const SubHome = (props) => {
             {dans_cette_rubrique.map((item, index) => {
               if (item.status === "publish")
                 return <RightSideLinkContainer info={item} key={index} />;
+              return undefined;
             })}
           </LinkMainContainer>
         )}
@@ -208,6 +209,7 @@ const SubHome = (props) => {
                 } else {
                   return <GridResultComponent key={index} info={item} />;
                 }
+              return undefined;
             })}
           </AvailableRessourceContainer>
         </BottomContainer>

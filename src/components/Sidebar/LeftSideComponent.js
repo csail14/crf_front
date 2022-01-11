@@ -58,7 +58,7 @@ const BackIntranet = styled.a`
 `;
 
 const LeftSideComponent = (props) => {
-  const { oktaAuth, authState } = useOktaAuth();
+  const { oktaAuth } = useOktaAuth();
   const logout = async () => oktaAuth.signOut("/");
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [openID, setOpenId] = useState(null);

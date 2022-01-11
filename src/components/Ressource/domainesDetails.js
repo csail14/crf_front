@@ -117,7 +117,7 @@ const ArianeContainer = styled.div`
     margin-left: 0;
   }
   @media screen and (max-width: 1024px) {
-    padding-bottom:20px;
+    padding-bottom: 20px;
   }
 `;
 
@@ -142,6 +142,7 @@ const Indicateur = (props) => {
         .then((res) => setDomaine(res))
         .catch((error) => console.log(error));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const domaineId = props.id && props.id[0];

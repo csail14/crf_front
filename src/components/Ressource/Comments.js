@@ -129,6 +129,7 @@ const Comments = (props) => {
         setComments(allComments.slice(0, maxComments));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allComments]);
 
   const handleChange = (e) => {
