@@ -13,8 +13,8 @@ import { useOktaAuth } from "@okta/okta-react";
 import { config } from "../../config";
 
 const ImageContainer = styled.span`
-  margin: 10px 0 5px;
-  padding: 5px 14% 0;
+  margin: 10px 0;
+  padding: 10px 14% 5px;
   cursor: pointer;
   transition: all 0.3s;
   background: white;

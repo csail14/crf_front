@@ -136,6 +136,7 @@ const TitleContainer = styled.h2`
   }
   @media screen and (max-width: 1024px) {
     font-size: 1.4rem;
+    text-align:left;
   }
 `;
 

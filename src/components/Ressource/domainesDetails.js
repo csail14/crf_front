@@ -30,7 +30,7 @@ const RightSideContainer = styled.section`
 `;
 const HeaderRightSideTopContainer = styled.header`
   min-height: 378px;
-  padding: ${(props) => (props.isMobile ? "30px 20px" : "63px 0px 30px")};
+  padding: ${(props) => (props.isMobile ? "30px 20px 10px" : "63px 0px 30px")};
   @media screen and (max-width: 1024px) {
     min-height: auto;
   }
@@ -55,7 +55,7 @@ const TitleContainer = styled.h1`
 const BodyContainer = styled.section`
   margin-top: 33px;
   @media screen and (max-width: 1024px) {
-    padding: 20px;
+    padding: 10px 20px;
     margin: 0;
   }
 `;
@@ -117,7 +117,7 @@ const ArianeContainer = styled.div`
     margin-left: 0;
   }
   @media screen and (max-width: 1024px) {
-    display: none;
+    padding-bottom:20px;
   }
 `;
 

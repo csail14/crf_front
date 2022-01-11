@@ -95,6 +95,9 @@ const LinkMainContainer = styled.aside`
 const BottomContainer = styled.div`
   background-color: ${colors.grisBackground};
   padding: 89px 4% 50px;
+  @media screen and (max-width: 1024px) {
+    padding: 35px 5%;
+  }
 `;
 
 const BottomTitleContainer = styled.h4`
@@ -112,6 +115,9 @@ const AvailableRessourceContainer = styled.div`
   flex-wrap: wrap;
   justify-content: ${(props) => (props.isMobile ? "center" : "left")};
   margin: 47px auto 0;
+  @media screen and (max-width: 1024px) {
+    padding: 25px auto 0;
+  }
 `;
 
 const SubHome = (props) => {

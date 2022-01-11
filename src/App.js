@@ -28,8 +28,8 @@ const BodyContainer = styled.div`
 const logout = async () => oktaAuth.signOut("/");
 
 const oktaAuth = new OktaAuth({
-  issuer: "https://rec-connect.croix-rouge.fr/oauth2/default",
-  clientId: "0oa3e1vqpgyuzhUj90x7",
+  issuer: config.okta.issuer,
+  clientId: config.okta.client_id,
   redirectUri: window.location.origin + "/login/callback",
 });
 
@@ -65,55 +65,62 @@ function App(props) {
   };
   getFaviconEl();
 
+  console.log(config.okta.secure);
+
+  console.log(typeof(config.okta.secure));
   return (
     <div className="App">
       <MainContainer isMobile={isMobile}>
         <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
           <LeftSideComponent className="sidebar" logout={logout} />
           <BodyContainer isMobile={isMobile}>
-            <Switch>
-              {/* 
-              <SecureRoute exact path="/" component={HOC(Home)} />
-              <SecureRoute exact path="/home" component={HOC(Home)} />
-              <SecureRoute
-                exact
-                path="/indicateurs/:id"
-                component={HOC(Indicateur)}
-              />
-              <SecureRoute
-                exact
-                path="/domaine-impact/:id"
-                component={HOC(Indicateur)}
-              />
-              <SecureRoute
-                exact
-                path="/articles/:id"
-                component={HOC(Article)}
-              />
-              <SecureRoute
-                exact
-                path="/documents/:id"
-                component={HOC(Document)}
-              />
-              <SecureRoute exact path="/:id" component={HOC(OtherPage)} />
-               <Route path="/login/callback" component={LoginCallback} /> 
-               */}
-              <Route exact path="/" component={HOC(Home)} />
-              <Route exact path="/home" component={HOC(Home)} />
-              <Route
-                exact
-                path="/indicateurs/:id"
-                component={HOC(Indicateur)}
-              />
-              <Route
-                exact
-                path="/domaine-impact/:id"
-                component={HOC(Indicateur)}
-              />
-              <Route exact path="/articles/:id" component={HOC(Article)} />
-              <Route exact path="/documents/:id" component={HOC(Document)} />
-              <Route exact path="/:id" component={HOC(OtherPage)} /> 
-            </Switch>
+            {config.okta.secure===true && (
+              <Switch>
+                <SecureRoute exact path="/" component={HOC(Home)} />
+                <SecureRoute exact path="/home" component={HOC(Home)} />
+                <SecureRoute
+                  exact
+                  path="/indicateurs/:id"
+                  component={HOC(Indicateur)}
+                />
+                <SecureRoute
+                  exact
+                  path="/domaine-impact/:id"
+                  component={HOC(Indicateur)}
+                />
+                <SecureRoute
+                  exact
+                  path="/articles/:id"
+                  component={HOC(Article)}
+                />
+                <SecureRoute
+                  exact
+                  path="/documents/:id"
+                  component={HOC(Document)}
+                />
+                <SecureRoute exact path="/:id" component={HOC(OtherPage)} />
+                <Route path="/login/callback" component={LoginCallback} /> 
+              </Switch>
+            )}
+            {config.okta.secure===false && (
+              <Switch>
+                <Route exact path="/" component={HOC(Home)} />
+                <Route exact path="/home" component={HOC(Home)} />
+                <Route
+                  exact
+                  path="/indicateurs/:id"
+                  component={HOC(Indicateur)}
+                />
+                <Route
+                  exact
+                  path="/domaine-impact/:id"
+                  component={HOC(Indicateur)}
+                />
+                <Route exact path="/articles/:id" component={HOC(Article)} />
+                <Route exact path="/documents/:id" component={HOC(Document)} />
+                <Route exact path="/:id" component={HOC(OtherPage)} />
+              </Switch>
+            )}
             <Footer />
           </BodyContainer>
         </Security>

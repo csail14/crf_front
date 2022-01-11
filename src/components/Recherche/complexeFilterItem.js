@@ -54,7 +54,6 @@ const KeyWordsContainer = styled.div`
   display: flex;
   padding: 9px 5px;
   align-items: center;
-  padding-right: 15px;
   color: ${colors.gris};
   font-weight: 500;
   background-color: ${colors.grisBackground};
@@ -78,8 +77,9 @@ const FilterOptionsContainer = styled.div`
   box-shadow: 0px 26px 70px rgba(0, 0, 0, 0.15);
   z-index: 1;
   @media screen and (max-width:1024px){
-    padding: 30px 20px;
+    padding: 20px 15px;
     top:50px;
+    font-size:1.4rem;
   }
 `;
 
@@ -152,7 +152,7 @@ const ComplexeFilterItem = (props) => {
             <input
               type="text"
               className="recherche_domaine_input"
-              placeholder={"Rechercher un domaine"}
+              placeholder={"Rechercher un "+props.title}
               onChange={handleChange}
             />{" "}
             <GoSearch style={{ marginRight: "12px" }} />

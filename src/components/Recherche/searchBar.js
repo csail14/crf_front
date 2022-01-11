@@ -187,6 +187,10 @@ const ToggleContainer = styled.div`
     opacity: 0.8;
     transform: scale(0.98);
   }
+  @media screen and (max-width: 1024px) {
+    position:static;
+    margin:10px auto;
+  }
 `;
 const FilterOptionsContainer = styled.div`
   font-size: 1.6rem;
@@ -525,7 +529,7 @@ const SearchBar = (props) => {
           type="text"
           value={keywords}
           className={isMobile ? "recherche_input_mobile" : "recherche_input"}
-          placeholder={"Rechercher une ressource par mots-cléfs..."}
+          placeholder={"Rechercher par mots-cléfs..."}
           onChange={(e) => handleChangeKeywords(e.target.value)}
         />{" "}
       </KeyWordsContainer>
