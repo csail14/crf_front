@@ -39,7 +39,7 @@ Exemple vhost (git init dans le dossier react)
 </VirtualHost>
 ```
 
-# Installer l'application en dev
+# Installer l'application en prod
 
 ## Pré-requis
 
@@ -75,7 +75,7 @@ Initialiser et cloner le projet dans le dossier concerné
 
 - NB. Dans le .env, le user est un utilisateur Wordpress administrateur pour l'authentification POST
 
-Ouvrir l'url de recette : rec-impact-social.croix-rouge.fr
+Ouvrir l'url de prod : impact-social.croix-rouge.fr
 
 ## Mettre à jour l'application 
 1. git pull
