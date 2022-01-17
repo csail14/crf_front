@@ -361,7 +361,7 @@ a {
   margin: 0;
 }
 
-.account_container a {
+.account_container span {
   margin-left: 28px;
   display: flex;
   font-family: Raleway, serif;
@@ -372,6 +372,7 @@ a {
   color: #8a92a6;
   text-decoration: underline;
   margin-top: 5px;
+  cursor:pointer;
   transition: opacity 150ms linear, transform 150ms linear;
 }
 

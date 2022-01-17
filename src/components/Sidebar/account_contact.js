@@ -24,7 +24,7 @@ const AccountContact = (props) => {
           <BsFillPersonFill className={"acc_contact_icon"} />
           {authState?.idToken?.claims?.name ?? "Non connecté"}
         </p>
-        <a onClick={props.logout}>Se déconnecter</a>
+        <span onClick={props.logout}>Se déconnecter</span>
       </div>
     </div>
   );
