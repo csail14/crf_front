@@ -10,7 +10,7 @@ import DOMPurify from "dompurify";
 const LinkContainer = styled.p`
   position: relative;
   display: flex;
-  margin:0;
+  margin: 0;
   box-shadow: 0px 4px 8px rgba(35, 45, 66, 0.05);
   padding: 22px 14px;
   color: ${colors.marine};
@@ -19,16 +19,17 @@ const LinkContainer = styled.p`
   justify-content: space-between;
   background-color: ${colors.grisBackground};
   cursor: pointer;
-  flex-basis:24%;
-  margin-right:1%;
-  letter-spacing:0.15rem;
-  margin-bottom:20px;
-  transition: box-shadow 150ms linear, background-color 150ms linear,transform 150ms linear;
+  flex-basis: 24%;
+  margin-right: 1%;
+  letter-spacing: 0.15rem;
+  margin-bottom: 20px;
+  transition: box-shadow 150ms linear, background-color 150ms linear,
+    transform 150ms linear;
   &:hover {
     box-shadow: 12px 16px 35px 0px rgba(0, 0, 0, 0.3);
-      
+
     transform: scale(0.98);
-    Z-index:1;
+    z-index: 1;
   }
 `;
 
@@ -63,6 +64,7 @@ function useHover() {
         };
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [ref.current] // Recall only if ref changes
   );
   return [ref, value];

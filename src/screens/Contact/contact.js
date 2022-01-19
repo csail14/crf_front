@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import DOMPurify from "dompurify";
@@ -208,9 +208,7 @@ const Contact = (props) => {
           message === "" ||
           subject === ""
         ) {
-        } else if (
-          !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-        ) {
+        } else if (!/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
           setEmailError(true);
           setFormSuccess(false);
         } else {
@@ -241,7 +239,12 @@ const Contact = (props) => {
           ? props.previousPage
           : window.location.href,
       message: message,
-      subject: subject,
+      subject:
+        contactTemplate &&
+        contactTemplate.acf &&
+        contactTemplate.acf.sujets_contact &&
+        contactTemplate.acf.sujets_contact[subject] &&
+        contactTemplate.acf.sujets_contact[subject].sujet,
       destination:
         contactTemplate.acf && contactTemplate.acf.mail_destination_contact
           ? contactTemplate.acf.mail_destination_contact
@@ -269,7 +272,17 @@ const Contact = (props) => {
     props.pages && props.pages.templates && props.pages.templates.length
       ? props.pages.templates.filter((template) => template.slug === slug)[0]
       : null;
-
+  useEffect(() => {
+    if (
+      contactTemplate &&
+      contactTemplate.acf &&
+      contactTemplate.acf.sujets_contact &&
+      contactTemplate.acf.sujets_contact.length === 1
+    ) {
+      setSubject(contactTemplate.acf.sujets_contact[0].sujet);
+    }
+    window.scrollTo(0, 0);
+  }, [contactTemplate]);
   return (
     <MainContainer>
       <HeaderContainer>
@@ -504,7 +517,7 @@ const Contact = (props) => {
         )}
         {formSuccess && (
           <FormSuccess>
-            <i class="bi bi-check-lg" style={{ marginRight: 8 }}></i>
+            <i className="bi bi-check-lg" style={{ marginRight: 8 }}></i>
             Votre message a bien été envoyé, merci !
           </FormSuccess>
         )}

@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 import { getAllRessources } from "../api/RessourcesApi";
 export const checkAllRessources = (allRessources, loadFunction) => {
   if (allRessources.length === 0) {

@@ -39,7 +39,7 @@ Exemple vhost (git init dans le dossier react)
 </VirtualHost>
 ```
 
-# Installer l'application en dev
+# Installer l'application en prod
 
 ## Pré-requis
 
@@ -50,6 +50,7 @@ Exemple vhost (git init dans le dossier react)
 
 ### Configuration Okta 
 
+Créer une nouvelle application
 - Application OIDC - Single Page Application
 - Activer les champ : Authorization Code / Refresh Token / Implicit (avec Allow ID Token ET Allow Acces Token)
 - Use persistent token 
@@ -59,6 +60,9 @@ Exemple vhost (git init dans le dossier react)
 - Initiate login URL = https://rec-impact-social.croix-rouge.fr/
 - Login initated by : Either Okta ar App 
 - Login flow : Redirect to app to initiate login
+
+Ajouter l'url du front dans Trusted Origin
+- Okta Admin > Security > API > Trusted Origins 
 
 ## Installation
 
@@ -75,7 +79,7 @@ Initialiser et cloner le projet dans le dossier concerné
 
 - NB. Dans le .env, le user est un utilisateur Wordpress administrateur pour l'authentification POST
 
-Ouvrir l'url de recette : rec-impact-social.croix-rouge.fr
+Ouvrir l'url de prod : impact-social.croix-rouge.fr
 
 ## Mettre à jour l'application 
 1. git pull

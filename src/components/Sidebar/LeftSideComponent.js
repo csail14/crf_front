@@ -58,7 +58,7 @@ const BackIntranet = styled.a`
 `;
 
 const LeftSideComponent = (props) => {
-  const { oktaAuth, authState } = useOktaAuth();
+  const { oktaAuth } = useOktaAuth();
   const logout = async () => oktaAuth.signOut("/");
   const isMobile = useMediaQuery(`(max-width:${config.breakPoint})`);
   const [openID, setOpenId] = useState(null);
@@ -137,12 +137,12 @@ const LeftSideComponent = (props) => {
                       />
                     </ImageContainer>
                   )}
-                <h1>
+                <p>
                   {" "}
                   {props.options &&
                     props.options.options &&
                     props.options.options.titre}
-                </h1>{" "}
+                </p>{" "}
               </Link>
               {isMobile && (
                 <i
@@ -206,7 +206,7 @@ const LeftSideComponent = (props) => {
           <div className={"sidebar_title"}>
             <Link to="/home">
               {isMobile && <img src={logoMobile} alt="logo-mobile" />}{" "}
-              <h1>PORTAIL DE MESURE D'IMPACT SOCIAL</h1>{" "}
+              <p>PORTAIL DE MESURE D'IMPACT SOCIAL</p>{" "}
             </Link>
             <i
               className="bi bi-list"

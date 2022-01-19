@@ -129,6 +129,7 @@ const Comments = (props) => {
         setComments(allComments.slice(0, maxComments));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allComments]);
 
   const handleChange = (e) => {
@@ -145,6 +146,9 @@ const Comments = (props) => {
             setNewComment("");
             setFormError(false);
             setFormSubmitted(true);
+            window.dataLayer.push({
+              event: "commentSubmission",
+            });
             window.location.reload(false);
           } else {
             setFormError(true);

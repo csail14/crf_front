@@ -3,9 +3,9 @@ import { FiMail, BsFillPersonFill } from "react-icons/all";
 import { useOktaAuth } from "@okta/okta-react";
 
 const AccountContact = (props) => {
-  const { oktaAuth, authState } = useOktaAuth();
+  const { authState } = useOktaAuth();
   const url = props.contact_info && props.contact_info.url;
-  console.log('props', props);
+
   return (
     <div className={"acc_contact_container"}>
       {props && props.contact_info && (
@@ -22,9 +22,9 @@ const AccountContact = (props) => {
       <div className="account_container">
         <p>
           <BsFillPersonFill className={"acc_contact_icon"} />
-          {authState?.idToken?.claims?.name ?? 'Non connecté'}
+          {authState?.idToken?.claims?.name ?? "Non connecté"}
         </p>
-        <a onClick={props.logout}>Se déconnecter</a>
+        <span onClick={props.logout}>Se déconnecter</span>
       </div>
     </div>
   );
