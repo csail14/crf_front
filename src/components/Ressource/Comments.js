@@ -146,6 +146,9 @@ const Comments = (props) => {
             setNewComment("");
             setFormError(false);
             setFormSubmitted(true);
+            window.dataLayer.push({
+              event: "commentSubmission",
+            });
             window.location.reload(false);
           } else {
             setFormError(true);

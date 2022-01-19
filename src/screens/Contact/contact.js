@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import DOMPurify from "dompurify";
@@ -272,7 +272,17 @@ const Contact = (props) => {
     props.pages && props.pages.templates && props.pages.templates.length
       ? props.pages.templates.filter((template) => template.slug === slug)[0]
       : null;
-
+  useEffect(() => {
+    if (
+      contactTemplate &&
+      contactTemplate.acf &&
+      contactTemplate.acf.sujets_contact &&
+      contactTemplate.acf.sujets_contact.length === 1
+    ) {
+      setSubject(contactTemplate.acf.sujets_contact[0].sujet);
+    }
+    window.scrollTo(0, 0);
+  }, [contactTemplate]);
   return (
     <MainContainer>
       <HeaderContainer>
