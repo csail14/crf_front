@@ -243,14 +243,19 @@ const Contact = (props) => {
         contactTemplate &&
         contactTemplate.acf &&
         contactTemplate.acf.sujets_contact &&
-        contactTemplate.acf.sujets_contact[subject] &&
-        contactTemplate.acf.sujets_contact[subject].sujet,
+        contactTemplate.acf.sujets_contact.length === 1
+          ? subject
+          : contactTemplate &&
+            contactTemplate.acf &&
+            contactTemplate.acf.sujets_contact &&
+            contactTemplate.acf.sujets_contact[subject] &&
+            contactTemplate.acf.sujets_contact[subject].sujet,
       destination:
         contactTemplate.acf && contactTemplate.acf.mail_destination_contact
           ? contactTemplate.acf.mail_destination_contact
           : "",
     };
-
+    console.log(data);
     sendMail(data)
       .then((res) => {
         if (res && res.status === "success") {
@@ -407,7 +412,9 @@ const Contact = (props) => {
                   {contactTemplate &&
                   contactTemplate.acf &&
                   contactTemplate.acf.sujets_contact &&
-                  contactTemplate.acf.sujets_contact.length > 1 ? (
+                  contactTemplate.acf.sujets_contact.length === 1 ? (
+                    <p>{contactTemplate.acf.sujets_contact[0].sujet}</p>
+                  ) : (
                     <FormInputFullWidth>
                       <select
                         className={"formSelect"}
@@ -415,20 +422,24 @@ const Contact = (props) => {
                         value={
                           idToPreSelected && idToPreSelected !== ""
                             ? idToPreSelected - 1
-                            : ""
+                            : undefined
                         }
                         name={"subject"}
                       >
                         <option>Choisir le sujet de votre message</option>
-                        {contactTemplate.acf.sujets_contact.map(
-                          (item, index) => {
-                            return (
-                              <option key={index} value={index}>
-                                {item.sujet}
-                              </option>
-                            );
-                          }
-                        )}
+                        {contactTemplate &&
+                          contactTemplate.acf &&
+                          contactTemplate.acf.sujets_contact &&
+                          contactTemplate.acf.sujets_contact.length > 0 &&
+                          contactTemplate.acf.sujets_contact.map(
+                            (item, index) => {
+                              return (
+                                <option key={index} value={index}>
+                                  {item.sujet}
+                                </option>
+                              );
+                            }
+                          )}
                       </select>
                       {formSubmitted && !subject && (
                         <div className="formError">
@@ -436,10 +447,6 @@ const Contact = (props) => {
                         </div>
                       )}
                     </FormInputFullWidth>
-                  ) : contactTemplate.acf.sujets_contact.length > 0 ? (
-                    contactTemplate.acf.sujets_contact[0].sujet
-                  ) : (
-                    ""
                   )}
                 </FormRow>
               </FormGroup>
